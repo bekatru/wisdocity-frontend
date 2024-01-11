@@ -1,4 +1,5 @@
 export enum Routes {
+  NotFound = '*',
   Root = '/',
   SignIn = '/signin',
   SignUp = '/signup',

@@ -5,6 +5,10 @@ import {RouteToComponentMap} from './RouteToComponentMap';
 
 export const router = createBrowserRouter([
   {
+    path: Routes.NotFound,
+    element: RouteToComponentMap[Routes.NotFound],
+  },
+  {
     path: Routes.SignUp,
     element: RouteToComponentMap[Routes.SignUp],
   },

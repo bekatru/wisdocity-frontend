@@ -5,6 +5,8 @@ import {AuthRoute, ExpertRoute, LearnerRoute, OnboardRoute} from './routes';
 
 
 export const RouteToComponentMap: { [key in Routes]: React.ReactNode } = {
+  [Routes.NotFound]: <div>404</div>,
+
   [Routes.SignUp]: <div>Sign Up</div>,
   [Routes.SignIn]: <div>Sign Up</div>,
 
