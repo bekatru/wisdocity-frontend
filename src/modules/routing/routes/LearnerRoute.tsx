@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Navigate} from 'react-router-dom';
-import {ROUTES} from '../types';
+import {Routes} from '../types';
 
 
 interface LearnerRouteProps {
@@ -11,5 +11,5 @@ interface LearnerRouteProps {
 export const LearnerRoute: React.FC<LearnerRouteProps> = (props) => {
   const isLearner = true;
 
-  return isLearner ? props.children : <Navigate to={ROUTES.ONBOARD}/>;
+  return isLearner ? props.children : <Navigate to={Routes.Onboard}/>;
 };

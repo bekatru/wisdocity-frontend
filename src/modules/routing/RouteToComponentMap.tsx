@@ -1,33 +1,33 @@
 import * as React from 'react';
 import {Outlet} from 'react-router-dom';
-import {EXPERT_ROUTES, LEARNER_ROUTES, ONBOARD_ROUTES, ROUTES} from './types';
+import {Routes} from './types';
 import {AuthRoute, ExpertRoute, LearnerRoute, OnboardRoute} from './routes';
 
 
-type RouteKeys = ROUTES | ONBOARD_ROUTES | LEARNER_ROUTES | EXPERT_ROUTES
+export const RouteToComponentMap: { [key in Routes]: React.ReactNode } = {
+  [Routes.SignUp]: <div>Sign Up</div>,
+  [Routes.SignIn]: <div>Sign Up</div>,
 
-export const RouteToComponentMap: { [key: RouteKeys]: React.ReactNode } = {
-  [ROUTES.SIGN_UP]: <div>Sign Up</div>,
-  [ROUTES.SIGN_IN]: <div>Sign Up</div>,
+  [Routes.Onboard]: <AuthRoute>Onboard <Outlet/></AuthRoute>,
+  [Routes.OnboardExpert]: <div>Onboard expert</div>,
+  [Routes.OnboardLearner]: <div>Onboard learner</div>,
 
-  [ROUTES.ONBOARD]: <AuthRoute>Onboard <Outlet/></AuthRoute>,
-  [ONBOARD_ROUTES.EXPERT]: <div>Onboard expert</div>,
-  [ONBOARD_ROUTES.LEARNER]: <div>Onboard learner</div>,
+  [Routes.Root]: <AuthRoute><OnboardRoute>App <Outlet/></OnboardRoute></AuthRoute>,
 
-  [ROUTES.ROOT]: <AuthRoute><OnboardRoute>App <Outlet/></OnboardRoute></AuthRoute>,
-  [ROUTES.PROFILE]: <div>Profile</div>,
-  [ROUTES.EXPERT]: <ExpertRoute>Expert <Outlet/></ExpertRoute>,
-  [EXPERT_ROUTES.HOME]: <div>Home</div>,
-  [EXPERT_ROUTES.AVATAR]: <div>Avatar</div>,
-  [EXPERT_ROUTES.WISDOM]: <div>Wisdom</div>,
-  [EXPERT_ROUTES.PROFILE]: <div>Profile</div>,
-  [EXPERT_ROUTES.HELP]: <div>Help</div>,
+  [Routes.Account]: <div>Account</div>,
 
-  [ROUTES.LEARNER]: <LearnerRoute>Learner <Outlet/></LearnerRoute>,
-  [LEARNER_ROUTES.HOME]: <div>Home</div>,
-  [LEARNER_ROUTES.DASHBOARD]: <div>Dashboard</div>,
-  [LEARNER_ROUTES.CHATS]: <div>Chats</div>,
-  [LEARNER_ROUTES.COMMUNITY]: <div>Community</div>,
-  [LEARNER_ROUTES.PROFILE]: <div>Profile</div>,
-  [LEARNER_ROUTES.HELP]: <div>Help</div>,
+  [Routes.Expert]: <ExpertRoute>Expert <Outlet/></ExpertRoute>,
+  [Routes.ExpertHome]: <div>Home</div>,
+  [Routes.ExpertAvatar]: <div>Avatar</div>,
+  [Routes.ExpertWisdom]: <div>Wisdom</div>,
+  [Routes.ExpertProfile]: <div>Profile</div>,
+  [Routes.ExpertHelp]: <div>Help</div>,
+
+  [Routes.Learner]: <LearnerRoute>Learner <Outlet/></LearnerRoute>,
+  [Routes.LearnerHome]: <div>Home</div>,
+  [Routes.LearnerDashboard]: <div>Dashboard</div>,
+  [Routes.LearnerChats]: <div>Chats</div>,
+  [Routes.LearnerCommunity]: <div>Community</div>,
+  [Routes.LearnerProfile]: <div>Profile</div>,
+  [Routes.LearnerHelp]: <div>Help</div>,
 };

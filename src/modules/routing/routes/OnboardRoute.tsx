@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Navigate} from 'react-router-dom';
-import {ROUTES} from '../types';
+import {Routes} from '../types';
 
 
 interface OnboardRouteProps {
@@ -11,5 +11,5 @@ interface OnboardRouteProps {
 export const OnboardRoute: React.FC<OnboardRouteProps> = (props) => {
   const isOnboarded = true;
 
-  return isOnboarded ? props.children : <Navigate to={ROUTES.ONBOARD}/>;
+  return isOnboarded ? props.children : <Navigate to={Routes.Onboard}/>;
 };

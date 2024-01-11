@@ -1,92 +1,92 @@
 import {createBrowserRouter} from 'react-router-dom';
-import {EXPERT_ROUTES, LEARNER_ROUTES, ONBOARD_ROUTES, ROUTES} from './types';
+import {Routes} from './types';
 import {RouteToComponentMap} from './RouteToComponentMap';
 
 
 export const router = createBrowserRouter([
   {
-    path: ROUTES.SIGN_UP,
-    element: RouteToComponentMap[ROUTES.SIGN_UP],
+    path: Routes.SignUp,
+    element: RouteToComponentMap[Routes.SignUp],
   },
   {
-    path: ROUTES.SIGN_IN,
-    element: RouteToComponentMap[ROUTES.SIGN_IN],
+    path: Routes.SignIn,
+    element: RouteToComponentMap[Routes.SignIn],
   },
   {
-    path: ROUTES.ONBOARD,
-    element: RouteToComponentMap[ROUTES.ONBOARD],
+    path: Routes.Onboard,
+    element: RouteToComponentMap[Routes.Onboard],
     children: [
       {
-        path: ONBOARD_ROUTES.EXPERT,
-        element: RouteToComponentMap[ONBOARD_ROUTES.EXPERT],
+        path: Routes.OnboardExpert,
+        element: RouteToComponentMap[Routes.OnboardExpert],
       },
       {
-        path: ONBOARD_ROUTES.LEARNER,
-        element: RouteToComponentMap[ONBOARD_ROUTES.LEARNER],
+        path: Routes.OnboardLearner,
+        element: RouteToComponentMap[Routes.OnboardLearner],
       },
     ],
   },
   {
-    path: ROUTES.ROOT,
-    element: RouteToComponentMap[ROUTES.ROOT],
+    path: Routes.Root,
+    element: RouteToComponentMap[Routes.Root],
     children: [
       {
         index: true,
-        element: RouteToComponentMap[ROUTES.PROFILE],
+        element: RouteToComponentMap[Routes.Account],
       },
       {
-        path: ROUTES.EXPERT,
-        element: RouteToComponentMap[ROUTES.EXPERT],
+        path: Routes.Expert,
+        element: RouteToComponentMap[Routes.Expert],
         children: [
           {
             index: true,
-            element: RouteToComponentMap[EXPERT_ROUTES.HOME],
+            element: RouteToComponentMap[Routes.ExpertHome],
           },
           {
-            path: EXPERT_ROUTES.AVATAR,
-            element: RouteToComponentMap[EXPERT_ROUTES.AVATAR],
+            path: Routes.ExpertAvatar,
+            element: RouteToComponentMap[Routes.ExpertAvatar],
           },
           {
-            path: EXPERT_ROUTES.WISDOM,
-            element: RouteToComponentMap[EXPERT_ROUTES.WISDOM],
+            path: Routes.ExpertWisdom,
+            element: RouteToComponentMap[Routes.ExpertWisdom],
           },
           {
-            path: EXPERT_ROUTES.PROFILE,
-            element: RouteToComponentMap[EXPERT_ROUTES.PROFILE],
+            path: Routes.ExpertProfile,
+            element: RouteToComponentMap[Routes.ExpertProfile],
           },
           {
-            path: EXPERT_ROUTES.HELP,
-            element: RouteToComponentMap[EXPERT_ROUTES.HELP],
+            path: Routes.ExpertHelp,
+            element: RouteToComponentMap[Routes.ExpertHelp],
           },
         ],
       },
       {
-        path: ROUTES.LEARNER,
-        element: RouteToComponentMap[ROUTES.LEARNER],
+        path: Routes.Learner,
+        element: RouteToComponentMap[Routes.Learner],
         children: [
           {
             index: true,
-            element: RouteToComponentMap[LEARNER_ROUTES.HOME],
+            element: RouteToComponentMap[Routes.LearnerHome],
           },
           {
-            path: LEARNER_ROUTES.DASHBOARD,
-            element: RouteToComponentMap[LEARNER_ROUTES.DASHBOARD],
+            path: Routes.LearnerDashboard,
+            element: RouteToComponentMap[Routes.LearnerDashboard],
           },
           {
-            path: LEARNER_ROUTES.CHATS,
-            element: RouteToComponentMap[LEARNER_ROUTES.CHATS],
+            path: Routes.LearnerChats,
+            element: RouteToComponentMap[Routes.LearnerChats],
           },
           {
-            path: LEARNER_ROUTES.COMMUNITY,
-            element: RouteToComponentMap[LEARNER_ROUTES.COMMUNITY],
+            path: Routes.LearnerCommunity,
+            element: RouteToComponentMap[Routes.LearnerCommunity],
           },
           {
-            path: LEARNER_ROUTES.PROFILE,
-            element: RouteToComponentMap[LEARNER_ROUTES.PROFILE],
+            path: Routes.LearnerProfile,
+            element: RouteToComponentMap[Routes.LearnerProfile],
           },
           {
-            path: LEARNER_ROUTES.HELP,
-            element: RouteToComponentMap[LEARNER_ROUTES.HELP],
+            path: Routes.LearnerHelp,
+            element: RouteToComponentMap[Routes.LearnerHelp],
           },
         ],
       },
