@@ -1,7 +1,6 @@
 import {createBrowserRouter, Link, Outlet} from 'react-router-dom';
-import {ROUTES} from './types';
 import {AuthRoute, ExpertRoute, LearnerRoute, OnboardRoute} from './routes';
-import {EXPERT_ROUTES, LEARNER_ROUTES, ONBOARD_ROUTES} from './types/routes.types';
+import {EXPERT_ROUTES, LEARNER_ROUTES, ONBOARD_ROUTES, ROUTES} from './types';
 
 
 export const router = createBrowserRouter([

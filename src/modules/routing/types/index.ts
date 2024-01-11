@@ -1,1 +1,1 @@
-export {ROUTES} from './routes.types';
+export {ROUTES, EXPERT_ROUTES, ONBOARD_ROUTES, LEARNER_ROUTES} from './routes.types';
