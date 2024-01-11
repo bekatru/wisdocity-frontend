@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Outlet} from 'react-router-dom';
-import {Routes} from './types';
-import {AuthRoute, ExpertRoute, LearnerRoute, OnboardRoute} from './routes';
+import {Routes} from '../types';
+import {AuthRoute, ExpertRoute, LearnerRoute, OnboardRoute} from '../routes';
 
 
 export const RouteToComponentMap: { [key in Routes]: React.ReactNode } = {
