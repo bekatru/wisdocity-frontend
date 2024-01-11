@@ -2,6 +2,7 @@ export enum ROUTES {
   ROOT = '/',
   SIGN_IN = '/signin',
   SIGN_UP = '/signup',
+  PROFILE = '/profile',
   LEARNER = '/learner',
   EXPERT = '/expert',
   ONBOARD = '/onboard',

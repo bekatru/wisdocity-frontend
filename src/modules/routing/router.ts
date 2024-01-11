@@ -1,96 +1,92 @@
-import {createBrowserRouter, Link, Outlet} from 'react-router-dom';
-import {AuthRoute, ExpertRoute, LearnerRoute, OnboardRoute} from './routes';
+import {createBrowserRouter} from 'react-router-dom';
 import {EXPERT_ROUTES, LEARNER_ROUTES, ONBOARD_ROUTES, ROUTES} from './types';
+import {RouteToComponentMap} from './RouteToComponentMap';
 
 
 export const router = createBrowserRouter([
   {
     path: ROUTES.SIGN_UP,
-    element: <div>Sign Up</div>,
+    element: RouteToComponentMap[ROUTES.SIGN_UP],
   },
   {
     path: ROUTES.SIGN_IN,
-    element: <div>Sign In</div>,
+    element: RouteToComponentMap[ROUTES.SIGN_IN],
   },
   {
     path: ROUTES.ONBOARD,
-    element: <AuthRoute>Onboard <Outlet/></AuthRoute>,
+    element: RouteToComponentMap[ROUTES.ONBOARD],
     children: [
       {
         path: ONBOARD_ROUTES.EXPERT,
-        element: <div>Onboard expert</div>,
+        element: RouteToComponentMap[ONBOARD_ROUTES.EXPERT],
       },
       {
         path: ONBOARD_ROUTES.LEARNER,
-        element: <div>Onboard learner</div>,
+        element: RouteToComponentMap[ONBOARD_ROUTES.LEARNER],
       },
     ],
   },
   {
     path: ROUTES.ROOT,
-    element: <AuthRoute><OnboardRoute>App <Outlet/></OnboardRoute></AuthRoute>,
+    element: RouteToComponentMap[ROUTES.ROOT],
     children: [
       {
         index: true,
-        element: <div>
-          Choose Profile
-          <Link to={ROUTES.EXPERT}>Expert</Link>
-          <Link to={ROUTES.LEARNER}>Learner</Link>
-        </div>,
+        element: RouteToComponentMap[ROUTES.PROFILE],
       },
       {
         path: ROUTES.EXPERT,
-        element: <ExpertRoute>Expert <Outlet/></ExpertRoute>,
+        element: RouteToComponentMap[ROUTES.EXPERT],
         children: [
           {
             index: true,
-            element: <div>Home</div>,
+            element: RouteToComponentMap[EXPERT_ROUTES.HOME],
           },
           {
             path: EXPERT_ROUTES.AVATAR,
-            element: <div>Avatar</div>,
+            element: RouteToComponentMap[EXPERT_ROUTES.AVATAR],
           },
           {
             path: EXPERT_ROUTES.WISDOM,
-            element: <div>Wisdom</div>,
+            element: RouteToComponentMap[EXPERT_ROUTES.WISDOM],
           },
           {
             path: EXPERT_ROUTES.PROFILE,
-            element: <div>Profile</div>,
+            element: RouteToComponentMap[EXPERT_ROUTES.PROFILE],
           },
           {
             path: EXPERT_ROUTES.HELP,
-            element: <div>Help</div>,
+            element: RouteToComponentMap[EXPERT_ROUTES.HELP],
           },
         ],
       },
       {
         path: ROUTES.LEARNER,
-        element: <LearnerRoute>Learner <Outlet/></LearnerRoute>,
+        element: RouteToComponentMap[ROUTES.LEARNER],
         children: [
           {
             index: true,
-            element: <div>Home</div>,
+            element: RouteToComponentMap[LEARNER_ROUTES.HOME],
           },
           {
             path: LEARNER_ROUTES.DASHBOARD,
-            element: <div>Dashboard</div>,
+            element: RouteToComponentMap[LEARNER_ROUTES.DASHBOARD],
           },
           {
             path: LEARNER_ROUTES.CHATS,
-            element: <div>Chats</div>,
+            element: RouteToComponentMap[LEARNER_ROUTES.CHATS],
           },
           {
             path: LEARNER_ROUTES.COMMUNITY,
-            element: <div>Community</div>,
+            element: RouteToComponentMap[LEARNER_ROUTES.COMMUNITY],
           },
           {
             path: LEARNER_ROUTES.PROFILE,
-            element: <div>Profile</div>,
+            element: RouteToComponentMap[LEARNER_ROUTES.PROFILE],
           },
           {
             path: LEARNER_ROUTES.HELP,
-            element: <div>Help</div>,
+            element: RouteToComponentMap[LEARNER_ROUTES.HELP],
           },
         ],
       },
