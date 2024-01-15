@@ -3,7 +3,7 @@ import { InputLabel } from "../../../../InputLabel"
 export function EmailInput() {
     return(
         <div>
-              <InputLabel text={"Email"}/>
+              <InputLabel>Email</InputLabel>
               <div className="mt-2">
                 <input
                   id="email"

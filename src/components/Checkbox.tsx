@@ -1,5 +1,5 @@
 interface CheckboxProps {
-    id: string
+    id: string;
 }
 
 export function Checkbox(props: CheckboxProps) {
