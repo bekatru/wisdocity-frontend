@@ -3,6 +3,9 @@ export enum Routes {
   Root = '/',
   SignIn = '/signin',
   SignUp = '/signup',
+  SignUpIndex = '/signup/index',
+  SignUpLearner = '/signup/learner',
+  SignUpExpert = '/signup/expert',
   Account = '/account',
 
   Onboard = '/onboard',

@@ -2,13 +2,17 @@ import * as React from 'react';
 import {Outlet} from 'react-router-dom';
 import {Routes} from '../types';
 import {AuthRoute, ExpertRoute, LearnerRoute, OnboardRoute} from '../routes';
-import {SignInPage, SignUpPage} from '../../../components/pages/auth';
+import {SignInPage, SignUpExpertPage, SignUpLearnerPage, SignUpPage} from '../../../components/pages/auth';
 
 
 export const RouteToComponentMap: { [key in Routes]: React.ReactNode } = {
   [Routes.NotFound]: <div>404</div>,
 
-  [Routes.SignUp]: <SignUpPage/>,
+  [Routes.SignUp]: <Outlet/>,
+  [Routes.SignUpIndex]: <SignUpPage/>,
+  [Routes.SignUpLearner]: <SignUpLearnerPage/>,
+  [Routes.SignUpExpert]: <SignUpExpertPage/>,
+
   [Routes.SignIn]: <SignInPage/>,
 
   [Routes.Onboard]: <AuthRoute>Onboard <Outlet/></AuthRoute>,
