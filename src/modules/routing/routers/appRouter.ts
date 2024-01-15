@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Routes } from "../types";
 import { RouteToComponentMap } from "../maps";
-import { onboardRouter, rootRouter } from ".";
+import { onboardRouter, rootRouter, signUpRouter } from ".";
 
 
 export const appRouter = createBrowserRouter([
@@ -11,7 +11,7 @@ export const appRouter = createBrowserRouter([
     },
     {
       path: Routes.SignUp,
-      element: RouteToComponentMap[Routes.SignUp],
+      children: signUpRouter,
     },
     {
       path: Routes.SignIn,
