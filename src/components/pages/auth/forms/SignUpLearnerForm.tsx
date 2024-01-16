@@ -2,23 +2,31 @@ import { useState } from "react"
 import { FormInput, LabeledCheckbox, Select } from "components";
 import { AuthFormLayout } from "../layouts"
 
-export function SignUpLearnerForm() {
+interface SignUpLearnerFormProps {
+  onSubmit: (data: object) => void 
+}
+
+const countries = [
+  "United States",
+  "Canada",
+  "Mexico",
+]
+
+export function SignUpLearnerForm(props: SignUpLearnerFormProps) {
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [country, setCountry] = useState("");
+  const [country, setCountry] = useState(countries[0]);
   const [isSendEmailsChecked, setIsSendEmailsChecked] = useState(true);
-  const [isTermsAndConditionsChecked, setIsTermsAndConditionsChecked] = useState(false);
   
   const handleSubmit = () => {
-    console.log({
+    props.onSubmit({
       name,
       email,
       password,
       country,
       isSendEmailsChecked,
-      isTermsAndConditionsChecked, 
     })
   }
 
@@ -49,8 +57,8 @@ export function SignUpLearnerForm() {
         />
         <Select
           label="Country"
-          options={["United States", "Canada", "Mexico"]}
           required
+          options={countries}
           value={country}
           onChange={(e) => setCountry(e.target.value)}
         />
@@ -62,8 +70,6 @@ export function SignUpLearnerForm() {
         </LabeledCheckbox>
         <LabeledCheckbox
           required
-          checked={isTermsAndConditionsChecked}
-          onChange={(e) => setIsTermsAndConditionsChecked(e.target.checked)}
         >
           I agree with 
           {" "}<a className="text-indigo-900 font-medium cursor-pointer">Terms of Service</a>,
