@@ -1,6 +1,6 @@
 
 import { instance } from "libs/axios";
-import { SignUpPayload, SignUpResponse } from "./signin.types";
+import { SignUpPayload, SignUpResponse } from "./signup.types";
 
 export const requestSignUp = async (
   body: SignUpPayload

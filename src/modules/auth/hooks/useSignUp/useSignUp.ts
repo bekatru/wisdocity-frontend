@@ -4,7 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 
 import { ApiError, ApiServiceError } from "libs/axios";
 import { MutationOptions } from "libs/reactQuery";
-import { SignUpResponse } from "./signin.types";
+import { SignUpResponse } from "./signup.types";
 import { requestSignUp } from "./signup.request";
 
 const useSignUp = (
