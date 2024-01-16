@@ -1,20 +1,70 @@
-import { LabeledCheckbox } from "../../../LabeledCheckbox"
+import { useState } from "react"
+import { FormInput, LabeledCheckbox, Select } from "components";
 import { AuthFormLayout } from "../layouts"
-import { CountrySelect, EmailInput, NameInput, PasswordInput } from "./inputs"
 
 export function SignUpLearnerForm() {
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [country, setCountry] = useState("");
+  const [isSendEmailsChecked, setIsSendEmailsChecked] = useState(true);
+  const [isTermsAndConditionsChecked, setIsTermsAndConditionsChecked] = useState(false);
   
   const handleSubmit = () => {
-    // todo
+    console.log({
+      name,
+      email,
+      password,
+      country,
+      isSendEmailsChecked,
+      isTermsAndConditionsChecked, 
+    })
   }
+
   return (
     <AuthFormLayout submitButtonText="Sign up" onSubmit={handleSubmit}>
-        <NameInput />
-        <EmailInput />
-        <PasswordInput />
-        <CountrySelect />
-        <LabeledCheckbox id="send-emails">{"Send me emails"}</LabeledCheckbox>
-        <LabeledCheckbox id="terms-and-conditions">
+        <FormInput
+          label="Name"
+          required
+          autoComplete="username"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <FormInput
+          label="Email"
+          required
+          type="email"
+          autoComplete="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <FormInput
+          label="Password"
+          required
+          type="password"
+          autoComplete="current-password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <Select
+          label="Country"
+          options={["United States", "Canada", "Mexico"]}
+          required
+          value={country}
+          onChange={(e) => setCountry(e.target.value)}
+        />
+        <LabeledCheckbox
+          checked={isSendEmailsChecked}
+          onChange={(e) => setIsSendEmailsChecked(e.target.checked)}
+        >
+          Send me emails
+        </LabeledCheckbox>
+        <LabeledCheckbox
+          required
+          checked={isTermsAndConditionsChecked}
+          onChange={(e) => setIsTermsAndConditionsChecked(e.target.checked)}
+        >
           I agree with 
           {" "}<a className="text-indigo-900 font-medium cursor-pointer">Terms of Service</a>,
           {" "}<a className="text-indigo-900 font-medium cursor-pointer">User Agreement</a> and

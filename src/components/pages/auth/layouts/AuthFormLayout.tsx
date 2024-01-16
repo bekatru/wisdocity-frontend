@@ -1,4 +1,4 @@
-import { SubmitButton } from "../forms/buttons"
+import { Button } from "components";
 
 interface AuthFormLayoutProps extends React.PropsWithChildren {
   submitButtonText: string;
@@ -15,9 +15,9 @@ export function AuthFormLayout(props: AuthFormLayoutProps) {
     return(
       <div className="sm:mx-auto sm:w-full sm:max-w-[480px]">
         <div className="px-6 py-6 sm:px-12">
-        <form className="space-y-8" onSubmit={onFormSubmit}>
+        <form className="space-y-4" onSubmit={onFormSubmit}>
          {props.children}
-         <SubmitButton text={props.submitButtonText} />
+         <Button type="submit">{props.submitButtonText}</Button>
         </form>
         </div>
       </div>

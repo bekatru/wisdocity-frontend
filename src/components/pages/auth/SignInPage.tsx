@@ -1,5 +1,5 @@
 import {useNavigate} from 'react-router-dom';
-import {Routes} from '../../../modules/routing/types';
+import {Routes} from 'modules/routing/types';
 import {AuthPageLayout} from './layouts';
 import {SignInForm} from './forms';
 

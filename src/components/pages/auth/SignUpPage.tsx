@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Routes } from "../../../modules/routing/types";
+import { Routes } from "modules/routing/types";
 import { AuthFormLayout, AuthPageLayout } from "./layouts";
 
 enum SignUpOptions {
