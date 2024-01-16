@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Routes } from 'modules/routing/types';
-import { useSignUp } from 'modules/auth/hooks';
+import { useAuthTokens, useSignUp } from 'modules/auth/hooks';
 import { AuthPageLayout } from './layouts';
 import { SignUpLearnerForm } from './forms';
 
@@ -10,21 +10,28 @@ export function SignUpLearnerPage() {
   const navigate = useNavigate();
 
   const navigateToSignInPage = () => navigate(Routes.SignIn);
+  const { setTokens } = useAuthTokens()
 
-  // const { mutate: mutateLogin } = 
+  const { mutate: mutateLogin } = 
   useSignUp({
     onSuccess: (response) => {
-
-      console.log(response);
+      setTokens(response.data.token);
+      navigate(Routes.OnboardLearner);
     },
     onError: (error) => {
-      console.error(error.message, error);
+      alert(error.response?.data.message)
     },
   });
 
-  // const handleSubmit = (data: any) => {
-  //   mutateLogin(data);
-  // };
+  const handleSubmit = (data: any) => {
+    mutateLogin({
+      full_name: data.name,
+      email: data.email,
+      password: data.password,
+      country: data.country,
+      isSendMessage: data.isSendEmailsChecked,
+    })
+  };
 
   return (
     <AuthPageLayout
@@ -33,7 +40,7 @@ export function SignUpLearnerPage() {
       footerCtaText="Sign in"
       onFooterCtaClick={navigateToSignInPage}
     >
-      <SignUpLearnerForm />
+      <SignUpLearnerForm onSubmit={handleSubmit} />
     </AuthPageLayout>
   );
 }

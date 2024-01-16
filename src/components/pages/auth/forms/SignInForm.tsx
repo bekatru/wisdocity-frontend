@@ -2,14 +2,17 @@ import { useState } from "react";
 import { FormInput, LabeledCheckbox } from "components";
 import { AuthFormLayout } from "../layouts";
 
+interface SignInFormProps {
+  onSubmit: (data: any) => void;
+}
 
-export function SignInForm() {
+export function SignInForm(props: SignInFormProps) {
   
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   
   const handleSubmit = () => {
-    console.log({
+    props.onSubmit({
       email,
       password,
     })

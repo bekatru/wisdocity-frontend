@@ -4,9 +4,9 @@ import { COOKIE_ACCESS_TOKEN_NAME, COOKIE_OPTIONS, COOKIE_REFRESH_TOKEN_NAME } f
 const useAuthTokens = () => {
   const [cookie, setCookie, removeCookie] = useCookies();
 
-  const setTokens = (accessToken: string, refreshToken: string) => {
+  const setTokens = (accessToken: string, refreshToken?: string) => {
     setCookie(COOKIE_ACCESS_TOKEN_NAME, accessToken, COOKIE_OPTIONS);
-    setCookie(COOKIE_REFRESH_TOKEN_NAME, refreshToken, COOKIE_OPTIONS);
+    if (refreshToken) setCookie(COOKIE_REFRESH_TOKEN_NAME, refreshToken, COOKIE_OPTIONS);
   };
 
   const removeTokens = () => {
