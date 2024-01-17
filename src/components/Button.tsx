@@ -1,9 +1,16 @@
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+    variant?: "primary" | "outlined";
+}
 
-export function Button(props: ButtonProps) {
+const variantToStyleMap: {[key: string]: string} = {
+    ["primary"]: "bg-indigo-600 text-white",
+    ["outlined"]: "text-indigo-900 ring-1 ring-inset ring-indigo-600 hover:bg-gray-50",
+}
+
+export function Button({variant = "primary", ...props}: ButtonProps) {
     return (
         <button
-            className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-accent-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-600"
+            className={`${variantToStyleMap[variant]} flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 shadow-sm hover:bg-accent-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-600`}
             {...props}
         />
     )
