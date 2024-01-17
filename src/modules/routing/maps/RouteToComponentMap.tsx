@@ -2,10 +2,13 @@ import * as React from 'react';
 import {Outlet} from 'react-router-dom';
 import {Routes} from '../types';
 import {AuthRoute, ExpertRoute, LearnerRoute, OnboardRoute} from '../routes';
-import {SignInPage, SignUpExpertPage, SignUpLearnerPage, SignUpPage} from '../../../components/pages/auth';
+import {SignInPage, SignUpExpertPage, SignUpLearnerPage, SignUpPage} from 'components/pages/auth';
+import { TestPage } from 'components/pages/test';
+import { OnboardPage } from 'components/pages/onboard/OnboardPage';
 
 
 export const RouteToComponentMap: { [key in Routes]: React.ReactNode } = {
+  [Routes.Test]: <TestPage/>,
   [Routes.NotFound]: <div>404</div>,
 
   [Routes.SignUp]: <Outlet/>,
@@ -15,9 +18,9 @@ export const RouteToComponentMap: { [key in Routes]: React.ReactNode } = {
 
   [Routes.SignIn]: <SignInPage/>,
 
-  [Routes.Onboard]: <AuthRoute>Onboard <Outlet/></AuthRoute>,
-  [Routes.OnboardExpert]: <div>Onboard expert</div>,
-  [Routes.OnboardLearner]: <div>Onboard learner</div>,
+  [Routes.Onboard]: <AuthRoute>onboard<Outlet/></AuthRoute>,
+  [Routes.OnboardExpert]: <OnboardPage/>,
+  [Routes.OnboardLearner]: <OnboardPage/>,
 
   [Routes.Root]: <AuthRoute><OnboardRoute>App <Outlet/></OnboardRoute></AuthRoute>,
 

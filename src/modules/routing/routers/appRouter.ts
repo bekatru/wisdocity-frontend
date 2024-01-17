@@ -6,6 +6,10 @@ import { onboardRouter, rootRouter, signUpRouter } from ".";
 
 export const appRouter = createBrowserRouter([
     {
+      path: Routes.Test,
+      element: RouteToComponentMap[Routes.Test],
+    },
+    {
       path: Routes.NotFound,
       element: RouteToComponentMap[Routes.NotFound],
     },

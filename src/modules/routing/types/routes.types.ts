@@ -1,4 +1,5 @@
 export enum Routes {
+  Test = 'test',
   NotFound = '*',
   Root = '/',
   SignIn = '/signin',
@@ -9,8 +10,8 @@ export enum Routes {
   Account = '/account',
 
   Onboard = '/onboard',
-  OnboardExpert = '/onboard/expert',
-  OnboardLearner = '/onboard/learner',
+  OnboardExpert = '/onboard/expert/:step',
+  OnboardLearner = '/onboard/learner/:step',
 
   Learner = '/learner',
   LearnerHome = '/learner/home',

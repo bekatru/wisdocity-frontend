@@ -4,9 +4,9 @@ interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label: string
 }
 
-export function FormInput({label, ...inputProps}: FormInputProps) {
+export function FormInput({label, className, ...inputProps}: FormInputProps) {
     return(
-        <div>
+        <div className={className}>
               <InputLabel>{label}</InputLabel>
               <div className="mt-2">
                 <input
