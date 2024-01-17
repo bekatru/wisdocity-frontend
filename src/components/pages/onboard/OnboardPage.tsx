@@ -3,9 +3,7 @@ import { OnboardPageLayout } from "./layouts";
 import { useMemo } from "react";
 import { GoalsForm, PurposeForm, TopicsForm, WayToLearnForm } from "./forms/learner";
 
-interface OnboardPageProps extends React.PropsWithChildren { }
-
-export function OnboardPage(props: OnboardPageProps) {
+export function OnboardPage() {
 
     const { step } = useParams();
 
