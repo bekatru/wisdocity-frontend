@@ -1,4 +1,4 @@
-import MultiSelect from "components/MultiSelect"
+import {MultiSelect} from "components/MultiSelect"
 
 export function WayToLearnForm() {
     return (
