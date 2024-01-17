@@ -1,0 +1,1 @@
+export {OnboardPageLayout} from './OnboardPageLayout';
