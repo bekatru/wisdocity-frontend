@@ -4,6 +4,7 @@ import { useCallback, useMemo, useState } from "react";
 import { GoalsForm, PurposeForm, TopicsForm, WayToLearnForm } from "./forms/learner";
 import { MultiSelectOption } from "components";
 import { Routes } from "modules/routing/types";
+import { useCreateLearner } from "modules/learner/hooks/useCreateLearner";
 
 const NUMBER_OF_STEPS = 4;
 
@@ -51,12 +52,23 @@ export function OnboardPage() {
         navigate(Routes.OnboardLearner.replace(':step', String(step + 1)))
     }, [step, navigate])
 
+    const {mutate: createLearner} = useCreateLearner({
+        onSuccess: (response) => {
+            console.log("Learner created successfuly", response)
+            navigate(Routes.Learner)
+        },
+        onError: (error) => {
+            console.error("Learner creation failed", error);
+            alert(error.response?.data.message);
+        }
+    })
+
     const finishOnboarding = useCallback(() => {
-        console.log({
-            purpose,
-            topics,
-            wayToLearn,
-            goals,
+        createLearner({
+            purpose: purpose,
+            topics: topics,
+            way_for_learning: wayToLearn.map((way) => way.value),
+            goals: goals,
         })
     }, [purpose, topics, wayToLearn, goals])
 
