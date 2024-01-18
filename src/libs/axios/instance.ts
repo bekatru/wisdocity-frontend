@@ -1,8 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { BASE_URL } from "constants";
-import { useAuthTokens } from "modules/auth";
+import { BASE_URL, COOKIE_ACCESS_TOKEN_NAME, COOKIE_OPTIONS, COOKIE_REFRESH_TOKEN_NAME } from "constants";
 import { CustomAxiosRequestConfig } from "./api.types";
-import { requestRefresh } from "modules/auth/hooks/useRefresh";
+import { Cookies } from "react-cookie";
 
 
 export const instance = axios.create({
@@ -13,16 +12,22 @@ export const instance = axios.create({
   }
 });
 
+const cookies = new Cookies();
+
 instance.interceptors.request.use(
-  async config => {
-    const { accessToken } = useAuthTokens();
-    config.headers.Authorization = `Bearer ${accessToken}`
+  (config: CustomAxiosRequestConfig) => {
+    const token = cookies.get(COOKIE_ACCESS_TOKEN_NAME);
+
+    if (token && config.headers) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+
     return config;
   },
-  error => {
-    Promise.reject(error)
-  });
-
+  async (error: AxiosError) => {
+    return await Promise.reject(error);
+  }
+);
 
 instance.interceptors.response.use(
   (response: AxiosResponse): AxiosResponse => {
@@ -30,8 +35,7 @@ instance.interceptors.response.use(
   },
   async (error: AxiosError) => {
     const originalRequest = error.config as CustomAxiosRequestConfig;
-
-    const { refreshToken, setTokens, removeTokens } = useAuthTokens();
+    const refreshToken = cookies.get(COOKIE_REFRESH_TOKEN_NAME);
 
     if (
       error.response &&
@@ -46,19 +50,35 @@ instance.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
+        const { access_token, refresh_token } = await refreshAccessToken();
 
-        const response = await requestRefresh({refreshToken});
-        setTokens(response.data.tokens.access, response.data.tokens.refresh);
+        cookies.set(COOKIE_ACCESS_TOKEN_NAME, access_token, COOKIE_OPTIONS);
+        cookies.set(COOKIE_REFRESH_TOKEN_NAME, refresh_token, COOKIE_OPTIONS);
+
         return await instance(originalRequest);
-
       } catch (refreshError) {
+        cookies.remove(COOKIE_ACCESS_TOKEN_NAME, COOKIE_OPTIONS);
+        cookies.remove(COOKIE_REFRESH_TOKEN_NAME, COOKIE_OPTIONS);
 
-        removeTokens();
         return await Promise.reject(error);
-        
       }
     }
 
     return await Promise.reject(error);
   }
 );
+
+const refreshAccessToken = async (): Promise<{
+  access_token: string;
+  refresh_token: string;
+}> => {
+  const refreshToken = cookies.get(COOKIE_REFRESH_TOKEN_NAME);
+
+  const response = await axios.put(`${BASE_URL}users/refresh`, {refreshToken}, {
+    headers: {
+      Authorization: `Bearer ${refreshToken}`
+    }
+  });
+
+  return response.data;
+};
