@@ -5,6 +5,8 @@ import { useSendVerification } from "modules/auth/hooks/useSendVerification";
 import { useAuth } from "modules/auth/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 import { Routes } from "modules/routing/types";
+import useUpdateEmail from "modules/auth/hooks/useUpdateEmail/useUpdateEmail";
+import { useAuthTokens } from "modules/auth";
 
 
 
@@ -26,7 +28,9 @@ export function UpdateEmailPage() {
         }
     }, [data])
 
-    const {mutate: resendVerification} = useSendVerification({
+    const { setTokens} = useAuthTokens()
+
+    const {mutate: sendVerification} = useSendVerification({
         onSuccess: (response) => {
             console.log(response);
         },
@@ -35,16 +39,26 @@ export function UpdateEmailPage() {
         }
     })
 
+    const {mutate: updateEmail} = useUpdateEmail({
+        onSuccess: (response) => {
+            console.log("updated email");
+            setTokens(response.tokens.access, response.tokens.refresh);
+        },
+        onError: (error) => {
+            console.log(error);
+        }
+    })
+
     const handleSubmit = () => {
         if (data?.user.email) {
-            resendVerification({email: data.user.email});
+            sendVerification({email: data.user.email});
         }
     }
 
     const handleUpdateAndResendButtonClick = () => {
         console.log("Update and resend")
         if (email) {
-            resendVerification({email});
+            updateEmail({email});
         }
     }
 

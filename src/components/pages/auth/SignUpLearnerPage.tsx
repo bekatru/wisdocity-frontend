@@ -30,6 +30,7 @@ export function SignUpLearnerPage() {
       password: data.password,
       country: data.country,
       isSendMessage: data.isSendEmailsChecked,
+      current_role: "EXPERT",
     })
   };
 

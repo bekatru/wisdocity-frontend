@@ -5,5 +5,5 @@ import { SendVerificationPayload, SendVerificationResponse } from "./sendVerific
 export const requestSendVerification = async (
   body: SendVerificationPayload
 ): Promise<SendVerificationResponse> => {
-  return await instance.post("users/resend-verification", body);
+  return await instance.post("users/send-verification", body);
 };

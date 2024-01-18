@@ -13,4 +13,5 @@ export interface SignUpPayload {
   full_name: string;
   country: string;
   isSendMessage: boolean;
+  current_role: string;
 }
