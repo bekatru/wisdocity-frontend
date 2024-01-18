@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Outlet} from 'react-router-dom';
 import {Routes} from '../types';
-import {AuthRoute, ExpertRoute, LearnerRoute, OnboardRoute} from '../routes';
+import {AuthRoute, ExpertRoute, LearnerRoute} from '../routes';
 import {SignInPage, SignUpExpertPage, SignUpLearnerPage, SignUpPage, SignUpSplashPage, UpdateEmailPage, VerifyEmailPage} from 'components/pages/auth';
 import { TestPage } from 'components/pages/test';
 import { OnboardPage } from 'components/pages/onboard/OnboardPage';
