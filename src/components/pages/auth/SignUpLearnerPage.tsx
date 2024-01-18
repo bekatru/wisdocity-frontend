@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Routes } from 'modules/routing/types';
 import { useAuthTokens, useSignUp } from 'modules/auth/hooks';
 import { AuthPageLayout } from './layouts';
