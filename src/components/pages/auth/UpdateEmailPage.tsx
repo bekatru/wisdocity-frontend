@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { AuthFormLayout, AuthPageLayout } from "./layouts";
 import { Button, FormInput } from "components";
+import { useSendVerification } from "modules/auth/hooks/useSendVerification";
 
 
 
@@ -13,12 +14,22 @@ export function UpdateEmailPage() {
         setHelpSectionExpanded(!helpSectionExpanded)
     }
 
+    const {mutate: resendVerification} = useSendVerification({
+        onSuccess: (response) => {
+            console.log(response);
+        },
+        onError: (error) => {
+            console.log(error);
+        }
+    })
+
     const handleSubmit = () => {
         console.log("Resend verification")
     }
 
     const handleUpdateAndResendButtonClick = () => {
         console.log("Update and resend")
+        resendVerification({email})
     }
 
     return (
