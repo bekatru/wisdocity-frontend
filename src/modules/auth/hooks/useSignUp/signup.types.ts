@@ -1,13 +1,10 @@
 export interface SignUpResponse {
     status: number;
-    data: {
-      status: number;
-      token: {
-        access: string,
-        refresh: string,
-      };
-      userId: number;
-    }
+    token: {
+      access: string,
+      refresh: string,
+    };
+    userId: number,
 }
 
 export interface SignUpPayload {

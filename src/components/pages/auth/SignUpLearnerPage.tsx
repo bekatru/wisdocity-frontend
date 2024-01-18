@@ -15,7 +15,7 @@ export function SignUpLearnerPage() {
   const { mutate: mutateLogin } = 
   useSignUp({
     onSuccess: (response) => {
-      setTokens(response.data.token.access, response.data.token.refresh);
+      setTokens(response.token.access, response.token.refresh);
       navigate(Routes.SignUpSplash);
     },
     onError: (error) => {
