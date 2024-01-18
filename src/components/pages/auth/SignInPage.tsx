@@ -14,7 +14,7 @@ export function SignInPage() {
 
   const {mutate: mutateSignIn} = useSignIn({
     onSuccess: (response) => {
-      setTokens(response.data.token);
+      setTokens(response.token.access, response.token.refresh);
       navigate(Routes.Root)
     },
     onError: (error) => {
@@ -30,7 +30,7 @@ export function SignInPage() {
   }
 
   return (
-    <AuthPageLayout headerText="Sign in to your account" footerText="Not a member?" footerCtaText="Sign up" onFooterCtaClick={navigateToSignUpPage}>
+    <AuthPageLayout headerText="Sign in to your account" footerText="Not a member?" footerCtaText="Sign in" onFooterCtaClick={navigateToSignUpPage}>
       <SignInForm onSubmit={handleSubmit}/>
     </AuthPageLayout>
   );

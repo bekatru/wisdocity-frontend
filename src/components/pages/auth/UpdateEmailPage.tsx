@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AuthFormLayout, AuthPageLayout } from "./layouts";
 import { Button, FormInput } from "components";
 import { useSendVerification } from "modules/auth/hooks/useSendVerification";
+import { useAuth } from "modules/auth/hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+import { Routes } from "modules/routing/types";
 
 
 
@@ -14,6 +17,15 @@ export function UpdateEmailPage() {
         setHelpSectionExpanded(!helpSectionExpanded)
     }
 
+    const { data } = useAuth();
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (data?.user.is_verified) {
+            navigate(Routes.Root)
+        }
+    }, [data])
+
     const {mutate: resendVerification} = useSendVerification({
         onSuccess: (response) => {
             console.log(response);
@@ -24,19 +36,23 @@ export function UpdateEmailPage() {
     })
 
     const handleSubmit = () => {
-        console.log("Resend verification")
+        if (data?.user.email) {
+            resendVerification({email: data.user.email});
+        }
     }
 
     const handleUpdateAndResendButtonClick = () => {
         console.log("Update and resend")
-        resendVerification({email})
+        if (email) {
+            resendVerification({email});
+        }
     }
 
     return (
         <AuthPageLayout headerText="Verify your email to continue" footerText="" footerCtaText="" onFooterCtaClick={() => { }}>
             <AuthFormLayout submitButtonText="Resend verification email" onSubmit={handleSubmit}>
                 <p className="text-center text-gray-500">
-                    We just sent an email to the address: <span className="text-indigo-900 font-medium">example@gmail.com</span><br />
+                    We just sent an email to the address: <span className="text-indigo-900 font-medium">{data?.user.email}</span><br />
                     Please checkyour email and select the link provided to verify email.
                 </p>
                 <FormInput

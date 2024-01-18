@@ -1,7 +1,7 @@
 export interface SignInResponse {
-  status: number;
-  data: {
-    token: string;
+  token: {
+    access: string;
+    refresh: string;
   }
 }
 
