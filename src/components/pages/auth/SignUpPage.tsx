@@ -29,13 +29,13 @@ export function SignUpPage() {
                 <div className="flex flex-col sm:flex-row gap-y-6 justify-between mb-8">
                     <div
                         onClick={() => setSelectedOption(SignUpOptions.Learner)}
-                        className={"text-center text-nowrap text-$color p-8 rounded-2xl border border-$color cursor-pointer".replaceAll("$color", selectedOption === SignUpOptions.Learner ? 'purple-900' : 'gray-400')}
+                        className={"text-center text-nowrap text-$color p-8 rounded-2xl border border-$color cursor-pointer $bg".replaceAll("$color", selectedOption === SignUpOptions.Learner ? 'purple-600' : 'gray-400')}
                     >
                         Join as a learner
                     </div>
                     <div
                         onClick={() => setSelectedOption(SignUpOptions.Expert)}
-                        className={"text-center text-nowrap text-$color p-8 rounded-2xl border border-$color cursor-pointer".replaceAll("$color", selectedOption === SignUpOptions.Expert ? 'purple-900' : 'gray-400')}
+                        className={"text-center text-nowrap text-$color p-8 rounded-2xl border border-$color cursor-pointer".replaceAll("$color", selectedOption === SignUpOptions.Expert ? 'purple-600' : 'gray-400')}
                     >
                         Join as an expert
                     </div>
