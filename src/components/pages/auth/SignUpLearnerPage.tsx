@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Routes } from 'modules/routing/types';
 import { useAuthTokens, useSignUp } from 'modules/auth/hooks';
 import { AuthPageLayout } from './layouts';
@@ -30,7 +30,7 @@ export function SignUpLearnerPage() {
       password: data.password,
       country: data.country,
       isSendMessage: data.isSendEmailsChecked,
-      current_role: "EXPERT",
+      current_role: "LEARNER",
     })
   };
 

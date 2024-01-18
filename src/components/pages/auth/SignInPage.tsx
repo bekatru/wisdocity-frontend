@@ -30,7 +30,7 @@ export function SignInPage() {
   }
 
   return (
-    <AuthPageLayout headerText="Sign in to your account" footerText="Not a member?" footerCtaText="Sign in" onFooterCtaClick={navigateToSignUpPage}>
+    <AuthPageLayout headerText="Sign in to your account" footerText="Not a member?" footerCtaText="Sign up" onFooterCtaClick={navigateToSignUpPage}>
       <SignInForm onSubmit={handleSubmit}/>
     </AuthPageLayout>
   );

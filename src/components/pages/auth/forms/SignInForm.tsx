@@ -19,7 +19,7 @@ export function SignInForm(props: SignInFormProps) {
   }
 
   return (
-    <AuthFormLayout submitButtonText="Sign up" onSubmit={handleSubmit}>
+    <AuthFormLayout submitButtonText="Sign in" onSubmit={handleSubmit}>
         <FormInput
           label="Email"
           required
