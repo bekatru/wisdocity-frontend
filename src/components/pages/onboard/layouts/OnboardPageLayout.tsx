@@ -1,4 +1,11 @@
-interface OnboardPageLayoutProps extends React.PropsWithChildren {}
+interface OnboardPageLayoutProps extends React.PropsWithChildren {
+    step: number;
+    numberOfSteps: number;
+    primaryButtonText: string;
+    secondaryButtonText: string;
+    onPrimaryButtonClick: () => void;
+    onSecondaryButtonClick: () => void;
+}
 
 export function OnboardPageLayout(props: OnboardPageLayoutProps) {
     return (
@@ -17,7 +24,7 @@ export function OnboardPageLayout(props: OnboardPageLayoutProps) {
                                 We want to get you know
                             </p>
 
-                                <Steps />
+                                <Stepper numberOfSteps={props.numberOfSteps} step={props.step} />
                         </div>
 
                     </div>
@@ -25,8 +32,8 @@ export function OnboardPageLayout(props: OnboardPageLayoutProps) {
                         {props.children}
                     </div>
                     <div className="px-4 py-4 sm:px-6 flex space-x-6">
-                        <Button variant="outlined">Skip</Button>
-                        <Button>Next</Button>
+                        <Button onClick={props.onPrimaryButtonClick} variant="outlined">{props.secondaryButtonText}</Button>
+                        <Button onClick={props.onSecondaryButtonClick}>{props.primaryButtonText}</Button>
                     </div>
                 </div>
 
@@ -37,19 +44,27 @@ export function OnboardPageLayout(props: OnboardPageLayoutProps) {
 
 import { CheckIcon } from '@heroicons/react/20/solid'
 import { Button } from 'components'
+import { useMemo } from 'react';
 
-const steps = [
-    { name: 'Step 1', href: '#', status: 'current' },
-    { name: 'Step 2', href: '#', status: 'upcoming' },
-    { name: 'Step 3', href: '#', status: 'upcoming' },
-    { name: 'Step 4', href: '#', status: 'upcoming' },
-]
+interface StepperProps {
+    step: number;
+    numberOfSteps: number
+}
 
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function Steps() {
+export default function Stepper(props: StepperProps) {
+
+    const steps = useMemo(() => new Array(props.numberOfSteps)
+        .fill({name: "", href: "#", status: "upcoming"})
+        .map((step, index) => ({
+            name: `Step ${index + 1}`,
+            href: step.href,
+            status: index + 1 === props.step ? "current" : index + 1 > props.step ? "upcoming" : "complete"
+        })), [props.step, props.numberOfSteps])
+
     return (
         <nav aria-label="Progress" className='flex items-center justify-center'>
             <ol role="list" className="flex items-center max-w-fit">

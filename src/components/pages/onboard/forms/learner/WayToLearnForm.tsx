@@ -1,7 +1,10 @@
-import {MultiSelect} from "components/MultiSelect"
+import {MultiSelect, MultiSelectProps} from "components"
 
-export function WayToLearnForm() {
+interface WayToLearnFormProps extends MultiSelectProps {}
+
+
+export function WayToLearnForm(props: WayToLearnFormProps) {
     return (
-        <MultiSelect />
+        <MultiSelect options={props.options} value={props.value} onChange={props.onChange} />
     )
 }

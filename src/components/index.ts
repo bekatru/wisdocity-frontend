@@ -4,4 +4,4 @@ export {Select} from './Select';
 export {LabeledCheckbox} from './LabeledCheckbox';
 export {Checkbox} from './Checkbox';
 export {InputLabel} from './InputLabel';
-export {MultiSelect} from './MultiSelect';
+export * from './MultiSelect';

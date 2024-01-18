@@ -1,27 +1,31 @@
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 
-const topics: string[] = [
-    "AI", "Career", "Investment", "Psychology", "Software Development", "Design", "Marketing", "Managment", "Productivuty", "Travelling", "Writing", "Music", "Lifestyle"
-]
+interface TopicsFormProps {
+    options: string[];
+    value: string[];
+    onChange: (value: string[]) => void;
+}
 
-export function TopicsForm() {
-
-    const [selectedTopics, setSelectedTopics] = useState<string[]>([]);
+export function TopicsForm(props: TopicsFormProps) {
 
     const isSelected = useCallback((topic: string) => {
-        return selectedTopics.includes(topic)
-    }, [selectedTopics])
+        return props.value.includes(topic)
+    }, [props.value])
+
+    const setSelectedTopics = useCallback((newValue: string[]) => {
+        props.onChange(newValue)
+    }, [props.onChange])
 
     const handleTopicDeselect = useCallback((topic: string) => {
-        const newSelectedTopics = removeStringFromArray(topic, selectedTopics.slice());
+        const newSelectedTopics = removeStringFromArray(topic, props.value.slice());
         setSelectedTopics(newSelectedTopics);
-    }, [selectedTopics])
+    }, [props.value, setSelectedTopics])
 
 
     const handleTopicSelect = useCallback((topic: string) => {
-        const newSelectedTopics = [...selectedTopics, topic];
+        const newSelectedTopics = [...props.value, topic];
         setSelectedTopics(newSelectedTopics);
-    }, [selectedTopics])
+    }, [props.value, setSelectedTopics])
 
     const handleTopicClick = useCallback((topic: string) => {
         if (isSelected(topic)) {
@@ -29,14 +33,14 @@ export function TopicsForm() {
         } else {
             handleTopicSelect(topic);
         }
-    }, [selectedTopics])
+    }, [props.value, isSelected, handleTopicSelect, handleTopicDeselect])
 
     return (
         <>
             <p className="text-center text-gray-500">Choose topics you are interested in</p>
             <div className="mt-4 flex justify-center flex-wrap gap-2">
                 {
-                    topics.map((topic) => (
+                    props.options.map((topic) => (
                         <span
                             key={topic}
                             onClick={() => handleTopicClick(topic)}

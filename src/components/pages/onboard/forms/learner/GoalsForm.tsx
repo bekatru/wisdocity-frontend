@@ -2,9 +2,12 @@ import { PlusIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import { FormInput } from "components";
 import { useCallback, useState } from "react";
 
-export function GoalsForm() {
+interface GoalsFormProps {
+    value: string[];
+    onChange: (value: string[]) => void
+}
 
-    const [goals, setGoals] = useState<string[]>([]);
+export function GoalsForm(props: GoalsFormProps) {
 
     const [inputValue, setInputValue] = useState("");
 
@@ -12,21 +15,21 @@ export function GoalsForm() {
         const trimmedInputValue = inputValue.trim()
         if (!trimmedInputValue) return setInputValue("");
         
-        setGoals([...goals, trimmedInputValue]);
+        props.onChange([...props.value, trimmedInputValue]);
         setInputValue("");
-    }, [inputValue, goals]);
+    }, [inputValue, props.value, props.onChange]);
 
     const handleDeleteIconClick = useCallback((goalToRemove: string) => {
-        const newGoals = removeStringFromArray(goalToRemove, goals.slice())
-        setGoals(newGoals);
-    }, [goals])
+        const newGoals = removeStringFromArray(goalToRemove, props.value.slice())
+        props.onChange(newGoals);
+    }, [props.value, props.onChange])
 
     return (
         <>
         <ol className="list-decimal list-inside flex flex-col space-y-2">
         {
-            goals.map((goal) => (
-                <div className="flex items-center justify-between">
+            props.value.map((goal) => (
+                <div key={goal} className="flex items-center justify-between">
                 <li key={goal}>{goal}</li>
                 <XMarkIcon onClick={() => handleDeleteIconClick(goal)} className="h-5 w-5 cursor-pointer"/>
                 </div>

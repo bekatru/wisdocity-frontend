@@ -1,19 +1,18 @@
 import { Select } from "components";
-import { useState } from "react";
 
-const options: string[] = [
-    "Learning",
-    "Other",
-]
+interface PurposeFormProps {
+    options: string[];
+    value: string;
+    onChange: (value: string) => void;
+}
 
-export function PurposeForm() {
-    const [purpose, setPurpose] = useState(options[0])
+export function PurposeForm(props: PurposeFormProps) {
     return (
         <Select
             label="Purpose"
-            value={purpose}
-            onChange={(e) => setPurpose(e.target.value)}
-            options={["Learning"]}
+            value={props.value}
+            onChange={(e) => props.onChange(e.target.value)}
+            options={props.options}
         />
     )
 }
