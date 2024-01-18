@@ -9,7 +9,7 @@ export function AuthPageFooter(props: AuthPageFooterProps) {
         <p className="text-center text-sm text-gray-500">
             {props.text}{' '}
           <a onClick={props.onCtaClick}
-             className="font-semibold leading-6 text-indigo-600 hover:text-accent-500 cursor-pointer">
+             className="font-semibold leading-6 text-purple-600 hover:text-accent-500 cursor-pointer">
             {props.ctaText}
           </a>
         </p>

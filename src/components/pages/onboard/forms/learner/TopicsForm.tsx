@@ -44,7 +44,7 @@ export function TopicsForm(props: TopicsFormProps) {
                         <span
                             key={topic}
                             onClick={() => handleTopicClick(topic)}
-                            className={`${isSelected(topic) ? "bg-indigo-600 text-white" : "bg-white text-indigo-900"} inline-flex items-center rounded-full px-3 py-2 text-xs font-medium ring-1 ring-inset ring-gray-500/10 cursor-pointer`}
+                            className={`${isSelected(topic) ? "bg-purple-600 text-white" : "bg-white text-purple-900"} inline-flex items-center rounded-full px-3 py-2 text-xs font-medium ring-1 ring-inset ring-gray-500/10 cursor-pointer`}
                         >
                             {topic}
                         </span>

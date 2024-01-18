@@ -3,8 +3,8 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variantToStyleMap: {[key: string]: string} = {
-    ["primary"]: "bg-indigo-600 text-white",
-    ["outlined"]: "text-indigo-900 ring-1 ring-inset ring-indigo-600 hover:bg-gray-50",
+    ["primary"]: "bg-purple-600 text-white",
+    ["outlined"]: "text-purple-900 ring-1 ring-inset ring-purple-600 hover:bg-gray-50",
 }
 
 export function Button({variant = "primary", ...props}: ButtonProps) {

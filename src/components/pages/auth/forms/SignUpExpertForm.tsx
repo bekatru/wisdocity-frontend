@@ -66,9 +66,9 @@ export function SignUpExpertForm() {
           onChange={(e) => setIsTermsAndConditionsChecked(e.target.checked)}
         >
           I agree with 
-          {" "}<a className="text-indigo-900 font-medium cursor-pointer">Terms of Service</a>,
-          {" "}<a className="text-indigo-900 font-medium cursor-pointer">User Agreement</a> and
-          {" "}<a className="text-indigo-900 font-medium cursor-pointer">Privacy Policy</a>
+          {" "}<a className="text-purple-900 font-medium cursor-pointer">Terms of Service</a>,
+          {" "}<a className="text-purple-900 font-medium cursor-pointer">User Agreement</a> and
+          {" "}<a className="text-purple-900 font-medium cursor-pointer">Privacy Policy</a>
         </LabeledCheckbox>
     </AuthFormLayout>
   )

@@ -45,18 +45,18 @@ export function VerifyEmailPage() {
         <AuthPageLayout headerText="Verify your email to continue" footerText="" footerCtaText="" onFooterCtaClick={() => { }}>
             <AuthFormLayout submitButtonText="Resend verification email" onSubmit={handleSubmit}>
                 <p className="text-center text-gray-500">
-                    We just sent an email to the address: <span className="text-indigo-900 font-medium">{data?.user.email}</span><br />
+                    We just sent an email to the address: <span className="text-purple-900 font-medium">{data?.user.email}</span><br />
                     Please checkyour email and select the link provided to verify email.
                 </p>
                 <p
                     onClick={navigateToChangeEmailPage}
-                    className="text-center text-indigo-900 font-medium cursor-pointer hover:underline"
+                    className="text-center text-purple-900 font-medium cursor-pointer hover:underline"
                 >
                     Change email
                 </p>
                 <p
                     onClick={toggleHelpSection}
-                    className="text-center text-indigo-900 font-medium  cursor-pointer hover:underline"
+                    className="text-center text-purple-900 font-medium  cursor-pointer hover:underline"
                 >
                     I need help verifying my email
                 </p>
