@@ -14,9 +14,9 @@ export const RouteToComponentMap: { [key in Routes]: React.ReactNode } = {
   [Routes.SignUp]: <Outlet/>,
   [Routes.SignUpIndex]: <SignUpPage/>,
 
-  [Routes.SignUpSplash]: <SignUpSplashPage/>,
-  [Routes.SignUpVerification]: <VerifyEmailPage/>,
-  [Routes.SignUpChangeEmail]: <UpdateEmailPage/>,
+  [Routes.SignUpSplash]: <AuthRoute><SignUpSplashPage/></AuthRoute>,
+  [Routes.SignUpVerification]: <AuthRoute><VerifyEmailPage/></AuthRoute>,
+  [Routes.SignUpChangeEmail]: <AuthRoute><UpdateEmailPage/></AuthRoute>,
   
 
   [Routes.SignUpLearner]: <SignUpLearnerPage/>,
@@ -28,7 +28,7 @@ export const RouteToComponentMap: { [key in Routes]: React.ReactNode } = {
   [Routes.OnboardExpert]: <OnboardPage/>,
   [Routes.OnboardLearner]: <OnboardPage/>,
 
-  [Routes.Root]: <AuthRoute><OnboardRoute>App <Outlet/></OnboardRoute></AuthRoute>,
+  [Routes.Root]: <AuthRoute>App <Outlet/></AuthRoute>,
 
   [Routes.Account]: <div>Account</div>,
 
