@@ -2,7 +2,10 @@ export interface SignUpResponse {
     status: number;
     data: {
       status: number;
-      token: string;
+      token: {
+        access: string,
+        refresh: string,
+      };
       userId: number;
     }
 }
