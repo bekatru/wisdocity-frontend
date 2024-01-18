@@ -14,7 +14,7 @@ export function VerifyEmailPage() {
     }
 
     const navigateToChangeEmailPage = () => {
-        navigate(Routes.Root)
+        navigate(Routes.SignUpChangeEmail)
     }
 
     const handleSubmit = () => {

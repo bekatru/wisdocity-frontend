@@ -16,7 +16,7 @@ export function SignUpLearnerPage() {
   useSignUp({
     onSuccess: (response) => {
       setTokens(response.data.token);
-      navigate(Routes.OnboardLearner);
+      navigate(Routes.SignUpSplash);
     },
     onError: (error) => {
       alert(error.response?.data.message)

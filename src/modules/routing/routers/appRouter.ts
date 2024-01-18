@@ -18,6 +18,18 @@ export const appRouter = createBrowserRouter([
       children: signUpRouter,
     },
     {
+      path: Routes.SignUpSplash,
+      element: RouteToComponentMap[Routes.SignUpSplash],
+    },
+    {
+      path: Routes.SignUpVerification,
+      element: RouteToComponentMap[Routes.SignUpVerification],
+    },
+    {
+      path: Routes.SignUpChangeEmail,
+      element: RouteToComponentMap[Routes.SignUpChangeEmail],
+    },
+    {
       path: Routes.SignIn,
       element: RouteToComponentMap[Routes.SignIn],
     },
