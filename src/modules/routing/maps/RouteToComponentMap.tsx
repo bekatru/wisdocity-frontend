@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Outlet} from 'react-router-dom';
 import {Routes} from '../types';
 import {AuthRoute, ExpertRoute, LearnerRoute} from '../routes';
-import {SignInPage, SignUpLearnerPage, SignUpPage, SignUpSplashPage, UpdateEmailPage, VerifyEmailPage} from 'components/pages/auth';
+import {SignInPage, SignUpPage, SelectRolePage, WelcomePage, ChangeEmailPage, VerificationPage} from 'components/pages/auth';
 import { TestPage } from 'components/pages/test';
 import { OnboardPage } from 'components/pages/onboard/OnboardPage';
 import {LandingPage} from 'components/pages/landing';
@@ -13,12 +13,12 @@ export const RouteToComponentMap: { [key in Routes]: React.ReactNode } = {
   [Routes.NotFound]: <div>404</div>,
 
   [Routes.SignIn]: <SignInPage/>,
-  [Routes.SignUp]: <SignUpPage/>,
-  [Routes.SignUpRole]: <SignUpLearnerPage/>,
+  [Routes.SignUp]: <SelectRolePage/>,
+  [Routes.SignUpRole]: <SignUpPage/>,
 
-  [Routes.Welcome]: <AuthRoute><SignUpSplashPage/></AuthRoute>,
-  [Routes.Verification]: <AuthRoute><VerifyEmailPage/></AuthRoute>,
-  [Routes.ChangeEmail]: <AuthRoute><UpdateEmailPage/></AuthRoute>,
+  [Routes.Welcome]: <AuthRoute><WelcomePage/></AuthRoute>,
+  [Routes.Verification]: <AuthRoute><ChangeEmailPage/></AuthRoute>,
+  [Routes.ChangeEmail]: <AuthRoute><VerificationPage/></AuthRoute>,
 
 
   [Routes.Onboard]: <AuthRoute>onboard<Outlet/></AuthRoute>,

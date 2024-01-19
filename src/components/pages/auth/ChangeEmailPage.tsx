@@ -10,7 +10,7 @@ import { useAuthTokens } from "modules/auth";
 
 
 
-export function UpdateEmailPage() {
+export function ChangeEmailPage() {
     const [helpSectionExpanded, setHelpSectionExpanded] = useState(false);
 
     const [email, setEmail] = useState("");

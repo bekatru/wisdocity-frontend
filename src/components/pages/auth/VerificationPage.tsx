@@ -5,7 +5,7 @@ import { AuthPageLayout, AuthFormLayout } from "./layouts";
 import { useAuth } from "modules/auth/hooks/useAuth";
 import { useSendVerification } from "modules/auth/hooks/useSendVerification";
 
-export function VerifyEmailPage() {
+export function VerificationPage() {
     const [helpSectionExpanded, setHelpSectionExpanded] = useState(false);
     
     const navigate = useNavigate();

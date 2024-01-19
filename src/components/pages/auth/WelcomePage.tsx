@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom"
 
 const SPLASH_DURATION_IN_SECONDS = 5;
 
-export function SignUpSplashPage() {
+export function WelcomePage() {
 
     const navigate = useNavigate()
 
