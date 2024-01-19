@@ -33,15 +33,7 @@ const PhotoBlock = styled.section`
     url("${bgPhoto}") no-repeat center center / cover; /* #13002C56 */
   height: 83vh;
   position: relative;
-  &:after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 33%;
-    background-image: linear-gradient(transparent, var(--c-body));
-  }
+
   ${Container} {
     height: 80%;
     display: flex;
