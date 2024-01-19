@@ -1,5 +1,6 @@
 import {useNavigate} from 'react-router-dom';
 import {Routes} from 'modules/routing/types';
+import {toast} from 'react-toastify';
 import {AuthPageLayout} from './layouts';
 import {SignInForm} from './forms';
 import { useAuthTokens, useSignIn } from 'modules/auth';
@@ -15,9 +16,10 @@ export function SignInPage() {
   const {mutate: mutateSignIn, isPending} = useSignIn({
     onSuccess: (response) => {
       setTokens(response.token.access, response.token.refresh);
+      toast.success("Signed in successfuly")
     },
     onError: (error) => {
-      alert(error.response?.data.message);
+      toast.error(error.response?.data.message);
     },
   })
 

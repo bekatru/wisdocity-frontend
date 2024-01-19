@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import {toast} from 'react-toastify';
 import { AuthFormLayout, AuthPageLayout } from "./layouts";
 import { Button, FormInput } from "components";
 import { useSendVerification } from "modules/auth/hooks/useSendVerification";
 import { useAuth } from "modules/auth/hooks/useAuth";
-import { useNavigate } from "react-router-dom";
 import { Routes } from "modules/routing/types";
 import useUpdateEmail from "modules/auth/hooks/useUpdateEmail/useUpdateEmail";
 import { useAuthTokens } from "modules/auth";
@@ -33,19 +34,22 @@ export function ChangeEmailPage() {
     const {mutate: sendVerification, isPending: isSendVerificationPending } = useSendVerification({
         onSuccess: (response) => {
             console.log(response);
+            toast.success("Verification link sent");
         },
         onError: (error) => {
             console.log(error);
+            toast.error("Sending verification link failed")
         }
     })
 
     const {mutate: updateEmail, isPending: isUpdateEmailPending} = useUpdateEmail({
         onSuccess: (response) => {
-            console.log("updated email");
+            toast.success("Success! Verification link sent to new email address");
             setTokens(response.tokens.access, response.tokens.refresh);
         },
         onError: (error) => {
             console.log(error);
+            toast.error("Changing email adress failed");
         }
     })
 

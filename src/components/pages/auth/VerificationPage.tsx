@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {toast} from 'react-toastify';
 import { Routes } from "modules/routing/types";
 import { AuthPageLayout, AuthFormLayout } from "./layouts";
 import { useAuth } from "modules/auth/hooks/useAuth";
@@ -14,10 +15,12 @@ export function VerificationPage() {
 
     const {mutate: resendVerification, isPending} = useSendVerification({
         onSuccess: (reponse) => {
-            console.log(reponse)
+            console.log(reponse);
+            toast.success("Verification link sent")
         },
         onError: (error) => {
             console.error(error)
+            toast.error("Sending verification link failed")
         }
     })
 
