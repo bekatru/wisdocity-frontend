@@ -43,12 +43,11 @@ const WebsiteMenu = () => {
 
 export default WebsiteMenu;
 
-const Toggle = forwardRef(({ children, onClick }: any, ref) => (
+const Toggle = forwardRef(({ children }: any) => (
   <button
     type="button"
     onClick={(e) => {
       e.preventDefault();
-      // onClick(e);
     }}
   >
     {children}
