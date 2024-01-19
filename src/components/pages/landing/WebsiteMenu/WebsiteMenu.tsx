@@ -6,9 +6,9 @@ import Typography from "../Typography";
 
 const WebsiteMenu = () => {
   return (
-    <div>
+    <div onClick={(e) => e.stopPropagation()}>
       <Dropdown>
-        <Dropdown.Toggle as={Toggle}></Dropdown.Toggle>
+        <Dropdown.Toggle disabled={true} as={Toggle}></Dropdown.Toggle>
         <Dropdown.Menu className={styles.menu}>
           <Dropdown.Item className={styles.item}>
             <Typography variant="h2" secondary>
@@ -48,7 +48,7 @@ const Toggle = forwardRef(({ children, onClick }: any, ref) => (
     type="button"
     onClick={(e) => {
       e.preventDefault();
-      onClick(e);
+      // onClick(e);
     }}
   >
     {children}

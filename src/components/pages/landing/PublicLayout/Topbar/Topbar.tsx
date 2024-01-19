@@ -35,7 +35,7 @@ const Topbar = () => {
         <div
           className={styles.signupButton}
           onClick={() => {
-            navigate("/become-an-expert/registration");
+            // navigate("/become-an-expert/registration");
           }}
         >
           <img src={Experts} alt="" />
@@ -44,7 +44,7 @@ const Topbar = () => {
         <div
           className={styles.signupButton}
           onClick={() => {
-            navigate("/become-a-learner/registration");
+            // navigate("/become-a-learner/registration");
           }}
         >
           <img src={Learners} alt="" />
