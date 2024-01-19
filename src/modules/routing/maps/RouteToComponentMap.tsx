@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Outlet} from 'react-router-dom';
 import {Routes} from '../types';
-import {AuthRoute, ExpertRoute, LearnerRoute} from '../routes';
+import {AuthRoute} from '../routes';
 import {SignInPage, SignUpPage, SelectRolePage, WelcomePage, ChangeEmailPage, VerificationPage} from 'components/pages/auth';
 import { TestPage } from 'components/pages/test';
 import { OnboardPage } from 'components/pages/onboard/OnboardPage';
@@ -18,9 +18,9 @@ export const RouteToComponentMap: { [key in Routes]: React.ReactNode } = {
   [Routes.SignUp]: <SelectRolePage/>,
   [Routes.SignUpRole]: <SignUpPage/>,
 
-  [Routes.Welcome]: <AuthRoute><WelcomePage/></AuthRoute>,
-  [Routes.Verification]: <AuthRoute><VerificationPage/></AuthRoute>,
-  [Routes.ChangeEmail]: <AuthRoute><ChangeEmailPage/></AuthRoute>,
+  [Routes.Welcome]: <WelcomePage/>,
+  [Routes.Verification]: <VerificationPage/>,
+  [Routes.ChangeEmail]: <ChangeEmailPage/>,
 
 
   [Routes.Onboard]: <AuthRoute>onboard<Outlet/></AuthRoute>,
@@ -29,14 +29,14 @@ export const RouteToComponentMap: { [key in Routes]: React.ReactNode } = {
 
   [Routes.App]: <AuthRoute><AppLayout><Outlet/></AppLayout></AuthRoute>,
 
-  [Routes.Expert]: <ExpertRoute><Outlet/></ExpertRoute>,
-  [Routes.ExpertHome]: <div>Home</div>,
+  [Routes.Expert]: <Outlet/>,
+  [Routes.ExpertHome]: <div>Expert Home Page</div>,
   [Routes.ExpertAvatar]: <div>Avatar</div>,
   [Routes.ExpertWisdom]: <div>Wisdom</div>,
   [Routes.ExpertProfile]: <div>Profile</div>,
   [Routes.ExpertHelp]: <div>Help</div>,
 
-  [Routes.Learner]: <LearnerRoute>Learner <Outlet/></LearnerRoute>,
+  [Routes.Learner]: <Outlet/>,
   [Routes.LearnerHome]: <div>Home</div>,
   [Routes.LearnerDashboard]: <div>Dashboard</div>,
   [Routes.LearnerChats]: <div>Chats</div>,

@@ -17,9 +17,8 @@ export function SignUpPage() {
   const { mutate: mutateLogin, isPending } = useSignUp({
     onSuccess: (response) => {
       setTokens(response.token.access, response.token.refresh);
-      toast.success("Signed up successfuly", {
-        onClose: () => navigate(Routes.Welcome)
-      })
+      toast.success("Signed up successfuly")
+      navigate(Routes.Welcome)
     },
     onError: (error) => {
       toast.error(error.response?.data.message)

@@ -14,14 +14,16 @@ import {
     Squares2X2Icon,
     BookOpenIcon,
     UserCircleIcon,
+    ArrowRightStartOnRectangleIcon,
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import { useAuth } from 'modules/auth/hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
 import { Routes } from 'modules/routing/types'
+import { useAuthTokens } from 'modules/auth'
 
 const learnerNavigation = [
-    { name: 'Home', href: Routes.LearnerHome, icon: HomeIcon, current: true },
+    { name: 'Home', href: Routes.Learner, icon: HomeIcon, current: true },
     { name: 'Dashboard', href: Routes.LearnerDashboard, icon: Squares2X2Icon, current: false },
     { name: 'Chats', href: Routes.LearnerChats, icon: ChatBubbleLeftIcon, current: false },
     { name: 'Community', href: Routes.LearnerCommunity, icon: UsersIcon, current: false },
@@ -30,11 +32,11 @@ const learnerNavigation = [
 ]
 
 const expertNavigation = [
-    { name: 'Home', href: Routes.ExpertHome, icon: HomeIcon, current: true },
-    { name: 'Avatar', href: Routes.LearnerDashboard, icon: UserCircleIcon, current: false },
-    { name: 'Wisdom', href: Routes.LearnerChats, icon: BookOpenIcon, current: false },
-    { name: 'Profile', href: Routes.LearnerProfile, icon: UserIcon, current: false },
-    { name: 'Help', href: Routes.LearnerHelp, icon: QuestionMarkCircleIcon, current: false },
+    { name: 'Home', href: Routes.Expert, icon: HomeIcon, current: true },
+    { name: 'Avatar', href: Routes.ExpertAvatar, icon: UserCircleIcon, current: false },
+    { name: 'Wisdom', href: Routes.ExpertWisdom, icon: BookOpenIcon, current: false },
+    { name: 'Profile', href: Routes.ExpertProfile, icon: UserIcon, current: false },
+    { name: 'Help', href: Routes.ExpertHelp, icon: QuestionMarkCircleIcon, current: false },
 ]
 // const teams = [
 //   { id: 1, name: 'Heroicons', href: '', initial: 'H', current: false },
@@ -42,7 +44,6 @@ const expertNavigation = [
 //   { id: 3, name: 'Workcation', href: '', initial: 'W', current: false },
 // ]
 const userNavigation = [
-    { name: 'Your profile', href: '' },
     { name: 'Sign out', href: '' },
 ]
 
@@ -55,6 +56,7 @@ export function AppLayout(props: PropsWithChildren) {
 
     const auth = useAuth()
     const navigate = useNavigate();
+    const { removeTokens } = useAuthTokens()
 
     const navigation = useMemo(() => {
 
@@ -304,11 +306,11 @@ export function AppLayout(props: PropsWithChildren) {
                                 <Menu as="div" className="relative">
                                     <Menu.Button className="-m-1.5 flex items-center p-1.5">
                                         <span className="sr-only">Open user menu</span>
-                                        <img
+                                        <div
                                             className="h-8 w-8 rounded-full bg-gray-50"
-                                            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                                            alt=""
-                                        />
+                                        >
+                                            <UserCircleIcon />
+                                        </div>
                                         <span className="hidden lg:flex lg:items-center">
                                             <span className="ml-4 text-sm font-semibold leading-6 text-gray-900" aria-hidden="true">
                                                 {auth.data?.user.full_name}
@@ -330,13 +332,14 @@ export function AppLayout(props: PropsWithChildren) {
                                                 <Menu.Item key={item.name}>
                                                     {({ active }) => (
                                                         <a
-                                                            href={item.href}
+                                                            onClick={() => removeTokens()}
                                                             className={classNames(
                                                                 active ? 'bg-gray-50' : '',
-                                                                'block px-3 py-1 text-sm leading-6 text-gray-900'
+                                                                'px-3 py-1 text-sm leading-6 text-gray-900 cursor-pointer text-center flex flex-row justify-center'
                                                             )}
                                                         >
                                                             {item.name}
+                                                            <ArrowRightStartOnRectangleIcon className='w-6 h-6 ml-2' />
                                                         </a>
                                                     )}
                                                 </Menu.Item>

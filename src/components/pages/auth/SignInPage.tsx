@@ -17,6 +17,7 @@ export function SignInPage() {
     onSuccess: (response) => {
       setTokens(response.token.access, response.token.refresh);
       toast.success("Signed in successfuly")
+      navigate(Routes.App);
     },
     onError: (error) => {
       toast.error(error.response?.data.message);
