@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Routes } from "modules/routing/types";
 import { AuthFormLayout, AuthPageLayout } from "./layouts";
+import { Checkbox } from "components";
 
 enum SignUpOptions {
     Learner = 'learner',
@@ -29,14 +30,24 @@ export function SelectRolePage() {
                 <div className="flex flex-col sm:flex-row gap-y-6 justify-between mb-8">
                     <div
                         onClick={() => setSelectedOption(SignUpOptions.Learner)}
-                        className={"text-center text-nowrap text-$color p-8 rounded-2xl border border-$color cursor-pointer $bg".replaceAll("$color", selectedOption === SignUpOptions.Learner ? 'purple-600' : 'gray-400')}
+                        className={
+                            "relative text-center text-nowrap text-$color p-8 rounded-2xl border border-$color cursor-pointer $bg"
+                                .replaceAll("$color", selectedOption === SignUpOptions.Learner ? 'purple-600' : 'gray-400')
+                                .replaceAll("$bg", selectedOption === SignUpOptions.Learner ? 'bg-gray-100' : '')
+                        }
                     >
+                        <Checkbox checked={selectedOption === SignUpOptions.Learner} className="absolute top-2 right-2 rounded"/>
                         Join as a learner
                     </div>
                     <div
                         onClick={() => setSelectedOption(SignUpOptions.Expert)}
-                        className={"text-center text-nowrap text-$color p-8 rounded-2xl border border-$color cursor-pointer".replaceAll("$color", selectedOption === SignUpOptions.Expert ? 'purple-600' : 'gray-400')}
+                        className={
+                            "relative text-center text-nowrap text-$color p-8 rounded-2xl border border-$color cursor-pointer $bg"
+                                .replaceAll("$color", selectedOption === SignUpOptions.Expert ? 'purple-600' : 'gray-400')
+                                .replaceAll("$bg", selectedOption === SignUpOptions.Expert ? 'bg-gray-100' : '')
+                        }
                     >
+                        <Checkbox checked={selectedOption === SignUpOptions.Expert} className="absolute top-2 right-2"/>
                         Join as an expert
                     </div>
                 </div>

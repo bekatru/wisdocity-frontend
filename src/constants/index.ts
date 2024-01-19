@@ -1,4 +1,4 @@
-export const BASE_URL = "http://localhost:3000/api/"; //"http://ec2-13-49-48-193.eu-north-1.compute.amazonaws.com:5500/api/"
+export const BASE_URL = "http://ec2-13-49-48-193.eu-north-1.compute.amazonaws.com:5500/api/";
 
 export const APP_NAME = "WISDOCITY";
 

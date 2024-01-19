@@ -60,7 +60,7 @@ export function AppLayout(props: PropsWithChildren) {
 
     const navigation = useMemo(() => {
 
-        switch (auth.data?.user.current_role) {
+        switch (auth.data?.user.dataValues.current_role) {
             case "LEARNER":
                 return learnerNavigation;
             case "EXPERT":
@@ -69,7 +69,7 @@ export function AppLayout(props: PropsWithChildren) {
                 return [];
         }
 
-    }, [auth.data?.user.current_role])
+    }, [auth.data?.user.dataValues.current_role])
 
     return (
         <>
@@ -313,7 +313,7 @@ export function AppLayout(props: PropsWithChildren) {
                                         </div>
                                         <span className="hidden lg:flex lg:items-center">
                                             <span className="ml-4 text-sm font-semibold leading-6 text-gray-900" aria-hidden="true">
-                                                {auth.data?.user.full_name}
+                                                {auth.data?.user.dataValues.full_name}
                                             </span>
                                             <ChevronDownIcon className="ml-2 h-5 w-5 text-gray-400" aria-hidden="true" />
                                         </span>

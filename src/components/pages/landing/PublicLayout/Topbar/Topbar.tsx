@@ -2,7 +2,6 @@ import styles from "./Topbar.module.css";
 import logo from "../../img/logo.svg";
 import Typography from "../../Typography";
 import { useNavigate } from "react-router";
-import Learners from "../../img/website/learners.svg";
 // import Experts from "../../img/website/experts.svg";
 // import WebsiteMenu from "../../WebsiteMenu/WebsiteMenu";
 import { Routes } from "modules/routing/types";
@@ -52,15 +51,26 @@ const Topbar = () => {
           <Typography variant="p2">Learners</Typography>
         </div>
       </div> */}
-      <div
-          className={styles.signupButton}
+      <div className="flex flex-row space-x-4 text-xl font-sans">
+        <div
+          className="cursor-pointer hover:underline hover:text-purple-500"
           onClick={() => {
             navigate(Routes.SignIn);
           }}
         >
-          <img src={Learners} alt="" className="h-8 w-8" />
           <Typography variant="p2">Sign in</Typography>
         </div>
+        <div>|</div>
+        <div
+
+          className="cursor-pointer hover:underline hover:text-purple-500"
+          onClick={() => {
+            navigate(Routes.SignUp);
+          }}
+        >
+          <Typography variant="p2">Sign up</Typography>
+        </div>
+      </div>
     </header>
   );
 };

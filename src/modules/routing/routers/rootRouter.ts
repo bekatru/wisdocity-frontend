@@ -3,7 +3,6 @@ import { expertRouter, learnerRouter } from ".";
 import { RouteToComponentMap } from "../maps";
 
 export const rootRouter = [
-
     {
       path: Routes.Expert,
       element: RouteToComponentMap[Routes.Expert],

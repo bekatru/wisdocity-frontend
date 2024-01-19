@@ -25,7 +25,7 @@ export function VerificationPage() {
     })
 
     useEffect(() => {
-        if (data?.user.is_verified) {
+        if (data?.user.dataValues.is_verified) {
             navigate(Routes.App);
         }
     }, [data])
@@ -39,8 +39,8 @@ export function VerificationPage() {
     }
 
     const handleSubmit = () => {
-        if (data?.user.email) {
-            resendVerification({email: data.user.email});
+        if (data?.user.dataValues.email) {
+            resendVerification({email: data.user.dataValues.email});
         }
     }
 
@@ -48,7 +48,7 @@ export function VerificationPage() {
         <AuthPageLayout headerText="Verify your email to continue" footerText="" footerCtaText="" onFooterCtaClick={() => { }}>
             <AuthFormLayout submitButtonText="Resend verification email" onSubmit={handleSubmit} isPending={isPending}>
                 <p className="text-center text-gray-500">
-                    We just sent an email to the address: <span className="text-purple-900 font-medium">{data?.user.email}</span><br />
+                    We just sent an email to the address: <span className="text-purple-900 font-medium">{data?.user.dataValues.email}</span><br />
                     Please checkyour email and select the link provided to verify email.
                 </p>
                 <p

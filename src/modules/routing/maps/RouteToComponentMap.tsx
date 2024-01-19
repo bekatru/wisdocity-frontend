@@ -29,14 +29,14 @@ export const RouteToComponentMap: { [key in Routes]: React.ReactNode } = {
 
   [Routes.App]: <AuthRoute><AppLayout><Outlet/></AppLayout></AuthRoute>,
 
-  [Routes.Expert]: <Outlet/>,
-  [Routes.ExpertHome]: <div>Expert Home Page</div>,
+  [Routes.Expert]: <div>Expert <Outlet/> Page</div>,
+  [Routes.ExpertHome]: <div>Home</div>,
   [Routes.ExpertAvatar]: <div>Avatar</div>,
   [Routes.ExpertWisdom]: <div>Wisdom</div>,
   [Routes.ExpertProfile]: <div>Profile</div>,
   [Routes.ExpertHelp]: <div>Help</div>,
 
-  [Routes.Learner]: <Outlet/>,
+  [Routes.Learner]: <div>Learner <Outlet/> Page</div>,
   [Routes.LearnerHome]: <div>Home</div>,
   [Routes.LearnerDashboard]: <div>Dashboard</div>,
   [Routes.LearnerChats]: <div>Chats</div>,

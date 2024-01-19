@@ -3,7 +3,7 @@ import { Button } from "components";
 interface AuthFormLayoutProps extends React.PropsWithChildren {
   submitButtonText: string;
   onSubmit: () => void;
-  isPending: boolean;
+  isPending?: boolean;
   isDisabled?: boolean;
 }
 
