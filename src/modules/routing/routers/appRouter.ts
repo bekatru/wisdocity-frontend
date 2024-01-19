@@ -43,8 +43,12 @@ export const appRouter = createBrowserRouter([
       children: onboardRouter,
     },
     {
-      path: Routes.Root,
-      element: RouteToComponentMap[Routes.Root],
+      path: Routes.App,
+      element: RouteToComponentMap[Routes.App],
       children: rootRouter,
     },
+    {
+      path: Routes.Home,
+      element: RouteToComponentMap[Routes.Home],
+    }
   ]);

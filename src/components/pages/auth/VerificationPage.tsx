@@ -26,7 +26,7 @@ export function VerificationPage() {
 
     useEffect(() => {
         if (data?.user.is_verified) {
-            navigate(Routes.Root);
+            navigate(Routes.App);
         }
     }, [data])
 

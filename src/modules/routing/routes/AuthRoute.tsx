@@ -19,6 +19,7 @@ export const AuthRoute: React.FC<ProtectedRouteProps> = (props) => {
   const navigate = useNavigate()
 
   useEffect(() => {
+    console.log(auth)
     if (!auth.data) return;
     if (!auth.data.user.is_verified) return;
     if (!auth.data.user.current_role) return;
