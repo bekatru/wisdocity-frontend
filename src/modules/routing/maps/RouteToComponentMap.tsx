@@ -12,6 +12,7 @@ export const RouteToComponentMap: { [key in Routes]: React.ReactNode } = {
   [Routes.Test]: <TestPage/>,
   [Routes.NotFound]: <div>404</div>,
 
+  [Routes.SignIn]: <SignInPage/>,
   [Routes.SignUp]: <SignUpPage/>,
   [Routes.SignUpRole]: <SignUpLearnerPage/>,
 
@@ -19,7 +20,6 @@ export const RouteToComponentMap: { [key in Routes]: React.ReactNode } = {
   [Routes.Verification]: <AuthRoute><VerifyEmailPage/></AuthRoute>,
   [Routes.ChangeEmail]: <AuthRoute><UpdateEmailPage/></AuthRoute>,
 
-  [Routes.SignIn]: <SignInPage/>,
 
   [Routes.Onboard]: <AuthRoute>onboard<Outlet/></AuthRoute>,
   [Routes.OnboardExpert]: <OnboardPage/>,

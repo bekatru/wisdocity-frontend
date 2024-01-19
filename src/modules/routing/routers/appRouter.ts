@@ -14,6 +14,10 @@ export const appRouter = createBrowserRouter([
       element: RouteToComponentMap[Routes.NotFound],
     },
     {
+      path: Routes.SignIn,
+      element: RouteToComponentMap[Routes.SignIn],
+    },
+    {
       path: Routes.SignUp,
       children: signUpRouter,
     },

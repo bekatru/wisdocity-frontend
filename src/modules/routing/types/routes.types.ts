@@ -2,8 +2,8 @@ export enum Routes {
   Test = 'test',
   NotFound = '*',
   Root = '/',
-  SignIn = '/signin',
 
+  SignIn = '/signin',
   SignUp = '/signup',
   SignUpRole = ':role',
 
