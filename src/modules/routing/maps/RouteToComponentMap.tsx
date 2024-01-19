@@ -17,8 +17,8 @@ export const RouteToComponentMap: { [key in Routes]: React.ReactNode } = {
   [Routes.SignUpRole]: <SignUpPage/>,
 
   [Routes.Welcome]: <AuthRoute><WelcomePage/></AuthRoute>,
-  [Routes.Verification]: <AuthRoute><ChangeEmailPage/></AuthRoute>,
-  [Routes.ChangeEmail]: <AuthRoute><VerificationPage/></AuthRoute>,
+  [Routes.Verification]: <AuthRoute><VerificationPage/></AuthRoute>,
+  [Routes.ChangeEmail]: <AuthRoute><ChangeEmailPage/></AuthRoute>,
 
 
   [Routes.Onboard]: <AuthRoute>onboard<Outlet/></AuthRoute>,

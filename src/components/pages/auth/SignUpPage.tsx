@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Routes } from 'modules/routing/types';
 import { useAuthTokens, useSignUp } from 'modules/auth/hooks';
 import { AuthPageLayout } from './layouts';
@@ -8,11 +8,12 @@ import { SignUpLearnerForm } from './forms';
 export function SignUpPage() {
 
   const navigate = useNavigate();
+  const {role} = useParams();
 
   const navigateToSignInPage = () => navigate(Routes.SignIn);
   const { setTokens } = useAuthTokens()
 
-  const { mutate: mutateLogin } = 
+  const { mutate: mutateLogin, isPending } = 
   useSignUp({
     onSuccess: (response) => {
       setTokens(response.token.access, response.token.refresh);
@@ -30,7 +31,7 @@ export function SignUpPage() {
       password: data.password,
       country: data.country,
       isSendMessage: data.isSendEmailsChecked,
-      current_role: "LEARNER",
+      current_role: role?.toUpperCase() ?? "",
     })
   };
 
@@ -41,7 +42,7 @@ export function SignUpPage() {
       footerCtaText="Sign in"
       onFooterCtaClick={navigateToSignInPage}
     >
-      <SignUpLearnerForm onSubmit={handleSubmit} />
+      <SignUpLearnerForm onSubmit={handleSubmit} isPending={isPending}/>
     </AuthPageLayout>
   );
 }

@@ -12,7 +12,7 @@ export function VerificationPage() {
 
     const {data} = useAuth()
 
-    const {mutate: resendVerification} = useSendVerification({
+    const {mutate: resendVerification, isPending} = useSendVerification({
         onSuccess: (reponse) => {
             console.log(reponse)
         },
@@ -43,7 +43,7 @@ export function VerificationPage() {
 
     return (
         <AuthPageLayout headerText="Verify your email to continue" footerText="" footerCtaText="" onFooterCtaClick={() => { }}>
-            <AuthFormLayout submitButtonText="Resend verification email" onSubmit={handleSubmit}>
+            <AuthFormLayout submitButtonText="Resend verification email" onSubmit={handleSubmit} isPending={isPending}>
                 <p className="text-center text-gray-500">
                     We just sent an email to the address: <span className="text-purple-900 font-medium">{data?.user.email}</span><br />
                     Please checkyour email and select the link provided to verify email.

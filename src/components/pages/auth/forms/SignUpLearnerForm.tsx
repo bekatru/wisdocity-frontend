@@ -4,6 +4,7 @@ import { AuthFormLayout } from "../layouts"
 
 interface SignUpLearnerFormProps {
   onSubmit: (data: object) => void 
+  isPending: boolean
 }
 
 const countries = [
@@ -31,7 +32,7 @@ export function SignUpLearnerForm(props: SignUpLearnerFormProps) {
   }
 
   return (
-    <AuthFormLayout submitButtonText="Sign up" onSubmit={handleSubmit}>
+    <AuthFormLayout isPending={props.isPending} submitButtonText="Sign up" onSubmit={handleSubmit}>
         <FormInput
           label="Name"
           required

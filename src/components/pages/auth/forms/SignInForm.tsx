@@ -4,6 +4,7 @@ import { AuthFormLayout } from "../layouts";
 
 interface SignInFormProps {
   onSubmit: (data: any) => void;
+  isPending: boolean;
 }
 
 export function SignInForm(props: SignInFormProps) {
@@ -19,7 +20,7 @@ export function SignInForm(props: SignInFormProps) {
   }
 
   return (
-    <AuthFormLayout submitButtonText="Sign in" onSubmit={handleSubmit}>
+    <AuthFormLayout submitButtonText="Sign in" onSubmit={handleSubmit} isPending={props.isPending}>
         <FormInput
           label="Email"
           required

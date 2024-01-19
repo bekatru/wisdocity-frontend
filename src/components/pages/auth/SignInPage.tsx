@@ -12,7 +12,7 @@ export function SignInPage() {
 
   const navigateToSignUpPage = () => navigate(Routes.SignUp);
 
-  const {mutate: mutateSignIn} = useSignIn({
+  const {mutate: mutateSignIn, isPending} = useSignIn({
     onSuccess: (response) => {
       setTokens(response.token.access, response.token.refresh);
     },
@@ -30,7 +30,7 @@ export function SignInPage() {
 
   return (
     <AuthPageLayout headerText="Sign in to your account" footerText="Not a member?" footerCtaText="Sign up" onFooterCtaClick={navigateToSignUpPage}>
-      <SignInForm onSubmit={handleSubmit}/>
+      <SignInForm onSubmit={handleSubmit} isPending={isPending}/>
     </AuthPageLayout>
   );
 }
