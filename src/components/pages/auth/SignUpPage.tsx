@@ -38,7 +38,7 @@ export function SignUpPage() {
 
   return (
     <AuthPageLayout
-      headerText="Create a learner account"
+      headerText={`Create ${role === "learner" ? "a" : "an"} ${role} expert account`}
       footerText="Already have an account?"
       footerCtaText="Sign in"
       onFooterCtaClick={navigateToSignInPage}
