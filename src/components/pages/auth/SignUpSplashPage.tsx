@@ -9,7 +9,7 @@ export function SignUpSplashPage() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        setTimeout(() => navigate(Routes.SignUpVerification), SPLASH_DURATION_IN_SECONDS * 1000);
+        setTimeout(() => navigate(Routes.Verification), SPLASH_DURATION_IN_SECONDS * 1000);
     }, []);
 
     return (

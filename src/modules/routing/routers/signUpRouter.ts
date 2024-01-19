@@ -4,14 +4,10 @@ import { Routes } from "../types";
 export const signUpRouter = [
     {
         index: true,
-        element: RouteToComponentMap[Routes.SignUpIndex],
+        element: RouteToComponentMap[Routes.SignUp],
     },
     {
-        path: Routes.SignUpLearner,
-        element: RouteToComponentMap[Routes.SignUpLearner],
-    },
-    {
-        path: Routes.SignUpExpert,
-        element: RouteToComponentMap[Routes.SignUpExpert],
+        path: Routes.SignUpRole,
+        element: RouteToComponentMap[Routes.SignUpRole],
     },
 ]

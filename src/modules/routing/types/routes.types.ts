@@ -3,14 +3,14 @@ export enum Routes {
   NotFound = '*',
   Root = '/',
   SignIn = '/signin',
-  SignUp = '/signup',
-  SignUpSplash = "/signup/splash",
-  SignUpVerification = '/signup/verification',
-  SignUpChangeEmail = '/signup/change-email',
 
-  SignUpIndex = '/signup/index',
-  SignUpLearner = '/signup/learner',
-  SignUpExpert = '/signup/expert',
+  SignUp = '/signup',
+  SignUpRole = ':role',
+
+  Welcome = "/welcome",
+  Verification = '/verification',
+  ChangeEmail = '/change-email',
+
   Account = '/account',
 
   Onboard = '/onboard',

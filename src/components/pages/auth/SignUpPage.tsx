@@ -18,8 +18,8 @@ export function SignUpPage() {
 
     const handleSubmit = () => {
         switch (selectedOption) {
-            case SignUpOptions.Learner: navigate(Routes.SignUpLearner); break;
-            case SignUpOptions.Expert: navigate(Routes.SignUpExpert); break;
+            case SignUpOptions.Learner: navigate(selectedOption); break;
+            case SignUpOptions.Expert: navigate(selectedOption); break;
         }
     }
 

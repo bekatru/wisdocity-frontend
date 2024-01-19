@@ -12,16 +12,12 @@ export const RouteToComponentMap: { [key in Routes]: React.ReactNode } = {
   [Routes.Test]: <TestPage/>,
   [Routes.NotFound]: <div>404</div>,
 
-  [Routes.SignUp]: <Outlet/>,
-  [Routes.SignUpIndex]: <SignUpPage/>,
+  [Routes.SignUp]: <SignUpPage/>,
+  [Routes.SignUpRole]: <SignUpLearnerPage/>,
 
-  [Routes.SignUpSplash]: <AuthRoute><SignUpSplashPage/></AuthRoute>,
-  [Routes.SignUpVerification]: <AuthRoute><VerifyEmailPage/></AuthRoute>,
-  [Routes.SignUpChangeEmail]: <AuthRoute><UpdateEmailPage/></AuthRoute>,
-  
-
-  [Routes.SignUpLearner]: <SignUpLearnerPage/>,
-  [Routes.SignUpExpert]: <SignUpLearnerPage/>,
+  [Routes.Welcome]: <AuthRoute><SignUpSplashPage/></AuthRoute>,
+  [Routes.Verification]: <AuthRoute><VerifyEmailPage/></AuthRoute>,
+  [Routes.ChangeEmail]: <AuthRoute><UpdateEmailPage/></AuthRoute>,
 
   [Routes.SignIn]: <SignInPage/>,
 

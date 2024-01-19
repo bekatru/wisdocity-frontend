@@ -32,7 +32,7 @@ export function VerifyEmailPage() {
     }
 
     const navigateToChangeEmailPage = () => {
-        navigate(Routes.SignUpChangeEmail)
+        navigate(Routes.ChangeEmail)
     }
 
     const handleSubmit = () => {
