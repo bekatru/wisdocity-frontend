@@ -3,8 +3,9 @@ import logo from "../../img/logo.svg";
 import Typography from "../../Typography";
 import { useNavigate } from "react-router";
 import Learners from "../../img/website/learners.svg";
-import Experts from "../../img/website/experts.svg";
-import WebsiteMenu from "../../WebsiteMenu/WebsiteMenu";
+// import Experts from "../../img/website/experts.svg";
+// import WebsiteMenu from "../../WebsiteMenu/WebsiteMenu";
+import { Routes } from "modules/routing/types";
 
 const Topbar = () => {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ const Topbar = () => {
           Wisdocity
         </Typography>
       </div>
-      <div className={styles.signup}>
+      {/* <div className={styles.signup}>
         <div
           className={styles.signupButton}
           onClick={() => {
@@ -50,10 +51,16 @@ const Topbar = () => {
           <img src={Learners} alt="" />
           <Typography variant="p2">Learners</Typography>
         </div>
-      </div>
-      <div className={styles.menu}>
-        <WebsiteMenu />
-      </div>
+      </div> */}
+      <div
+          className={styles.signupButton}
+          onClick={() => {
+            navigate(Routes.SignIn);
+          }}
+        >
+          <img src={Learners} alt="" className="h-8 w-8" />
+          <Typography variant="p2">Sign in</Typography>
+        </div>
     </header>
   );
 };
