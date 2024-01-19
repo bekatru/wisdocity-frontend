@@ -15,7 +15,6 @@ export function SignInPage() {
   const {mutate: mutateSignIn} = useSignIn({
     onSuccess: (response) => {
       setTokens(response.token.access, response.token.refresh);
-      navigate(Routes.Root)
     },
     onError: (error) => {
       alert(error.response?.data.message);
