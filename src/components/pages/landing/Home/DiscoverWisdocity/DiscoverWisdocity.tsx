@@ -2,9 +2,9 @@ import Stack from "../../Stack";
 import Typography from "../../Typography";
 import Card from "./Card";
 import styles from "./DiscoverWisdocity.module.css";
-import Fire from "../../../assets/img/website/fire.svg";
-import Community from "../../../assets/img/website/community.svg";
-import Message from "../../../assets/img/website/message.svg";
+import Fire from "../../img/website/fire.svg";
+import Community from "../../img/website/community.svg";
+import Message from "../../img/website/message.svg";
 
 const cards = [
   {

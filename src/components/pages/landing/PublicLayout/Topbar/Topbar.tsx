@@ -1,9 +1,9 @@
 import styles from "./Topbar.module.css";
-import logo from "../../../assets/img/logo.svg";
+import logo from "../../img/logo.svg";
 import Typography from "../../Typography";
 import { useNavigate } from "react-router";
-import Learners from "../../../assets/img/website/learners.svg";
-import Experts from "../../../assets/img/website/experts.svg";
+import Learners from "../../img/website/learners.svg";
+import Experts from "../../img/website/experts.svg";
 import WebsiteMenu from "../../WebsiteMenu/WebsiteMenu";
 
 const Topbar = () => {

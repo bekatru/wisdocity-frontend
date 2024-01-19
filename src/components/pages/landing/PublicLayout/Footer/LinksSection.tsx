@@ -1,9 +1,9 @@
 import Stack from "../../Stack";
 import Typography from "../../Typography";
 import styles from "./LinksSection.module.css";
-import Inst from "../../../assets/img/website/socials/instagram.svg";
-import In from "../../../assets/img/website/socials/linkedin.svg";
-import Face from "../../../assets/img/website/socials/facebook.svg";
+import Inst from "../../img/website/socials/instagram.svg";
+import In from "../../img/website/socials/linkedin.svg";
+import Face from "../../img/website/socials/facebook.svg";
 
 const LinksSection = () => {
   return (

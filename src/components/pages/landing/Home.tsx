@@ -1,101 +1,33 @@
-import DiscoverWisdocity from "components/Home/DiscoverWisdocity/DiscoverWisdocity";
-import Testimonials from "components/Home/Testimonials/Testimonials";
-import PublicLayout from "components/PublicLayout/PublicLayout";
-import React, { useEffect } from "react";
+import DiscoverWisdocity from "components/pages/landing/Home/DiscoverWisdocity/DiscoverWisdocity";
+import Testimonials from "components/pages/landing/Home/Testimonials/Testimonials";
+
 import styled from "styled-components";
 
-import Button from "components/button/Button";
 
-import logoImg from "components/header/assets/logo.svg";
-import expertsImg from "../../assets/img/header/experts.png";
-import learnersImg from "../../assets/img/header/learners.png";
-import servicesImg from "../../assets/img/header/services.png";
-import bgPhoto from "../../assets/img/bg-photo.png";
-import demoPhoneImg1 from "../../assets/img/demo/phone-1.png";
-import demoPhoneImg2 from "../../assets/img/demo/phone-2.png";
-import demoPhoneImg3 from "../../assets/img/demo/phone-3.png";
-import demoPhoneImg4 from "../../assets/img/demo/phone-4.png";
-import demoPhoneImg5 from "../../assets/img/demo/phone-5.png";
-import joinPhotoImg1 from "../../assets/img/join/photo-1.png";
-import joinPhotoImg2 from "../../assets/img/join/photo-2.png";
-import joinPhotoImg3 from "../../assets/img/join/photo-3.png";
-import joinPhotoImg4 from "../../assets/img/join/photo-4.png";
-import joinPhotoImg5 from "../../assets/img/join/photo-5.png";
-import joinPhotoImg6 from "../../assets/img/join/photo-6.png";
-import joinPhotoImg7 from "../../assets/img/join/photo-7.png";
-import joinPhotoImg8 from "../../assets/img/join/photo-8.png";
-import joinPhotoImg9 from "../../assets/img/join/photo-9.png";
-import joinPhotoImg10 from "../../assets/img/join/photo-10.png";
-import featureImg1 from "../../assets/img/features/feature-1.png";
-import featureImg2 from "../../assets/img/features/feature-2.png";
-import featureImg3 from "../../assets/img/features/feature-3.png";
-import { useNavigate } from "react-router-dom";
-import OurExperts from "components/Home/OurExperts/OurExperts";
-import { io } from "socket.io-client";
+import bgPhoto from "./img/bg-photo.png";
+import demoPhoneImg1 from "./img/demo/phone-1.png";
+import demoPhoneImg2 from "./img/demo/phone-2.png";
+import demoPhoneImg3 from "./img/demo/phone-3.png";
+import demoPhoneImg4 from "./img/demo/phone-4.png";
+import demoPhoneImg5 from "./img/demo/phone-5.png";
+import joinPhotoImg1 from "./img/join/photo-1.png";
+import joinPhotoImg2 from "./img/join/photo-2.png";
+import joinPhotoImg3 from "./img/join/photo-3.png";
+import joinPhotoImg4 from "./img/join/photo-4.png";
+import joinPhotoImg5 from "./img/join/photo-5.png";
+import joinPhotoImg6 from "./img/join/photo-6.png";
+import joinPhotoImg7 from "./img/join/photo-7.png";
+import joinPhotoImg8 from "./img/join/photo-8.png";
+import joinPhotoImg9 from "./img/join/photo-9.png";
+import joinPhotoImg10 from "./img/join/photo-10.png";
+import OurExperts from "components/pages/landing/Home/OurExperts/OurExperts";
+import PublicLayout from "components/pages/landing/PublicLayout/PublicLayout";
 
 const Container = styled.div`
   max-width: 1240px;
   margin: 0 auto;
 `;
-const LabeledIcon = styled.div`
-  display: flex;
-  align-items: center;
-`;
-// const Button = styled.button`
-//   border: none;
-//   outline: none;
-//   background: none;
-//   cursor: pointer;
-//   font-family: Nunito, Calibri, Arial, sans-serif;
-//   &.wide {
-//     min-width: 138px;
-//     height: 46px;
-//     border-radius: 23px;
-//   }
-//   &.accent {
-//     background: #8726B9;
-//     color: white;
-//   }
-//   &.bold {
-//     font-weight: 700;
-//   }
-//   &.border {
-//     border: 1px solid var(--c-accent-purple);
-//   }
-// `;
-const HeaderLogo = styled(LabeledIcon)`
-  font-family: Futura, Calibri, Arial, sans-serif;
-  span {
-    font-size: 24px;
-    margin-left: 40px;
-    margin-right: 110px;
-  }
-`;
-const HeaderLink = styled(LabeledIcon)`
-  span {
-    margin-left: 12px;
-  }
-`;
-const HeaderLinks = styled.div`
-  display: flex;
-  font-family: Nunito, Calibri, Arial, sans-serif;
-  font-weight: 500;
-  a:last-child {
-    margin-left: 83px;
-  }
-`;
-const HeaderUser = styled.div``;
-const Header = styled.header`
-  height: 90px;
 
-  ${Container} {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 40px;
-    height: 100%;
-  }
-`;
 const PhotoBlock = styled.section`
   background: linear-gradient(#13002c56, #13002c56),
     url("${bgPhoto}") no-repeat center center / cover; /* #13002C56 */
@@ -231,40 +163,6 @@ const JoinCol = styled.div`
     }
   }
 `;
-const FeatureImage = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 48px;
-  height: 48px;
-`;
-const FeatureCard = styled.div`
-  text-align: center;
-  border-radius: 24px;
-  padding: 28px 18px;
-  box-shadow: 0 0 15px #d6bee572;
-  background: #fcfcfd;
-  .card-title {
-    letter-spacing: -0.02em;
-    font-size: 24px;
-    margin: 13px 0 12px;
-    font-weight: 700;
-    color: var(--c-accent-purple);
-  }
-  .card-description {
-    line-height: 1.4em;
-    letter-spacing: -0.024em;
-  }
-  ${FeatureImage} {
-    margin: 0 auto;
-  }
-`;
-const FeatureList = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  column-gap: 53px;
-  row-gap: 32px;
-`;
 const DemoSection = styled.section`
   ${SectionDescription} {
     margin: 62px auto 81px;
@@ -283,30 +181,7 @@ const JoinSection = styled.section`
     padding: 17px;
   }
 `;
-const FeaturesSection = styled.section`
-  padding: 10px 0 175px;
-  ${SectionDescription} {
-    margin-bottom: 55px;
-  }
-`;
-const Footer = styled.footer`
-  background: var(--c-accent-purple);
-  padding: 48px 0;
-  color: white;
-  letter-spacing: -0.01em;
-  ul {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    column-gap: 118px;
-    li.domain {
-      font-size: 24px;
-    }
-  }
-  p {
-    margin-top: 54px;
-  }
-`;
+
 
 const Home = () => {
   return (

@@ -1,8 +1,8 @@
 import styles from "./QuoteCard.module.css";
-import Quote from "../../../assets/img/website/quote.svg";
+import Quote from "../../img/website/quote.svg";
 import Typography from "../../Typography";
 import Stack from "../../Stack";
-import Avatar from "../../../assets/img/website/avatar.svg";
+import Avatar from "../../img/website/avatar.svg";
 
 const QuoteCard = () => {
   return (
