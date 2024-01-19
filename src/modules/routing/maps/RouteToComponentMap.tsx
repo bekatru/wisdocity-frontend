@@ -6,6 +6,7 @@ import {SignInPage, SignUpPage, SelectRolePage, WelcomePage, ChangeEmailPage, Ve
 import { TestPage } from 'components/pages/test';
 import { OnboardPage } from 'components/pages/onboard/OnboardPage';
 import {LandingPage} from 'components/pages/landing';
+import { AppLayout } from 'components/layouts/AppLayout';
 
 
 export const RouteToComponentMap: { [key in Routes]: React.ReactNode } = {
@@ -26,11 +27,9 @@ export const RouteToComponentMap: { [key in Routes]: React.ReactNode } = {
   [Routes.OnboardExpert]: <OnboardPage/>,
   [Routes.OnboardLearner]: <OnboardPage/>,
 
-  [Routes.App]: <AuthRoute><Outlet/></AuthRoute>,
+  [Routes.App]: <AuthRoute><AppLayout><Outlet/></AppLayout></AuthRoute>,
 
-  [Routes.Account]: <div>Account</div>,
-
-  [Routes.Expert]: <ExpertRoute>Expert <Outlet/></ExpertRoute>,
+  [Routes.Expert]: <ExpertRoute><Outlet/></ExpertRoute>,
   [Routes.ExpertHome]: <div>Home</div>,
   [Routes.ExpertAvatar]: <div>Avatar</div>,
   [Routes.ExpertWisdom]: <div>Wisdom</div>,

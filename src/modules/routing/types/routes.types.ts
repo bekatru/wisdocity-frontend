@@ -12,8 +12,6 @@ export enum Routes {
   Verification = '/verification',
   ChangeEmail = '/change-email',
 
-  Account = '/account',
-
   Onboard = '/onboard',
   OnboardExpert = '/onboard/expert/:step',
   OnboardLearner = '/onboard/learner/:step',
