@@ -1,0 +1,14 @@
+.bg {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.main {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 476px;
+}
