@@ -5,7 +5,7 @@ import {AuthRoute, ExpertRoute, LearnerRoute} from '../routes';
 import {SignInPage, SignUpLearnerPage, SignUpPage, SignUpSplashPage, UpdateEmailPage, VerifyEmailPage} from 'components/pages/auth';
 import { TestPage } from 'components/pages/test';
 import { OnboardPage } from 'components/pages/onboard/OnboardPage';
-import Home from 'components/pages/landing/Home';
+import {LandingPage} from 'components/pages/landing';
 
 
 export const RouteToComponentMap: { [key in Routes]: React.ReactNode } = {
@@ -29,7 +29,7 @@ export const RouteToComponentMap: { [key in Routes]: React.ReactNode } = {
   [Routes.OnboardExpert]: <OnboardPage/>,
   [Routes.OnboardLearner]: <OnboardPage/>,
 
-  [Routes.Root]: <Home/>,
+  [Routes.Root]: <LandingPage/>,
 
   [Routes.Account]: <div>Account</div>,
 
