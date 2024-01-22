@@ -1,11 +1,21 @@
 import { useMutation } from "@tanstack/react-query";
-
-
-import { requestSignIn } from "./signin.request";
-
-import { SignInResponse } from "./signin.types";
-import { ApiError, ApiServiceError } from "libs/axios";
+import { ApiError, ApiServiceError, instance } from "libs/axios";
 import { MutationOptions } from "libs/reactQuery";
+
+interface SignInResponse {
+  access_token: string;
+  refresh_token: string;
+}
+interface SignInPayload {
+  email: string;
+  password: string;
+}
+
+const requestSignIn = async (
+  body: SignInPayload
+): Promise<SignInResponse> => {
+  return await instance.post("auth/login", body);
+};
 
 const useSignIn = (
   options?: MutationOptions<SignInResponse, ApiServiceError<ApiError>>

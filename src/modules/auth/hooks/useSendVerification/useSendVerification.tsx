@@ -1,8 +1,13 @@
 import { useMutation } from "@tanstack/react-query";
-import { ApiError, ApiServiceError } from "libs/axios"
+import { ApiError, ApiServiceError, instance } from "libs/axios"
 import { MutationOptions } from "libs/reactQuery";
-import { SendVerificationResponse } from "./sendVerification.types"
-import { requestSendVerification } from "./sendVerification.request"
+
+interface SendVerificationResponse {
+}
+
+const requestSendVerification = async (): Promise<SendVerificationResponse> => {
+  return await instance.get("verification/resend-verification");
+};
 
 const useSendVerification = (
   options?: MutationOptions<SendVerificationResponse, ApiServiceError<ApiError>>

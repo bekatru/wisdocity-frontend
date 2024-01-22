@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import {toast} from 'react-toastify';
 import { Routes } from "modules/routing/types";
 import { AuthPageLayout, AuthFormLayout } from "./layouts";
 import { useAuth } from "modules/auth/hooks/useAuth";
 import { useSendVerification } from "modules/auth/hooks/useSendVerification";
+import { useVerifyEmail } from "modules/auth/hooks";
 
 export function VerificationPage() {
     const [helpSectionExpanded, setHelpSectionExpanded] = useState(false);
     
+    const [searchParams] = useSearchParams()
+
     const navigate = useNavigate();
 
     const {data} = useAuth()
@@ -17,6 +20,7 @@ export function VerificationPage() {
         onSuccess: (reponse) => {
             console.log(reponse);
             toast.success("Verification link sent")
+            navigate(Routes.App)
         },
         onError: (error) => {
             console.error(error)
@@ -24,11 +28,23 @@ export function VerificationPage() {
         }
     })
 
-    useEffect(() => {
-        if (data?.user.dataValues.is_verified) {
-            navigate(Routes.App);
+    const {mutate: verifyEmail} = useVerifyEmail({
+        onSuccess: () => {
+            toast.success("Email verified");
+        },
+        onError: (error) => {
+            console.error(error);
+            toast.error("Email verification failed");
         }
-    }, [data])
+    })
+    
+
+    useEffect(() => {
+        const verificationToken = searchParams.get("token")
+        if (verificationToken) {
+            verifyEmail({token: verificationToken});
+        }
+    }, [])
 
     const toggleHelpSection = () => {
         setHelpSectionExpanded(!helpSectionExpanded)
@@ -39,16 +55,14 @@ export function VerificationPage() {
     }
 
     const handleSubmit = () => {
-        if (data?.user.dataValues.email) {
-            resendVerification({email: data.user.dataValues.email});
-        }
+        resendVerification({});
     }
 
     return (
         <AuthPageLayout headerText="Verify your email to continue" footerText="" footerCtaText="" onFooterCtaClick={() => { }}>
             <AuthFormLayout submitButtonText="Resend verification email" onSubmit={handleSubmit} isPending={isPending}>
                 <p className="text-center text-gray-500">
-                    We just sent an email to the address: <span className="text-purple-900 font-medium">{data?.user.dataValues.email}</span><br />
+                    We just sent an email to the address: <span className="text-purple-900 font-medium">{data?.email}</span><br />
                     Please checkyour email and select the link provided to verify email.
                 </p>
                 <p

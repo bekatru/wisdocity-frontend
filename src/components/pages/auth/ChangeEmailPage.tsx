@@ -24,7 +24,7 @@ export function ChangeEmailPage() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (data?.user.dataValues.is_verified) {
+        if (data?.is_verified) {
             navigate(Routes.App)
         }
     }, [data])
@@ -45,7 +45,7 @@ export function ChangeEmailPage() {
     const {mutate: updateEmail, isPending: isUpdateEmailPending} = useUpdateEmail({
         onSuccess: (response) => {
             toast.success("Success! Verification link sent to new email address");
-            setTokens(response.tokens.access, response.tokens.refresh);
+            setTokens(response.access_token, response.refresh_token);
         },
         onError: (error) => {
             console.log(error);
@@ -54,9 +54,7 @@ export function ChangeEmailPage() {
     })
 
     const handleSubmit = () => {
-        if (data?.user.dataValues.email) {
-            sendVerification({email: data.user.dataValues.email});
-        }
+        sendVerification({});
     }
 
     const handleUpdateAndResendButtonClick = () => {
@@ -70,7 +68,7 @@ export function ChangeEmailPage() {
         <AuthPageLayout headerText="Verify your email to continue" footerText="" footerCtaText="" onFooterCtaClick={() => { }}>
             <AuthFormLayout submitButtonText="Resend verification email" onSubmit={handleSubmit} isPending={isSendVerificationPending} isDisabled={isUpdateEmailPending}>
                 <p className="text-center text-gray-500">
-                    We just sent an email to the address: <span className="text-purple-900 font-medium">{data?.user.dataValues.email}</span><br />
+                    We just sent an email to the address: <span className="text-purple-900 font-medium">{data?.email}</span><br />
                     Please checkyour email and select the link provided to verify email.
                 </p>
                 <FormInput

@@ -15,7 +15,7 @@ export function SignInPage() {
 
   const {mutate: mutateSignIn, isPending} = useSignIn({
     onSuccess: (response) => {
-      setTokens(response.token.access, response.token.refresh);
+      setTokens(response.access_token, response.refresh_token);
       toast.success("Signed in successfuly")
       navigate(Routes.App);
     },

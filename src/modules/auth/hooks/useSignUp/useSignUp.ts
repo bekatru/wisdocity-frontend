@@ -1,11 +1,30 @@
 import { useMutation } from "@tanstack/react-query";
-
-
-
-import { ApiError, ApiServiceError } from "libs/axios";
+import { ApiError, ApiServiceError, instance } from "libs/axios";
 import { MutationOptions } from "libs/reactQuery";
-import { SignUpResponse } from "./signup.types";
-import { requestSignUp } from "./signup.request";
+
+
+interface SignUpResponse {
+  access_token: string;
+  refresh_token: string;
+}
+
+interface SignUpPayload {
+  email: string;
+  password: string;
+  username: string;
+  country: string;
+  current_role: string;
+  is_subscribed: boolean;
+}
+
+
+
+const requestSignUp = async (
+  body: SignUpPayload
+): Promise<SignUpResponse> => {
+  return await instance.post("auth/register", body);
+};
+
 
 const useSignUp = (
   options?: MutationOptions<SignUpResponse, ApiServiceError<ApiError>>

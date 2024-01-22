@@ -16,7 +16,7 @@ export function SignUpPage() {
 
   const { mutate: mutateLogin, isPending } = useSignUp({
     onSuccess: (response) => {
-      setTokens(response.token.access, response.token.refresh);
+      setTokens(response.access_token, response.refresh_token);
       toast.success("Signed up successfuly")
       navigate(Routes.Welcome)
     },
@@ -26,13 +26,14 @@ export function SignUpPage() {
   });
 
   const handleSubmit = (data: any) => {
+    if (!role) throw new Error("Role is missing!");
     mutateLogin({
-      full_name: data.name,
+      username: data.name,
       email: data.email,
       password: data.password,
       country: data.country,
-      isSendMessage: data.isSendEmailsChecked,
-      current_role: role?.toUpperCase() ?? "",
+      is_subscribed: data.isSendEmailsChecked,
+      current_role: role,
     })
   };
 

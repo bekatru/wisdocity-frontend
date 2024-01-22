@@ -3,12 +3,8 @@ import { ApiError, ApiServiceError, instance } from "libs/axios";
 import { MutationOptions } from "libs/reactQuery";
 
 interface UpdateEmailResponse {
-    status: number;
-    tokens: {
-        access: string;
-        refresh: string;
-    },
-    message: string;
+    access_token: string;
+    refresh_token: string;
 }
 
 interface UpdateEmailPayload {
@@ -18,7 +14,7 @@ interface UpdateEmailPayload {
 const requestUpdateEmail = async (
     body: UpdateEmailPayload
 ): Promise<UpdateEmailResponse> => {
-    return await instance.post("users/update-email", body);
+    return await instance.post("verification/change-email", body);
 }
 
 const useUpdateEmail = (

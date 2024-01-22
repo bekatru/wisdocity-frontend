@@ -1,14 +1,24 @@
 import { useQuery } from "@tanstack/react-query"
 import { QueryOptions } from "libs/reactQuery"
-import { AuthResponse } from "./auth.types"
-import { ApiError, ApiServiceError } from "libs/axios"
-import { requestAuth } from "./auth.request"
+import { ApiError, ApiServiceError, instance } from "libs/axios"
+
+interface AuthResponse {
+    current_role: string;
+    email: string;
+    is_verified: boolean;
+    username: string;
+}
+
+
+const requestAuth = async (): Promise<AuthResponse> => {
+    return await instance.get("auth/profile");
+}
 
 const useAuth = (
     options?: QueryOptions<AuthResponse, ApiServiceError<ApiError>>
 ) => {
     return useQuery({
-        queryKey: ['auth'],
+        queryKey: ['profile'],
         queryFn: requestAuth,
         ...options
     });
