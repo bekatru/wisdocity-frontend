@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {toast} from 'react-toastify';
+import { toast } from 'react-toastify';
 import { Routes } from "modules/routing/types";
 import { AuthPageLayout, AuthFormLayout } from "./layouts";
 import { useAuth } from "modules/auth/hooks/useAuth";
@@ -11,9 +11,9 @@ export function VerificationPage() {
 
     const navigate = useNavigate();
 
-    const {data} = useAuth()
+    const { data } = useAuth()
 
-    const {mutate: resendVerification, isPending} = useSendVerification({
+    const { mutate: resendVerification, isPending } = useSendVerification({
         onSuccess: (reponse) => {
             console.log(reponse);
             toast.success("Verification link sent")
@@ -39,18 +39,15 @@ export function VerificationPage() {
 
     if (data?.is_verified) {
         return (
-            <div className="h-full flex items-center justify-center p-3">
-            <div className="overflow-hidden rounded-lg bg-white shadow max-w-screen-sm">
-                <div className="px-4 py-5 sm:p-6 flex flex-col items-center space-y-8">
-                    <h1 className="text-purple-900 font-semibold text-3xl text-center">
-                        Email verified successfully!
-                    </h1>
-                    <p className="text-gray-400 text-center max-w-lg">
-                        You may safely close this tab
-                    </p>
-                </div>
+
+            <div className="px-4 py-5 sm:p-6 flex flex-col items-center space-y-8">
+                <h1 className="text-purple-900 font-semibold text-3xl text-center">
+                    Email verified successfully!
+                </h1>
+                <p className="text-gray-400 text-center max-w-lg">
+                    You may safely close this tab
+                </p>
             </div>
-        </div>
         )
     }
 
