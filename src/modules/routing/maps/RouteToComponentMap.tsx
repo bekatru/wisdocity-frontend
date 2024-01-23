@@ -2,12 +2,11 @@ import * as React from 'react';
 import {Outlet} from 'react-router-dom';
 import {Routes} from '../types';
 import {AuthRoute} from '../routes';
-import {SignInPage, SignUpPage, SelectRolePage, WelcomePage, ChangeEmailPage, VerificationPage, VerifyAndContinuePage} from 'components/pages/auth';
+import {SignInPage, SignUpPage, SelectRolePage, WelcomePage, ChangeEmailPage, VerificationPage, VerifyAndContinuePage, ChangePasswordPage, ResetPasswordPage} from 'components/pages/auth';
 import { TestPage } from 'components/pages/test';
 import { OnboardPage } from 'components/pages/onboard/OnboardPage';
 import {LandingPage} from 'components/pages/landing';
 import { AppLayout } from 'components/layouts/AppLayout';
-import { ResetPasswordPage } from 'components/pages/auth/ResetPasswordPage';
 
 
 export const RouteToComponentMap: { [key in Routes]: React.ReactNode } = {
@@ -24,6 +23,8 @@ export const RouteToComponentMap: { [key in Routes]: React.ReactNode } = {
   [Routes.Verify]: <VerifyAndContinuePage/>,
   [Routes.ChangeEmail]: <ChangeEmailPage/>,
   [Routes.ResetPassword]: <ResetPasswordPage/>,
+  [Routes.ChangePassword]: <ChangePasswordPage/>,
+  
 
 
   [Routes.Onboard]: <AuthRoute>onboard<Outlet/></AuthRoute>,

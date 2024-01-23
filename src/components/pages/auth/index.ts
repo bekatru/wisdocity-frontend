@@ -6,3 +6,5 @@ export {WelcomePage} from './WelcomePage';
 export {ChangeEmailPage} from './ChangeEmailPage';
 export {VerificationPage} from './VerificationPage';
 export {VerifyAndContinuePage} from './VerifyAndContinuePage';
+export {ChangePasswordPage} from './ChangePasswordPage';
+export {ResetPasswordPage} from './ResetPasswordPage';

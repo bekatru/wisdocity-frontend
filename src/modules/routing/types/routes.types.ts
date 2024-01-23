@@ -12,6 +12,7 @@ export enum Routes {
   Verification = '/verification',
   Verify = '/verify',
   ResetPassword = '/reset-password',
+  ChangePassword = '/change-password',
   ChangeEmail = '/change-email',
 
   Onboard = '/onboard',

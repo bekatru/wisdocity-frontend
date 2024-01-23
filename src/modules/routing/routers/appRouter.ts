@@ -42,6 +42,10 @@ export const appRouter = createBrowserRouter([
       element: RouteToComponentMap[Routes.ResetPassword],
     },
     {
+      path: Routes.ChangePassword,
+      element: RouteToComponentMap[Routes.ChangePassword],
+    },
+    {
       path: Routes.SignIn,
       element: RouteToComponentMap[Routes.SignIn],
     },
