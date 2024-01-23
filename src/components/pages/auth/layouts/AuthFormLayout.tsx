@@ -16,7 +16,7 @@ export function AuthFormLayout(props: AuthFormLayoutProps) {
 
     return(
       <div className="sm:mx-auto sm:w-full sm:max-w-[480px]">
-        <div className="px-6 py-6 sm:px-12">
+        <div className="p-6">
         <form className="space-y-4" onSubmit={onFormSubmit}>
          {props.children}
          <Button disabled={props.isDisabled} isPending={props.isPending} type="submit">{props.submitButtonText}</Button>
