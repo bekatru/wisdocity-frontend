@@ -18,6 +18,10 @@ export const appRouter = createBrowserRouter([
       element: RouteToComponentMap[Routes.Root],
       children: [
         {
+          index: true,
+          element: RouteToComponentMap[Routes.Home],
+        },
+        {
           path: Routes.SignIn,
           element: RouteToComponentMap[Routes.SignIn],
           children: [

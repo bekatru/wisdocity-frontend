@@ -16,7 +16,6 @@ import {
 import { useAuth } from 'modules/auth/hooks/useAuth'
 import { useNavigate } from 'react-router-dom'
 import { Routes } from 'modules/routing/types'
-import { Header } from 'components'
 
 const learnerNavigation = [
     { name: 'Home', href: Routes.Learner, icon: HomeIcon, current: true },
