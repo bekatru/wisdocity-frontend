@@ -10,6 +10,7 @@ export enum Routes {
 
   Welcome = "/welcome",
   Verification = '/verification',
+  Verify = '/verify',
   ChangeEmail = '/change-email',
 
   Onboard = '/onboard',

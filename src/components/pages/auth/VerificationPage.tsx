@@ -1,16 +1,13 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {toast} from 'react-toastify';
 import { Routes } from "modules/routing/types";
 import { AuthPageLayout, AuthFormLayout } from "./layouts";
 import { useAuth } from "modules/auth/hooks/useAuth";
 import { useSendVerification } from "modules/auth/hooks/useSendVerification";
-import { useVerifyEmail } from "modules/auth/hooks";
 
 export function VerificationPage() {
     const [helpSectionExpanded, setHelpSectionExpanded] = useState(false);
-    
-    const [searchParams] = useSearchParams()
 
     const navigate = useNavigate();
 
@@ -20,7 +17,6 @@ export function VerificationPage() {
         onSuccess: (reponse) => {
             console.log(reponse);
             toast.success("Verification link sent")
-            navigate(Routes.App)
         },
         onError: (error) => {
             console.error(error)
@@ -28,23 +24,6 @@ export function VerificationPage() {
         }
     })
 
-    const {mutate: verifyEmail} = useVerifyEmail({
-        onSuccess: () => {
-            toast.success("Email verified");
-        },
-        onError: (error) => {
-            console.error(error);
-            toast.error("Email verification failed");
-        }
-    })
-    
-
-    useEffect(() => {
-        const verificationToken = searchParams.get("token")
-        if (verificationToken) {
-            verifyEmail({token: verificationToken});
-        }
-    }, [])
 
     const toggleHelpSection = () => {
         setHelpSectionExpanded(!helpSectionExpanded)

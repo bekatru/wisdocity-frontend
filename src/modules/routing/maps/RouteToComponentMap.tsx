@@ -2,7 +2,7 @@ import * as React from 'react';
 import {Outlet} from 'react-router-dom';
 import {Routes} from '../types';
 import {AuthRoute} from '../routes';
-import {SignInPage, SignUpPage, SelectRolePage, WelcomePage, ChangeEmailPage, VerificationPage} from 'components/pages/auth';
+import {SignInPage, SignUpPage, SelectRolePage, WelcomePage, ChangeEmailPage, VerificationPage, VerifyAndContinuePage} from 'components/pages/auth';
 import { TestPage } from 'components/pages/test';
 import { OnboardPage } from 'components/pages/onboard/OnboardPage';
 import {LandingPage} from 'components/pages/landing';
@@ -20,6 +20,7 @@ export const RouteToComponentMap: { [key in Routes]: React.ReactNode } = {
 
   [Routes.Welcome]: <WelcomePage/>,
   [Routes.Verification]: <VerificationPage/>,
+  [Routes.Verify]: <VerifyAndContinuePage/>,
   [Routes.ChangeEmail]: <ChangeEmailPage/>,
 
 

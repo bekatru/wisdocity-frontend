@@ -30,6 +30,10 @@ export const appRouter = createBrowserRouter([
       element: RouteToComponentMap[Routes.Verification],
     },
     {
+      path: Routes.Verify,
+      element: RouteToComponentMap[Routes.Verify],
+    },
+    {
       path: Routes.ChangeEmail,
       element: RouteToComponentMap[Routes.ChangeEmail],
     },
