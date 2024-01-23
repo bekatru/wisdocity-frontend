@@ -65,7 +65,7 @@ const Topbar = () => {
 
           className="cursor-pointer hover:underline hover:text-purple-500"
           onClick={() => {
-            navigate(Routes.SignUp);
+            navigate(Routes.Register);
           }}
         >
           <Typography variant="p2">Sign up</Typography>

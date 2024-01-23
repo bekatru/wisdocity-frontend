@@ -11,7 +11,7 @@ export function SignInPage() {
   const navigate = useNavigate();
   const { setTokens } = useAuthTokens()
 
-  const navigateToSignUpPage = () => navigate(Routes.SignUp);
+  const navigateToSignUpPage = () => navigate(Routes.Register);
 
   const {mutate: mutateSignIn, isPending} = useSignIn({
     onSuccess: (response) => {

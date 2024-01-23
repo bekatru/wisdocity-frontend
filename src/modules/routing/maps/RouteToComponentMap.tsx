@@ -6,7 +6,7 @@ import {SignInPage, SignUpPage, SelectRolePage, WelcomePage, ChangeEmailPage, Ve
 import { TestPage } from 'components/pages/test';
 import { OnboardPage } from 'components/pages/onboard/OnboardPage';
 import {LandingPage} from 'components/pages/landing';
-import { RootLayout } from 'components';
+import { AuthLayout, RootLayout } from 'components';
 
 
 export const RouteToComponentMap: { [key in Routes]: React.ReactNode } = {
@@ -15,9 +15,11 @@ export const RouteToComponentMap: { [key in Routes]: React.ReactNode } = {
 
   [Routes.Root]: <RootLayout><Outlet/></RootLayout>,
 
+  [Routes.SignIn]: <AuthLayout><Outlet/></AuthLayout>,
+
   [Routes.Home]: <LandingPage/>,
-  [Routes.SignIn]: <SignInPage/>,
-  [Routes.SignUp]: <SelectRolePage/>,
+  [Routes.Login]: <SignInPage/>,
+  [Routes.Register]: <SelectRolePage/>,
   [Routes.SignUpRole]: <SignUpPage/>,
 
   [Routes.Welcome]: <WelcomePage/>,

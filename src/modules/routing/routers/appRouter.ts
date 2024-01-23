@@ -20,40 +20,42 @@ export const appRouter = createBrowserRouter([
         {
           path: Routes.SignIn,
           element: RouteToComponentMap[Routes.SignIn],
+          children: [
+            {
+              index: true,
+              element: RouteToComponentMap[Routes.Login],
+            },
+            {
+              path: Routes.Register,
+              children: signUpRouter,
+            },
+            {
+              path: Routes.Welcome,
+              element: RouteToComponentMap[Routes.Welcome],
+            },
+            {
+              path: Routes.Verification,
+              element: RouteToComponentMap[Routes.Verification],
+            },
+            {
+              path: Routes.Verify,
+              element: RouteToComponentMap[Routes.Verify],
+            },
+            {
+              path: Routes.ChangeEmail,
+              element: RouteToComponentMap[Routes.ChangeEmail],
+            },
+            {
+              path: Routes.ResetPassword,
+              element: RouteToComponentMap[Routes.ResetPassword],
+            },
+            {
+              path: Routes.ChangePassword,
+              element: RouteToComponentMap[Routes.ChangePassword],
+            },
+          ],
         },
-        {
-          path: Routes.SignUp,
-          children: signUpRouter,
-        },
-        {
-          path: Routes.Welcome,
-          element: RouteToComponentMap[Routes.Welcome],
-        },
-        {
-          path: Routes.Verification,
-          element: RouteToComponentMap[Routes.Verification],
-        },
-        {
-          path: Routes.Verify,
-          element: RouteToComponentMap[Routes.Verify],
-        },
-        {
-          path: Routes.ChangeEmail,
-          element: RouteToComponentMap[Routes.ChangeEmail],
-        },
-        {
-          path: Routes.ResetPassword,
-          element: RouteToComponentMap[Routes.ResetPassword],
-        },
-        {
-          path: Routes.ChangePassword,
-          element: RouteToComponentMap[Routes.ChangePassword],
-        },
-        {
-          path: Routes.SignIn,
-          element: RouteToComponentMap[Routes.SignIn],
-        },
-      ]
+      ],
     },
     
     {

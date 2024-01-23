@@ -6,15 +6,16 @@ export enum Routes {
   App = '/app',
 
   SignIn = '/signin',
-  SignUp = '/signup',
+  Login = 'login',
+  Register = 'register',
   SignUpRole = ':role',
 
-  Welcome = "/welcome",
-  Verification = '/verification',
-  Verify = '/verify',
-  ResetPassword = '/reset-password',
-  ChangePassword = '/change-password',
-  ChangeEmail = '/change-email',
+  Welcome = "welcome",
+  Verification = 'verification',
+  Verify = 'verify',
+  ResetPassword = 'reset-password',
+  ChangePassword = 'change-password',
+  ChangeEmail = 'change-email',
 
   Onboard = '/onboard',
   OnboardExpert = '/onboard/expert/:step',
