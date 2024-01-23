@@ -1,18 +1,21 @@
 import { AuthPageLayout, AuthFormLayout } from "./layouts";
 import { useVerifyEmail } from "modules/auth/hooks";
 import { toast } from "react-toastify";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useMemo } from "react";
+import { Routes } from "modules/routing/types";
 
 export function VerifyAndContinuePage() {
     const [searchParams] = useSearchParams()
     const verificationToken = useMemo(() => searchParams.get("token"), [])
 
-    const {mutate: verifyEmail, isPending} = useVerifyEmail({
+    const navigate = useNavigate()
+
+    const {mutate: verifyEmail, isPending, isSuccess} = useVerifyEmail({
         onSuccess: () => {
             toast.success(
-                "Email successfully verified! This page will close automatically.", 
-                { onClose: () => window.close() }
+                "Email successfully verified! You will be redirected automatically.", 
+                { onClose: () => navigate(Routes.App) }
             );
         },
         onError: (error) => {
@@ -29,7 +32,7 @@ export function VerifyAndContinuePage() {
     }
     return (
         <AuthPageLayout headerText="Verify your email to continue" footerText="Need help?" footerCtaText="Contact us" onFooterCtaClick={() => window.open('mailto:help@wisdocity.ai')}>
-            <AuthFormLayout submitButtonText="Verify and continue" onSubmit={handleSubmit} isPending={isPending}>
+            <AuthFormLayout submitButtonText={isSuccess ? "Verified" : "Verify"} onSubmit={handleSubmit} isPending={isPending} isDisabled={isSuccess}>
                 <p className="text-center text-gray-500">
                     Please, click Verify to confirm your email adress.
                 </p>
