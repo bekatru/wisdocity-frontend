@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { FormInput, LabeledCheckbox } from "components";
 import { AuthFormLayout } from "../layouts";
+import { useNavigate } from "react-router";
+import { Routes } from "modules/routing/types";
 
 interface SignInFormProps {
   onSubmit: (data: any) => void;
@@ -9,6 +11,8 @@ interface SignInFormProps {
 
 export function SignInForm(props: SignInFormProps) {
   
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   
@@ -41,7 +45,7 @@ export function SignInForm(props: SignInFormProps) {
         <div className="flex items-center justify-between">
           <LabeledCheckbox id="remember-me">Remember me</LabeledCheckbox>
           <div className="text-sm leading-6">
-            <a href="#" className="font-semibold text-accent-600 hover:text-accent-500">
+            <a onClick={() => navigate(Routes.ResetPassword)} className="font-semibold text-accent-600 hover:text-accent-500 cursor-pointer">
               Forgot password?
             </a>
           </div>

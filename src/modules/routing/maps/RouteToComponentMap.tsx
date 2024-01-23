@@ -7,6 +7,7 @@ import { TestPage } from 'components/pages/test';
 import { OnboardPage } from 'components/pages/onboard/OnboardPage';
 import {LandingPage} from 'components/pages/landing';
 import { AppLayout } from 'components/layouts/AppLayout';
+import { ResetPasswordPage } from 'components/pages/auth/ResetPasswordPage';
 
 
 export const RouteToComponentMap: { [key in Routes]: React.ReactNode } = {
@@ -22,6 +23,7 @@ export const RouteToComponentMap: { [key in Routes]: React.ReactNode } = {
   [Routes.Verification]: <VerificationPage/>,
   [Routes.Verify]: <VerifyAndContinuePage/>,
   [Routes.ChangeEmail]: <ChangeEmailPage/>,
+  [Routes.ResetPassword]: <ResetPasswordPage/>,
 
 
   [Routes.Onboard]: <AuthRoute>onboard<Outlet/></AuthRoute>,
