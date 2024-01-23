@@ -6,12 +6,14 @@ import {SignInPage, SignUpPage, SelectRolePage, WelcomePage, ChangeEmailPage, Ve
 import { TestPage } from 'components/pages/test';
 import { OnboardPage } from 'components/pages/onboard/OnboardPage';
 import {LandingPage} from 'components/pages/landing';
-import { AppLayout } from 'components/layouts/AppLayout';
+import { RootLayout } from 'components';
 
 
 export const RouteToComponentMap: { [key in Routes]: React.ReactNode } = {
   [Routes.Test]: <TestPage/>,
   [Routes.NotFound]: <div>404</div>,
+
+  [Routes.Root]: <RootLayout><Outlet/></RootLayout>,
 
   [Routes.Home]: <LandingPage/>,
   [Routes.SignIn]: <SignInPage/>,
@@ -31,7 +33,7 @@ export const RouteToComponentMap: { [key in Routes]: React.ReactNode } = {
   [Routes.OnboardExpert]: <OnboardPage/>,
   [Routes.OnboardLearner]: <OnboardPage/>,
 
-  [Routes.App]: <AuthRoute><AppLayout><Outlet/></AppLayout></AuthRoute>,
+  [Routes.App]: <AuthRoute><Outlet/></AuthRoute>,
 
   [Routes.Expert]: <div>Expert <Outlet/> Page</div>,
   [Routes.ExpertHome]: <div>Home</div>,

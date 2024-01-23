@@ -7,3 +7,5 @@ export {InputLabel} from './InputLabel';
 export {Spinner} from './Spinner';
 export {Header} from './Header';
 export * from './MultiSelect';
+
+export * from './layouts';
