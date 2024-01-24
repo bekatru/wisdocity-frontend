@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import { QueryOptions } from "libs/reactQuery"
-import { ApiError, ApiServiceError, instance } from "libs/axios"
+import { ApiError, ApiServiceError, api } from "libs/axios"
 
 interface AuthResponse {
     current_role: string;
@@ -11,7 +11,7 @@ interface AuthResponse {
 
 
 const requestAuth = async (): Promise<AuthResponse> => {
-    return await instance.get("auth/profile");
+    return await api.get("auth/profile");
 }
 
 const useAuth = (

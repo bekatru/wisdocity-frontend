@@ -1,1 +1,1 @@
-export * from "./reactQuery.types";
+export * from "./types";

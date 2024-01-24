@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { ApiError, ApiServiceError, instance } from "libs/axios";
+import { ApiError, ApiServiceError, api } from "libs/axios";
 import { MutationOptions } from "libs/reactQuery";
 
 interface VerifyEmailResponse {
@@ -12,7 +12,7 @@ interface VerifyEmailPayload {
 const requestVerifyEmail = async (
     body: VerifyEmailPayload
 ): Promise<VerifyEmailResponse> => {
-    return await instance.post("verification/verify", body);
+    return await api.post("verification/verify", body);
 }
 
 const useVerifyEmail = (

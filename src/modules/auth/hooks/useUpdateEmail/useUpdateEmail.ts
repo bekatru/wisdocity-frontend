@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { ApiError, ApiServiceError, instance } from "libs/axios";
+import { ApiError, ApiServiceError, api } from "libs/axios";
 import { MutationOptions } from "libs/reactQuery";
 
 interface UpdateEmailResponse {
@@ -14,7 +14,7 @@ interface UpdateEmailPayload {
 const requestUpdateEmail = async (
     body: UpdateEmailPayload
 ): Promise<UpdateEmailResponse> => {
-    return await instance.post("verification/change-email", body);
+    return await api.post("verification/change-email", body);
 }
 
 const useUpdateEmail = (

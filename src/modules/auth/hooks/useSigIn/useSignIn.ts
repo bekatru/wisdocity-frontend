@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { ApiError, ApiServiceError, instance } from "libs/axios";
+import { ApiError, ApiServiceError, api } from "libs/axios";
 import { MutationOptions } from "libs/reactQuery";
 
 interface SignInResponse {
@@ -14,7 +14,7 @@ interface SignInPayload {
 const requestSignIn = async (
   body: SignInPayload
 ): Promise<SignInResponse> => {
-  return await instance.post("auth/login", body);
+  return await api.post("auth/login", body);
 };
 
 const useSignIn = (

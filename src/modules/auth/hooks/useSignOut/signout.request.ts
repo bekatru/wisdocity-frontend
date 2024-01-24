@@ -1,6 +1,6 @@
-import { instance } from "libs/axios";
+import { api } from "libs/axios";
 
 export const requestSignOut = async () => {
   // todo
-  return await instance.put("");
+  return await api.put("");
 };

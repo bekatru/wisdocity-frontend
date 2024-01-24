@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { ApiError, ApiServiceError, instance } from "libs/axios";
+import { ApiError, ApiServiceError, api } from "libs/axios";
 import { MutationOptions } from "libs/reactQuery";
 
 interface ChangePasswordResponse {}
@@ -12,7 +12,7 @@ interface ChangePasswordPayload {
 const requestChangePassword = async (
     body: ChangePasswordPayload
 ): Promise<ChangePasswordResponse> => {
-    return await instance.post("auth/change-password", body);
+    return await api.post("auth/change-password", body);
 }
 
 const useChangePassword = (

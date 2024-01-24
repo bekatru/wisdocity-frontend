@@ -1,10 +1,10 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { BASE_URL, COOKIE_ACCESS_TOKEN_NAME, COOKIE_OPTIONS, COOKIE_REFRESH_TOKEN_NAME } from "constants";
-import { CustomAxiosRequestConfig } from "./api.types";
+import { CustomAxiosRequestConfig } from "./types";
 import { Cookies } from "react-cookie";
 
 
-export const instance = axios.create({
+const instance = axios.create({
   baseURL: BASE_URL,
   headers: {
     Accept: "application/json",
@@ -82,3 +82,5 @@ const refreshAccessToken = async (): Promise<{
 
   return response.data;
 };
+
+export default instance;

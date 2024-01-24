@@ -1,2 +1,2 @@
-export { instance } from "./instance";
-export * from "./api.types";
+export { default as api } from "./api";
+export * from "./types";

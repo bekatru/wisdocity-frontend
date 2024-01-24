@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { ApiError, ApiServiceError, instance } from "libs/axios";
+import { ApiError, ApiServiceError, api } from "libs/axios";
 import { MutationOptions } from "libs/reactQuery";
 
 
@@ -22,7 +22,7 @@ interface SignUpPayload {
 const requestSignUp = async (
   body: SignUpPayload
 ): Promise<SignUpResponse> => {
-  return await instance.post("auth/register", body);
+  return await api.post("auth/register", body);
 };
 
 
