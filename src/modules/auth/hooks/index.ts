@@ -9,5 +9,6 @@ export { default as useVerifyAccount } from './useVerifyAccount';
 export { default as useResetPassword } from './useResetPassword';
 export { default as useResendVerification } from './useResendVerification';
 export { default as useChangeEmail } from './useChangeEmail';
+export { default as useChangePassword } from './useChangePassword';
 
 

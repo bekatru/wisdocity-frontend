@@ -1,10 +1,10 @@
-import { useChangePassword } from 'modules/auth/hooks';
 import { AuthFormLayout, AuthPageLayout } from './layouts';
 import { FormInput } from 'components';
 import { toast } from 'react-toastify';
 import { useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Routes } from 'modules/routing/types';
+import { useChangePassword } from 'modules/auth';
 
 
 export function ChangePasswordPage() {
