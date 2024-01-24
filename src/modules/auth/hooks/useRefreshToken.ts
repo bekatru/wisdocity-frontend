@@ -3,7 +3,7 @@ import { ApiError, ApiServiceError } from "libs/axios";
 import { MutationOptions } from "libs/reactQuery";
 import { RefreshResponse, request } from "../api";
 
-const useRefresh = (
+const useRefreshTokens = (
   options?: MutationOptions<RefreshResponse, ApiServiceError<ApiError>>
 ) => {
   return useMutation({
@@ -12,4 +12,4 @@ const useRefresh = (
   });
 };
 
-export default useRefresh;
+export default useRefreshTokens;

@@ -4,7 +4,7 @@ import { MutationOptions } from "libs/reactQuery";
 import { UpdateEmailResponse, request } from "../api";
 
 
-const useUpdateEmail = (
+const useChangeEmail = (
     options?: MutationOptions<UpdateEmailResponse, ApiServiceError<ApiError>>
 ) => {
     return useMutation({
@@ -13,4 +13,4 @@ const useUpdateEmail = (
     })
 }
 
-export default useUpdateEmail;
+export default useChangeEmail;

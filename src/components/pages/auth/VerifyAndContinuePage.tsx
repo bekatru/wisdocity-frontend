@@ -1,5 +1,5 @@
 import { AuthPageLayout, AuthFormLayout } from "./layouts";
-import { useVerifyEmail } from "modules/auth/hooks";
+import { useVerifyAccount } from "modules/auth/hooks";
 import { toast } from "react-toastify";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useMemo } from "react";
@@ -11,7 +11,7 @@ export function VerifyAndContinuePage() {
 
     const navigate = useNavigate()
 
-    const {mutate: verifyEmail, isPending, isSuccess} = useVerifyEmail({
+    const {mutate: verifyEmail, isPending, isSuccess} = useVerifyAccount({
         onSuccess: () => {
             toast.success(
                 "Email successfully verified! You will be redirected automatically.", 

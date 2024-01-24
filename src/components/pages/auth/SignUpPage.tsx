@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Routes } from 'modules/routing/types';
-import { useAuthTokens, useSignUp } from 'modules/auth/hooks';
+import { useAuthTokens, useRegister } from 'modules/auth/hooks';
 import { AuthPageLayout } from './layouts';
 import { SignUpLearnerForm } from './forms';
 
@@ -14,7 +14,7 @@ export function SignUpPage() {
   const navigateToSignInPage = () => navigate(Routes.SignIn);
   const { setTokens } = useAuthTokens()
 
-  const { mutate: mutateLogin, isPending } = useSignUp({
+  const { mutate: mutateLogin, isPending } = useRegister({
     onSuccess: (response) => {
       setTokens(response.access_token, response.refresh_token);
       toast.success("Signed up successfuly")

@@ -3,16 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import { Routes } from "modules/routing/types";
 import { AuthPageLayout, AuthFormLayout } from "./layouts";
-import { useAuth, useSendVerification } from "modules/auth";
+import { useProfile, useResendVerification } from "modules/auth";
 
 export function VerificationPage() {
     const [helpSectionExpanded, setHelpSectionExpanded] = useState(false);
 
     const navigate = useNavigate();
 
-    const { data } = useAuth()
+    const { data } = useProfile()
 
-    const { mutate: resendVerification, isPending } = useSendVerification({
+    const { mutate: resendVerification, isPending } = useResendVerification({
         onSuccess: (reponse) => {
             console.log(reponse);
             toast.success("Verification link sent")

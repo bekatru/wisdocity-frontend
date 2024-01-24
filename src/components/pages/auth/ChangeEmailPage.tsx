@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import {toast} from 'react-toastify';
 import { AuthFormLayout, AuthPageLayout } from "./layouts";
 import { Button, FormInput } from "components";
-import { useAuth, useSendVerification, useUpdateEmail, useAuthTokens } from "modules/auth";
+import { useProfile, useResendVerification, useChangeEmail, useAuthTokens } from "modules/auth";
 import { Routes } from "modules/routing/types";
 
 
@@ -17,7 +17,7 @@ export function ChangeEmailPage() {
         setHelpSectionExpanded(!helpSectionExpanded)
     }
 
-    const { data } = useAuth();
+    const { data } = useProfile();
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -28,7 +28,7 @@ export function ChangeEmailPage() {
 
     const { setTokens} = useAuthTokens()
 
-    const {mutate: sendVerification, isPending: isSendVerificationPending } = useSendVerification({
+    const {mutate: sendVerification, isPending: isSendVerificationPending } = useResendVerification({
         onSuccess: (response) => {
             console.log(response);
             toast.success("Verification link sent");
@@ -39,7 +39,7 @@ export function ChangeEmailPage() {
         }
     })
 
-    const {mutate: updateEmail, isPending: isUpdateEmailPending} = useUpdateEmail({
+    const {mutate: updateEmail, isPending: isUpdateEmailPending} = useChangeEmail({
         onSuccess: (response) => {
             toast.success("Success! Verification link sent to new email address");
             setTokens(response.access_token, response.refresh_token);

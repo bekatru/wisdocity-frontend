@@ -3,7 +3,7 @@ import {Routes} from 'modules/routing/types';
 import {toast} from 'react-toastify';
 import {AuthPageLayout} from './layouts';
 import {SignInForm} from './forms';
-import { useAuthTokens, useSignIn } from 'modules/auth';
+import { useAuthTokens, useLogin } from 'modules/auth';
 
 
 export function SignInPage() {
@@ -13,7 +13,7 @@ export function SignInPage() {
 
   const navigateToSignUpPage = () => navigate(Routes.Register);
 
-  const {mutate: mutateSignIn, isPending} = useSignIn({
+  const {mutate: mutateSignIn, isPending} = useLogin({
     onSuccess: (response) => {
       setTokens(response.access_token, response.refresh_token);
       toast.success("Signed in successfuly")

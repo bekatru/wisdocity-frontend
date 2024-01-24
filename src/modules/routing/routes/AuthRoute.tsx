@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {Navigate, useNavigate} from 'react-router-dom';
 import {Routes} from '../types';
-import { useIsAuthenticated, useAuth } from 'modules/auth';
+import { useIsAuthenticated, useProfile } from 'modules/auth';
 import { useEffect } from 'react';
 
 
@@ -13,7 +13,7 @@ interface ProtectedRouteProps {
 export const AuthRoute: React.FC<ProtectedRouteProps> = (props) => {
   const isAuthenticated = useIsAuthenticated();
 
-  const auth = useAuth()
+  const auth = useProfile()
 
   const navigate = useNavigate()
 

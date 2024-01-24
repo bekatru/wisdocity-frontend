@@ -1,6 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 
-import { useAuthTokens, useSignOut } from ".";
+import { useAuthTokens, useLogout } from ".";
 
 
 const useClearSession = () => {
@@ -8,7 +8,7 @@ const useClearSession = () => {
 
   const { removeTokens } = useAuthTokens();
 
-  const { mutateAsync: mutateLogoutAsync } = useSignOut();
+  const { mutateAsync: mutateLogoutAsync } = useLogout();
 
   return async () => {
     await mutateLogoutAsync({});

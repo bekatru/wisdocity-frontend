@@ -3,7 +3,7 @@ import { ApiError, ApiServiceError } from "libs/axios";
 import { MutationOptions } from "libs/reactQuery";
 import { VerifyEmailResponse, request } from "../api";
 
-const useVerifyEmail = (
+const useVerifyAccount = (
     options?: MutationOptions<VerifyEmailResponse, ApiServiceError<ApiError>>
 ) => {
     return useMutation({
@@ -12,4 +12,4 @@ const useVerifyEmail = (
     })
 }
 
-export default useVerifyEmail;
+export default useVerifyAccount;

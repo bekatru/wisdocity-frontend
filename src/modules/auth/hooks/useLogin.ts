@@ -4,7 +4,7 @@ import { MutationOptions } from "libs/reactQuery";
 import { SignInResponse, request } from "../api";
 
 
-const useSignIn = (
+const useLogin = (
   options?: MutationOptions<SignInResponse, ApiServiceError<ApiError>>
 ) => {
   return useMutation({
@@ -13,4 +13,4 @@ const useSignIn = (
   });
 };
 
-export default useSignIn;
+export default useLogin;

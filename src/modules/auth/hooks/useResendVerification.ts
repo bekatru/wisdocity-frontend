@@ -4,7 +4,7 @@ import { MutationOptions } from "libs/reactQuery";
 import { SendVerificationResponse, request } from "../api";
 
 
-const useSendVerification = (
+const useResendVerification = (
   options?: MutationOptions<SendVerificationResponse, ApiServiceError<ApiError>>
 ) => {
   return useMutation({
@@ -13,4 +13,4 @@ const useSendVerification = (
   });
 };
 
-export default useSendVerification;
+export default useResendVerification;

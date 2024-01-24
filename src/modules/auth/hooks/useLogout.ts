@@ -3,7 +3,7 @@ import { MutationOptions } from "libs/reactQuery";
 import { ApiError, ApiServiceError } from "libs/axios";
 import { request } from "../api";
 
-const useSignOut = (
+const useLogout = (
   options?: MutationOptions<unknown, ApiServiceError<ApiError>>
 ) => {
   return useMutation({
@@ -12,4 +12,4 @@ const useSignOut = (
   });
 };
 
-export default useSignOut;
+export default useLogout;

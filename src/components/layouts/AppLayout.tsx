@@ -13,7 +13,7 @@ import {
     BookOpenIcon,
     UserCircleIcon,
 } from '@heroicons/react/24/outline'
-import { useAuth } from 'modules/auth'
+import { useProfile } from 'modules/auth'
 import { useNavigate } from 'react-router-dom'
 import { Routes } from 'modules/routing/types'
 
@@ -46,7 +46,7 @@ function classNames(...classes: string[]) {
 export function AppLayout(props: PropsWithChildren) {
     const [sidebarOpen, setSidebarOpen] = useState(false)
 
-    const auth = useAuth()
+    const auth = useProfile()
     const navigate = useNavigate();
 
     const navigation = useMemo(() => {
