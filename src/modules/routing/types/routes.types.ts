@@ -17,10 +17,6 @@ export enum Routes {
   ChangePassword = '/signin/change-password',
   ChangeEmail = '/signin/change-email',
 
-  Onboard = '/onboard',
-  OnboardExpert = '/onboard/expert/:step',
-  OnboardLearner = '/onboard/learner/:step',
-
   Learner = '/app/learner',
   LearnerHome = '/app/learner/home',
   LearnerDashboard = '/app/learner/dashboard',

@@ -29,12 +29,6 @@ export const RouteToComponentMap: { [key in Routes]: React.ReactNode } = {
   [Routes.ChangeEmail]: <ChangeEmailPage/>,
   [Routes.ResetPassword]: <ResetPasswordPage/>,
   [Routes.ChangePassword]: <ChangePasswordPage/>,
-  
-
-
-  [Routes.Onboard]: <AuthRoute>onboard<Outlet/></AuthRoute>,
-  [Routes.OnboardExpert]: <OnboardPage/>,
-  [Routes.OnboardLearner]: <OnboardPage/>,
 
   [Routes.App]: <AuthRoute><AppLayout><Outlet/></AppLayout></AuthRoute>,
 
