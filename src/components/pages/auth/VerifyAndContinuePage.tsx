@@ -1,9 +1,9 @@
-import { AuthPageLayout, AuthFormLayout } from "./layouts";
-import { useVerifyAccount } from "modules/auth/hooks";
-import { toast } from "react-toastify";
-import { useNavigate, useSearchParams } from "react-router-dom";
 import { useMemo } from "react";
-import { Routes } from "modules/routing/types";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import { Routes } from "modules/routing";
+import { useVerifyAccount } from "modules/auth";
+import { AuthPageLayout, AuthFormLayout } from "./layouts";
 
 export function VerifyAndContinuePage() {
     const [searchParams] = useSearchParams()

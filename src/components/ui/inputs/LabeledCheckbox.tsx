@@ -1,5 +1,4 @@
-import { Checkbox } from "./Checkbox"
-import { Label } from "../shared/Label"
+import { Checkbox, Label } from "components";
 
 export function LabeledCheckbox({children, ...checkboxProps}: React.InputHTMLAttributes<HTMLInputElement>) {
     return (

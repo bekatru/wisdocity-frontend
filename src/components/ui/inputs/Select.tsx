@@ -1,4 +1,4 @@
-import { Label } from '../shared/Label'
+import { Label } from "components";
 
 interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
     label: string;

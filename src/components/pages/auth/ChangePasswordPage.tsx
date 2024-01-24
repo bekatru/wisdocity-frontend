@@ -1,10 +1,10 @@
-import { AuthFormLayout, AuthPageLayout } from './layouts';
-import { FormInput } from 'components';
-import { toast } from 'react-toastify';
 import { useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { Routes } from 'modules/routing/types';
+import { toast } from 'react-toastify';
+import { Routes } from 'modules/routing';
 import { useChangePassword } from 'modules/auth';
+import { FormInput } from 'components';
+import { AuthFormLayout, AuthPageLayout } from './layouts';
 
 
 export function ChangePasswordPage() {

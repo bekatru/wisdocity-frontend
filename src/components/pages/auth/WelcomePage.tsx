@@ -1,6 +1,6 @@
-import { Routes } from "modules/routing/types";
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
+import { Routes } from "modules/routing";
 
 const SPLASH_DURATION_IN_SECONDS = 5;
 

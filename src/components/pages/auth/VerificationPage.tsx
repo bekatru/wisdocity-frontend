@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
-import { Routes } from "modules/routing/types";
-import { AuthPageLayout, AuthFormLayout } from "./layouts";
+import { Routes } from "modules/routing";
 import { useProfile, useResendVerification } from "modules/auth";
+import { AuthPageLayout, AuthFormLayout } from "./layouts";
 
 export function VerificationPage() {
     const [helpSectionExpanded, setHelpSectionExpanded] = useState(false);

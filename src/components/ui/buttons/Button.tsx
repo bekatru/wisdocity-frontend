@@ -1,4 +1,4 @@
-import { Spinner } from "../Spinner";
+import { Spinner } from "components";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: "primary" | "outlined";

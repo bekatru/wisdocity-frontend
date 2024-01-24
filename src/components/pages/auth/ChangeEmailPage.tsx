@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {toast} from 'react-toastify';
-import { AuthFormLayout, AuthPageLayout } from "./layouts";
-import { Button, FormInput } from "components";
+import { Routes } from "modules/routing";
 import { useProfile, useResendVerification, useChangeEmail, useAuthTokens } from "modules/auth";
-import { Routes } from "modules/routing/types";
+import { Button, FormInput } from "components";
+import { AuthFormLayout, AuthPageLayout } from "./layouts";
 
 
 

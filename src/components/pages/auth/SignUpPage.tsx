@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { Routes } from 'modules/routing/types';
-import { useAuthTokens, useRegister } from 'modules/auth/hooks';
+import { Routes } from 'modules/routing';
+import { useAuthTokens, useRegister } from 'modules/auth';
 import { AuthPageLayout } from './layouts';
 import { SignUpLearnerForm } from './forms';
 

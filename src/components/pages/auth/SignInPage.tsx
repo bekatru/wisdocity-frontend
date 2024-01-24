@@ -1,9 +1,9 @@
 import {useNavigate} from 'react-router-dom';
-import {Routes} from 'modules/routing/types';
 import {toast} from 'react-toastify';
+import {Routes} from 'modules/routing';
+import { useAuthTokens, useLogin } from 'modules/auth';
 import {AuthPageLayout} from './layouts';
 import {SignInForm} from './forms';
-import { useAuthTokens, useLogin } from 'modules/auth';
 
 
 export function SignInPage() {

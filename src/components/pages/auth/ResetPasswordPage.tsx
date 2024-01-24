@@ -1,8 +1,8 @@
-import { useResetPassword } from 'modules/auth/hooks';
-import { AuthFormLayout, AuthPageLayout } from './layouts';
-import { FormInput } from 'components';
-import { toast } from 'react-toastify';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
+import { useResetPassword } from 'modules/auth';
+import { FormInput } from 'components';
+import { AuthFormLayout, AuthPageLayout } from './layouts';
 
 
 export function ResetPasswordPage() {

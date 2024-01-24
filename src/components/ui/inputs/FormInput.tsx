@@ -1,4 +1,4 @@
-import { Label } from "../shared/Label";
+import { Label } from "components"
 
 interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     label: string

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Routes } from "modules/routing/types";
-import { AuthFormLayout, AuthPageLayout } from "./layouts";
+import { Routes } from "modules/routing";
 import { Checkbox } from "components";
+import { AuthFormLayout, AuthPageLayout } from "./layouts";
 
 enum SignUpOptions {
     Learner = 'learner',

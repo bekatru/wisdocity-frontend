@@ -1,15 +1,15 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
+import { Routes } from "modules/routing";
 import { FormInput, LabeledCheckbox } from "components";
 import { AuthFormLayout } from "../layouts";
-import { useNavigate } from "react-router";
-import { Routes } from "modules/routing/types";
 
 interface SignInFormProps {
   onSubmit: (data: any) => void;
   isPending: boolean;
 }
 
-export function SignInForm(props: SignInFormProps) {
+export function LoginForm(props: SignInFormProps) {
   
   const navigate = useNavigate();
 

@@ -1,3 +1,2 @@
-export {SignInForm} from './SignInForm';
-export {SignUpExpertForm} from './SignUpExpertForm';
-export {SignUpLearnerForm} from './SignUpLearnerForm';
+export {LoginForm as SignInForm} from './LoginForm';
+export {RegisterForm as SignUpLearnerForm} from './RegisterForm';
