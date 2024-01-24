@@ -1,11 +1,4 @@
-export {Button} from './Button';
-export {FormInput} from './FormInput';
-export {Select} from './Select';
-export {LabeledCheckbox} from './LabeledCheckbox';
-export {Checkbox} from './Checkbox';
-export {InputLabel} from './InputLabel';
-export {Spinner} from './Spinner';
-export {Header} from './Header';
-export * from './MultiSelect';
-
 export * from './layouts';
+export * from './ui';
+
+export {Header} from './Header';

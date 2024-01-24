@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRouteError } from 'react-router-dom';
-import { getRouterErrorMessage } from '../modules/routing/helpers';
+import { getRouterErrorMessage } from '../../modules/routing/helpers';
 
 const ErrorPage: React.FC = () => {
   const error = useRouteError();

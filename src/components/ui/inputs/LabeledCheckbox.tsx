@@ -1,11 +1,11 @@
 import { Checkbox } from "./Checkbox"
-import { InputLabel } from "./InputLabel"
+import { Label } from "../shared/Label"
 
 export function LabeledCheckbox({children, ...checkboxProps}: React.InputHTMLAttributes<HTMLInputElement>) {
     return (
         <div className="flex items-center">
             <Checkbox {...checkboxProps} />
-            <InputLabel className="ml-3 font-normal">{children}</InputLabel>
+            <Label className="ml-3 font-normal">{children}</Label>
         </div>
     )
 }
