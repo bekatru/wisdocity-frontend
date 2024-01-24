@@ -8,7 +8,7 @@ const useCreateLearner = (
     options?: MutationOptions<CreateLearnerResponse, ApiServiceError<ApiError>>
 ) => {
     return useMutation({
-        mutationFn: requestCreateLearner,
+        mutationFn: request.CreateLearner,
         ...options
     })
 }

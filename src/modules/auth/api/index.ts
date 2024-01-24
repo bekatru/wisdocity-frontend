@@ -1,2 +1,2 @@
 export * from './types';
-export * from './requests';
+export * as request from './requests';

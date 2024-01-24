@@ -1,14 +1,14 @@
 import { useMutation } from "@tanstack/react-query";
 import { ApiError, ApiServiceError } from "libs/axios";
 import { MutationOptions } from "libs/reactQuery";
-import { UpdateEmailResponse, requestUpdateEmail } from "../api";
+import { UpdateEmailResponse, request } from "../api";
 
 
 const useUpdateEmail = (
     options?: MutationOptions<UpdateEmailResponse, ApiServiceError<ApiError>>
 ) => {
     return useMutation({
-        mutationFn: requestUpdateEmail,
+        mutationFn: request.changeEmail,
         ...options,
     })
 }

@@ -1,14 +1,14 @@
 import { useMutation } from "@tanstack/react-query";
 import { ApiError, ApiServiceError } from "libs/axios";
 import { MutationOptions } from "libs/reactQuery";
-import { SignInResponse, requestSignIn } from "../api";
+import { SignInResponse, request } from "../api";
 
 
 const useSignIn = (
   options?: MutationOptions<SignInResponse, ApiServiceError<ApiError>>
 ) => {
   return useMutation({
-    mutationFn: requestSignIn,
+    mutationFn: request.login,
     ...options
   });
 };
