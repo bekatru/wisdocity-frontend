@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import { Routes } from "modules/routing/types";
 import { AuthPageLayout, AuthFormLayout } from "./layouts";
-import { useAuth } from "modules/auth/hooks/useAuth";
-import { useSendVerification } from "modules/auth/hooks/useSendVerification";
+import { useAuth, useSendVerification } from "modules/auth";
 
 export function VerificationPage() {
     const [helpSectionExpanded, setHelpSectionExpanded] = useState(false);

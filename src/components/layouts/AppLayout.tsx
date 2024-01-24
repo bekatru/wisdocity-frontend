@@ -13,7 +13,7 @@ import {
     BookOpenIcon,
     UserCircleIcon,
 } from '@heroicons/react/24/outline'
-import { useAuth } from 'modules/auth/hooks/useAuth'
+import { useAuth } from 'modules/auth'
 import { useNavigate } from 'react-router-dom'
 import { Routes } from 'modules/routing/types'
 

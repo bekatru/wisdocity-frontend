@@ -1,8 +1,7 @@
 import * as React from 'react';
 import {Navigate, useNavigate} from 'react-router-dom';
 import {Routes} from '../types';
-import { useIsAuthenticated } from 'modules/auth';
-import { useAuth } from 'modules/auth/hooks/useAuth';
+import { useIsAuthenticated, useAuth } from 'modules/auth';
 import { useEffect } from 'react';
 
 

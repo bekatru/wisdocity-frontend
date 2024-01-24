@@ -1,18 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
-import { ApiError, ApiServiceError, api } from "libs/axios";
+import { ApiError, ApiServiceError } from "libs/axios";
 import { MutationOptions } from "libs/reactQuery";
+import { ResetPasswordResponse, requestResetPassword } from "../api";
 
-interface ResetPasswordResponse {}
-
-interface ResetPasswordPayload {
-    email: string;
-}
-
-const requestResetPassword = async (
-    body: ResetPasswordPayload
-): Promise<ResetPasswordResponse> => {
-    return await api.post("auth/reset-password", body);
-}
 
 const useResetPassword = (
     options?: MutationOptions<ResetPasswordResponse, ApiServiceError<ApiError>>

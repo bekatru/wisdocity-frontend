@@ -1,11 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
-
-
-import { requestRefresh } from "./refresh.request";
-
-import { RefreshResponse } from "./refresh.types";
 import { ApiError, ApiServiceError } from "libs/axios";
 import { MutationOptions } from "libs/reactQuery";
+import { RefreshResponse, requestRefresh } from "../api";
 
 const useRefresh = (
   options?: MutationOptions<RefreshResponse, ApiServiceError<ApiError>>

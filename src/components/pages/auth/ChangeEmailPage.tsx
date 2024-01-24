@@ -3,11 +3,8 @@ import { useNavigate } from "react-router-dom";
 import {toast} from 'react-toastify';
 import { AuthFormLayout, AuthPageLayout } from "./layouts";
 import { Button, FormInput } from "components";
-import { useSendVerification } from "modules/auth/hooks/useSendVerification";
-import { useAuth } from "modules/auth/hooks/useAuth";
+import { useAuth, useSendVerification, useUpdateEmail, useAuthTokens } from "modules/auth";
 import { Routes } from "modules/routing/types";
-import useUpdateEmail from "modules/auth/hooks/useUpdateEmail/useUpdateEmail";
-import { useAuthTokens } from "modules/auth";
 
 
 
