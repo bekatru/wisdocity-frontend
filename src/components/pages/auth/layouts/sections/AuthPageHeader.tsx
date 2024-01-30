@@ -1,13 +1,15 @@
+import { Header } from "components"
+
 interface AuthPageHeaderProps {
     text: string
 }
 
 export function AuthPageHeader(props: AuthPageHeaderProps) {
     return (
-        <div className="sm:mx-auto sm:w-full sm:max-w-md">
-            <h2 className="text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+        <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
+            <Header>
                 {props.text}
-            </h2>
+            </Header>
         </div>
     )
 }
