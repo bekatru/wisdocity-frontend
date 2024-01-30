@@ -85,7 +85,10 @@ export const router = createBrowserRouter([
                 path: Routes.ExpertWisdom,
                 element: RouteToComponentMap[Routes.ExpertWisdom],
                 children: [
-                  
+                  {
+                    path: Routes.ExpertWisdomUpload,
+                    element: RouteToComponentMap[Routes.ExpertWisdomUpload],
+                  },
                 ]
             },
             {

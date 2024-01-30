@@ -28,6 +28,7 @@ export enum Routes {
   ExpertHome = '/app/expert/home',
   ExpertAvatar = '/app/expert/avatar',
   ExpertWisdom = '/app/expert/wisdom',
+  ExpertWisdomUpload = '/app/expert/wisdom/upload',
   ExpertProfile = '/app/expert/profile',
   ExpertHelp = '/app/expert/help',
 }
