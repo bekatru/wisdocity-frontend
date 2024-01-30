@@ -73,7 +73,7 @@ export function AppLayout(props: PropsWithChildren) {
 
     return (
         <>
-            <div>
+            <div className='h-full'>
                 <Transition.Root show={sidebarOpen} as={Fragment}>
                     <Dialog as="div" className="relative z-50 lg:hidden" onClose={setSidebarOpen}>
                         <Transition.Child
@@ -266,7 +266,7 @@ export function AppLayout(props: PropsWithChildren) {
                     </div>
                 </div>
 
-                <div className="lg:pl-60">
+                <div className="lg:pl-60 h-full flex flex-col">
                     <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-gray-200 bg-white px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
                         <button type="button" className="-m-2.5 p-2.5 text-gray-700 lg:hidden" onClick={() => setSidebarOpen(true)}>
                             <span className="sr-only">Open sidebar</span>
@@ -351,9 +351,10 @@ export function AppLayout(props: PropsWithChildren) {
                         </div>
                     </div>
 
-                    <main className="py-10">
-                        <div className="px-4 sm:px-6 lg:px-8">{props.children}</div>
+                    <main className="p-6 flex-grow overflow-scroll">
+                        {props.children}
                     </main>
+                    
                 </div>
             </div>
         </>
