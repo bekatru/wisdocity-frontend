@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import { Routes } from "./types";
 import { RouteToComponentMap } from "./maps";
+import { UploadWisdomPage, WisdomFTUE } from "components";
 
 
 export const router = createBrowserRouter([
@@ -86,8 +87,12 @@ export const router = createBrowserRouter([
                 element: RouteToComponentMap[Routes.ExpertWisdom],
                 children: [
                   {
+                    index: true,
+                    element: <WisdomFTUE/>
+                  },
+                  {
                     path: Routes.ExpertWisdomUpload,
-                    element: RouteToComponentMap[Routes.ExpertWisdomUpload],
+                    element: <UploadWisdomPage/>,
                   },
                 ]
             },
