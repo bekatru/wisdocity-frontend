@@ -1,12 +1,12 @@
-import { ShadowBox } from "components";
+import { CenteredContainer, ShadowBox } from "components";
 import { PropsWithChildren } from "react";
 
 export function AuthLayout(props: PropsWithChildren) {
     return (
-        <div className="h-full flex items-center justify-center">
+        <CenteredContainer>
             <ShadowBox>
                 {props.children}
             </ShadowBox>
-        </div>
+        </CenteredContainer>
     )
 }
