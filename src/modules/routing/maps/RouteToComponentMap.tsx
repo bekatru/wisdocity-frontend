@@ -3,7 +3,7 @@ import {Outlet} from 'react-router-dom';
 import {Routes} from '../types';
 import {AuthRoute} from '../routes';
 import {SignInPage, SignUpPage, SelectRolePage, WelcomePage, ChangeEmailPage, VerificationPage, VerifyAndContinuePage, ChangePasswordPage, ResetPasswordPage} from 'components/pages/auth';
-import { AuthLayout, HomePage, RootLayout } from 'components';
+import { AuthLayout, HomePage, RootLayout, WisdomLayout } from 'components';
 import { AppLayout } from 'components/layouts/AppLayout';
 
 
@@ -28,10 +28,10 @@ export const RouteToComponentMap: { [key in Routes]: React.ReactNode } = {
 
   [Routes.App]: <AuthRoute><AppLayout><Outlet/></AppLayout></AuthRoute>,
 
-  [Routes.Expert]: <div>Expert <Outlet/> Page</div>,
+  [Routes.Expert]: <Outlet/>,
   [Routes.ExpertHome]: <div>Home</div>,
   [Routes.ExpertAvatar]: <div>Avatar</div>,
-  [Routes.ExpertWisdom]: <div>Wisdom</div>,
+  [Routes.ExpertWisdom]: <WisdomLayout></WisdomLayout>,
   [Routes.ExpertProfile]: <div>Profile</div>,
   [Routes.ExpertHelp]: <div>Help</div>,
 

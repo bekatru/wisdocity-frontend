@@ -74,7 +74,7 @@ export const router = createBrowserRouter([
           element: RouteToComponentMap[Routes.Expert],
           children: [
             {
-                index: true,
+                path: Routes.ExpertHome,
                 element: RouteToComponentMap[Routes.ExpertHome],
             },
             {
@@ -84,6 +84,9 @@ export const router = createBrowserRouter([
             {
                 path: Routes.ExpertWisdom,
                 element: RouteToComponentMap[Routes.ExpertWisdom],
+                children: [
+                  
+                ]
             },
             {
                 path: Routes.ExpertProfile,
