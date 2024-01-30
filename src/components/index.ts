@@ -6,3 +6,4 @@ export * from './helpers';
 
 export * from './Header';
 export * from './Footer';
+export * from './ShadowBox';
