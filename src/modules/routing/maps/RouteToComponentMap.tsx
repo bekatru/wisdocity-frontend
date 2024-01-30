@@ -3,8 +3,7 @@ import {Outlet} from 'react-router-dom';
 import {Routes} from '../types';
 import {AuthRoute} from '../routes';
 import {SignInPage, SignUpPage, SelectRolePage, WelcomePage, ChangeEmailPage, VerificationPage, VerifyAndContinuePage, ChangePasswordPage, ResetPasswordPage} from 'components/pages/auth';
-import {LandingPage} from 'components/pages/landing';
-import { AuthLayout, RootLayout } from 'components';
+import { AuthLayout, HomePage, RootLayout } from 'components';
 import { AppLayout } from 'components/layouts/AppLayout';
 
 
@@ -15,7 +14,7 @@ export const RouteToComponentMap: { [key in Routes]: React.ReactNode } = {
 
   [Routes.SignIn]: <AuthLayout><Outlet/></AuthLayout>,
 
-  [Routes.Home]: <LandingPage/>,
+  [Routes.Home]: <HomePage/>,
   [Routes.Login]: <SignInPage/>,
   [Routes.Register]: <SelectRolePage/>,
   [Routes.SignUpRole]: <SignUpPage/>,

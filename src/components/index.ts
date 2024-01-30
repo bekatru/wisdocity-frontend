@@ -2,4 +2,5 @@ export * from './layouts';
 export * from './pages';
 export * from './ui';
 
-export {Header} from './Header';
+export * from './Header';
+export * from './Footer';
