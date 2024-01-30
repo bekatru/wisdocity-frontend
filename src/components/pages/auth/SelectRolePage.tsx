@@ -36,7 +36,7 @@ export function SelectRolePage() {
                                 .replaceAll("$bg", selectedOption === SignUpOptions.Learner ? 'bg-gray-100' : '')
                         }
                     >
-                        <Checkbox checked={selectedOption === SignUpOptions.Learner} className="absolute top-2 right-2 rounded"/>
+                        <Checkbox readOnly checked={selectedOption === SignUpOptions.Learner} className="absolute top-2 right-2 rounded"/>
                         Join as a learner
                     </div>
                     <div
@@ -47,7 +47,7 @@ export function SelectRolePage() {
                                 .replaceAll("$bg", selectedOption === SignUpOptions.Expert ? 'bg-gray-100' : '')
                         }
                     >
-                        <Checkbox checked={selectedOption === SignUpOptions.Expert} className="absolute top-2 right-2"/>
+                        <Checkbox readOnly checked={selectedOption === SignUpOptions.Expert} className="absolute top-2 right-2"/>
                         Join as an expert
                     </div>
                 </div>
