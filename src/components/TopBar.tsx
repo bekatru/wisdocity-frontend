@@ -1,4 +1,4 @@
-export function Header() {
+export function TopBar() {
     return (
         <div className="sticky top-0">
             Header
