@@ -6,6 +6,7 @@ export * from './typography';
 export * from './helpers';
 
 export * from './TopBar';
+export * from './AuthTopBar';
 export * from './Footer';
 export * from './ShadowBox';
 export * from './CenteredContainer';

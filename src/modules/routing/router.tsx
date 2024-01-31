@@ -1,7 +1,7 @@
-import { createBrowserRouter } from "react-router-dom";
+import { Outlet, createBrowserRouter } from "react-router-dom";
 import { Routes } from "./types";
 import { RouteToComponentMap } from "./maps";
-import { UploadWisdomPage, WisdomFTUE } from "components";
+import { AuthLayout, UploadWisdomPage, WisdomFTUE } from "components";
 import { WisdomTable } from "components/pages/wisdom/WisdomTable";
 
 
@@ -22,7 +22,7 @@ export const router = createBrowserRouter([
     },
     {
       path: Routes.SignIn,
-      element: RouteToComponentMap[Routes.SignIn],
+      element: <AuthLayout><Outlet/></AuthLayout>,
       children: [
         {
           index: true,
