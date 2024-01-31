@@ -89,7 +89,7 @@ export const router = createBrowserRouter([
                 children: [
                   {
                     index: true,
-                    element: <WisdomTable/>
+                    element: <WisdomFTUE/>
                   },
                   {
                     path: Routes.ExpertWisdomUpload,

@@ -21,6 +21,7 @@ import { useProfile } from 'modules/auth'
 import { useNavigate } from 'react-router-dom'
 import { Routes } from 'modules/routing/types'
 import { useAuthTokens } from 'modules/auth'
+import Logo from 'assets/svg/logo.svg';
 
 const learnerNavigation = [
     { name: 'Home', href: Routes.Learner, icon: HomeIcon, current: true },
@@ -195,8 +196,13 @@ export function AppLayout(props: PropsWithChildren) {
                 <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-60 lg:flex-col">
                     {/* Sidebar component, swap this element with another sidebar if you like */}
                     <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-purple-600 px-6 pb-4">
-                        <div className="flex h-16 shrink-0 items-center">
-                            {/* Logo or company name here*/}
+                        <div className="flex h-16 shrink-0 items-center justify-center">
+                            <div
+                                onClick={() => navigate(Routes.Root)}
+                                className="hidden sm:block mr-auto font-semibold text-xl text-white text-center"
+                            >
+                                Wisdocity.ai
+                            </div>
                         </div>
                         <nav className="flex flex-1 flex-col">
                             <ul role="list" className="flex flex-1 flex-col gap-y-7">
@@ -354,7 +360,7 @@ export function AppLayout(props: PropsWithChildren) {
                     <main className="p-6 flex-grow overflow-scroll">
                         {props.children}
                     </main>
-                    
+
                 </div>
             </div>
         </>
