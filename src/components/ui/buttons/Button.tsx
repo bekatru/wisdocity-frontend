@@ -18,7 +18,7 @@ export function Button({ fullWidth = true, variant = "primary", isPending, child
             className={classNames(
                 fullWidth && "w-full",
                 variantToStyleMap[variant],
-                "flex justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 shadow-sm hover:bg-accent-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-600 text-nowrap",
+                "flex justify-center rounded-2xl px-3 py-1.5 text-sm font-semibold leading-6 shadow-sm hover:bg-accent-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-600 text-nowrap",
                 className,
             )}
             {...props}

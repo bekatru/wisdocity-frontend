@@ -34,6 +34,7 @@ export function RegisterForm(props: SignUpLearnerFormProps) {
   return (
     <AuthFormLayout isPending={props.isPending} submitButtonText="Sign up" onSubmit={handleSubmit}>
         <FormInput
+          placeholder="Jenny Wilson"
           label="Name"
           required
           autoComplete="username"
@@ -41,6 +42,7 @@ export function RegisterForm(props: SignUpLearnerFormProps) {
           onChange={(e) => setName(e.target.value)}
         />
         <FormInput
+          placeholder="example@email.com"
           label="Email"
           required
           type="email"
@@ -49,6 +51,7 @@ export function RegisterForm(props: SignUpLearnerFormProps) {
           onChange={(e) => setEmail(e.target.value)}
         />
         <FormInput
+          placeholder="Create password (8 or more characters)"
           label="Password"
           required
           type="password"

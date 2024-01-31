@@ -1,9 +1,10 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Routes } from "modules/routing";
 import { useVerifyAccount } from "modules/auth";
-import { AuthPageLayout, AuthFormLayout } from "./layouts";
+import { AuthPageLayout } from "./layouts";
+import { Paragraph, Spinner } from "components";
 
 export function VerifyAndContinuePage() {
     const [searchParams] = useSearchParams()
@@ -11,7 +12,7 @@ export function VerifyAndContinuePage() {
 
     const navigate = useNavigate()
 
-    const {mutate: verifyEmail, isPending, isSuccess} = useVerifyAccount({
+    const {mutate: verifyEmail} = useVerifyAccount({
         onSuccess: () => {
             toast.success(
                 "Email successfully verified! You will be redirected automatically.", 
@@ -30,13 +31,17 @@ export function VerifyAndContinuePage() {
             verifyEmail({token: verificationToken})
         } 
     }
+
+    useEffect(() => {
+        handleSubmit()
+    }, [])
+
     return (
-        <AuthPageLayout headerText="Verify your email to continue" footerText="Need help?" footerCtaText="Contact us" onFooterCtaClick={() => window.open('mailto:help@wisdocity.ai')}>
-            <AuthFormLayout submitButtonText={isSuccess ? "Verified" : "Verify"} onSubmit={handleSubmit} isPending={isPending} isDisabled={isSuccess}>
-                <p className="text-center text-gray-500">
-                    Please, click Verify to confirm your email adress.
-                </p>
-            </AuthFormLayout>
+        <AuthPageLayout headerText="Email verification" footerText="Need help?" footerCtaText="Contact us" onFooterCtaClick={() => window.open('mailto:support@wisdocity.ai')}>
+            <Paragraph className="text-center">Please wait while we verify your email</Paragraph>
+            <div className="flex justify-center text-purple-500">
+                <Spinner/>
+            </div>
         </AuthPageLayout>
     )
 }

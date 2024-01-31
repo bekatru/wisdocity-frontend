@@ -16,7 +16,7 @@ export function ChangePasswordPage() {
 
     const { mutate: resetPassword, isPending } = useChangePassword({
         onSuccess: () => {
-            toast.success("Change link sent successfuly", {
+            toast.success("Password has been changed successfully", {
                 onClose: () => navigate(Routes.SignIn)
             })
         },
@@ -38,7 +38,7 @@ export function ChangePasswordPage() {
     }
 
     return (
-        <AuthPageLayout headerText="Change password" footerText="Need help?" footerCtaText="Contact us" onFooterCtaClick={() => window.open("mailto:help@wisdocity.ai")}>
+        <AuthPageLayout headerText="Change password" footerText="Need help?" footerCtaText="Contact us" onFooterCtaClick={() => window.open("mailto:support@wisdocity.ai")}>
             <AuthFormLayout submitButtonText="Change password" onSubmit={handleSubmit} isPending={isPending}>
                 <p className="text-center text-gray-500">
                     Please enter your new password.

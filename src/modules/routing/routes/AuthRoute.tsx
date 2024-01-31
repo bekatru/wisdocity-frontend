@@ -20,7 +20,7 @@ export const AuthRoute: React.FC<ProtectedRouteProps> = (props) => {
   useEffect(() => {
     console.log(auth)
     if (!auth.data) return;
-    // if (!auth.data.is_verified) return navigate(Routes.Verification);
+    if (!auth.data.is_verified) return navigate(Routes.Verification);
     if (!auth.data.current_role) return;
     switch (auth.data.current_role) {
       case "learner":

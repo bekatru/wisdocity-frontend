@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import cn from "classnames";
 import { Routes } from "modules/routing";
 import { Checkbox } from "components";
 import { AuthFormLayout, AuthPageLayout } from "./layouts";
@@ -25,29 +26,28 @@ export function SelectRolePage() {
     }
 
     return (
-        <AuthPageLayout headerText="Let's create an account" footerText="Already have an account?" footerCtaText="Sign in" onFooterCtaClick={navigateToSignInPage}>
+        <AuthPageLayout headerText="Join us as a learner or expert" footerText="Already have an account?" footerCtaText="Sign in" onFooterCtaClick={navigateToSignInPage}>
             <AuthFormLayout submitButtonText="Create Account" onSubmit={handleSubmit}>
-                <div className="flex flex-col sm:flex-row gap-y-6 justify-between mb-8">
+                <div className="flex justify-evenly sm:flex-row mb-8">
                     <div
                         onClick={() => setSelectedOption(SignUpOptions.Learner)}
-                        className={
-                            "relative text-center text-nowrap text-$color p-8 rounded-2xl border border-$color cursor-pointer $bg"
-                                .replaceAll("$color", selectedOption === SignUpOptions.Learner ? 'purple-600' : 'gray-400')
-                                .replaceAll("$bg", selectedOption === SignUpOptions.Learner ? 'bg-gray-100' : '')
-                        }
+                        className={cn(
+                            "relative text-center text-nowrap text-gray-400 p-8 rounded-2xl border border-gray-400 cursor-pointer",
+                            { "border-purple-600 bg-gray-100 text-purple-600": selectedOption === SignUpOptions.Learner }
+                        )}
                     >
-                        <Checkbox readOnly checked={selectedOption === SignUpOptions.Learner} className="absolute top-2 right-2 rounded"/>
+                        <Checkbox readOnly checked={selectedOption === SignUpOptions.Learner} className="absolute top-2 right-2 rounded" />
                         Join as a learner
                     </div>
                     <div
                         onClick={() => setSelectedOption(SignUpOptions.Expert)}
-                        className={
-                            "relative text-center text-nowrap text-$color p-8 rounded-2xl border border-$color cursor-pointer $bg"
-                                .replaceAll("$color", selectedOption === SignUpOptions.Expert ? 'purple-600' : 'gray-400')
-                                .replaceAll("$bg", selectedOption === SignUpOptions.Expert ? 'bg-gray-100' : '')
+                        className={cn(
+                            "relative text-center text-nowrap text-gray-400 p-8 rounded-2xl border border-gray-400 cursor-pointer",
+                            { "border-purple-600 bg-gray-100 text-purple-600": selectedOption === SignUpOptions.Expert }
+                        )
                         }
                     >
-                        <Checkbox readOnly checked={selectedOption === SignUpOptions.Expert} className="absolute top-2 right-2"/>
+                        <Checkbox readOnly checked={selectedOption === SignUpOptions.Expert} className="absolute top-2 right-2" />
                         Join as an expert
                     </div>
                 </div>

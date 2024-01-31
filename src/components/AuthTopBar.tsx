@@ -1,4 +1,4 @@
-import { ArrowLeftStartOnRectangleIcon, Cog6ToothIcon, UserCircleIcon, UserIcon } from '@heroicons/react/24/outline';
+import { ArrowLeftStartOnRectangleIcon, Cog6ToothIcon, UserIcon } from '@heroicons/react/24/outline';
 import Logo from 'assets/svg/logo.svg';
 import cn from 'classnames';
 import { Button } from 'components';
@@ -21,17 +21,24 @@ export function AuthTopBar() {
         <nav
             className={cn(
                 "sticky top-0 bg-white shadow-md px-10 py-4",
-                "flex items-center justify-end space-x-8"
+                "flex items-center justify-end space-x-8",
+                "cursor-pointer"
             )}>
-            <div className="mr-auto font-semibold text-xl text-[#321841]">Wisdocity.ai</div>
+            <div
+                onClick={() => navigate(Routes.Root)}
+                className="hidden sm:block mr-auto font-semibold text-xl text-[#321841]"
+            >
+                Wisdocity.ai
+            </div>
             {
                 isAuthenticated && profile.data && <Example username={profile.data.username} role={profile.data.current_role} onSignOut={handleSignOut} />
             }
             <Button onClick={() => navigate(Routes.SignIn)} className="px-8" fullWidth={false} variant="outlined">Sign in</Button>
             <img
+                onClick={() => navigate(Routes.Root)}
                 alt="logo"
                 src={Logo}
-                className="h-9 mr-auto"
+                className="h-9 mr-auto cursor-pointer"
             />
         </nav>
     )
@@ -64,9 +71,9 @@ export default function Example(props: AccountMenuProps) {
                         leaveFrom="opacity-100 translate-y-0"
                         leaveTo="opacity-0 translate-y-1"
                     >
-                        <Popover.Panel className="absolute right-4 z-10 mt-3 min-w-[250px] px-4 sm:px-0 lg:max-w-3xl">
+                        <Popover.Panel className="absolute right-10 z-10 mt-6 min-w-[250px] px-4 sm:px-0 lg:max-w-3xl">
                             <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black/5">
-                                <div className="bg-gray-50 p-4">
+                                <div className="bg-white p-4">
                                     <div className='flex flex-col items-center my-6'>
                                         <span className="inline-block h-20 w-20 overflow-hidden rounded-full bg-gray-100">
                                             <svg className="h-full w-full text-gray-300" fill="currentColor" viewBox="0 0 24 24">
@@ -79,11 +86,11 @@ export default function Example(props: AccountMenuProps) {
                                     </div>
 
                                     <a
-                                        className="flow-root rounded-md px-2 py-2 transition duration-150 ease-in-out hover:bg-gray-100 focus:outline-none focus-visible:ring focus-visible:ring-orange-500/50"
+                                        className="flow-root rounded-md px-2 py-2 transition duration-150 ease-in-out hover:bg-red-500 hover:text-white focus:outline-none focus-visible:ring focus-visible:ring-orange-500/50"
                                     >
                                         <span className="flex items-center space-x-2 cursor-pointer">
                                             <Cog6ToothIcon className="h-6"/>
-                                            <span className="text-sm font-medium text-gray-900">
+                                            <span className="text-sm font-medium">
                                                 Close Account
                                             </span>
                                         </span>

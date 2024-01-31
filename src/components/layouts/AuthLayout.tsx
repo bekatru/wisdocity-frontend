@@ -6,7 +6,7 @@ export function AuthLayout(props: PropsWithChildren) {
         <>
             <AuthTopBar />
             <CenteredContainer>
-                <div className="w-[480px] max-w-[480px]">
+                <div className="sm:min-w-[528px]">
                     <ShadowBox>
                         {props.children}
                     </ShadowBox>
