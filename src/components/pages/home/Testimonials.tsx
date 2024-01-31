@@ -6,8 +6,6 @@ import { ReactNode, useEffect, useState } from "react";
 import DoubleQuotesSvg from 'assets/svg/double-quotes.svg';
 
 export function Testimonials() {
-    const INTERVAL_LENGTH = 5000;
-    const AUTOPLAY = true;
 
     const items = [
         <div className="px-12 flex justify-center space-x-6">
@@ -19,12 +17,12 @@ export function Testimonials() {
                 <div className="flex space-x-4 items-center">
                     <img
                         className="inline-block h-[84px] w-[84px] rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                         alt=""
                     />
                     <div className="text-start">
-                        <div className="text-2xl font-semibold">Tim Cook</div>
-                        <div>CEO of Apple</div>
+                        <div className="text-2xl font-semibold">John Doe</div>
+                        <div>AI Expert</div>
                     </div>
                 </div>
             </div>
@@ -55,12 +53,12 @@ export function Testimonials() {
                 <div className="flex space-x-4 items-center">
                     <img
                         className="inline-block h-[84px] w-[84px] rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                         alt=""
                     />
                     <div className="text-start">
-                        <div className="text-2xl font-semibold">Tim Cook</div>
-                        <div>CEO of Apple</div>
+                        <div className="text-2xl font-semibold">Lory Brim</div>
+                        <div>VCA</div>
                     </div>
                 </div>
             </div>
@@ -72,12 +70,12 @@ export function Testimonials() {
                 <div className="flex space-x-4 items-center">
                     <img
                         className="inline-block h-[84px] w-[84px] rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80"
                         alt=""
                     />
                     <div className="text-start">
-                        <div className="text-2xl font-semibold">Tim Cook</div>
-                        <div>CEO of Apple</div>
+                        <div className="text-2xl font-semibold">Andrew Ross</div>
+                        <div>Entrepreneur</div>
                     </div>
                 </div>
             </div>
@@ -86,17 +84,23 @@ export function Testimonials() {
     ] as ReactNode[];
 
     const [currentItem, setCurrentItem] = useState(0);
+    const [isTransitioning, setIsTransitioning] = useState(false);
 
-    const prev = () =>
-        setCurrentItem((curr) => (curr === 0 ? items.length - 1 : curr - 1));
-    const next = () =>
-        setCurrentItem((curr) => (curr === items.length - 1 ? 0 : curr + 1));
+    const prev = () => {
+        if (!isTransitioning) {
+            setIsTransitioning(true);
+            setCurrentItem((curr) => (curr === 0 ? items.length - 1 : curr - 1));
+            setTimeout(() => setIsTransitioning(false), 1100);
+        }
 
-    useEffect(() => {
-        if (!AUTOPLAY) return;
-        const interval = setInterval(next, INTERVAL_LENGTH);
-        return () => clearInterval(interval);
-    }, []);
+    }
+    const next = () => {
+        if (!isTransitioning) {
+            setIsTransitioning(true);
+            setCurrentItem((curr) => (curr === items.length - 1 ? 0 : curr + 1));
+            setTimeout(() => setIsTransitioning(false), 1100);
+        }
+    }
 
     return (
         <section className="relative h-[514px] w-full overflow-hidden text-center">
@@ -120,13 +124,13 @@ export function Testimonials() {
                     className="m-4 h-8 w-8"
                     onClick={prev}
                 >
-                    <ChevronLeftIcon/>
+                    <ChevronLeftIcon />
                 </button>
                 <button
                     className="m-4 h-8 w-8"
                     onClick={next}
                 >
-                    <ChevronRightIcon/>
+                    <ChevronRightIcon />
                 </button>
             </div>
             {/* Indicator */}

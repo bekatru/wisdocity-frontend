@@ -1,5 +1,4 @@
 import { HomeBanner } from "./HomeComponents/HomeBanner";
-import { HomeTestimonials } from "./HomeComponents/HomeTestimonials";
 import { HomeAvatars } from "./HomeComponents/HomeAvatars";
 import { HomeCommunity } from "./HomeComponents/HomeCommunity";
 import { HomeExclusiveCommunity } from "./HomeComponents/HomeExclusiveCommunity";
@@ -9,13 +8,16 @@ import './home.css'
 
 
 import { HomeAdvantage } from "./HomeComponents/HomeAdvantage";
+import { Testimonials } from "./Testimonials";
 
 
 export function HomePage() {
     return (
         <>
             <HomeBanner />
-        {/* <HomeTestimonials /> */}
+            <div className="mt-20">
+            <Testimonials/>
+            </div>
             <HomeAvatars />
             <HomeCommunity />
             <HomeExclusiveCommunity />
