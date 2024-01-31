@@ -1,5 +1,5 @@
 
-import BannerImg from "../../../../assets/home-assets/home-banner.png";
+import BannerImg from "../../../../assets/home-assets/home-banner.jpg";
 
 export function HomeBanner() {
     return (
@@ -14,7 +14,7 @@ export function HomeBanner() {
                             eager learners from diverse backgrounds gather to explore, question and grow. Whether your
                             goal is to contribute your insights or absorb new perspectives, we invite you to become a part of
                             a lifelong learning journey, fostering mutual enrichment and continious growth.</p>
-                        <button type="button" className="text-white bg-btn-theme fn fw-sb fw-r rounded-full px-6 py-4 text-center text-[16px]">See Experts</button>
+                        <button type="button" className="text-white bg-btn-theme fn fw-sb fw-r rounded-full px-8 py-4 text-center text-[16px]">See Experts</button>
                     </div>
                 </div>
             </div>
