@@ -1,9 +1,8 @@
 import DocIcon from 'assets/png/doc.png';
 import TxtIcon from 'assets/png/txt.png';
 import PdfIcon from 'assets/png/pdf.png';
-import UrlIcon from 'assets/png/url.png';
 import { EllipsisVerticalIcon, PlusIcon } from '@heroicons/react/16/solid';
-import { ArrowLongLeftIcon, ArrowLongRightIcon, ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
+import { ArrowLongLeftIcon, ArrowLongRightIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import classNames from 'classnames';
 import { MultiSelect, ShadowBox } from 'components';
 import { useState } from 'react';

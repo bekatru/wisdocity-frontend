@@ -21,7 +21,6 @@ import { useProfile } from 'modules/auth'
 import { useNavigate } from 'react-router-dom'
 import { Routes } from 'modules/routing/types'
 import { useAuthTokens } from 'modules/auth'
-import Logo from 'assets/svg/logo.svg';
 
 const learnerNavigation = [
     { name: 'Home', href: Routes.Learner, icon: HomeIcon, current: true },

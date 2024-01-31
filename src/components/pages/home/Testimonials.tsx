@@ -2,7 +2,7 @@ import { Transition } from "@headlessui/react";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import classNames from "classnames";
 import { Paragraph } from "components";
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useState } from "react";
 import DoubleQuotesSvg from 'assets/svg/double-quotes.svg';
 
 export function Testimonials() {

@@ -2,7 +2,6 @@ import { Outlet, createBrowserRouter } from "react-router-dom";
 import { Routes } from "./types";
 import { RouteToComponentMap } from "./maps";
 import { AuthLayout, UploadWisdomPage, WisdomFTUE } from "components";
-import { WisdomTable } from "components/pages/wisdom/WisdomTable";
 
 
 export const router = createBrowserRouter([

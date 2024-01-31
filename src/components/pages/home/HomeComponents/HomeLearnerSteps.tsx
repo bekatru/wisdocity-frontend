@@ -1,6 +1,5 @@
 import StepIcon1 from '../../../../assets/home-assets/step-1-icon.svg';
 import StepIcon2 from '../../../../assets/home-assets/step-2-icon.svg';
-import StepIcon3 from '../../../../assets/home-assets/step-3-icon.svg';
 import PlaceholderIcon from '../../../../assets/home-assets/placeholder.png';
 
 export function HomeLearnerSteps() {
