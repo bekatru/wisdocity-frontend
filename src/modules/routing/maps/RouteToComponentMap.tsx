@@ -2,20 +2,33 @@ import * as React from 'react';
 import {Outlet} from 'react-router-dom';
 import {Routes} from '../types';
 import {AuthRoute} from '../routes';
-import {SignInPage, SignUpPage, SelectRolePage, WelcomePage, ChangeEmailPage, VerificationPage, VerifyAndContinuePage, ChangePasswordPage, ResetPasswordPage} from 'components/pages/auth';
-import {LandingPage} from 'components/pages/landing';
-import { AuthLayout } from 'components';
+import {
+  SignInPage,
+  SignUpPage,
+  SelectRolePage,
+  WelcomePage,
+  ChangeEmailPage,
+  VerificationPage,
+  VerifyAndContinuePage,
+  ChangePasswordPage,
+  ResetPasswordPage,
+  AuthLayout,
+  HomePage,
+  RootLayout,
+  WisdomLayout,
+  UploadWisdomPage
+} from 'components';
 import { AppLayout } from 'components/layouts/AppLayout';
 
 
 export const RouteToComponentMap: { [key in Routes]: React.ReactNode } = {
   [Routes.NotFound]: <div>404</div>,
 
-  [Routes.Root]: <Outlet/>,
+  [Routes.Root]: <RootLayout><Outlet/></RootLayout>,
 
   [Routes.SignIn]: <AuthLayout><Outlet/></AuthLayout>,
 
-  [Routes.Home]: <LandingPage/>,
+  [Routes.Home]: <HomePage/>,
   [Routes.Login]: <SignInPage/>,
   [Routes.Register]: <SelectRolePage/>,
   [Routes.SignUpRole]: <SignUpPage/>,
@@ -29,10 +42,11 @@ export const RouteToComponentMap: { [key in Routes]: React.ReactNode } = {
 
   [Routes.App]: <AuthRoute><AppLayout><Outlet/></AppLayout></AuthRoute>,
 
-  [Routes.Expert]: <div>Expert <Outlet/> Page</div>,
+  [Routes.Expert]: <Outlet/>,
   [Routes.ExpertHome]: <div>Home</div>,
   [Routes.ExpertAvatar]: <div>Avatar</div>,
-  [Routes.ExpertWisdom]: <div>Wisdom</div>,
+  [Routes.ExpertWisdom]: <WisdomLayout><Outlet/></WisdomLayout>,
+  [Routes.ExpertWisdomUpload]: <UploadWisdomPage/>,
   [Routes.ExpertProfile]: <div>Profile</div>,
   [Routes.ExpertHelp]: <div>Help</div>,
 

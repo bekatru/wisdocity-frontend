@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,500;6..12,600;6..12,700&display=swap');
+
+@font-face {
+    font-family: 'PP Telegraf';
+    src: url('./assets/fonts/PPTelegraf-UltraLight.eot');
+    src: url('./assets/fonts/PPTelegraf-UltraLight.eot?#iefix') format('embedded-opentype'),
+        url('./assets/fonts/PPTelegraf-UltraLight.woff2') format('woff2'),
+        url('./assets/fonts/PPTelegraf-UltraLight.woff') format('woff'),
+        url('./assets/fonts/PPTelegraf-UltraLight.ttf') format('truetype'),
+        url('./assets/fonts/PPTelegraf-UltraLight.svg#PPTelegraf-UltraLight') format('svg');
+    font-weight: 200;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'PP Telegraf';
+    src: url('./assets/fonts/PPTelegraf-Regular.eot');
+    src: url('./assets/fonts/PPTelegraf-Regular.eot?#iefix') format('embedded-opentype'),
+        url('./assets/fonts/PPTelegraf-Regular.woff2') format('woff2'),
+        url('./assets/fonts/PPTelegraf-Regular.woff') format('woff'),
+        url('./assets/fonts/PPTelegraf-Regular.ttf') format('truetype'),
+        url('./assets/fonts/PPTelegraf-Regular.svg#PPTelegraf-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'PP Telegraf';
+    src: url('./assets/fonts/PPTelegraf-UltraBold.eot');
+    src: url('./assets/fonts/PPTelegraf-UltraBold.eot?#iefix') format('embedded-opentype'),
+        url('./assets/fonts/PPTelegraf-UltraBold.woff2') format('woff2'),
+        url('./assets/fonts/PPTelegraf-UltraBold.woff') format('woff'),
+        url('./assets/fonts/PPTelegraf-UltraBold.ttf') format('truetype'),
+        url('./assets/fonts/PPTelegraf-UltraBold.svg#PPTelegraf-UltraBold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+
+body{
+    font-family: 'Nunito Sans', sans-serif !important;
+    background: var(--Bg, #F9F7FB);
+
+}
+
+.fw-l{
+    font-weight: 100;
+}
+.fw-r{
+    font-weight: 400;
+}
+.fw-m{
+    font-weight: 500;
+}
+.fw-sb{
+    font-weight: 600;
+}
+.fw-b{
+    font-weight: 700;
+}
+
+.fn{
+    font-family: 'Nunito Sans', sans-serif !important;
+}
+
+.ft{
+    font-family: 'PP Telegraf' !important;
+}
+
+.fl{float: left;}
+.fr{float: right;}
+.d-i{display: inline-block;}
+
+
+.logo-text {
+    margin: 3px 0 0 40px;
+}
+
+.SignupBtns a {
+    border-radius: 80px;
+    border: 1px solid var(--Accent-Purple, #64108F);
+    background: #8726B9;
+    display: flex;
+    padding: 12px 40px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    color: var(--White, #FFF);
+    font-size: 16px;
+    font-style: normal;
+    line-height: normal;
+    margin: 0 0 0 6px;
+}
+
+.LoginBtns a {
+    border-radius: 80px;
+    display: flex;
+    padding: 12px 40px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    color: var(--Black, #321841);
+    font-size: 16px;
+    font-style: normal;
+    line-height: normal;
+    margin: 0 0 0 6px;
+}
+
+.btn:hover{
+    background: #8726B9;
+    color: var(--White, #FFF);
+}
+
+
+.LoginBtns a:hover{
+    background: #8726B9;
+    color: var(--White, #FFF);
+}
+
+
+.nav-link-top{
+    color: var(--Black, #321841);
+    font-size: 16px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.nav-link-top img{
+    margin-right: 10px;
+}
+
+.ml80{
+    margin: 0px 0 0 70px !important;
+}
+
+.ml130{
+    margin: 4px 0 0 100px !important;
+}
+
+.nav-link-dropdown {
+    margin: 12px -52px 0 0px;
+}
+
+.pdropdown-p-8-0{
+    padding: 8px 0px;
+}
+
+.drp-link{
+    color: var(--Grey-01, #6B6985);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    padding: 11px 16px;
+}
+
+.drp-link:hover{
+    color: var(--Purple-02, #8726B9);
+    border-radius: 0px !important;
+}
+
+.mobile-menu a{
+    color: #000;
+}
+
+.bg-btn-theme{
+    background: #8726B9;
+}
+
+.bg-btn-theme:hover{
+    background: #6d1899;
+}
+
+@media (max-width: 767px) {
+    .ml80 {
+        margin: 0px 0 0 0px !important;
+    }
+}

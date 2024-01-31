@@ -11,6 +11,7 @@ export interface MultiSelectProps {
     options: MultiSelectOption[];
     value: MultiSelectOption[];
     onChange: (value: MultiSelectOption[]) => void;
+    placeholder?: string;
 }
 
 function classNames(...classes: string[]) {
@@ -23,14 +24,13 @@ export function MultiSelect(props: MultiSelectProps) {
         <Listbox value={props.value} onChange={props.onChange} multiple>
             {({ open }) => (
                 <>
-                    <Listbox.Label className="block text-sm font-medium leading-6 text-gray-900">What is you favorite way to learn?</Listbox.Label>
-                    <div className="relative mt-2">
+                    <div className="relative">
 
                         <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-600 sm:text-sm sm:leading-6">
                             <span className="block truncate">
                                 {  
                                     !props.value.length
-                                        ? "Choose one or several options"
+                                        ? props.placeholder ?? "Choose one or several options"
                                         : props.value.map((option) => option.value).join(', ')
                                 }
                             </span>

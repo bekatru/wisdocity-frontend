@@ -32,7 +32,7 @@ export function SignInPage() {
   }
 
   return (
-    <AuthPageLayout headerText="Sign in to your account" footerText="Not a member?" footerCtaText="Sign up" onFooterCtaClick={navigateToSignUpPage}>
+    <AuthPageLayout headerText="Sign in to Wisdocity" footerText="Not a member?" footerCtaText="Sign up" onFooterCtaClick={navigateToSignUpPage}>
       <SignInForm onSubmit={handleSubmit} isPending={isPending}/>
     </AuthPageLayout>
   );

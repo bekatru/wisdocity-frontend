@@ -14,9 +14,8 @@ export function WelcomePage() {
 
     return (
         <div className="px-4 py-5 sm:p-6 flex flex-col items-center space-y-8">
-            <h1 className="text-purple-900 font-semibold text-3xl text-center">
-                Congrats! <br /> 
-                Welcome to Wisdocity. <br />
+            <h1 className="text-purple-900 font-semibold text-3xl text-center sm:text-nowrap">
+                Congrats! Welcome to Wisdocity. <br />
                 Let's get started with your new account
             </h1>
             <p className="text-gray-400 text-center max-w-lg">

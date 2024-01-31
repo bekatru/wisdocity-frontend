@@ -1,4 +1,5 @@
-import { AuthPageFooter, AuthPageHeader } from "./sections";
+import { Header } from "components";
+import { AuthPageFooter } from "./sections";
 
 interface AuthPageLayoutProps extends React.PropsWithChildren {
     headerText: string;
@@ -9,8 +10,8 @@ interface AuthPageLayoutProps extends React.PropsWithChildren {
 
 export function AuthPageLayout(props: AuthPageLayoutProps) {
     return (
-        <div className="flex min-h-full flex-1 flex-col justify-center ">
-            <AuthPageHeader text={props.headerText}/>
+        <div className="flex min-h-full flex-1 flex-col justify-center space-y-6">
+            <Header>{props.headerText}</Header>
             {props.children}
             <AuthPageFooter text={props.footerText} ctaText={props.footerCtaText} onCtaClick={props.onFooterCtaClick}/>
         </div>

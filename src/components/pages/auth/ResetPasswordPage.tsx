@@ -22,7 +22,7 @@ export function ResetPasswordPage() {
     }
 
     return (
-        <AuthPageLayout headerText="Reset password" footerText="Need help?" footerCtaText="Contact us" onFooterCtaClick={() => window.open("mailto:help@wisdocity.ai")}>
+        <AuthPageLayout headerText="Reset password" footerText="Need help?" footerCtaText="Contact us" onFooterCtaClick={() => window.open("mailto:support@wisdocity.ai")}>
             <AuthFormLayout submitButtonText="Submit" onSubmit={handleSubmit} isPending={isPending}>
                 <p className="text-center text-gray-500">
                     Please enter your email adress. <br />

@@ -55,6 +55,8 @@ instance.interceptors.response.use(
         cookies.set(COOKIE_ACCESS_TOKEN_NAME, access_token, COOKIE_OPTIONS);
         cookies.set(COOKIE_REFRESH_TOKEN_NAME, refresh_token, COOKIE_OPTIONS);
 
+        alert('Token refreshed')
+
         return await instance(originalRequest);
       } catch (refreshError) {
         cookies.remove(COOKIE_ACCESS_TOKEN_NAME, COOKIE_OPTIONS);
@@ -74,7 +76,7 @@ const refreshAccessToken = async (): Promise<{
 }> => {
   const refreshToken = cookies.get(COOKIE_REFRESH_TOKEN_NAME);
 
-  const response = await axios.put(`${BASE_URL}users/refresh`, {refreshToken}, {
+  const response = await axios.get(`${BASE_URL}auth/refresh`, {
     headers: {
       Authorization: `Bearer ${refreshToken}`
     }
