@@ -65,6 +65,7 @@ export function UploadWisdomPage() {
 
     return (
         <CenteredContainer>
+            <div className="w-[500px]">
             <ShadowBox>
                 <Header>Upload new information</Header>
                 <div className="space-y-4 mt-6">
@@ -159,6 +160,7 @@ export function UploadWisdomPage() {
                     <Button onClick={handleSave}>Save</Button>
                 </div>
             </ShadowBox>
+            </div>
         </CenteredContainer>
     )
 }
