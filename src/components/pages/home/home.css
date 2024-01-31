@@ -1,0 +1,33 @@
+
+.banner-v1 h1{ line-height: 76px;}
+.transparent-bg{
+    height: 132px;
+    background: linear-gradient(180deg, rgba(249, 247, 251, 0.00) 12.88%, rgba(249, 247, 251, 0.50) 63.45%);
+    bottom: -42px;
+}
+
+.shadow-d{
+    border-radius: 24px !important;
+    background: #FFF !important;
+    box-shadow: 0px 1px 34px 0px rgba(123, 123, 123, 0.15) !important;
+}
+
+.avatar-header img{
+    float: left;
+}
+
+.avatar_cards{
+    
+}
+
+@media (max-width: 767px) {
+    br{display: none;}
+    .banner-v1 h1{
+        line-height: normal;
+        font-size: 32px;
+    }
+    .banner-v1 p{
+        font-size: 16px;
+    }
+
+}
