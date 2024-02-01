@@ -10,6 +10,10 @@ export const router = createBrowserRouter([
       element: RouteToComponentMap[Routes.NotFound],
     },
     {
+      path: Routes.LearnersHome,
+      element: RouteToComponentMap[Routes.LearnersHome],
+    },
+    {
       path: Routes.Root,
       element: RouteToComponentMap[Routes.Root],
       children: [
@@ -17,8 +21,10 @@ export const router = createBrowserRouter([
           index: true,
           element: RouteToComponentMap[Routes.Home],
         },
+        
       ],
     },
+  
     {
       path: Routes.SignIn,
       element: <AuthLayout><Outlet/></AuthLayout>,
