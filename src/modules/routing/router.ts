@@ -16,6 +16,20 @@ export const router = createBrowserRouter([
           index: true,
           element: RouteToComponentMap[Routes.Home],
         },
+       
+        
+      ],
+    },
+    {
+      path: Routes.LearnerHome,
+      element: RouteToComponentMap[Routes.LearnerHome],
+      children: [
+        {
+          index: true,
+          element: RouteToComponentMap[Routes.LearnerHome],
+        },
+       
+        
       ],
     },
     {

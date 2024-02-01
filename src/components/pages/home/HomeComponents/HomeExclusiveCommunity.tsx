@@ -29,7 +29,7 @@ export function HomeExclusiveCommunity() {
                             <p className="fn fw-sb uppercase text-[18px] mt-[50px] mb-[20px] text-[#7F30AC]">
                                 Join the best
                             </p>
-                            <h2 className="text-white ft leading-none fw-r text-[64px] mb-[20px] text-[#321841]">Exclusive Expert <br />Community </h2>
+                            <h2 className="ft leading-none fw-r text-[64px] mb-[20px] text-[#321841]">Exclusive Expert <br />Community </h2>
 
                             <p className="fn fw-r leading-7 text-[18px] mb-[20px] text-[#321841]">Be part of Our Exclusive Expert Community and Immortalize Your Wisdom!</p>
 

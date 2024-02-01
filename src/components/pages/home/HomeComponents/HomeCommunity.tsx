@@ -13,7 +13,7 @@ export function HomeCommunity() {
                     <p className="fn fw-sb uppercase text-[18px] mb-[28px] text-[#7F30AC]">
                         Learn here
                     </p>
-                    <h2 className="text-white ft leading-none fw-r text-[64px] mb-[80px] text-[#321841]">Unlock the Power of Community <br /> Learning at WisdoCity!</h2>
+                    <h2 className="ft leading-none fw-r text-[64px] mb-[80px] text-[#321841]">Unlock the Power of Community <br /> Learning at WisdoCity!</h2>
                 </div>
 
 
