@@ -1,4 +1,5 @@
 export const BASE_URL = "http://localhost:3000/";
+export const ASSISTANT_AI_API_BASE_URL = "https://assistantai.dbsync.io/";
 
 export const APP_NAME = "wisdocity";
 
