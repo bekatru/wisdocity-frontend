@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,300;6..12,400;6..12,500;6..12,600;6..12,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap');
+
 
 @font-face {
     font-family: 'PP Telegraf';
@@ -39,6 +41,19 @@
     font-display: swap;
 }
 
+@font-face {
+    font-family: 'Futura Md BT';
+    src: url('./assets/fonts/FuturaBT-Medium.eot');
+    src: url('./assets/fonts/FuturaBT-Medium.eot?#iefix') format('embedded-opentype'),
+        url('./assets/fonts/FuturaBT-Medium.woff2') format('woff2'),
+        url('./assets/fonts/FuturaBT-Medium.woff') format('woff'),
+        url('./assets/fonts/FuturaBT-Medium.ttf') format('truetype'),
+        url('./assets/fonts/FuturaBT-Medium.svg#FuturaBT-Medium') format('svg');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
 
 
 body{
@@ -69,6 +84,14 @@ body{
 
 .ft{
     font-family: 'PP Telegraf' !important;
+}
+
+.fms{
+    font-family: 'Montserrat', sans-serif !important;
+}
+
+.ff{
+    font-family: 'Futura Md BT' !important;
 }
 
 .fl{float: left;}
@@ -175,6 +198,42 @@ body{
 .bg-btn-theme:hover{
     background: #6d1899;
 }
+
+.bg-footer{
+    border-radius: 32px;
+    background: #64108F;
+}
+
+.nav-links-footer li{
+    margin-bottom: 14px;
+}
+
+.nav-links-footer li a{
+    color: #BF9ED1;
+    font-family: 'Nunito Sans', sans-serif !important;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.nav-links-footer li a:hover{
+    color: #fff;
+}
+
+.footer-privacy a{
+    color: var(--White, #FFF);
+    font-family: 'Nunito Sans', sans-serif !important;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.footer-privacy a:hover{
+    color: #BF9ED1;
+}
+
 
 @media (max-width: 767px) {
     .ml80 {

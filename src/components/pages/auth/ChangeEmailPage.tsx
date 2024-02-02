@@ -24,7 +24,7 @@ export function ChangeEmailPage() {
         if (data?.is_verified) {
             navigate(Routes.App)
         }
-    }, [data])
+    }, [data?.is_verified])
 
     const { setTokens} = useAuthTokens()
 

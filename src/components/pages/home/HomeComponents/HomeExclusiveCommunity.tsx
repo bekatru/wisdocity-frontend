@@ -1,9 +1,11 @@
+import { Link } from 'react-router-dom';
+
 import Icon1 from '../../../../assets/home-assets/exclusive-icon-1.svg';
 import Icon2 from '../../../../assets/home-assets/exclusive-icon-2.svg';
 
 export function HomeExclusiveCommunity() {
     return (
-        <div className="bg-white py-24 sm:py-32">
+        <div className="bg-none py-24 sm:py-20">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
 
 
@@ -16,7 +18,7 @@ export function HomeExclusiveCommunity() {
 
                 <div className="flex flex-wrap -mx-4">
 
-                    <div className="w-full md:w-1/3 px-4 mb-4 ">
+                    <div className="w-full md:w-1/4 px-4 mb-4 ">
                         <div className="w-full text-left h-full">
                             <div className='flex justify-left items-left'>
                                 <img src={Icon1} />
@@ -24,23 +26,24 @@ export function HomeExclusiveCommunity() {
                         </div>
                     </div>
 
-                    <div className="w-full md:w-1/3 px-4 mb-4 ">
+                    <div className="w-full md:w-1/2 px-4 mb-4 ">
                         <div className="w-full  text-center items-center h-full">
-                            <span className="mt-2 text-lg leading-8 text-gray-600 text-[#321841]">
+                            <p className="fn fw-sb uppercase text-[18px] mt-[50px] mb-[20px] text-[#7F30AC]">
                                 Join the best
-                            </span>
-                            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl text-[#321841]">Exclusive Expert <br />Community </h2>
+                            </p>
+                            <h2 className="ft leading-none fw-r text-[64px] mb-[20px] text-[#321841]">Exclusive Expert <br />Community </h2>
 
-                            <p className="mt-2 text-lg leading-8 text-gray-600 text-[#321841]">Be part of Our Exclusive Expert Community and Immortalize Your Wisdom!</p>
+                            <p className="fn fw-r leading-7 text-[18px] mb-[20px] text-[#321841]">Be part of Our Exclusive Expert Community and Immortalize Your Wisdom!</p>
 
                             <div className='text-center'>
-                                <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Become an expert</button>
-
+                                <Link to="signin/register/expert">
+                                <button type="button" className="text-white bg-btn-theme fn fw-b rounded-full px-8 py-4 text-center text-[18px]">Become an expert</button>
+                                </Link>
                             </div>
                         </div>
                     </div>
 
-                    <div className="w-full md:w-1/3 px-4 mb-4 ">
+                    <div className="w-full md:w-1/4 px-4 mb-4 ">
                         <div className="w-full text-right h-full">
                             <div className='flex justify-end items-right'>
                                 <img src={Icon2} />

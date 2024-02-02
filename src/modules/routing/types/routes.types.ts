@@ -2,6 +2,8 @@ export enum Routes {
   NotFound = '*',
   Root = '/',
   Home = '/home',
+  // LearnersHome = 'learners-home',
+  Learners = '/learners',
   App = '/app',
 
   SignIn = '/signin',
@@ -30,5 +32,7 @@ export enum Routes {
   ExpertWisdom = '/app/expert/wisdom',
   ExpertWisdomUpload = '/app/expert/wisdom/upload',
   ExpertProfile = '/app/expert/profile',
+  ExpertProfileBilling = '/app/expert/profile/billing',
+  ExpertProfileSettings = '/app/expert/profile/settings',
   ExpertHelp = '/app/expert/help',
 }

@@ -1,90 +1,95 @@
 import { Outlet, createBrowserRouter } from "react-router-dom";
 import { Routes } from "./types";
-import { RouteToComponentMap } from "./maps";
-import { AuthLayout, UploadWisdomPage, WisdomFTUE } from "components";
+import { AppLayout, AuthLayout, Billing, ChangeEmailPage, ChangePasswordPage, ExpertProfileLayout, HomePage, LearnersPage, Profile, ResetPasswordPage, RootLayout, SelectRolePage, Settings, SignInPage, SignUpPage, UploadWisdomPage, VerificationPage, VerifyAndContinuePage, WelcomePage, WisdomFTUE, WisdomLayout } from "components";
+import { AuthRoute } from "./routes";
 
 
 export const router = createBrowserRouter([
     {
       path: Routes.NotFound,
-      element: RouteToComponentMap[Routes.NotFound],
+      element: <div>404</div>,
     },
     {
       path: Routes.Root,
-      element: RouteToComponentMap[Routes.Root],
+      element: <AuthRoute><RootLayout><Outlet/></RootLayout></AuthRoute>,
       children: [
         {
           index: true,
-          element: RouteToComponentMap[Routes.Home],
+          element: <HomePage/>,
+        },
+        {
+          path: Routes.Learners,
+          element: <LearnersPage/>,
         },
       ],
     },
+  
     {
       path: Routes.SignIn,
       element: <AuthLayout><Outlet/></AuthLayout>,
       children: [
         {
           index: true,
-          element: RouteToComponentMap[Routes.Login],
+          element: <SignInPage/>,
         },
         {
           path: Routes.Register,
           children: [
             {
                 index: true,
-                element: RouteToComponentMap[Routes.Register],
+                element: <SelectRolePage/>,
             },
             {
                 path: Routes.SignUpRole,
-                element: RouteToComponentMap[Routes.SignUpRole],
+                element: <SignUpPage/>,
             },
         ],
         },
         {
           path: Routes.Welcome,
-          element: RouteToComponentMap[Routes.Welcome],
+          element: <WelcomePage/>,
         },
         {
           path: Routes.Verification,
-          element: RouteToComponentMap[Routes.Verification],
+          element: <VerificationPage/>,
         },
         {
           path: Routes.Verify,
-          element: RouteToComponentMap[Routes.Verify],
+          element: <VerifyAndContinuePage/>,
         },
         {
           path: Routes.ChangeEmail,
-          element: RouteToComponentMap[Routes.ChangeEmail],
+          element: <ChangeEmailPage/>,
         },
         {
           path: Routes.ResetPassword,
-          element: RouteToComponentMap[Routes.ResetPassword],
+          element: <ResetPasswordPage/>,
         },
         {
           path: Routes.ChangePassword,
-          element: RouteToComponentMap[Routes.ChangePassword],
+          element: <ChangePasswordPage/>,
         },
       ],
     },
     {
       path: Routes.App,
-      element: RouteToComponentMap[Routes.App],
+      element: <AuthRoute><AppLayout><Outlet/></AppLayout></AuthRoute>,
       children: [
         {
           path: Routes.Expert,
-          element: RouteToComponentMap[Routes.Expert],
+          element: <Outlet/>,
           children: [
             {
                 path: Routes.ExpertHome,
-                element: RouteToComponentMap[Routes.ExpertHome],
+                element: <div>Home</div>,
             },
             {
                 path: Routes.ExpertAvatar,
-                element: RouteToComponentMap[Routes.ExpertAvatar],
+                element: <div>Avatar</div>,
             },
             {
                 path: Routes.ExpertWisdom,
-                element: RouteToComponentMap[Routes.ExpertWisdom],
+                element: <WisdomLayout><Outlet/></WisdomLayout>,
                 children: [
                   {
                     index: true,
@@ -98,41 +103,55 @@ export const router = createBrowserRouter([
             },
             {
                 path: Routes.ExpertProfile,
-                element: RouteToComponentMap[Routes.ExpertProfile],
+                element: <ExpertProfileLayout><Outlet/></ExpertProfileLayout>,
+                children: [
+                  {
+                    index: true,
+                    element: <Profile/>
+                  },
+                  {
+                    path: Routes.ExpertProfileBilling,
+                    element: <Billing/>
+                  },
+                  {
+                    path: Routes.ExpertProfileSettings,
+                    element: <Settings/>
+                  }
+                ]
             },
             {
                 path: Routes.ExpertHelp,
-                element: RouteToComponentMap[Routes.ExpertHelp],
+                element: <div>Help</div>,
             },
         ],
         },
         {
           path: Routes.Learner,
-          element: RouteToComponentMap[Routes.Learner],
+          element: <div>Learner <Outlet/> Page</div>,
           children: [
             {
                 index: true,
-                element: RouteToComponentMap[Routes.LearnerHome],
+                element: <div>Home</div>,
             },
             {
                 path: Routes.LearnerDashboard,
-                element: RouteToComponentMap[Routes.LearnerDashboard],
+                element: <div>Dashboard</div>,
             },
             {
                 path: Routes.LearnerChats,
-                element: RouteToComponentMap[Routes.LearnerChats],
+                element: <div>Chats</div>,
             },
             {
                 path: Routes.LearnerCommunity,
-                element: RouteToComponentMap[Routes.LearnerCommunity],
+                element: <div>Community</div>,
             },
             {
                 path: Routes.LearnerProfile,
-                element: RouteToComponentMap[Routes.LearnerProfile],
+                element: <div>Profile</div>,
             },
             {
                 path: Routes.LearnerHelp,
-                element: RouteToComponentMap[Routes.LearnerHelp],
+                element: <div>Help</div>,
             },
         ],
         },

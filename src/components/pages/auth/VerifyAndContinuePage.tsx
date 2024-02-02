@@ -14,14 +14,10 @@ export function VerifyAndContinuePage() {
 
     const {mutate: verifyEmail} = useVerifyAccount({
         onSuccess: () => {
-            toast.success(
-                "Email successfully verified! You will be redirected automatically.", 
-                { onClose: () => navigate(Routes.App) }
-            );
+            toast.success("Email successfully verified!");
+            navigate(Routes.App)
         },
         onError: (error) => {
-            console.error(error);
-            toast.error("Email verification failed");
             toast.error(error.response?.data.message);
         }
     })
