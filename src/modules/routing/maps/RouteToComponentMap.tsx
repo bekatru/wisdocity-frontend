@@ -16,8 +16,10 @@ import {
   HomePage,
   RootLayout,
   WisdomLayout,
-  UploadWisdomPage
+  UploadWisdomPage,
+  LearnersPage
 } from 'components';
+
 import { AppLayout } from 'components/layouts/AppLayout';
 
 
@@ -29,6 +31,7 @@ export const RouteToComponentMap: { [key in Routes]: React.ReactNode } = {
   [Routes.SignIn]: <AuthLayout><Outlet/></AuthLayout>,
 
   [Routes.Home]: <HomePage/>,
+  [Routes.Learners]: <LearnersPage/>,
   [Routes.Login]: <SignInPage/>,
   [Routes.Register]: <SelectRolePage/>,
   [Routes.SignUpRole]: <SignUpPage/>,

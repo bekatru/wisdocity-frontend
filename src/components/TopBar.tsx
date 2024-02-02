@@ -1,4 +1,5 @@
 import { Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
@@ -13,7 +14,7 @@ import { Routes } from 'modules/routing';
 
 const navigation = [
   { name: 'Experts', href: '#', icon: ExpertsIcon, current: false, },
-  { name: 'Learners', href: '#', icon: LearnersIcon, current: false,  customClass: 'ml80'  },
+  { name: 'Learners', href: Routes.Learners, icon: LearnersIcon, current: false,  customClass: 'ml80'  },
   {
     name: '', href: '#', icon: CircleIcon, current: false, subItems: [
       { name: 'About Us', href: '#', current: false },
@@ -43,11 +44,11 @@ export function TopBar() {
             <div className="mx-auto max-w-7xl px-2 sm:px-4 lg:px-6">
               <div className="relative flex h-16 items-center justify-between">
                 <div className="flex flex-shrink-0 items-center">
-                    <a className="flex content-center items-center">
+                    <Link to="/" className="flex content-center items-center cursor-pointer">
                         <span className="sr-only">Wisdocity</span>
                         <img className="w-auto" src={logo} alt="Wisdocity" />
                         <span className='logo-text'><img className="w-auto" src={logoText} alt="Wisdocity" /></span>
-                        </a>
+                        </Link>
                   {/* ... rest of the code */}
 
                 </div>
@@ -73,7 +74,7 @@ export function TopBar() {
                             <div>
                               <Menu.Button className={classNames(
                                 item.current ? 'bg-gray-900 text-white' : 'text-gray-300',
-                                'rounded-md px-3 py-2 text-sm font-medium nav-link-top fn fw-m ml130'
+                                'rounded-md px-3 py-2 text-sm font-medium nav-link-top fn fw-m ml130 cursor-pointer'
                               )}>
                                 {/* Use img tag for icons */}
                                 {item.icon && <img src={item.icon} alt={item.name} className="h-6 w-6" />}
@@ -93,7 +94,7 @@ export function TopBar() {
                                   <Menu.Item key={subItem.name}>
                                     {({ active }) => (
                                       <a
-                                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700 w-full nav-link-top fn fw-m drp-link fn fw-r d-i text-left')}
+                                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700 w-full nav-link-top fn fw-m drp-link fn fw-r d-i text-left cursor-pointer')}
                                       >
                                         {subItem.name}
                                       </a>
@@ -107,7 +108,7 @@ export function TopBar() {
                           <a
                             onClick={() => navigate(item.href)}
                             className={classNames(
-                              item.current ? 'bg-gray-900 text-white' : 'text-gray-300 nav-link-top fn fw-m',
+                              item.current ? 'bg-gray-900 text-white' : 'text-gray-300 nav-link-top fn fw-m cursor-pointer',
                               'rounded-md px-3 py-2 text-sm font-medium nav-link-top fn fw-m'
                             )}
                             aria-current={item.current ? 'page' : undefined}
@@ -153,7 +154,7 @@ export function TopBar() {
                               <Menu.Item key={subItem.name}>
                                 {({ active }) => (
                                   <a
-                                    className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700 nav-link-top')}
+                                    className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700 nav-link-top cursor-pointer')}
                                   >
                                     {subItem.name}
                                   </a>
@@ -167,7 +168,7 @@ export function TopBar() {
                       <a
                         className={classNames(
                           item.current ? 'bg-gray-900 text-white' : 'text-gray-300',
-                          'rounded-md px-3 py-2 text-sm font-medium nav-link-top'
+                          'rounded-md px-3 py-2 text-sm font-medium nav-link-top cursor-pointer'
                         )}
                         aria-current={item.current ? 'page' : undefined}
                       >

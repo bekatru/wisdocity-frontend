@@ -17,8 +17,13 @@ export const router = createBrowserRouter([
           index: true,
           element: RouteToComponentMap[Routes.Home],
         },
+        {
+          path: Routes.Learners,
+          element: RouteToComponentMap[Routes.Learners],
+        },
       ],
     },
+  
     {
       path: Routes.SignIn,
       element: <AuthLayout><Outlet/></AuthLayout>,
