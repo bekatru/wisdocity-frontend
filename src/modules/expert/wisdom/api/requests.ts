@@ -1,8 +1,8 @@
-import { api, assistant } from "libs/axios";
+import { wisdocityApi, assistant } from "libs/axios";
 import { Collection, UploadFilesPayload, UploadFilesResponse } from "./types";
 
 export const fetchCollections = async (): Promise<Collection[]> => {
-    return await api.get("collections");
+    return await wisdocityApi.get("collections");
 }
 
 export const uploadFiles = async (body: UploadFilesPayload): Promise<UploadFilesResponse> => {

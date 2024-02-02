@@ -1,10 +1,10 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { BASE_URL, COOKIE_ACCESS_TOKEN_NAME, COOKIE_OPTIONS, COOKIE_REFRESH_TOKEN_NAME } from "constants";
-import { CustomAxiosRequestConfig } from "./types";
+import { CustomAxiosRequestConfig } from "../types";
 import { Cookies } from "react-cookie";
 
 
-const instance = axios.create({
+export const wisdocityApi = axios.create({
   baseURL: BASE_URL,
   headers: {
     Accept: "application/json",
@@ -14,7 +14,7 @@ const instance = axios.create({
 
 const cookies = new Cookies();
 
-instance.interceptors.request.use(
+wisdocityApi.interceptors.request.use(
   (config: CustomAxiosRequestConfig) => {
     const token = cookies.get(COOKIE_ACCESS_TOKEN_NAME);
 
@@ -29,7 +29,7 @@ instance.interceptors.request.use(
   }
 );
 
-instance.interceptors.response.use(
+wisdocityApi.interceptors.response.use(
   (response: AxiosResponse): AxiosResponse => {
     return response.data;
   },
@@ -55,9 +55,7 @@ instance.interceptors.response.use(
         cookies.set(COOKIE_ACCESS_TOKEN_NAME, access_token, COOKIE_OPTIONS);
         cookies.set(COOKIE_REFRESH_TOKEN_NAME, refresh_token, COOKIE_OPTIONS);
 
-        alert('Token refreshed')
-
-        return await instance(originalRequest);
+        return await wisdocityApi(originalRequest);
       } catch (refreshError) {
         cookies.remove(COOKIE_ACCESS_TOKEN_NAME, COOKIE_OPTIONS);
         cookies.remove(COOKIE_REFRESH_TOKEN_NAME, COOKIE_OPTIONS);
@@ -84,5 +82,3 @@ const refreshAccessToken = async (): Promise<{
 
   return response.data;
 };
-
-export default instance;
