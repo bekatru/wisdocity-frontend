@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import { Routes } from "modules/routing";
@@ -36,6 +36,12 @@ export function VerificationPage() {
     const handleSubmit = () => {
         resendVerification({});
     }
+
+    useEffect(() => {
+        if (data?.is_verified) {
+            navigate(Routes.App);
+        }
+    }, [data?.is_verified])
 
     if (data?.is_verified) {
         return (
