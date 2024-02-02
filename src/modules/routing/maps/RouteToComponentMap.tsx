@@ -31,7 +31,7 @@ export const RouteToComponentMap: { [key in Routes]: React.ReactNode } = {
   [Routes.SignIn]: <AuthLayout><Outlet/></AuthLayout>,
 
   [Routes.Home]: <HomePage/>,
-  [Routes.LearnersHome]: <LearnersPage/>,
+  [Routes.Learners]: <LearnersPage/>,
   [Routes.Login]: <SignInPage/>,
   [Routes.Register]: <SelectRolePage/>,
   [Routes.SignUpRole]: <SignUpPage/>,

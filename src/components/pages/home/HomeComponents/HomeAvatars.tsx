@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import IconStar from '../../../../assets/home-assets/icon-star.svg';
 
 export function HomeAvatars() {
@@ -66,7 +68,9 @@ export function HomeAvatars() {
                 </div>
 
                 <div className='text-center'>
+                    <Link to="/signin/register/learner">
                     <button type="button" className="text-white bg-btn-theme fn fw-b rounded-full px-8 py-4 text-center text-[18px] mt-[60px]">Become a learner</button>
+                    </Link>
                 </div>
 
             </div>

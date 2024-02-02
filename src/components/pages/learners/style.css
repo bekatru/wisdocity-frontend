@@ -1,40 +1,18 @@
-.banner-v1 h1 {
-    line-height: 76px;
+
+.bg-banner{
+    background: linear-gradient(180deg, #FFF 0%, #E9E6FF 100%);
 }
 
-.transparent-bg {
-    height: 132px;
-    background: linear-gradient(180deg, rgba(249, 247, 251, 0.00) 12.88%, rgba(249, 247, 251, 0.50) 63.45%);
-    bottom: -42px;
+.bg-r{
+    border-radius: 48px;
+    box-shadow: 0px 22px 32.9px 0px rgba(180, 191, 209, 0.27);
 }
 
-.shadow-d {
-    border-radius: 24px !important;
-    background: #FFF !important;
-    box-shadow: 0px 1px 34px 0px rgba(123, 123, 123, 0.15) !important;
+.bg-slate-50 {
+    background-color: #F9F7FB !important;
 }
 
-.shadow-e {
-    border-radius: 32px !important;
-    border: 1px solid var(--Stroke, #D9D9EB) !important;
-    background: var(--Light-Purple, #F6E3FF) !important;
 
-}
-
-.shadow-f {
-    border-radius: 24px !important;
-    background: var(--White, #FFF) !important;
-
-}
-
-.avatar-header img {
-    float: left;
-}
-
-.bg-steps {
-    border-radius: 30px;
-    background: var(--purple, #BFB9FF);
-}
 
 @media (max-width: 767px) {
     br {

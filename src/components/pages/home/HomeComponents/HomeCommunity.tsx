@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Icon1 from '../../../../assets/home-assets/icon_1.png';
 import Icon2 from '../../../../assets/home-assets/icon_2.png';
 import Icon3 from '../../../../assets/home-assets/icon_3.png';
@@ -64,8 +65,9 @@ export function HomeCommunity() {
                 </div>
 
                 <div className='text-center'>
+                    <Link to="signin/register">
                     <button type="button" className="text-white bg-btn-theme fn fw-b rounded-full px-8 py-4 text-center text-[18px] mt-[60px]">Join WisdoCity </button>
-
+                    </Link>
                 </div>
 
             </div>

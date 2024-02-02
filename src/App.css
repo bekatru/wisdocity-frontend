@@ -41,6 +41,19 @@
     font-display: swap;
 }
 
+@font-face {
+    font-family: 'Futura Md BT';
+    src: url('./assets/fonts/FuturaBT-Medium.eot');
+    src: url('./assets/fonts/FuturaBT-Medium.eot?#iefix') format('embedded-opentype'),
+        url('./assets/fonts/FuturaBT-Medium.woff2') format('woff2'),
+        url('./assets/fonts/FuturaBT-Medium.woff') format('woff'),
+        url('./assets/fonts/FuturaBT-Medium.ttf') format('truetype'),
+        url('./assets/fonts/FuturaBT-Medium.svg#FuturaBT-Medium') format('svg');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
 
 
 body{
@@ -75,6 +88,10 @@ body{
 
 .fms{
     font-family: 'Montserrat', sans-serif !important;
+}
+
+.ff{
+    font-family: 'Futura Md BT' !important;
 }
 
 .fl{float: left;}

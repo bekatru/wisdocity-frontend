@@ -13,11 +13,11 @@ export function HomeLearnerSteps() {
                     <div className='flex flex-wrap'>
                         <div className="w-full md:w-3/5">
                             <div className="w-full p-6 text-left h-full">
-                                <h2 className='float-left fms leading-none fw-r text-[170px] mt-[30px] mb-[16px] mr-[32px] text-[#F1F0F7]'>1</h2>
+                                <h2 className='float-left fms leading-none fw-r text-[170px] mt-[30px] mb-[16px] mr-[32px] text-[#321841]'>1</h2>
                                 <header>
                                     <img className='float-left mr-[32px] mt-[10px] mb-[140px]' src={StepIcon1} />
-                                    <h4 className='fms leading-tight fw-m text-[56px] mb-[20px] text-[#F1F0F7]'>Reach Global <br/>Learners<br/> Instantly</h4>
-                                    <p className='fn leading-normal fw-sb text-[16px] mb-[5px] text-[#F9F7FB] pl-[120px]'>Share your expertise with a worldwide audience without the constraints of physical presence. Multiply your outreach and save valuable time by being available 24/7 through your digital avatar.</p>
+                                    <h4 className='fms leading-tight fw-m text-[56px] mb-[20px] text-[#321841]'>Reach Global <br/>Learners<br/> Instantly</h4>
+                                    <p className='fn leading-normal fw-sb text-[16px] mb-[5px] text-[#321841] pl-[120px]'>Share your expertise with a worldwide audience without the constraints of physical presence. Multiply your outreach and save valuable time by being available 24/7 through your digital avatar.</p>
                                 </header>
                             </div>
                         </div>
@@ -38,11 +38,11 @@ export function HomeLearnerSteps() {
                         </div>
                         <div className="w-full md:w-3/5">
                             <div className="w-full p-6 text-left h-full">
-                                <h2 className='float-left fms leading-none fw-r text-[170px] mt-[30px] mb-[16px] mr-[32px] text-[#F1F0F7]'>2</h2>
+                                <h2 className='float-left fms leading-none fw-r text-[170px] mt-[30px] mb-[16px] mr-[32px] text-[#321841]'>2</h2>
                                 <header>
                                     <img className='float-left mr-[32px] mt-[10px] mb-[140px]' src={StepIcon2} />
-                                    <h4 className='fms leading-tight fw-m text-[56px] mb-[20px] text-[#F1F0F7]'>Reach Global <br/>Learners<br/> Instantly</h4>
-                                    <p className='fn leading-normal fw-sb text-[16px] mb-[5px] text-[#F9F7FB] pl-[120px]'>Share your expertise with a worldwide audience without the constraints of physical presence. Multiply your outreach and save valuable time by being available 24/7 through your digital avatar.</p>
+                                    <h4 className='fms leading-tight fw-m text-[56px] mb-[20px] text-[#321841]'>Reach Global <br/>Learners<br/> Instantly</h4>
+                                    <p className='fn leading-normal fw-sb text-[16px] mb-[5px] text-[#321841] pl-[120px]'>Share your expertise with a worldwide audience without the constraints of physical presence. Multiply your outreach and save valuable time by being available 24/7 through your digital avatar.</p>
                                 </header>
                             </div>
                         </div>
@@ -54,11 +54,11 @@ export function HomeLearnerSteps() {
                     <div className='flex flex-wrap'>
                         <div className="w-full md:w-3/5">
                             <div className="w-full p-6 text-left h-full">
-                                <h2 className='float-left fms leading-none fw-r text-[170px] mt-[30px] mb-[16px] mr-[32px] text-[#F1F0F7]'>3</h2>
+                                <h2 className='float-left fms leading-none fw-r text-[170px] mt-[30px] mb-[16px] mr-[32px] text-[#321841]'>3</h2>
                                 <header>
                                     <img className='float-left mr-[32px] mt-[10px] mb-[140px]' src={StepIcon3} />
-                                    <h4 className='fms leading-tight fw-m text-[56px] mb-[20px] text-[#F1F0F7]'>Reach Global <br/>Learners<br/> Instantly</h4>
-                                    <p className='fn leading-normal fw-sb text-[16px] mb-[5px] text-[#F9F7FB] pl-[120px]'>Share your expertise with a worldwide audience without the constraints of physical presence. Multiply your outreach and save valuable time by being available 24/7 through your digital avatar.</p>
+                                    <h4 className='fms leading-tight fw-m text-[56px] mb-[20px] text-[#321841]'>Reach Global <br/>Learners<br/> Instantly</h4>
+                                    <p className='fn leading-normal fw-sb text-[16px] mb-[5px] text-[#321841] pl-[120px]'>Share your expertise with a worldwide audience without the constraints of physical presence. Multiply your outreach and save valuable time by being available 24/7 through your digital avatar.</p>
                                 </header>
                             </div>
                         </div>

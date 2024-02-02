@@ -33,7 +33,8 @@
 
 .bg-steps {
     border-radius: 30px;
-    background: var(--purple, #BFB9FF);
+    background: var(--Light-Purple, #F6E3FF);
+
 }
 
 @media (max-width: 767px) {

@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import Icon1 from '../../../../assets/home-assets/exclusive-icon-1.svg';
 import Icon2 from '../../../../assets/home-assets/exclusive-icon-2.svg';
 
@@ -34,8 +36,9 @@ export function HomeExclusiveCommunity() {
                             <p className="fn fw-r leading-7 text-[18px] mb-[20px] text-[#321841]">Be part of Our Exclusive Expert Community and Immortalize Your Wisdom!</p>
 
                             <div className='text-center'>
+                                <Link to="signin/register/expert">
                                 <button type="button" className="text-white bg-btn-theme fn fw-b rounded-full px-8 py-4 text-center text-[18px]">Become an expert</button>
-
+                                </Link>
                             </div>
                         </div>
                     </div>

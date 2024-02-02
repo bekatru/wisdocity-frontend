@@ -2,7 +2,8 @@ export enum Routes {
   NotFound = '*',
   Root = '/',
   Home = '/home',
-  LearnersHome = 'learners-home',
+  // LearnersHome = 'learners-home',
+  Learners = '/learners',
   App = '/app',
 
   SignIn = '/signin',
