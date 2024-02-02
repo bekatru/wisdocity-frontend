@@ -1,7 +1,7 @@
 import { Outlet, createBrowserRouter } from "react-router-dom";
 import { Routes } from "./types";
 import { RouteToComponentMap } from "./maps";
-import { AuthLayout, UploadWisdomPage, WisdomFTUE } from "components";
+import { AuthLayout, Billing, ExpertProfileLayout, Profile, Settings, UploadWisdomPage, WisdomFTUE } from "components";
 
 
 export const router = createBrowserRouter([
@@ -98,7 +98,21 @@ export const router = createBrowserRouter([
             },
             {
                 path: Routes.ExpertProfile,
-                element: RouteToComponentMap[Routes.ExpertProfile],
+                element: <ExpertProfileLayout><Outlet/></ExpertProfileLayout>,
+                children: [
+                  {
+                    index: true,
+                    element: <Profile/>
+                  },
+                  {
+                    path: Routes.ExpertProfileBilling,
+                    element: <Billing/>
+                  },
+                  {
+                    path: Routes.ExpertProfileSettings,
+                    element: <Settings/>
+                  }
+                ]
             },
             {
                 path: Routes.ExpertHelp,
