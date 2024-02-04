@@ -66,7 +66,7 @@ export function HomeCommunity() {
 
                 <div className='text-center'>
                     <Link to="signin/register">
-                    <button type="button" className="text-white bg-btn-theme fn fw-b rounded-full px-8 py-4 text-center text-[18px] mt-[60px]">Join WisdoCity </button>
+                    <button type="button" className="text-white bg-btn-theme fn fw-b rounded-full px-8 py-4 text-center text-[18px] mt-[60px]">Join Wisdocity </button>
                     </Link>
                 </div>
 
