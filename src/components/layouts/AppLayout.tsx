@@ -197,7 +197,7 @@ export function AppLayout(props: PropsWithChildren) {
                     <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-[#64108F] px-6 pb-4">
                         <div className="flex h-16 shrink-0 items-center justify-center">
                             <div
-                                onClick={() => navigate(Routes.Root)}
+                                // onClick={() => navigate(Routes.Root)}
                                 className="hidden sm:block mr-auto font-semibold text-xl text-white text-center"
                             >
                                 Wisdocity.ai

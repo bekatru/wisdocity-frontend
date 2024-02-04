@@ -29,5 +29,5 @@ export const AuthRoute: React.FC<ProtectedRouteProps> = (props) => {
     }
   }, [auth.data, navigate])
 
-  return isAuthenticated ? props.children : <Navigate to={Routes.SignIn}/>;
+  return isAuthenticated ? props.children : <Navigate to={Routes.Root}/>;
 };

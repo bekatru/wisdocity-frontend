@@ -11,7 +11,7 @@ export const router = createBrowserRouter([
     },
     {
       path: Routes.Root,
-      element: <AuthRoute><RootLayout><Outlet/></RootLayout></AuthRoute>,
+      element: <RootLayout><Outlet/></RootLayout>,
       children: [
         {
           index: true,
