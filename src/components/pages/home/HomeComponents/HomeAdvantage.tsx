@@ -9,7 +9,7 @@ export function HomeAdvantage() {
         <div className="bg-none py-24 sm:py-20">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="mx-auto max-w-1xl lg:mx-0">
-                    <h2 className="ft leading-none fw-r text-[64px] mb-[24px] text-[#321841]">Discover the WisdoCity Advantage</h2>
+                    <h2 className="ft leading-none fw-r text-[64px] mb-[24px] text-[#321841]">Discover the Wisdocity Advantage</h2>
                     <p className="ft leading-9 fw-r text-[32px] mb-[55px] text-[#321841]">
                         Wisdocity offers a range of powerful features designed to enhance <br/>your learning experience:
                     </p>
