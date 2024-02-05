@@ -356,7 +356,7 @@ export function AppLayout(props: PropsWithChildren) {
                         </div>
                     </div>
 
-                    <main className="p-6 flex-grow overflow-scroll">
+                    <main className="p-6 flex-grow">
                         {props.children}
                     </main>
 
