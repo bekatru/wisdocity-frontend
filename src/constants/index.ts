@@ -1,4 +1,4 @@
-export const BASE_URL = "https://api.wisdocity.ai";
+export const BASE_URL = "https://api.wisdocity.ai/";
 export const ASSISTANT_AI_API_BASE_URL = "https://assistantai.dbsync.io/";
 
 export const APP_NAME = "wisdocity";
