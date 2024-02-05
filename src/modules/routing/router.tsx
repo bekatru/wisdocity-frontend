@@ -1,6 +1,6 @@
 import { Outlet, createBrowserRouter } from "react-router-dom";
 import { Routes } from "./types";
-import { AppLayout, AuthLayout, Billing, ChangeEmailPage, ChangePasswordPage, ExpertProfileLayout, HomePage, LearnersPage, Profile, ResetPasswordPage, RootLayout, SelectRolePage, Settings, SignInPage, SignUpPage, UploadWisdomPage, VerificationPage, VerifyAndContinuePage, WelcomePage, WisdomFTUE, WisdomLayout } from "components";
+import { AppLayout, AuthLayout, Billing, ChangeEmailPage, ChangePasswordPage, ExpertProfileLayout, HomePage, LearnersPage, Profile, ResetPasswordPage, RootLayout, SelectRolePage, Settings, SignInPage, SignUpPage, UploadWisdomPage, VerificationPage, VerifyAndContinuePage, WelcomePage, WisdomFTUE, WisdomLayout, ExpertDashboard } from "components";
 import { AuthRoute } from "./routes";
 
 
@@ -80,8 +80,8 @@ export const router = createBrowserRouter([
           element: <Outlet/>,
           children: [
             {
-                path: Routes.ExpertHome,
-                element: <div>Home</div>,
+                index: true,
+                element: <ExpertDashboard/>,
             },
             {
                 path: Routes.ExpertAvatar,
