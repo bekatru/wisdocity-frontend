@@ -7,6 +7,8 @@ import classNames from 'classnames';
 import { MultiSelect, MultiSelectOption, ShadowBox } from 'components';
 import { useState } from 'react';
 import { useFiles } from 'modules/expert';
+import { useNavigate } from 'react-router-dom';
+import { Routes } from 'modules/routing';
 
 const FileTypeToIconMap: { [key: string]: string } = {
     "text/plain": TxtIcon,
@@ -27,6 +29,7 @@ const SORT_OPTIONS = [{ id: 1, value: "Name" }, { id: 2, value: "Date" }, { id: 
 
 export function WisdomTable() {
 
+    const navigate = useNavigate()
     const files = useFiles();
 
     const [sortOption, setSortOption] = useState<MultiSelectOption>(SORT_OPTIONS[0]);
@@ -58,7 +61,7 @@ export function WisdomTable() {
                     </div>
                     <MultiSelect placeholder="Sort by" value={sortOption} options={SORT_OPTIONS} onChange={setSortOption} />
                     <div className="flex items-center space-x-3 ml-auto">
-                        <PlusIcon className="h-5 w-5 text-gray-500 cursor-pointer" />
+                        <PlusIcon onClick={() => navigate(Routes.ExpertWisdomFtue)} className="h-5 w-5 text-gray-500 cursor-pointer" />
                     <EllipsisVerticalIcon className="h-5 w-5 text-gray-500 cursor-pointer" />
                     </div>
                 </div>
