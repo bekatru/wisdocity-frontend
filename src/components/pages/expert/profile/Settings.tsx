@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
 
 export function Settings() {
 
     return (
         <>
             <div className="flex">
-                
+
                 <div className="w-full md:w-1/2">
                     <div className='flex-row-reverse'>
-                <button type="button" className="text-[#6B6985] bg-none fn fw-b rounded-full px-6 py-2 text-center text-[16px] border border-[#6B6985] mb-4 flex float-right">Save changes</button>
-</div>
-                   
+                        <button type="button" className="text-[#6B6985] bg-none fn fw-b rounded-full px-6 py-2 text-center text-[16px] border border-[#6B6985] mb-4 flex float-right">Save changes</button>
+                    </div>
+
                     <div className="flex w-full card shadow-p bg-white px-6 py-6  mb-[34px]">
 
                         <div className="box-body w-full">

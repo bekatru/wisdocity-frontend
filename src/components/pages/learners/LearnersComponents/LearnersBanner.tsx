@@ -2,7 +2,7 @@ import BannerImg from "../../../../assets/learner-assets/learner-banner.svg";
 
 export function LearnersBanner() {
     return (
-        <div className="bg-banner sm:py-20 flex items-center justify-center h-screen">
+        <div className="bg-banner sm:py-24 flex items-center justify-center">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="flex flex-wrap -mx-4 avatar_cards">
 
