@@ -6,7 +6,7 @@ export function WisdomFTUE() {
     const navigate = useNavigate();
 
     return (
-        <div className="w-full h-full flex flex-col justify-center items-center text-center max-w-lg mx-auto space-y-6">
+        <div className="w-full min-h-calc flex flex-col ad justify-center items-center text-center max-w-lg mx-auto space-y-6">
             <Header>Here is your Wisdom Collection</Header>
             <Paragraph>
                 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo con. Ut enim ad minim veniam, quis
