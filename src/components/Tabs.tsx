@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { Routes } from "modules/routing";
+import { Routes, useAppLocation } from "modules/routing";
 import { PropsWithChildren } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -14,10 +14,9 @@ export interface TabsProps extends PropsWithChildren {
 
 export function Tabs(props: TabsProps) {
 
-    const location = useLocation();
+    const {isCurrentRoute} = useAppLocation();
     const navigate = useNavigate();
 
-    const isCurrentRoute = (route: string) => location.pathname === route;
 
     return (
         <nav className="flex items-center space-x-8">
