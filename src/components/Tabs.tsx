@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { Routes, useAppLocation } from "modules/routing";
 import { PropsWithChildren } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 export interface Tab {
     name: string;
