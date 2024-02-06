@@ -1,47 +1,13 @@
 import { XMarkIcon } from "@heroicons/react/16/solid";
-import { Button, CenteredContainer, Header, Input, Paragraph, MultiSelect, ShadowBox, MultiSelectOption } from "components";
-import { useCollections } from "modules/expert";
-import { useCallback, useMemo, useState } from "react";
+import { Button, CenteredContainer, Header, Input, Paragraph, ShadowBox } from "components";
+import { useCallback, useState } from "react";
 
-enum CollectionAccessType {
-    Private,
-    Wisdocity,
-    Public,
-}
 
-const notificationMethods = [
-    { id: 'draft', title: 'Save as draft' },
-    { id: 'wisdom', title: 'Upload to wisdom' },
-]
-
-const ACCESS_TYPE_OPTIONS = [
-    {
-        id: CollectionAccessType.Private,
-        value: "Only me",
-    },
-    {
-        id: CollectionAccessType.Wisdocity,
-        value: "Wisdocity chat",
-    },
-    {
-        id: CollectionAccessType.Public,
-        value: "Everywhere my avatar is embeded",
-    },
-]
 
 export function CreateCollectionPage() {
-    const [mainCollection, setMainCollection] = useState<MultiSelectOption | null>(null);
     const [collectionName, setCollectionName] = useState<string>("");
     const [tags, setTags] = useState<string[]>([]);
-    const [accessType, setAccessType] = useState<MultiSelectOption>(ACCESS_TYPE_OPTIONS[0]);
-    // const [saveTo, setSaveTo] = useState(notificationMethods[0].id);
 
-    const collections = useCollections();
-
-    const mainCollectionOptions: MultiSelectOption[] = useMemo(() => {
-        if (!collections.data?.length) return [];
-        return collections.data.map((collection) => ({id: collection.id, value: collection.name}));
-    }, [collections.data]);
 
     return (
         <CenteredContainer>
@@ -50,48 +16,12 @@ export function CreateCollectionPage() {
                     <Header>Create wisdom collection</Header>
                     <div className="space-y-6 mt-6">
                         <div className="space-y-1">
-                            <Paragraph>Choose main collection</Paragraph>
-                            <MultiSelect options={mainCollectionOptions} onChange={setMainCollection} value={mainCollection}/>
-                        </div>
-                        <div className="space-y-1">
                             <Paragraph>Add collection name</Paragraph>
                             <Input value={collectionName} onChange={(e) => setCollectionName(e.target.value)}/>
                         </div>
                         <div className="space-y-1">
                             <Paragraph>Add tags</Paragraph>
                             <TagCreator value={tags} onChange={setTags} />
-                        </div>
-                        <div className="space-y-1">
-                            <Paragraph>Access</Paragraph>
-                            <MultiSelect
-                                options={ACCESS_TYPE_OPTIONS}
-                                value={accessType} 
-                                onChange={setAccessType}
-                            />
-                        </div>
-
-                        <div>
-                            <p className="text-sm text-gray-500">Save this collection to</p>
-                            <fieldset className="mt-4">
-                                <legend className="sr-only">Notification method</legend>
-                                <div className="space-y-4">
-                                    {notificationMethods.map((notificationMethod) => (
-                                        <div key={notificationMethod.id} className="flex items-center">
-                                            <input
-                                                disabled={notificationMethod.id === 'draft'}
-                                                id={notificationMethod.id}
-                                                name="notification-method"
-                                                type="radio"
-                                                defaultChecked={notificationMethod.id === 'wisdom'}
-                                                className="h-4 w-4 border-gray-300 text-purple-600 focus:ring-purple-600"
-                                            />
-                                            <label htmlFor={notificationMethod.id} className="ml-3 block text-sm leading-6 text-gray-900">
-                                                {notificationMethod.title}
-                                            </label>
-                                        </div>
-                                    ))}
-                                </div>
-                            </fieldset>
                         </div>
                     </div>
                     <div className="flex space-x-2 mt-8">
