@@ -6,93 +6,7 @@ import { ArrowLongLeftIcon, ArrowLongRightIcon, MagnifyingGlassIcon } from '@her
 import classNames from 'classnames';
 import { MultiSelect, MultiSelectOption, ShadowBox } from 'components';
 import { useState } from 'react';
-
-const people = [
-    {
-        name: 'File.doc',
-        type: 'application/msword',
-        id: 'lindsay.walton@example.com',
-        role: 'Member',
-        dateAdded: new Date(),
-    },
-    {
-        name: 'File.doc',
-        type: 'application/msword',
-        id: 'lindsay.walton@example.com',
-        role: 'Member',
-        dateAdded: new Date(),
-    },
-    {
-        name: 'File.doc',
-        type: 'application/msword',
-        id: 'lindsay.walton@example.com',
-        role: 'Member',
-        dateAdded: new Date(),
-    },
-    {
-        name: 'File.doc',
-        type: 'application/msword',
-        id: 'lindsay.walton@example.com',
-        role: 'Member',
-        dateAdded: new Date(),
-    },
-    {
-        name: 'File.doc',
-        type: 'application/msword',
-        id: 'lindsay.walton@example.com',
-        role: 'Member',
-        dateAdded: new Date(),
-    },
-    {
-        name: 'File 2.doc',
-        type: 'application/msword',
-        id: 'lindsay.walton@example.com',
-        role: 'Member',
-        dateAdded: new Date(),
-    },
-    {
-        name: 'File 2.doc',
-        type: 'application/msword',
-        id: 'lindsay.walton@example.com',
-        role: 'Member',
-        dateAdded: new Date(),
-    },
-    {
-        name: 'File 2.doc',
-        type: 'application/msword',
-        id: 'lindsay.walton@example.com',
-        role: 'Member',
-        dateAdded: new Date(),
-    },
-    {
-        name: 'File 2.doc',
-        type: 'application/msword',
-        id: 'lindsay.walton@example.com',
-        role: 'Member',
-        dateAdded: new Date(),
-    },
-    {
-        name: 'File 2.doc',
-        type: 'application/msword',
-        id: 'lindsay.walton@example.com',
-        role: 'Member',
-        dateAdded: new Date(),
-    },
-    {
-        name: 'File 3.doc',
-        type: 'application/msword',
-        id: 'lindsay.walton@example.com',
-        role: 'Member',
-        dateAdded: new Date(),
-    },
-    {
-        name: 'File 3.doc',
-        type: 'application/msword',
-        id: 'lindsay.walton@example.com',
-        role: 'Member',
-        dateAdded: new Date(),
-    },
-]
+import { useFiles } from 'modules/expert';
 
 const FileTypeToIconMap: { [key: string]: string } = {
     "text/plain": TxtIcon,
@@ -105,20 +19,24 @@ const FileTypeToIconMap: { [key: string]: string } = {
 
 const PAGINATION_LIMIT = 10;
 
-const numberOfPages = Math.ceil(people.length / PAGINATION_LIMIT);
 
-const pages = [...Array(numberOfPages).keys()].map(key => key + 1);
+
 
 
 const SORT_OPTIONS = [{ id: 1, value: "Name" }, { id: 2, value: "Date" }, { id: 3, value: "Type" }, { id: 4, value: "Status" }]
 
 export function WisdomTable() {
 
+    const files = useFiles();
+
     const [sortOption, setSortOption] = useState<MultiSelectOption>(SORT_OPTIONS[0]);
     const [currentPage, setCurrentPage] = useState(1);
 
     const goToPreviousPage = () => setCurrentPage(currentPage - 1);
     const goToNextPage = () => setCurrentPage(currentPage + 1);
+
+    const numberOfPages = Math.ceil(files.data ? files.data.length / PAGINATION_LIMIT : 0);
+    const pages = [...Array(numberOfPages).keys()].map(key => key + 1);
 
     return (
         <ShadowBox>
@@ -158,19 +76,19 @@ export function WisdomTable() {
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-gray-200 bg-white">
-                                    {people.slice((currentPage - 1) * PAGINATION_LIMIT, (currentPage - 1) * PAGINATION_LIMIT + PAGINATION_LIMIT).map((file, index) => (
+                                    {files.data?.slice((currentPage - 1) * PAGINATION_LIMIT, (currentPage - 1) * PAGINATION_LIMIT + PAGINATION_LIMIT).map((file, index) => (
 
                                         <tr className={classNames({ "bg-purple-100": index % 2 !== 0 })} key={file.id + index}>
 
                                             <td className="whitespace-nowrap py-3 pl-4 pr-3 text-sm">
                                                 <div className="flex items-center">
-                                                    <img className="h-6 w-6 mr-2" src={FileTypeToIconMap[file.type]} alt={file.type} />
-                                                    <span className="text-nowrap overflow-hidden text-ellipsis text-sm">{file.name}</span>
+                                                    <img className="h-6 w-6 mr-2" src={FileTypeToIconMap[file.contentType]} alt={file.contentType} />
+                                                    <span className="text-nowrap overflow-hidden text-ellipsis text-sm">{file.fileName}</span>
                                                 </div>
                                             </td>
 
                                             <td className="whitespace-nowrap px-3 py-3 text-sm text-gray-500">
-                                                <div className="text-gray-900">{file.dateAdded.toDateString()}</div>
+                                                <div className="text-gray-900">{new Date(file.updatedAt).toDateString()}</div>
                                             </td>
 
                                             <td className="whitespace-nowrap px-3 py-3 text-sm text-gray-500">

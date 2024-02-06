@@ -1,3 +1,10 @@
+export interface Media {
+    id: number;
+    fileName: string;
+    contentType: string;
+    updatedAt: string;
+}
+
 export interface Collection {
     id: string;
     name: string;

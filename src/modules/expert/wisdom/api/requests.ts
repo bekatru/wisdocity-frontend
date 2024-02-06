@@ -1,5 +1,5 @@
 import { wisdocityApi, assistant } from "libs/axios";
-import { Collection, UploadFilesPayload, UploadFilesResponse } from "./types";
+import { Collection, Media, UploadFilesPayload, UploadFilesResponse } from "./types";
 
 export const fetchCollections = async (): Promise<Collection[]> => {
     return await wisdocityApi.get("collections");
@@ -12,4 +12,8 @@ export const uploadFiles = async (body: UploadFilesPayload): Promise<UploadFiles
         formData.append('files', file)
     })
     return await assistant.post('collections/upload-files', formData);
+}
+
+export const fetchFiles = async (): Promise<Media[]> => {
+    return await wisdocityApi.get("experts/files")
 }
