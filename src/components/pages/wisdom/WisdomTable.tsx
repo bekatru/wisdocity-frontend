@@ -4,7 +4,7 @@ import PdfIcon from 'assets/png/pdf.png';
 import { EllipsisVerticalIcon, PlusIcon } from '@heroicons/react/16/solid';
 import { ArrowLongLeftIcon, ArrowLongRightIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import classNames from 'classnames';
-import { MultiSelect, ShadowBox } from 'components';
+import { MultiSelect, MultiSelectOption, ShadowBox } from 'components';
 import { useState } from 'react';
 
 const people = [
@@ -110,8 +110,11 @@ const numberOfPages = Math.ceil(people.length / PAGINATION_LIMIT);
 const pages = [...Array(numberOfPages).keys()].map(key => key + 1);
 
 
+const SORT_OPTIONS = [{ id: 1, value: "Name" }, { id: 2, value: "Date" }, { id: 3, value: "Type" }, { id: 4, value: "Status" }]
+
 export function WisdomTable() {
 
+    const [sortOption, setSortOption] = useState<MultiSelectOption>(SORT_OPTIONS[0]);
     const [currentPage, setCurrentPage] = useState(1);
 
     const goToPreviousPage = () => setCurrentPage(currentPage - 1);
@@ -135,7 +138,7 @@ export function WisdomTable() {
                             name="search"
                         />
                     </div>
-                    <MultiSelect placeholder="Sort by" value={[]} options={[{ id: 1, value: "Name" }, { id: 2, value: "Date" }, { id: 3, value: "Type" }, { id: 4, value: "Status" }]} onChange={() => { }} />
+                    <MultiSelect placeholder="Sort by" value={sortOption} options={SORT_OPTIONS} onChange={setSortOption} />
                     <div className="flex items-center space-x-3 ml-auto">
                         <PlusIcon className="h-5 w-5 text-gray-500 cursor-pointer" />
                     <EllipsisVerticalIcon className="h-5 w-5 text-gray-500 cursor-pointer" />

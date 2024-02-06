@@ -1,4 +1,3 @@
-// import BannerImg from "../../../../assets/learner-assets/learner-banner.svg";
 import IconStar from '../../../../assets/home-assets/icon-star.svg';
 
 
