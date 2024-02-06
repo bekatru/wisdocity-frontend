@@ -8,8 +8,16 @@ export const fetchCollections = async (): Promise<Collection[]> => {
 export const uploadFiles = async (body: UploadFilesPayload): Promise<UploadFilesResponse> => {
     const formData = new FormData();
     formData.append("folderId", body.collectionId);
-    body.files.forEach((file) => {
+    body.files.forEach(async (file) => {
         formData.append('files', file)
+
+        await wisdocityApi.post('experts/media', {
+            fileName: file.name,
+            contentType: file.type,
+            size: file.size,
+            collectionId: body.collectionId
+        })
+
     })
     return await assistant.post('collections/upload-files', formData);
 }
@@ -17,3 +25,19 @@ export const uploadFiles = async (body: UploadFilesPayload): Promise<UploadFiles
 export const fetchFiles = async (): Promise<Media[]> => {
     return await wisdocityApi.get("experts/files")
 }
+
+// @IsString()
+// @IsNotEmpty()
+// fileName: string;
+
+// @IsString()
+// @IsNotEmpty()
+// contentType: string;
+
+// @IsNumber()
+// @Min(0)
+// size: number;
+
+// @IsString()
+// @IsNotEmpty()
+// collectionId: string;
