@@ -32,7 +32,7 @@ const learnerNavigation = [
 ]
 
 const expertNavigation = [
-    { name: 'Home', href: Routes.Expert, icon: HomeIcon, current: true },
+    { name: 'Home', href: Routes.ExpertHome, icon: HomeIcon, current: true },
     { name: 'Avatar', href: Routes.ExpertAvatar, icon: UserCircleIcon, current: false },
     { name: 'Wisdom', href: Routes.ExpertWisdom, icon: BookOpenIcon, current: false },
     { name: 'Profile', href: Routes.ExpertProfile, icon: UserIcon, current: false },
