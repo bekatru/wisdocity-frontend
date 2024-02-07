@@ -3,35 +3,13 @@ import { Button, MultiSelect, MultiSelectOption, ShadowBox } from "components";
 import { useCollections } from "modules/expert";
 import { useState } from "react";
 
-enum CollectionAccessType {
-    Private,
-    Wisdocity,
-    Public,
-}
-
 const SORT_OPTIONS = [{ id: 1, value: "Name" }, { id: 2, value: "Date" }, { id: 3, value: "Type" }, { id: 4, value: "Status" }];
-
-const ACCESS_TYPE_OPTIONS = [
-    {
-        id: CollectionAccessType.Private,
-        value: "Only me",
-    },
-    {
-        id: CollectionAccessType.Wisdocity,
-        value: "Wisdocity chat",
-    },
-    {
-        id: CollectionAccessType.Public,
-        value: "Everywhere my avatar is embeded",
-    },
-]
 
 export function CollectionsPage() {
 
     const collections = useCollections();
 
     const [sortOption, setSortOption] = useState<MultiSelectOption>(SORT_OPTIONS[0]);
-    const [accessOption, setAccessOption] = useState<MultiSelectOption>(ACCESS_TYPE_OPTIONS[0]);
     return (
         <div className="space-y-4">
             <div className="flex items-center justify-between flex-wrap">
@@ -51,7 +29,6 @@ export function CollectionsPage() {
                         />
                     </div>
                     <MultiSelect placeholder="Sort by" value={sortOption} options={SORT_OPTIONS} onChange={setSortOption} />
-                    <MultiSelect placeholder="Access" value={accessOption} options={ACCESS_TYPE_OPTIONS} onChange={setAccessOption} styled={false} />
                 </div>
                 <div className="flex items-center space-x-4 ml-auto">
                     <Button variant="text" className="space-x-3">
