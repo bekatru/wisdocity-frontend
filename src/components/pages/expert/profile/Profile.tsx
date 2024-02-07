@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Input, Label } from "components";
+import { EditModal } from '../avatar/EditModal';
 import ProfileIcon from "../../../../assets/profile/profile-user.png";
 import EditIcon from "../../../../assets/profile/icon-edit.svg";
 
@@ -57,11 +58,7 @@ export function Profile() {
                                         <span className="ms-[8px] mt-[3px] text-[14px] fn fw-m text-[#6B6985]">4.8 (20 reviews)</span>
                                     </div>
                                 </div>
-                                <div className="ms-auto">
-                                    <button className="text-black">
-                                        <img src={EditIcon} alt="Edit" />
-                                    </button>
-                                </div>
+                                <EditModal />
                             </div>
                         </div>
 
