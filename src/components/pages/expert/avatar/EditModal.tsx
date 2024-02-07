@@ -5,7 +5,7 @@ import EditIcon from "../../../../assets/profile/icon-edit.svg";
 export function EditModal() {
     const [isOpen, setIsOpen] = useState(false);
     const [tagInput, setTagInput] = useState('');
-    const [tags, setTags] = useState([]);
+    const [tags, setTags] = useState<string[]>([]); // Specify the type as string[]
 
     const openModal = () => {
         setIsOpen(true);
@@ -15,11 +15,11 @@ export function EditModal() {
         setIsOpen(false);
     };
 
-    const handleTagInputChange = (event) => {
+    const handleTagInputChange = (event: React.ChangeEvent<HTMLInputElement>) => { // Specify the event type
         setTagInput(event.target.value);
     };
 
-    const handleTagInputKeyDown = (event) => {
+    const handleTagInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => { // Specify the event type
         if (event.key === 'Enter' && tagInput.trim() !== '') {
             event.preventDefault(); // Prevent default form submission behavior
             setTags([...tags, tagInput.trim()]);
@@ -27,7 +27,7 @@ export function EditModal() {
         }
     };
 
-    const removeTag = (index) => {
+    const removeTag = (index: number) => {
         setTags(tags.filter((_, i) => i !== index));
     };
 
@@ -93,7 +93,7 @@ export function EditModal() {
                             </div>
                             {/* Close button */}
                             <button
-                                className="text-sm text-gray-500 hover:text-gray-700"
+                                className="text-[#321841] bg-[#F1E8F8] fn fw-r rounded-full px-5 py-1 text-center text-[14px] mr-[15px] mt-4"
                                 onClick={closeModal}
                             >
                                 Close

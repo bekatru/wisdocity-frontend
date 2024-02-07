@@ -5,7 +5,6 @@ import { EditModal } from './EditModal';
 import AvatarIcon from "../../../../assets/expert-avatar/ai-avatar.png";
 import StarIcon from "../../../../assets/expert-avatar/star.png";
 import DotsIcon from "../../../../assets/expert-avatar/dots.png";
-import EditIcon from "../../../../assets/profile/icon-edit.svg";
 
 
 export function AvatarCard() {
