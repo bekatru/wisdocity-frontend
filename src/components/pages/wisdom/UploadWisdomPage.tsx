@@ -8,10 +8,10 @@ import TxtIcon from 'assets/png/txt.png';
 import PdfIcon from 'assets/png/pdf.png';
 import UrlIcon from 'assets/png/url.png';
 import { XMarkIcon } from "@heroicons/react/16/solid";
-import { useNavigate, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import { useCollections, useUploadFiles } from "modules/expert";
 import { useProfile } from "modules/auth";
-import { Routes } from "modules/routing";
+// import { Routes } from "modules/routing";
 
 const FILE_TYPES = ['pdf', 'doc', 'docx', 'txt'];
 const FILE_MAX_SIZE_IN_MB = 10;
@@ -30,7 +30,6 @@ interface UploadWisdomPageProps {
 
 export function UploadWisdomPage(props: UploadWisdomPageProps) {
 
-    const navigate = useNavigate();
     const {collectionId} = useParams()
     const collections = useCollections();
     const profile = useProfile();

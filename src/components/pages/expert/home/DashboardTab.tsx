@@ -22,11 +22,11 @@ export function DashboardAvatar() {
             <div className='sorting-content'>
                 <div className="flex align-center w-full">
                     <div className="px-2">
-                        <button type="button" className="text-[#6B6985] bg-white fn fw-r rounded-full px-4 py-1 text-center text-[14px] mt-[25px] mr-[12px] mb-6 border border-[#B3B1C9]">24 hours</button>
-                        <button type="button" className="text-[#6B6985] bg-white fn fw-r rounded-full px-4 py-1 text-center text-[14px] mt-[25px] mr-[12px] mb-6 border border-[#B3B1C9]">3 Days</button>
-                        <button type="button" className="text-[#6B6985] bg-white fn fw-r rounded-full px-4 py-1 text-center text-[14px] mt-[25px] mr-[12px] mb-6 border border-[#B3B1C9]">Last week</button>
-                        <button type="button" className="text-[#6B6985] bg-white fn fw-r rounded-full px-4 py-1 text-center text-[14px] mt-[25px] mr-[12px] mb-6 border border-[#B3B1C9]">Last month</button>
-                        <button type="button" className="text-[#6B6985] bg-white fn fw-r rounded-full px-4 py-1 text-center text-[14px] mt-[25px] mr-[12px] mb-6 border border-[#B3B1C9]">Custom date</button>
+                        <button type="button" className="text-[#6B6985] bg-white fn fw-r rounded-full px-4 py-1 text-center text-[14px] mt-[1px] mr-[12px] mb-6 border border-[#B3B1C9]">24 hours</button>
+                        <button type="button" className="text-[#6B6985] bg-white fn fw-r rounded-full px-4 py-1 text-center text-[14px] mt-[1px] mr-[12px] mb-6 border border-[#B3B1C9]">3 Days</button>
+                        <button type="button" className="text-[#6B6985] bg-white fn fw-r rounded-full px-4 py-1 text-center text-[14px] mt-[1px] mr-[12px] mb-6 border border-[#B3B1C9]">Last week</button>
+                        <button type="button" className="text-[#6B6985] bg-white fn fw-r rounded-full px-4 py-1 text-center text-[14px] mt-[1px] mr-[12px] mb-6 border border-[#B3B1C9]">Last month</button>
+                        <button type="button" className="text-[#6B6985] bg-white fn fw-r rounded-full px-4 py-1 text-center text-[14px] mt-[1px] mr-[12px] mb-6 border border-[#B3B1C9]">Custom date</button>
                     </div>
                 </div>
             </div>
