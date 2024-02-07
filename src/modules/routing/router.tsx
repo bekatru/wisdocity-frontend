@@ -1,6 +1,6 @@
 import { Outlet, createBrowserRouter } from "react-router-dom";
 import { Routes } from "./types";
-import { AppLayout, AuthLayout, Billing, ChangeEmailPage, ChangePasswordPage, CreateCollectionPage, ExpertProfileLayout, HomePage, LearnersPage, Profile, ResetPasswordPage, RootLayout, SelectRolePage, Settings, SignInPage, SignUpPage, UploadWisdomPage, VerificationPage, VerifyAndContinuePage, WelcomePage, WisdomFTUE, WisdomLayout, ExpertDashboard,  CollectionsPage } from "components";
+import { AppLayout, AuthLayout, Billing, ChangeEmailPage, ChangePasswordPage, CreateCollectionPage, ExpertProfileLayout, HomePage, LearnersPage, Profile, ResetPasswordPage, RootLayout, SelectRolePage, Settings, SignInPage, SignUpPage, UploadWisdomPage, VerificationPage, VerifyAndContinuePage, WelcomePage, WisdomFTUE, WisdomLayout, ExpertDashboard,  CollectionsPage, Collection } from "components";
 import { AuthRoute } from "./routes";
 import { WisdomTable } from "components/pages/wisdom/WisdomTable";
 
@@ -109,8 +109,18 @@ export const router = createBrowserRouter([
                     element: <WisdomTable/>
                   },
                   {
-                    path: Routes.ExpertWisdomCollection,
-                    element: <CollectionsPage/>
+                    path: Routes.ExpertWisdomCollections,
+                    element: <Outlet/>,
+                    children: [
+                      {
+                        index: true,
+                        element: <CollectionsPage/>,
+                      },
+                      {
+                        path: Routes.ExpertWisdomCollection,
+                        element: <Collection/>
+                      }
+                    ]
                   }
                 ]
             },

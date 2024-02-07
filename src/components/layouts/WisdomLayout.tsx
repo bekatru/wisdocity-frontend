@@ -8,7 +8,7 @@ export function WisdomLayout(props: PropsWithChildren) {
             <Tabs
                 tabs={[
                     {name: "List View", route: Routes.ExpertWisdom},
-                    {name: "Collection View", route: Routes.ExpertWisdomCollection},
+                    {name: "Collection View", route: Routes.ExpertWisdomCollections},
                 ]}
             />
             <div>
