@@ -1,6 +1,6 @@
 import { Outlet, createBrowserRouter } from "react-router-dom";
 import { Routes } from "./types";
-import { AppLayout, AuthLayout, Billing, ChangeEmailPage, ChangePasswordPage, CreateCollectionPage, ExpertProfileLayout, HomePage, LearnersPage, Profile, ResetPasswordPage, RootLayout, SelectRolePage, Settings, SignInPage, SignUpPage, UploadWisdomPage, VerificationPage, VerifyAndContinuePage, WelcomePage, WisdomFTUE, WisdomLayout, ExpertDashboard,  CollectionsPage, Collection, Files } from "components";
+import { AppLayout, AuthLayout, Billing, ChangeEmailPage, ChangePasswordPage, ExpertProfileLayout, HomePage, LearnersPage, Profile, ResetPasswordPage, RootLayout, SelectRolePage, Settings, SignInPage, SignUpPage, UploadWisdomPage, VerificationPage, VerifyAndContinuePage, WelcomePage, WisdomFTUE, WisdomLayout, ExpertDashboard,  CollectionsPage, Collection, Files, DevPage } from "components";
 import { AuthRoute } from "./routes";
 
 
@@ -8,6 +8,10 @@ export const router = createBrowserRouter([
     {
       path: Routes.NotFound,
       element: <div>404</div>,
+    },
+    {
+      path: Routes.Dev,
+      element: <DevPage/>
     },
     {
       path: Routes.Root,
@@ -79,11 +83,6 @@ export const router = createBrowserRouter([
           path: Routes.Expert,
           element: <Outlet/>,
           children: [
-
-            {
-              path: Routes.ExpertWisdomCreateCollection,
-              element: <CreateCollectionPage/>
-            },
             {
                 path: Routes.ExpertHome,
                 element: <ExpertDashboard/>,
@@ -113,10 +112,6 @@ export const router = createBrowserRouter([
                         element: <Collection/>
                       },
                     ]
-                  },
-                  {
-                    path: Routes.ExpertWisdomUploadToCollection,
-                    element: <UploadWisdomPage/>,
                   },
                 ]
             },

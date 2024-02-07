@@ -11,3 +11,4 @@ export * from './Footer';
 export * from './ShadowBox';
 export * from './CenteredContainer';
 export * from './Tabs';
+export * from './Modal';

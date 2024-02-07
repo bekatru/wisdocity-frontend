@@ -5,9 +5,11 @@ import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
+interface CreateCollectionPageProps {
+    onBackButtonClick?: () => void;
+}
 
-
-export function CreateCollectionPage() {
+export function CreateCollectionPage(props: CreateCollectionPageProps) {
     const navigate = useNavigate() 
     const [collectionName, setCollectionName] = useState<string>("");
     const [tags, setTags] = useState<string[]>([]);
@@ -15,6 +17,7 @@ export function CreateCollectionPage() {
     const {mutate: createCollection, isPending} = useCreateCollection({
         onSuccess: () => {
             toast.success("Collection created successfully!");
+            props.onBackButtonClick && props.onBackButtonClick()
         },
         onError: () => {
             toast.error("Collection creation failed!");
@@ -41,7 +44,7 @@ export function CreateCollectionPage() {
                         </div>
                     </div>
                     <div className="flex space-x-2 mt-8">
-                        <Button onClick={() => navigate(-1)} variant="outlined">Back</Button>
+                        <Button onClick={props.onBackButtonClick ? props.onBackButtonClick : () => navigate(-1)} variant="outlined">Back</Button>
                         <Button onClick={handleSubmit} isPending={isPending}>Save</Button>
                     </div>
 
