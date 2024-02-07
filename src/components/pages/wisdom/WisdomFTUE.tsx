@@ -12,7 +12,7 @@ export function WisdomFTUE() {
                 Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo con. Ut enim ad minim veniam, quis
             </Paragraph>
             <div className="w-full flex space-x-6 mt-8 justify-between px-16">
-                <Button onClick={() => navigate(Routes.ExpertWisdomFtue)}>+ Upload</Button>
+                <Button onClick={() => navigate(Routes.ExpertWisdomUpload)}>+ Upload</Button>
                 <Button onClick={() => navigate(Routes.ExpertWisdomCreateCollection)} variant="outlined">Create Collection</Button>
             </div>
         </div>

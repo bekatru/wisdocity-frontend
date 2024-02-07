@@ -8,7 +8,7 @@ import TxtIcon from 'assets/png/txt.png';
 import PdfIcon from 'assets/png/pdf.png';
 import UrlIcon from 'assets/png/url.png';
 import { XMarkIcon } from "@heroicons/react/16/solid";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useCollections, useUploadFiles } from "modules/expert";
 
 
@@ -24,6 +24,8 @@ const FileTypeToIconMap: { [key: string]: string } = {
 }
 
 export function UploadWisdomPage() {
+
+    const {collectionId} = useParams()
 
     const navigate = useNavigate();
 
@@ -69,9 +71,16 @@ export function UploadWisdomPage() {
     }, [link, links, setLink, setLinks])
 
     const handleSave = () => {
-        const defaultCollectionId = collections.data?.find((collection) => collection.name === 'Default Collection');
-        if (!defaultCollectionId || !files?.length) return;
-        uploadFiles({ collectionId: defaultCollectionId.id, files })
+        let collectionToUploadTo;
+        if (!collectionId) {
+            const defaultCollectionId = collections.data?.find((collection) => collection.name === 'Default Collection');
+            collectionToUploadTo = defaultCollectionId?.id
+        } else {
+            collectionToUploadTo = collectionId;
+        }
+        if (!collectionToUploadTo || !files?.length) return;
+        console.log(collectionToUploadTo, files.length)
+        uploadFiles({ collectionId: collectionToUploadTo, files })
     }
 
 

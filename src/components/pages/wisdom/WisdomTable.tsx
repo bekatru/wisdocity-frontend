@@ -28,12 +28,11 @@ const PAGINATION_LIMIT = 10;
 const SORT_OPTIONS = [{ id: 1, value: "Name" }, { id: 2, value: "Date" }, { id: 3, value: "Type" }, { id: 4, value: "Status" }]
 
 interface FilesTableProps {
-    files: Media[]
+    files: Media[];
+    onAddFileClick: () => void;
 }
 
 export function WisdomTable(props: FilesTableProps) {
-
-    const navigate = useNavigate()
 
     const [sortOption, setSortOption] = useState<MultiSelectOption>(SORT_OPTIONS[0]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -64,7 +63,7 @@ export function WisdomTable(props: FilesTableProps) {
                     </div>
                     <MultiSelect placeholder="Sort by" value={sortOption} options={SORT_OPTIONS} onChange={setSortOption} />
                     <div className="flex items-center space-x-3 ml-auto">
-                        <PlusIcon onClick={() => navigate(Routes.ExpertWisdomFtue)} className="h-5 w-5 text-gray-500 cursor-pointer" />
+                        <PlusIcon onClick={props.onAddFileClick} className="h-5 w-5 text-gray-500 cursor-pointer" />
                     <EllipsisVerticalIcon className="h-5 w-5 text-gray-500 cursor-pointer" />
                     </div>
                 </div>

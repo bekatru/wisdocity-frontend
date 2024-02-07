@@ -1,8 +1,7 @@
 import { Outlet, createBrowserRouter } from "react-router-dom";
 import { Routes } from "./types";
-import { AppLayout, AuthLayout, Billing, ChangeEmailPage, ChangePasswordPage, CreateCollectionPage, ExpertProfileLayout, HomePage, LearnersPage, Profile, ResetPasswordPage, RootLayout, SelectRolePage, Settings, SignInPage, SignUpPage, UploadWisdomPage, VerificationPage, VerifyAndContinuePage, WelcomePage, WisdomFTUE, WisdomLayout, ExpertDashboard,  CollectionsPage, Collection } from "components";
+import { AppLayout, AuthLayout, Billing, ChangeEmailPage, ChangePasswordPage, CreateCollectionPage, ExpertProfileLayout, HomePage, LearnersPage, Profile, ResetPasswordPage, RootLayout, SelectRolePage, Settings, SignInPage, SignUpPage, UploadWisdomPage, VerificationPage, VerifyAndContinuePage, WelcomePage, WisdomFTUE, WisdomLayout, ExpertDashboard,  CollectionsPage, Collection, Files } from "components";
 import { AuthRoute } from "./routes";
-import { WisdomTable } from "components/pages/wisdom/WisdomTable";
 
 
 export const router = createBrowserRouter([
@@ -80,14 +79,7 @@ export const router = createBrowserRouter([
           path: Routes.Expert,
           element: <Outlet/>,
           children: [
-            {
-              index: true,
-              element: <WisdomFTUE/>
-            },
-            {
-              path: Routes.ExpertWisdomFtue,
-              element: <UploadWisdomPage/>,
-            },
+
             {
               path: Routes.ExpertWisdomCreateCollection,
               element: <CreateCollectionPage/>
@@ -106,7 +98,7 @@ export const router = createBrowserRouter([
                 children: [
                   {
                     index: true,
-                    element: <Collection/>
+                    element: <Files/>
                   },
                   {
                     path: Routes.ExpertWisdomCollections,
@@ -119,9 +111,13 @@ export const router = createBrowserRouter([
                       {
                         path: Routes.ExpertWisdomCollection,
                         element: <Collection/>
-                      }
+                      },
                     ]
-                  }
+                  },
+                  {
+                    path: Routes.ExpertWisdomUploadToCollection,
+                    element: <UploadWisdomPage/>,
+                  },
                 ]
             },
             {
