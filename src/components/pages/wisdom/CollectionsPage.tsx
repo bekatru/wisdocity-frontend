@@ -54,7 +54,7 @@ export function CollectionsPage() {
                             </div>
                             <div className="flex flex-wrap items-center w-full text-gray-900 sm:text-sm sm:leading-6">
                                 {
-                                    ["tag", "tag2", "Business", "AI", "Investment"].map((tag) => (
+                                    collection.tags.map((tag) => (
                                         <div className="box-border h-7 px-3 pr-3 bg-purple-100 rounded-xl flex items-center text-[14px] max-h-[24px] mr-3 mb-3" key={tag}>
                                             {tag}
                                         </div>

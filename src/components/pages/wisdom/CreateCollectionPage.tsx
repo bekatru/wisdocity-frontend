@@ -1,6 +1,8 @@
 import { XMarkIcon } from "@heroicons/react/16/solid";
 import { Button, CenteredContainer, Header, Input, Paragraph, ShadowBox } from "components";
+import { useCreateCollection } from "modules/expert";
 import { useCallback, useState } from "react";
+import { toast } from "react-toastify";
 
 
 
@@ -8,6 +10,18 @@ export function CreateCollectionPage() {
     const [collectionName, setCollectionName] = useState<string>("");
     const [tags, setTags] = useState<string[]>([]);
 
+    const {mutate: createCollection, isPending} = useCreateCollection({
+        onSuccess: () => {
+            toast.success("Collection created successfully!");
+        },
+        onError: () => {
+            toast.error("Collection creation failed!");
+        }
+    })
+
+    const handleSubmit = () => {
+        createCollection({name: collectionName, tags});
+    }
 
     return (
         <CenteredContainer>
@@ -26,7 +40,7 @@ export function CreateCollectionPage() {
                     </div>
                     <div className="flex space-x-2 mt-8">
                         <Button variant="outlined">Back</Button>
-                        <Button> Save</Button>
+                        <Button onClick={handleSubmit} isPending={isPending}>Save</Button>
                     </div>
 
                 </ShadowBox>
