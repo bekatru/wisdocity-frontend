@@ -12,7 +12,7 @@ export function Profile() {
         const newState = [...accordionState];
         newState[index] = !newState[index];
         setAccordionState(newState);
-    };
+      };
 
     return (
         <>

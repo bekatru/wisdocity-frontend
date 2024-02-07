@@ -21,6 +21,7 @@ import { useProfile } from 'modules/auth'
 import { useNavigate } from 'react-router-dom'
 import { Routes } from 'modules/routing/types'
 import { useAuthTokens } from 'modules/auth'
+import { useAppLocation } from 'modules/routing'
 
 const learnerNavigation = [
     { name: 'Home', href: Routes.Learner, icon: HomeIcon, current: true },
@@ -32,7 +33,7 @@ const learnerNavigation = [
 ]
 
 const expertNavigation = [
-    { name: 'Home', href: Routes.Expert, icon: HomeIcon, current: true },
+    { name: 'Home', href: Routes.ExpertHome, icon: HomeIcon, current: true },
     { name: 'Avatar', href: Routes.ExpertAvatar, icon: UserCircleIcon, current: false },
     { name: 'Wisdom', href: Routes.ExpertWisdom, icon: BookOpenIcon, current: false },
     { name: 'Profile', href: Routes.ExpertProfile, icon: UserIcon, current: false },
@@ -56,20 +57,21 @@ export function AppLayout(props: PropsWithChildren) {
 
     const auth = useProfile()
     const navigate = useNavigate();
+    const {isCurrentRoute} = useAppLocation();
     const { removeTokens } = useAuthTokens()
 
     const navigation = useMemo(() => {
 
         switch (auth.data?.current_role) {
             case "learner":
-                return learnerNavigation;
+                return learnerNavigation.map((navigation) => ({...navigation, current: isCurrentRoute(navigation.href)}));
             case "expert":
-                return expertNavigation;
+                return expertNavigation.map((navigation) => ({...navigation, current: isCurrentRoute(navigation.href)}));
             default:
                 return [];
         }
 
-    }, [auth.data?.current_role])
+    }, [auth.data?.current_role, isCurrentRoute])
 
     return (
         <>

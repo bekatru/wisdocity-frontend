@@ -4,95 +4,11 @@ import PdfIcon from 'assets/png/pdf.png';
 import { EllipsisVerticalIcon, PlusIcon } from '@heroicons/react/16/solid';
 import { ArrowLongLeftIcon, ArrowLongRightIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import classNames from 'classnames';
-import { MultiSelect, ShadowBox } from 'components';
+import { MultiSelect, MultiSelectOption, ShadowBox } from 'components';
 import { useState } from 'react';
-
-const people = [
-    {
-        name: 'File.doc',
-        type: 'application/msword',
-        id: 'lindsay.walton@example.com',
-        role: 'Member',
-        dateAdded: new Date(),
-    },
-    {
-        name: 'File.doc',
-        type: 'application/msword',
-        id: 'lindsay.walton@example.com',
-        role: 'Member',
-        dateAdded: new Date(),
-    },
-    {
-        name: 'File.doc',
-        type: 'application/msword',
-        id: 'lindsay.walton@example.com',
-        role: 'Member',
-        dateAdded: new Date(),
-    },
-    {
-        name: 'File.doc',
-        type: 'application/msword',
-        id: 'lindsay.walton@example.com',
-        role: 'Member',
-        dateAdded: new Date(),
-    },
-    {
-        name: 'File.doc',
-        type: 'application/msword',
-        id: 'lindsay.walton@example.com',
-        role: 'Member',
-        dateAdded: new Date(),
-    },
-    {
-        name: 'File 2.doc',
-        type: 'application/msword',
-        id: 'lindsay.walton@example.com',
-        role: 'Member',
-        dateAdded: new Date(),
-    },
-    {
-        name: 'File 2.doc',
-        type: 'application/msword',
-        id: 'lindsay.walton@example.com',
-        role: 'Member',
-        dateAdded: new Date(),
-    },
-    {
-        name: 'File 2.doc',
-        type: 'application/msword',
-        id: 'lindsay.walton@example.com',
-        role: 'Member',
-        dateAdded: new Date(),
-    },
-    {
-        name: 'File 2.doc',
-        type: 'application/msword',
-        id: 'lindsay.walton@example.com',
-        role: 'Member',
-        dateAdded: new Date(),
-    },
-    {
-        name: 'File 2.doc',
-        type: 'application/msword',
-        id: 'lindsay.walton@example.com',
-        role: 'Member',
-        dateAdded: new Date(),
-    },
-    {
-        name: 'File 3.doc',
-        type: 'application/msword',
-        id: 'lindsay.walton@example.com',
-        role: 'Member',
-        dateAdded: new Date(),
-    },
-    {
-        name: 'File 3.doc',
-        type: 'application/msword',
-        id: 'lindsay.walton@example.com',
-        role: 'Member',
-        dateAdded: new Date(),
-    },
-]
+import { Media, useFiles } from 'modules/expert';
+import { useNavigate } from 'react-router-dom';
+import { Routes } from 'modules/routing';
 
 const FileTypeToIconMap: { [key: string]: string } = {
     "text/plain": TxtIcon,
@@ -105,17 +21,27 @@ const FileTypeToIconMap: { [key: string]: string } = {
 
 const PAGINATION_LIMIT = 10;
 
-const numberOfPages = Math.ceil(people.length / PAGINATION_LIMIT);
-
-const pages = [...Array(numberOfPages).keys()].map(key => key + 1);
 
 
-export function WisdomTable() {
 
+
+const SORT_OPTIONS = [{ id: 1, value: "Name" }, { id: 2, value: "Date" }, { id: 3, value: "Type" }, { id: 4, value: "Status" }]
+
+interface FilesTableProps {
+    files: Media[];
+    onAddFileClick: () => void;
+}
+
+export function WisdomTable(props: FilesTableProps) {
+
+    const [sortOption, setSortOption] = useState<MultiSelectOption>(SORT_OPTIONS[0]);
     const [currentPage, setCurrentPage] = useState(1);
 
     const goToPreviousPage = () => setCurrentPage(currentPage - 1);
     const goToNextPage = () => setCurrentPage(currentPage + 1);
+
+    const numberOfPages = Math.ceil(props.files.length ? props.files.length / PAGINATION_LIMIT : 0);
+    const pages = [...Array(numberOfPages).keys()].map(key => key + 1);
 
     return (
         <ShadowBox>
@@ -135,9 +61,9 @@ export function WisdomTable() {
                             name="search"
                         />
                     </div>
-                    <MultiSelect placeholder="Sort by" value={[]} options={[{ id: 1, value: "Name" }, { id: 2, value: "Date" }, { id: 3, value: "Type" }, { id: 4, value: "Status" }]} onChange={() => { }} />
+                    <MultiSelect placeholder="Sort by" value={sortOption} options={SORT_OPTIONS} onChange={setSortOption} />
                     <div className="flex items-center space-x-3 ml-auto">
-                        <PlusIcon className="h-5 w-5 text-gray-500 cursor-pointer" />
+                        <PlusIcon onClick={props.onAddFileClick} className="h-5 w-5 text-gray-500 cursor-pointer" />
                     <EllipsisVerticalIcon className="h-5 w-5 text-gray-500 cursor-pointer" />
                     </div>
                 </div>
@@ -155,19 +81,19 @@ export function WisdomTable() {
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-gray-200 bg-white">
-                                    {people.slice((currentPage - 1) * PAGINATION_LIMIT, (currentPage - 1) * PAGINATION_LIMIT + PAGINATION_LIMIT).map((file, index) => (
+                                    {props.files.slice((currentPage - 1) * PAGINATION_LIMIT, (currentPage - 1) * PAGINATION_LIMIT + PAGINATION_LIMIT).map((file, index) => (
 
                                         <tr className={classNames({ "bg-purple-100": index % 2 !== 0 })} key={file.id + index}>
 
                                             <td className="whitespace-nowrap py-3 pl-4 pr-3 text-sm">
                                                 <div className="flex items-center">
-                                                    <img className="h-6 w-6 mr-2" src={FileTypeToIconMap[file.type]} alt={file.type} />
-                                                    <span className="text-nowrap overflow-hidden text-ellipsis text-sm">{file.name}</span>
+                                                    <img className="h-6 w-6 mr-2" src={FileTypeToIconMap[file.contentType]} alt={file.contentType} />
+                                                    <span className="text-nowrap overflow-hidden text-ellipsis text-sm">{file.fileName}</span>
                                                 </div>
                                             </td>
 
                                             <td className="whitespace-nowrap px-3 py-3 text-sm text-gray-500">
-                                                <div className="text-gray-900">{file.dateAdded.toDateString()}</div>
+                                                <div className="text-gray-900">{new Date(file.updatedAt).toDateString()}</div>
                                             </td>
 
                                             <td className="whitespace-nowrap px-3 py-3 text-sm text-gray-500">

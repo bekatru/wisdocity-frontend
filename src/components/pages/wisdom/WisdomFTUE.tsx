@@ -13,7 +13,7 @@ export function WisdomFTUE() {
             </Paragraph>
             <div className="w-full flex space-x-6 mt-8 justify-between px-16">
                 <Button onClick={() => navigate(Routes.ExpertWisdomUpload)}>+ Upload</Button>
-                <Button variant="outlined">Create Collection</Button>
+                <Button onClick={() => navigate(Routes.ExpertWisdomCreateCollection)} variant="outlined">Create Collection</Button>
             </div>
         </div>
     )
