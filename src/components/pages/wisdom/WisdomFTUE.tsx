@@ -1,19 +1,41 @@
-import { useNavigate } from "react-router-dom";
-import { Routes } from "modules/routing";
-import { Button, Header, Paragraph } from "components";
+
+import { Button, CreateCollectionPage, Header, Modal, Paragraph, UploadWisdomPage } from "components";
+import { useState } from "react";
 
 export function WisdomFTUE() {
-    const navigate = useNavigate();
+    const [isModalOpen, setIsModalOpen ] = useState<string | null>();
+
+    const openUploadWisdomModal = () => setIsModalOpen("wisdom");
+
+    const openCreateCollectionModal = () => setIsModalOpen("collection");
+
+    const closeModal = () => setIsModalOpen(null);
 
     return (
         <div className="w-full min-h-calc flex flex-col ad justify-center items-center text-center max-w-lg mx-auto space-y-6">
             <Header>Here is your Wisdom Collection</Header>
             <Paragraph>
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo con. Ut enim ad minim veniam, quis
+                This is where you can upload your wisdom and combine them into collections.<br/>
+                You don't haven't uploaded anything yet. Upload your wisdom or create a new collection first.
             </Paragraph>
             <div className="w-full flex space-x-6 mt-8 justify-between px-16">
-                <Button onClick={() => navigate(Routes.ExpertWisdomFtue)}>+ Upload</Button>
-                <Button onClick={() => navigate(Routes.ExpertWisdomCreateCollection)} variant="outlined">Create Collection</Button>
+            <Modal
+                isOpen={isModalOpen === 'wisdom'}
+                closeModal={() => setIsModalOpen(null)}
+                button={ <Button onClick={openUploadWisdomModal}>+ Upload</Button>}>
+                <UploadWisdomPage 
+                    onBackButtonClick={closeModal}/>
+            </Modal>
+            <Modal
+                isOpen={isModalOpen === 'collection'}
+                closeModal={() => setIsModalOpen(null)}
+                button={ 
+                    <Button
+                        onClick={openCreateCollectionModal} 
+                        variant="outlined">Create Collection</Button> }>
+                <CreateCollectionPage
+                    onBackButtonClick={closeModal}/>
+            </Modal>               
             </div>
         </div>
     )

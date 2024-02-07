@@ -1,14 +1,17 @@
 import { Outlet, createBrowserRouter } from "react-router-dom";
 import { Routes } from "./types";
-import { AppLayout, AuthLayout, Billing, ChangeEmailPage, ChangePasswordPage, CreateCollectionPage, ExpertProfileLayout, HomePage, LearnersPage, Profile, ResetPasswordPage, RootLayout, SelectRolePage, Settings, SignInPage, SignUpPage, UploadWisdomPage, VerificationPage, VerifyAndContinuePage, WelcomePage, WisdomFTUE, WisdomLayout, ExpertDashboard,  CollectionsPage } from "components";
+import { AppLayout, AuthLayout, Billing, ChangeEmailPage, ChangePasswordPage, ExpertProfileLayout, HomePage, LearnersPage, Profile, ResetPasswordPage, RootLayout, SelectRolePage, Settings, SignInPage, SignUpPage, UploadWisdomPage, VerificationPage, VerifyAndContinuePage, WelcomePage, WisdomFTUE, WisdomLayout, ExpertDashboard,  CollectionsPage, Collection, Files, DevPage } from "components";
 import { AuthRoute } from "./routes";
-import { WisdomTable } from "components/pages/wisdom/WisdomTable";
 
 
 export const router = createBrowserRouter([
     {
       path: Routes.NotFound,
       element: <div>404</div>,
+    },
+    {
+      path: Routes.Dev,
+      element: <DevPage/>
     },
     {
       path: Routes.Root,
@@ -81,18 +84,6 @@ export const router = createBrowserRouter([
           element: <Outlet/>,
           children: [
             {
-              index: true,
-              element: <WisdomFTUE/>
-            },
-            {
-              path: Routes.ExpertWisdomFtue,
-              element: <UploadWisdomPage/>,
-            },
-            {
-              path: Routes.ExpertWisdomCreateCollection,
-              element: <CreateCollectionPage/>
-            },
-            {
                 path: Routes.ExpertHome,
                 element: <ExpertDashboard/>,
             },
@@ -106,12 +97,22 @@ export const router = createBrowserRouter([
                 children: [
                   {
                     index: true,
-                    element: <WisdomTable/>
+                    element: <Files/>
                   },
                   {
-                    path: Routes.ExpertWisdomCollection,
-                    element: <CollectionsPage/>
-                  }
+                    path: Routes.ExpertWisdomCollections,
+                    element: <Outlet/>,
+                    children: [
+                      {
+                        index: true,
+                        element: <CollectionsPage/>,
+                      },
+                      {
+                        path: Routes.ExpertWisdomCollection,
+                        element: <Collection/>
+                      },
+                    ]
+                  },
                 ]
             },
             {

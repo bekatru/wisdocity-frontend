@@ -6,9 +6,7 @@ import { ArrowLongLeftIcon, ArrowLongRightIcon, MagnifyingGlassIcon } from '@her
 import classNames from 'classnames';
 import { MultiSelect, MultiSelectOption, ShadowBox } from 'components';
 import { useState } from 'react';
-import { useFiles } from 'modules/expert';
-import { useNavigate } from 'react-router-dom';
-import { Routes } from 'modules/routing';
+import { Collection, Media } from 'modules/expert';
 
 const FileTypeToIconMap: { [key: string]: string } = {
     "text/plain": TxtIcon,
@@ -27,10 +25,13 @@ const PAGINATION_LIMIT = 10;
 
 const SORT_OPTIONS = [{ id: 1, value: "Name" }, { id: 2, value: "Date" }, { id: 3, value: "Type" }, { id: 4, value: "Status" }]
 
-export function WisdomTable() {
+interface FilesTableProps {
+    files: Media[];
+    collections: Collection[];
+    onAddFileClick: () => void;
+}
 
-    const navigate = useNavigate()
-    const files = useFiles();
+export function WisdomTable(props: FilesTableProps) {
 
     const [sortOption, setSortOption] = useState<MultiSelectOption>(SORT_OPTIONS[0]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -38,7 +39,7 @@ export function WisdomTable() {
     const goToPreviousPage = () => setCurrentPage(currentPage - 1);
     const goToNextPage = () => setCurrentPage(currentPage + 1);
 
-    const numberOfPages = Math.ceil(files.data ? files.data.length / PAGINATION_LIMIT : 0);
+    const numberOfPages = Math.ceil(props.files.length ? props.files.length / PAGINATION_LIMIT : 0);
     const pages = [...Array(numberOfPages).keys()].map(key => key + 1);
 
     return (
@@ -61,7 +62,7 @@ export function WisdomTable() {
                     </div>
                     <MultiSelect placeholder="Sort by" value={sortOption} options={SORT_OPTIONS} onChange={setSortOption} />
                     <div className="flex items-center space-x-3 ml-auto">
-                        <PlusIcon onClick={() => navigate(Routes.ExpertWisdomFtue)} className="h-5 w-5 text-gray-500 cursor-pointer" />
+                        <PlusIcon onClick={props.onAddFileClick} className="h-5 w-5 text-gray-500 cursor-pointer" />
                     <EllipsisVerticalIcon className="h-5 w-5 text-gray-500 cursor-pointer" />
                     </div>
                 </div>
@@ -75,11 +76,12 @@ export function WisdomTable() {
                                         <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Date</th>
                                         <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Type</th>
                                         <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Status</th>
+                                        <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Collection</th>
                                         <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-0"><span className="sr-only">Edit</span></th>
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-gray-200 bg-white">
-                                    {files.data?.slice((currentPage - 1) * PAGINATION_LIMIT, (currentPage - 1) * PAGINATION_LIMIT + PAGINATION_LIMIT).map((file, index) => (
+                                    {props.files.slice((currentPage - 1) * PAGINATION_LIMIT, (currentPage - 1) * PAGINATION_LIMIT + PAGINATION_LIMIT).map((file, index) => (
 
                                         <tr className={classNames({ "bg-purple-100": index % 2 !== 0 })} key={file.id + index}>
 
@@ -102,6 +104,10 @@ export function WisdomTable() {
                                                 <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
                                                     Active
                                                 </span>
+                                            </td>
+
+                                            <td className="whitespace-nowrap px-3 py-3 text-sm text-gray-500">
+                                                {props.collections.find((collection) => file.key.includes(collection.id))?.name}
                                             </td>
 
                                             <td className="relative whitespace-nowrap py-3 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">

@@ -21,12 +21,12 @@ export const AuthRoute: React.FC<ProtectedRouteProps> = (props) => {
     if (!auth.data) return;
     if (!auth.data.is_verified) return navigate(Routes.Verification);
     if (!auth.data.current_role) return;
-    // switch (auth.data.current_role) {
-    //   case "learner":
-    //     return navigate(Routes.Learner);
-    //   case "expert":
-    //     return navigate(Routes.Expert);
-    // }
+    switch (auth.data.current_role) {
+      case "learner":
+        return navigate(Routes.Learner);
+      case "expert":
+        return navigate(Routes.ExpertWisdom);
+    }
   }, [auth.data, navigate])
 
   return isAuthenticated ? props.children : <Navigate to={Routes.Root}/>;

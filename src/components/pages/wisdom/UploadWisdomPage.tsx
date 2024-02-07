@@ -1,16 +1,17 @@
-import { useCallback, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { FileUploader } from "react-drag-drop-files";
 import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
-import { classNames, Button, CenteredContainer, Header, Input, Label, Paragraph, ShadowBox } from "components";
+import { classNames, Button, CenteredContainer, Header, Input, Label, Paragraph, ShadowBox, MultiSelect, MultiSelectOption } from "components";
 import DocIcon from 'assets/png/doc.png';
 import TxtIcon from 'assets/png/txt.png';
 import PdfIcon from 'assets/png/pdf.png';
 import UrlIcon from 'assets/png/url.png';
 import { XMarkIcon } from "@heroicons/react/16/solid";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useCollections, useUploadFiles } from "modules/expert";
-
+import { useProfile } from "modules/auth";
+import { Routes } from "modules/routing";
 
 const FILE_TYPES = ['pdf', 'doc', 'docx', 'txt'];
 const FILE_MAX_SIZE_IN_MB = 10;
@@ -23,24 +24,42 @@ const FileTypeToIconMap: { [key: string]: string } = {
 
 }
 
-export function UploadWisdomPage() {
+interface UploadWisdomPageProps {
+    onBackButtonClick: () => void
+}
+
+export function UploadWisdomPage(props: UploadWisdomPageProps) {
 
     const navigate = useNavigate();
-
+    const {collectionId} = useParams()
     const collections = useCollections();
+    const profile = useProfile();
+
+    const filteredCollections = useMemo(() => {
+        return (collections.data ?? [])
+            .filter((collection) => collection.name !== profile.data?.username)
+            .map((collection) => ({
+                id: collection.id,
+                value: collection.name,
+            }))
+    }, [collections.data, profile.data])
+
+    const [files, setFiles] = useState<File[]>([]);
+    const [link, setLink] = useState<string>("");
+    const [links, setLinks] = useState<string[]>([]); 
+    const [isDragging, setIsDragging] = useState(false);
+
+    const [selectedCollection, setSelectedCollection] = useState<MultiSelectOption>(filteredCollections.find((collection) => collection.id === collectionId) ?? filteredCollections[0]);
+
     const { mutate: uploadFiles, isPending } = useUploadFiles({
-        onSuccess: (response) => {
-            toast.success(response.message);
+        onSuccess: () => {
+            toast.success("File uploaded successfully!");
+            props.onBackButtonClick && props.onBackButtonClick();
         },
         onError: (error) => {
             toast.error(error.response?.data.message);
         }
     })
-    const [files, setFiles] = useState<File[]>([]);
-    const [link, setLink] = useState<string>("");
-    const [links, setLinks] = useState<string[]>([]);
-
-    const [isDragging, setIsDragging] = useState(false);
 
     const handleAddFiles = useCallback((newFiles: FileList) => {
         setFiles([...files, ...Array.from(newFiles)]);
@@ -69,9 +88,19 @@ export function UploadWisdomPage() {
     }, [link, links, setLink, setLinks])
 
     const handleSave = () => {
-        const defaultCollectionId = collections.data?.find((collection) => collection.name === 'Default Collection');
-        if (!defaultCollectionId || !files?.length) return;
-        uploadFiles({ collectionId: defaultCollectionId.id, files })
+        let collectionToUploadTo;
+        if (!collectionId) {
+            const defaultCollectionId = collections.data?.find((collection) => collection.name === 'Default Collection');
+            collectionToUploadTo = defaultCollectionId?.id
+        } else {
+            collectionToUploadTo = selectedCollection.id as string;
+        }
+
+        if (!collectionToUploadTo || !files?.length) {
+            return;
+        }
+
+        uploadFiles({ collectionId: collectionToUploadTo, files })
     }
 
 
@@ -81,6 +110,14 @@ export function UploadWisdomPage() {
                 <ShadowBox>
                     <Header>Upload new information</Header>
                     <div className="space-y-4 mt-6">
+                        <div className="space-y-2">
+                            <Label>To collection:</Label>
+                            <MultiSelect
+                                options={filteredCollections}
+                                value={selectedCollection}
+                                onChange={setSelectedCollection}/>
+                        </div>
+                        
                         <div className="space-y-2">
                             <Label>Links</Label>
                             <div className="grid grid-cols-3 grid-flow-row gap-2">
@@ -168,7 +205,7 @@ export function UploadWisdomPage() {
                         </div>
                     </div>
                     <div className="flex space-x-2 mt-8">
-                        <Button variant="outlined" onClick={() => navigate(-1)}>Back</Button>
+                        <Button variant="outlined" onClick={props.onBackButtonClick}>Back</Button>
                         <Button onClick={handleSave} isPending={isPending}>Save</Button>
                     </div>
                 </ShadowBox>
