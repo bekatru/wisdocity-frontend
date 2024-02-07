@@ -1,5 +1,5 @@
 import { wisdocityApi, assistant } from "libs/axios";
-import { Collection, Media, UploadFilesPayload, UploadFilesResponse } from "./types";
+import { Collection, CreateCollectionPayload, CreateCollectionResponse, Media, UploadFilesPayload, UploadFilesResponse } from "./types";
 
 export const fetchCollections = async (): Promise<Collection[]> => {
     return await wisdocityApi.get("collections");
@@ -26,18 +26,6 @@ export const fetchFiles = async (): Promise<Media[]> => {
     return await wisdocityApi.get("experts/files")
 }
 
-// @IsString()
-// @IsNotEmpty()
-// fileName: string;
-
-// @IsString()
-// @IsNotEmpty()
-// contentType: string;
-
-// @IsNumber()
-// @Min(0)
-// size: number;
-
-// @IsString()
-// @IsNotEmpty()
-// collectionId: string;
+export const createCollection = async (body: CreateCollectionPayload): Promise<CreateCollectionResponse> => {
+    return await wisdocityApi.post('collections', body);
+}
