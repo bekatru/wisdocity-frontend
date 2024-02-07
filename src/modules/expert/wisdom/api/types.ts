@@ -3,6 +3,7 @@ export interface Media {
     fileName: string;
     contentType: string;
     updatedAt: string;
+    key: string;
 }
 
 export interface Collection {

@@ -106,7 +106,7 @@ export const router = createBrowserRouter([
                 children: [
                   {
                     index: true,
-                    element: <WisdomTable/>
+                    element: <Collection/>
                   },
                   {
                     path: Routes.ExpertWisdomCollections,

@@ -6,7 +6,7 @@ import { ArrowLongLeftIcon, ArrowLongRightIcon, MagnifyingGlassIcon } from '@her
 import classNames from 'classnames';
 import { MultiSelect, MultiSelectOption, ShadowBox } from 'components';
 import { useState } from 'react';
-import { useFiles } from 'modules/expert';
+import { Media, useFiles } from 'modules/expert';
 import { useNavigate } from 'react-router-dom';
 import { Routes } from 'modules/routing';
 
@@ -27,10 +27,13 @@ const PAGINATION_LIMIT = 10;
 
 const SORT_OPTIONS = [{ id: 1, value: "Name" }, { id: 2, value: "Date" }, { id: 3, value: "Type" }, { id: 4, value: "Status" }]
 
-export function WisdomTable() {
+interface FilesTableProps {
+    files: Media[]
+}
+
+export function WisdomTable(props: FilesTableProps) {
 
     const navigate = useNavigate()
-    const files = useFiles();
 
     const [sortOption, setSortOption] = useState<MultiSelectOption>(SORT_OPTIONS[0]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -38,7 +41,7 @@ export function WisdomTable() {
     const goToPreviousPage = () => setCurrentPage(currentPage - 1);
     const goToNextPage = () => setCurrentPage(currentPage + 1);
 
-    const numberOfPages = Math.ceil(files.data ? files.data.length / PAGINATION_LIMIT : 0);
+    const numberOfPages = Math.ceil(props.files.length ? props.files.length / PAGINATION_LIMIT : 0);
     const pages = [...Array(numberOfPages).keys()].map(key => key + 1);
 
     return (
@@ -79,7 +82,7 @@ export function WisdomTable() {
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-gray-200 bg-white">
-                                    {files.data?.slice((currentPage - 1) * PAGINATION_LIMIT, (currentPage - 1) * PAGINATION_LIMIT + PAGINATION_LIMIT).map((file, index) => (
+                                    {props.files.slice((currentPage - 1) * PAGINATION_LIMIT, (currentPage - 1) * PAGINATION_LIMIT + PAGINATION_LIMIT).map((file, index) => (
 
                                         <tr className={classNames({ "bg-purple-100": index % 2 !== 0 })} key={file.id + index}>
 

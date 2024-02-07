@@ -2,12 +2,14 @@ import { EllipsisVerticalIcon, MagnifyingGlassIcon, PlusIcon, StarIcon } from "@
 import { Button, MultiSelect, MultiSelectOption, ShadowBox } from "components";
 import { useCollections } from "modules/expert";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SORT_OPTIONS = [{ id: 1, value: "Name" }, { id: 2, value: "Date" }, { id: 3, value: "Type" }, { id: 4, value: "Status" }];
 
 export function CollectionsPage() {
 
     const collections = useCollections();
+    const navigate = useNavigate();
 
     const [sortOption, setSortOption] = useState<MultiSelectOption>(SORT_OPTIONS[0]);
     return (
@@ -44,7 +46,7 @@ export function CollectionsPage() {
                 {
                     collections.data?.map((collection) => (
                         <ShadowBox key={collection.id}>
-                            <div className="space-y-4">
+                            <div onClick={() => navigate(collection.id)} className="space-y-4">
                             <div className="flex items-center">
                                 <div className="text-4.5 font-medium mr-auto">
                                     {collection.name}
