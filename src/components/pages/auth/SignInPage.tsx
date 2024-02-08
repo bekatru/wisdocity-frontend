@@ -4,6 +4,7 @@ import {Routes} from 'modules/routing';
 import { useAuthTokens, useLogin } from 'modules/auth';
 import {AuthPageLayout} from './layouts';
 import {SignInForm} from './forms';
+import { SignInPayload } from 'modules/auth/api';
 
 
 export function SignInPage() {
@@ -24,7 +25,7 @@ export function SignInPage() {
     },
   })
 
-  const handleSubmit = (data: any) => {
+  const handleSubmit = (data: SignInPayload) => {
     mutateSignIn({
       email: data.email,
       password: data.password,

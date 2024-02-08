@@ -3,19 +3,20 @@ import { useNavigate } from "react-router";
 import { Routes } from "modules/routing";
 import { FormInput, LabeledCheckbox } from "components";
 import { AuthFormLayout } from "../layouts";
+import { SignInPayload } from "modules/auth/api";
 
 interface SignInFormProps {
-  onSubmit: (data: any) => void;
+  onSubmit: (data: SignInPayload) => void;
   isPending: boolean;
 }
 
 export function LoginForm(props: SignInFormProps) {
-  
+
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  
+
   const handleSubmit = () => {
     props.onSubmit({
       email,
