@@ -10,7 +10,7 @@ export function Collection() {
 
     const collections = useCollections();
 
-    const files = useFiles({queryKey: 'files', refetchInterval: 1000});
+    const files = useFiles();
 
     const currentCollection = useMemo(() => {
         return collections.data?.find((collection) => collection.id === collectionId);
@@ -29,7 +29,7 @@ export function Collection() {
             <Modal
                 isOpen={isModalOpen}
                 closeModal={() => setIsModalOpen(false)}>
-                <UploadWisdomPage onBackButtonClick={() => setIsModalOpen(false)}/>
+                <UploadWisdomPage onSubmitSuccess={files.refetch} onBackButtonClick={() => setIsModalOpen(false)}/>
                 </Modal> 
         </div>
     )

@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 
 interface CreateCollectionPageProps {
     onBackButtonClick?: () => void;
+    onSubmitSuccess?: () => void;
 }
 
 export function CreateCollectionPage(props: CreateCollectionPageProps) {
@@ -15,9 +16,10 @@ export function CreateCollectionPage(props: CreateCollectionPageProps) {
     const [tags, setTags] = useState<string[]>([]);
 
     const {mutate: createCollection, isPending} = useCreateCollection({
-        onSuccess: () => {
+        onSuccess: async () => {
             toast.success("Collection created successfully!");
-            props.onBackButtonClick && props.onBackButtonClick()
+            props.onSubmitSuccess && await props.onSubmitSuccess();
+            props.onBackButtonClick && props.onBackButtonClick();
         },
         onError: () => {
             toast.error("Collection creation failed!");
