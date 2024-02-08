@@ -3,7 +3,7 @@ import styles from "./DiscoverWisdocity.module.css";
 import Typography from "../../Typography";
 
 interface Props {
-  icon: any;
+  icon: string;
   text: string;
   secondary: string;
 }

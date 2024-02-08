@@ -6,7 +6,12 @@ import Fire from "../../img/website/fire.svg";
 import Community from "../../img/website/community.svg";
 import Message from "../../img/website/message.svg";
 
-const cards = [
+interface ICard {
+  icon: string,
+  text: string,
+  secondary: string,
+}
+const cards: ICard[] = [
   {
     icon: Fire,
     text: "Virtual Avatar",
@@ -82,7 +87,7 @@ const DiscoverWisdocity = () => {
         justify="space-around"
         align="center"
       >
-        {cards.map((e: any) => {
+        {cards.map((e: ICard) => {
           return <Card text={e.text} icon={e.icon} secondary={e.secondary} />;
         })}
       </Stack>

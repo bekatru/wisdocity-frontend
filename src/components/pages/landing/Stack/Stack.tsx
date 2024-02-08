@@ -13,7 +13,7 @@ interface StackProps {
     | "flex-end"
     | "space-between"
     | "space-around";
-  className?: any;
+  className?: classNames.Argument;
   p?: string;
   gap?: string;
   wrap?: "nowrap" | "wrap" | "wrap-reverse";
