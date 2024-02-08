@@ -2,7 +2,11 @@
 import { Button, CreateCollectionPage, Header, Modal, Paragraph, UploadWisdomPage } from "components";
 import { useState } from "react";
 
-export function WisdomFTUE() {
+interface WisdomFTUEProps {
+    refetchFiles: () => void;
+}
+
+export function WisdomFTUE(props: WisdomFTUEProps) {
     const [isModalOpen, setIsModalOpen ] = useState<string | null>();
 
     const openUploadWisdomModal = () => setIsModalOpen("wisdom");
@@ -12,7 +16,7 @@ export function WisdomFTUE() {
     const closeModal = () => setIsModalOpen(null);
 
     return (
-        <div className="w-full min-h-calc flex flex-col ad justify-center items-center text-center max-w-lg mx-auto space-y-6">
+        <div className="w-full flex flex-col ad justify-center items-center text-center max-w-lg mx-auto space-y-6">
             <Header>Here is your Wisdom Collection</Header>
             <Paragraph>
                 This is where you can upload your wisdom and combine them into collections.<br/>
@@ -23,7 +27,8 @@ export function WisdomFTUE() {
                 isOpen={isModalOpen === 'wisdom'}
                 closeModal={() => setIsModalOpen(null)}
                 button={ <Button onClick={openUploadWisdomModal}>+ Upload</Button>}>
-                <UploadWisdomPage 
+                <UploadWisdomPage
+                onSubmitSuccess={props.refetchFiles}
                     onBackButtonClick={closeModal}/>
             </Modal>
             <Modal
