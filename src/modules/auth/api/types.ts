@@ -52,3 +52,9 @@ export interface AuthResponse extends Email {
     current_role: string;
     is_verified: boolean;
 }
+
+export interface ExpertProfileResponse extends Email {
+    username: string;
+    profession: string;
+  
+}

@@ -3,6 +3,7 @@ import {
     AuthResponse,
     ChangePasswordPayload,
     ChangePasswordResponse,
+    ExpertProfileResponse,
     RefreshPayload,
     RefreshResponse,
     ResetPasswordPayload,
@@ -71,4 +72,8 @@ export const refreshTokens = async (
 
 export const profile = async (): Promise<AuthResponse> => {
     return await wisdocityApi.get("auth/profile");
+}
+
+export const expertProfile = async (): Promise<ExpertProfileResponse> => {
+    return await wisdocityApi.get("experts/profile");
 }
