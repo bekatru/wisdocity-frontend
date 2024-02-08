@@ -4,7 +4,7 @@ import { PropsWithChildren } from "react";
 
 export function ExpertProfileLayout(props: PropsWithChildren) {
     return (
-        <div className="space-y-8">
+        <div className="space-y-8 w-full flex flex-col">
             <Tabs
                 tabs={[
                     {name: "Personal Information", route: Routes.ExpertProfile},
