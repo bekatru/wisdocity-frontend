@@ -8,3 +8,4 @@ export {VerificationPage} from './VerificationPage';
 export {VerifyAndContinuePage} from './VerifyAndContinuePage';
 export {ChangePasswordPage} from './ChangePasswordPage';
 export {ResetPasswordPage} from './ResetPasswordPage';
+export * from './VerificationHelp';
