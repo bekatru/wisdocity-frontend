@@ -1,48 +1,12 @@
-import React, { useState } from "react";
-// import { XIcon } from "@heroicons/react/20/solid";
+import { useState } from "react";
+import { Input } from "components";
+import { XMarkIcon } from "@heroicons/react/16/solid";
+import AvatarIcon from '../../../../assets/expert-avatar/ai-avatar.png';
+import DasboardIcon1 from "../../../../assets/avatar-dashboard/dashboard-icon1.svg";
 
-interface Message {
-  text: string;
-  isUser: boolean;
-}
-
-const ChatBot: React.FC = () => {
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [input, setInput] = useState<string>('');
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInput(e.target.value);
-  };
-
-  const handleSendMessage = () => {
-    if (input.trim() === '') return;
-    setMessages([...messages, { text: input, isUser: true }]);
-    setInput('');
-    setTimeout(() => {
-      setMessages([...messages, { text: 'This is a response from the chatbot', isUser: false }]);
-    }, 1000);
-  };
-
-  return (
-    <>
-      <div className="h-48 overflow-y-scroll border border-gray-300 mb-4">
-        {messages.map((msg, index) => (
-          <div key={index} className={`p-2 ${msg.isUser ? 'text-right' : 'text-left'}`}>
-            {msg.text}
-          </div>
-        ))}
-      </div>
-      <div className="flex">
-        <input type="text" value={input} onChange={handleInputChange} className="flex-1 mr-2 px-4 py-2 border border-gray-300" />
-        <button onClick={handleSendMessage} className="px-4 py-2 bg-blue-500 text-white">Send</button>
-      </div>
-    </>
-  );
-};
 
 export function AvatarTestModal() {
   const [isOpen, setIsOpen] = useState(false);
-
   const openModal = () => {
     setIsOpen(true);
   };
@@ -53,6 +17,7 @@ export function AvatarTestModal() {
 
   return (
     <>
+
       <div className="float-right">
         <button
           type="button"
@@ -63,37 +28,81 @@ export function AvatarTestModal() {
         </button>
       </div>
       {isOpen && (
-        <div className="fixed inset-0 overflow-y-auto flex items-center justify-center bg-black bg-opacity-50">
-          <div className="max-w-2xl w-full mx-auto z-50 bg-white shadow p-6 mb-12">
+        <div className="fixed z-50 inset-0 overflow-y-auto flex items-center justify-center">
+          <div className="absolute inset-0 bg-black opacity-50"></div>
+          <div className="max-w-md w-full mx-auto z-50 card shadow-p bg-white px-6 py-6 mb-[34px]">
             <div>
-              <div className="text-center font-bold text-2xl text-gray-800 mb-6">
-                Test Avatar
-                <div
-                  className="float-right w-6 h-6 mt-1 cursor-pointer"
-                  onClick={closeModal}
-                >
-                  {/* <XIcon /> */}
+              <div className="flex w-full">
+                <div className="box-body w-full">
+                  <div className="flex align-center w-full">
+                    <div className="w-full">
+                      <div className="text-center text-[20px] fn fw-b text-[#321841] mb-[24px]">Test Avatar
+                        <div
+                          className="float-right w-6 h-6 mt-1 cursor-pointer"
+                          onClick={closeModal}
+                        >
+                          <XMarkIcon />
+                        </div>
+                      </div>
+
+                      <div className="chat-bot-section">
+
+                        <div className="flex align-center w-full mb-[15px]">
+                          <div className="me-0">
+                            <span className="avatar avatar-rounded">
+                              <img className="rounded-full w-[34px]  h-[34px]" src={AvatarIcon} alt="" />
+                            </span>
+                          </div>
+                          <div className="pl-[18px]">
+                            <div className="text-[16px] fn fw-sb text-[#321841] mt-[5px]">Expert John</div>
+                          </div>
+                        </div>
+
+                        <div className="w-full bg-[#F1F0F7] rounded-[24px] rounded-tl-[0px] px-4 py-4 mb-[20px]">
+                          <p className="text-[14px] fn fw-r text-[#321841] mb-[12px]">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore </p>
+                          <span className="text-[10px] fn fw-r text-[#6B6985]">01:43</span>
+                        </div>
+
+                        <div className="flex align-center w-full mb-[15px]">
+                          <div className="me-0">
+                            <span className="avatar avatar-rounded">
+                              <img className="rounded-full w-[34px]  h-[34px]" src={AvatarIcon} alt="" />
+                            </span>
+                          </div>
+                          <div className="pl-[18px]">
+                            <div className="text-[16px] fn fw-sb text-[#321841] mt-[5px]">John AI Expert</div>
+                          </div>
+                        </div>
+
+                        <div className="w-full bg-[#F1F0F7] rounded-[24px] rounded-tl-[0px] px-4 py-4 mb-[20px]">
+                          <p className="text-[14px] fn fw-r text-[#321841] mb-[12px]">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore </p>
+                          <span className="text-[10px] fn fw-r text-[#6B6985]">01:43</span>
+                        </div>
+
+                        <div className="relative mb-[30px]  mt-[10px]">
+                          <Input type="text" placeholder="Write a message.." className="text-[16px] fn fw-r text-[#321841] outline-none w-full border border-[#D9D9EB] rounded-[6px] h-[50px] px-4 py-2 pr-12" />
+                          <button type="submit" className="absolute inset-y-0 right-3">
+                            <img src={DasboardIcon1} alt="" />
+                          </button>
+                        </div>
+
+
+
+                      </div>
+
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <div className="bot-outer">
-                <ChatBot />
-              </div>
+              <button className="bg-[#fff] text-[#8419BB] text-[16px] fn fw-sb border-[#8419BB] border px-8 py-2 rounded-full hover:text-gray-700 w-[48%] mr-[1%]" onClick={closeModal}>
+                Save
+              </button>
+              <button className="bg-[#8419BB] text-[#fff] text-[16px] fn fw-sb border-[#8419BB] border px-8 py-2 rounded-full  w-[48%] ml-[3%]" onClick={closeModal}>
+                Cancel
+              </button>
 
-              <div className="flex justify-between mt-6">
-                <button
-                  className="bg-white text-purple-800 border border-purple-800 px-8 py-2 rounded-full hover:text-gray-700 w-1/2 mr-2"
-                  onClick={closeModal}
-                >
-                  Save
-                </button>
-                <button
-                  className="bg-purple-800 text-white border border-purple-800 px-8 py-2 rounded-full w-1/2 ml-2"
-                  onClick={closeModal}
-                >
-                  Cancel
-                </button>
-              </div>
+
             </div>
           </div>
         </div>
@@ -101,3 +110,4 @@ export function AvatarTestModal() {
     </>
   );
 }
+
