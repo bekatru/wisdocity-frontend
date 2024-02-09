@@ -14,4 +14,5 @@ export type ApiResponse<Response, Default = Record<string, never>> =
   | Response
   | Default;
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ApiServiceError<T = unknown, D = any> = AxiosError<T, D>;
