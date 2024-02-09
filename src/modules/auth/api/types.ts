@@ -56,5 +56,8 @@ export interface AuthResponse extends Email {
 export interface ExpertProfileResponse extends Email {
     username: string;
     profession: string;
+    contactNumber:string;
+    email:string;
+    address:string;
   
 }
