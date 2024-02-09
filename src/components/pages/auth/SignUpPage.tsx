@@ -4,7 +4,7 @@ import { Routes } from 'modules/routing';
 import { useAuthTokens, useRegister } from 'modules/auth';
 import { AuthPageLayout } from './layouts';
 import { SignUpLearnerForm } from './forms';
-import { SignUpFields } from './forms/RegisterForm';
+import { SignUpFields } from './forms';
 
 
 export function SignUpPage() {
