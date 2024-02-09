@@ -26,8 +26,7 @@ export const router = createBrowserRouter([
           element: <LearnersPage/>,
         },
       ],
-    },
-  
+    }, 
     {
       path: Routes.SignIn,
       element: <AuthLayout><Outlet/></AuthLayout>,
