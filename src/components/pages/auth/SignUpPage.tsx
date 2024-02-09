@@ -3,8 +3,7 @@ import { toast } from 'react-toastify';
 import { Routes } from 'modules/routing';
 import { useAuthTokens, useRegister } from 'modules/auth';
 import { AuthPageLayout } from './layouts';
-import { SignUpLearnerForm } from './forms';
-import { SignUpFields } from './forms';
+import { SignUpLearnerForm, SignUpFields } from './forms';
 
 
 export function SignUpPage() {
