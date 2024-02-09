@@ -12,7 +12,7 @@ export function WisdomLayout(props: PropsWithChildren) {
     }
 
     return (
-        <div className="space-y-8">
+        <div className="space-y-8 flex-grow">
             <Tabs
                 tabs={[
                     {name: "List View", route: Routes.ExpertWisdom},

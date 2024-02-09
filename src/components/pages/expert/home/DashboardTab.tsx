@@ -19,6 +19,7 @@ export function DashboardAvatar() {
 
     return (
         <>
+        <div className='w-full flex flex-col'>
             <div className='sorting-content'>
                 <div className="flex align-center w-full">
                     <div className="px-2">
@@ -444,6 +445,7 @@ export function DashboardAvatar() {
 
                 </div>
 
+            </div>
             </div>
 
         </>

@@ -25,7 +25,8 @@ const FileTypeToIconMap: { [key: string]: string } = {
 }
 
 interface UploadWisdomPageProps {
-    onBackButtonClick: () => void
+    onBackButtonClick: () => void;
+    onSubmitSuccess: () => void;
 }
 
 export function UploadWisdomPage(props: UploadWisdomPageProps) {
@@ -51,8 +52,9 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
     const [selectedCollection, setSelectedCollection] = useState<MultiSelectOption>(filteredCollections.find((collection) => collection.id === collectionId) ?? filteredCollections[0]);
 
     const { mutate: uploadFiles, isPending } = useUploadFiles({
-        onSuccess: () => {
+        onSuccess: async () => {
             toast.success("File uploaded successfully!");
+            await props.onSubmitSuccess()
             props.onBackButtonClick && props.onBackButtonClick();
         },
         onError: (error) => {
