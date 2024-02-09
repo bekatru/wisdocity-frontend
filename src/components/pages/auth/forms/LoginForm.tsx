@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import { Routes } from "modules/routing";
 import { FormInput, LabeledCheckbox } from "components";
 import { AuthFormLayout } from "../layouts";
-import { SignInPayload } from "modules/auth/api";
+import { SignInPayload } from "modules/auth";
 
 interface SignInFormProps {
   onSubmit: (data: SignInPayload) => void;

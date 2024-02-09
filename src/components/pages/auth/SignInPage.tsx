@@ -4,7 +4,7 @@ import {Routes} from 'modules/routing';
 import { useAuthTokens, useLogin } from 'modules/auth';
 import {AuthPageLayout} from './layouts';
 import {SignInForm} from './forms';
-import { SignInPayload } from 'modules/auth/api';
+import { SignInPayload } from 'modules/auth';
 
 
 export function SignInPage() {

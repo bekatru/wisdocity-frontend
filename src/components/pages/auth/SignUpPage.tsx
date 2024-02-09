@@ -4,7 +4,7 @@ import { Routes } from 'modules/routing';
 import { useAuthTokens, useRegister } from 'modules/auth';
 import { AuthPageLayout } from './layouts';
 import { SignUpLearnerForm } from './forms';
-import { SignUpPayload } from 'modules/auth/api';
+import { SignUpFields } from './forms/RegisterForm';
 
 
 export function SignUpPage() {
@@ -26,11 +26,10 @@ export function SignUpPage() {
     },
   });
 
-  const handleSubmit = (data: SignUpPayload & {isSendEmailsChecked: boolean}) => {
+  const handleSubmit = (data: SignUpFields) => {
     if (!role) throw new Error("Role is missing!");
-    console.log(data, 'data')
     mutateLogin({
-      name: data.name,
+      username: data.name,
       email: data.email,
       password: data.password,
       country: data.country,

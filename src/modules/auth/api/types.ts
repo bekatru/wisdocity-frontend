@@ -33,7 +33,7 @@ export interface UpdateEmailPayload extends Email { }
 
 export interface SignUpResponse extends Tokens { }
 export interface SignUpPayload extends Credentials {
-    name: string;
+    username: string;
     country: string;
     current_role: string;
     is_subscribed: boolean;
