@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import { Routes } from 'modules/routing';
 import { useAuthTokens, useRegister } from 'modules/auth';
 import { AuthPageLayout } from './layouts';
-import { SignUpLearnerForm } from './forms';
+import { SignUpLearnerForm, SignUpFields } from './forms';
 
 
 export function SignUpPage() {
@@ -25,7 +25,7 @@ export function SignUpPage() {
     },
   });
 
-  const handleSubmit = (data: any) => {
+  const handleSubmit = (data: SignUpFields) => {
     if (!role) throw new Error("Role is missing!");
     mutateLogin({
       username: data.name,
