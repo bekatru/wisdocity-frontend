@@ -1,50 +1,32 @@
 import { useNavigate, useParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { Routes } from 'modules/routing';
-import { useAuthTokens, useRegister } from 'modules/auth';
+import { Roles, useRegisterFlow } from 'modules/auth';
 import { AuthPageLayout } from './layouts';
-import { SignUpLearnerForm, SignUpFields } from './forms';
+import { SignUpLearnerForm } from './forms';
 
+const textMap = {
+  [Roles.Expert]: "Create an expert account",
+  [Roles.Learner]: "Create a learner account",
+}
 
 export function SignUpPage() {
 
+  const params = useParams();
+
   const navigate = useNavigate();
-  const { role } = useParams();
 
   const navigateToSignInPage = () => navigate(Routes.SignIn);
-  const { setTokens } = useAuthTokens()
-
-  const { mutate: mutateLogin, isPending } = useRegister({
-    onSuccess: (response) => {
-      setTokens(response.access_token, response.refresh_token);
-      toast.success("Signed up successfuly")
-      navigate(Routes.Welcome)
-    },
-    onError: (error) => {
-      toast.error(error.response?.data.message)
-    },
-  });
-
-  const handleSubmit = (data: SignUpFields) => {
-    if (!role) throw new Error("Role is missing!");
-    mutateLogin({
-      username: data.name,
-      email: data.email,
-      password: data.password,
-      country: data.country,
-      is_subscribed: data.isSendEmailsChecked,
-      current_role: role,
-    })
-  };
+  
+  const flow = useRegisterFlow(params.role as Roles);
 
   return (
     <AuthPageLayout
-      headerText={`Create ${role === "learner" ? "a" : "an"} ${role} account`}
+      headerText={textMap[params.role as Roles]}
       footerText="Already have an account?"
       footerCtaText="Sign in"
       onFooterCtaClick={navigateToSignInPage}
     >
-      <SignUpLearnerForm onSubmit={handleSubmit} isPending={isPending} />
+      <SignUpLearnerForm onSubmit={flow.submitForm} isPending={flow.isPending} />
     </AuthPageLayout>
   );
 }

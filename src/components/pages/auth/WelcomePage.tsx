@@ -1,16 +1,10 @@
-import { useEffect } from "react"
-import { useNavigate } from "react-router-dom"
-import { Routes } from "modules/routing";
+import { Paragraph } from "components";
+import { useWelcomeFlow } from "modules/auth";
 
-const SPLASH_DURATION_IN_SECONDS = 5;
 
 export function WelcomePage() {
 
-    const navigate = useNavigate()
-
-    useEffect(() => {
-        setTimeout(() => navigate(Routes.Verification), SPLASH_DURATION_IN_SECONDS * 1000);
-    }, []);
+    useWelcomeFlow();
 
     return (
         <div className="px-4 py-5 sm:p-6 flex flex-col items-center space-y-8">
@@ -18,9 +12,9 @@ export function WelcomePage() {
                 Congrats! Welcome to Wisdocity. <br />
                 Let's get started with your new account
             </h1>
-            <p className="text-gray-400 text-center max-w-lg">
+            <Paragraph className="max-w-lg text-center">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-            </p>
+            </Paragraph>
         </div>
     )
 }
