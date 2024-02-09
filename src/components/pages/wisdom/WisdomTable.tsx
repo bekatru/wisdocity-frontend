@@ -155,7 +155,7 @@ export function WisdomTable(props: FilesTableProps) {
                             numberOfPages > 6 && (
                                 <span className={classNames(
                                     "inline-flex items-center border-t-2 px-4 pt-4 text-sm font-medium",
-                                    { "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300": !(currentPage > 3 && currentPage < numberOfPages - 2)},
+                                    { "border-purple-500 text-purple-600": Boolean(currentPage > 3 && currentPage < numberOfPages - 2)},
                                     { "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300": !(currentPage > 3 && currentPage < numberOfPages - 2) },
                                 )}>
                             ...
