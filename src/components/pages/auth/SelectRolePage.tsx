@@ -28,11 +28,11 @@ export function SelectRolePage() {
     return (
         <AuthPageLayout headerText="Join us as a learner or expert" footerText="Already have an account?" footerCtaText="Sign in" onFooterCtaClick={navigateToSignInPage}>
             <AuthFormLayout submitButtonText="Create Account" onSubmit={handleSubmit}>
-                <div className="flex justify-evenly sm:flex-row mb-8">
+                <div className="flex justify-evenly flex-col space-y-2 sm:space-y-0 sm:flex-row mb-6">
                     <div
                         onClick={() => setSelectedOption(SignUpOptions.Learner)}
                         className={cn(
-                            "relative text-center text-nowrap text-gray-400 p-8 rounded-2xl border border-gray-400 cursor-pointer",
+                            "relative text-center text-nowrap text-gray-400 p-5 sm:p-8 rounded-2xl border border-gray-400 cursor-pointer",
                             { "border-purple-600 bg-gray-100 text-purple-600": selectedOption === SignUpOptions.Learner }
                         )}
                     >
@@ -42,7 +42,7 @@ export function SelectRolePage() {
                     <div
                         onClick={() => setSelectedOption(SignUpOptions.Expert)}
                         className={cn(
-                            "relative text-center text-nowrap text-gray-400 p-8 rounded-2xl border border-gray-400 cursor-pointer",
+                            "relative text-center text-nowrap text-gray-400 p-5 sm:p-8 rounded-2xl border border-gray-400 cursor-pointer",
                             { "border-purple-600 bg-gray-100 text-purple-600": selectedOption === SignUpOptions.Expert }
                         )
                         }

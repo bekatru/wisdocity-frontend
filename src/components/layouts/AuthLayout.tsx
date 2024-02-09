@@ -1,17 +1,17 @@
-import { AuthTopBar, CenteredContainer, ShadowBox } from "components";
+import { AuthTopBar, ShadowBox } from "components";
 import { PropsWithChildren } from "react";
 
 export function AuthLayout(props: PropsWithChildren) {
     return (
-        <>
+        <div className="h-full w-full flex flex-col">
             <AuthTopBar />
-            <CenteredContainer>
-                <div className="sm:min-w-[528px]">
+            <div className="grow">
+                <div className="h-full w-full flex items-center justify-center">
                     <ShadowBox>
                         {props.children}
                     </ShadowBox>
                 </div>
-            </CenteredContainer>
-        </>
+            </div>
+        </div>
     )
 }

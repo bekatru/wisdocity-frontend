@@ -1,9 +1,7 @@
-import { PropsWithChildren } from "react";
+import classNames from "classnames";
+import { HTMLAttributes } from "react";
 
-export function ShadowBox(props: PropsWithChildren) {
-    return (
-        <div className="bg-white shadow sm:rounded-2xl grow">
-            <div className="p-6 sm:p-6">{props.children}</div>
-        </div>
-    )
+export function ShadowBox(props: HTMLAttributes<HTMLDivElement>) {
+    return <div {...props} className={classNames("bg-white shadow rounded-2xl p-6", props.className)}/>
+    
 }

@@ -10,10 +10,10 @@ interface AuthPageLayoutProps extends React.PropsWithChildren {
 
 export function AuthPageLayout(props: AuthPageLayoutProps) {
     return (
-        <div className="flex min-h-full flex-1 flex-col justify-center space-y-6">
-            <Header>{props.headerText}</Header>
-            {props.children}
-            <AuthPageFooter text={props.footerText} ctaText={props.footerCtaText} onCtaClick={props.onFooterCtaClick}/>
-        </div>
+            <div className="space-y-6">
+                <Header>{props.headerText}</Header>
+                {props.children}
+                <AuthPageFooter text={props.footerText} ctaText={props.footerCtaText} onCtaClick={props.onFooterCtaClick} />
+            </div>
     )
 }
