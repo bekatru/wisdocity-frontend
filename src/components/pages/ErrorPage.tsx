@@ -15,5 +15,5 @@ export function ErrorPage() {
       </p>
     </div>
   );
-};
+}
 

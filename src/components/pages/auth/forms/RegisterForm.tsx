@@ -3,10 +3,16 @@ import { FormInput, LabeledCheckbox, Select } from "components";
 import { AuthFormLayout } from "../layouts"
 
 interface SignUpLearnerFormProps {
-  onSubmit: (data: object) => void 
+  onSubmit: (data: SignUpFields) => void
   isPending: boolean
 }
-
+export interface SignUpFields {
+  name: string,
+  email: string,
+  password: string,
+  country: string,
+  isSendEmailsChecked: boolean
+}
 const countries = [
   "United States",
   "Canada",
@@ -20,7 +26,7 @@ export function RegisterForm(props: SignUpLearnerFormProps) {
   const [password, setPassword] = useState("");
   const [country, setCountry] = useState(countries[0]);
   const [isSendEmailsChecked, setIsSendEmailsChecked] = useState(true);
-  
+
   const handleSubmit = () => {
     props.onSubmit({
       name,
