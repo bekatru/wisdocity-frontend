@@ -3,7 +3,7 @@ import { PropsWithChildren } from "react";
 
 export function AuthLayout(props: PropsWithChildren) {
     return (
-        <div className="h-full w-full flex flex-col">
+        <div className="h-screen w-screen flex flex-col">
             <AuthTopBar />
             <div className="grow">
                 <div className="h-full w-full flex items-center justify-center">
