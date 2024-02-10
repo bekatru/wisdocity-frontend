@@ -1,10 +1,10 @@
 import { Modal, ShadowBox } from "components";
 import { FC, memo, useCallback, useEffect, useRef, useState } from "react";
-import FIX_ME_Voice_img from './assets/Voice.png';
 import { toast } from "react-toastify";
 import RecordTitle from "./UI/RecordTitle";
 import RecordPlayButtonsMemo from "./UI/RecordPlayButtons";
 import RecordActionButtons from "./UI/RecordActionButtons";
+import RecordVisualizer, { IVisualizerElements } from "./UI/RecordVisualizer";
 
 const msToTime = (ms: number) => {    
     const totalSeconds = Math.floor(ms /  1000);
@@ -27,7 +27,11 @@ const mediaErrorCatcher = (error: string) => {
     return mediaStreamErrors[error] ?? ('An error occured with the error name ' + error)
 }
 
+const num = 16;
+const thresholdOpacity = 0.008;
+const array = new Uint8Array(num*2);
 
+const initalElements = Array(num).fill(null).map(() => ({height: 0, opacity: 1}))
 interface Props {
     isModalOpen: boolean;
     setIsModalOpen: (open: boolean) => void,
@@ -39,7 +43,14 @@ export const RecordModal: FC<Props> = (props) => {
     const mediaRecorder = useRef<MediaRecorder | undefined>();
     const stream = useRef<MediaStream | undefined>();
     const [timer, setTimer] = useState(0);
+
     const [audioFile, setAudioFile] = useState<File | null>(null)
+
+
+    const src = useRef<MediaStreamAudioSourceNode>();
+    const context = useRef<AudioContext | null>(null)
+    const analyser = useRef<AnalyserNode | null>()
+    const elemenets = useRef<IVisualizerElements[]>([...initalElements])
 
     const initMediaStream = useCallback(async () => {
         try {
@@ -64,23 +75,31 @@ export const RecordModal: FC<Props> = (props) => {
 
     const recursiveTimer = useCallback(async () => {
         if (mediaRecorder.current?.state === 'recording'){
+            if (context.current){
+                analyser.current?.getByteFrequencyData(array);
+                const result = [];
+                for(let i = 0 ; i < num ; i++){
+                    result.push({height: array[i+num], opacity: thresholdOpacity*array[i+num]});
+                }
+                elemenets.current = (result);
+            }
+
             await new Promise((resolve) => {
                 setTimeout(() => {
                     setTimer(prev => {
                         resolve(undefined);
-                        return prev + 100;
+                        return prev + 50;
                     })
-                }, 100);
+                }, 50);
             })
             requestAnimationFrame(recursiveTimer)
-        }else {
+        }else if (mediaRecorder.current?.state === 'inactive') {
             setTimer(0);
             return;
         }
     }, [mediaRecorder])
 
     const onPauseRecord = useCallback(() => {
-        console.log(mediaRecorder.current?.state, 'pause');
         if (mediaRecorder.current?.state === 'recording'){
             mediaRecorder?.current?.pause();
         }
@@ -91,14 +110,19 @@ export const RecordModal: FC<Props> = (props) => {
             stream.current?.getTracks()[0].stop();
             mediaRecorder?.current?.stop();
             setToggle(true);
+            elemenets.current = (initalElements)
         }
-    }, [mediaRecorder, stream])
+    }, [mediaRecorder, stream, elemenets])
 
     const onRecord = useCallback(async () => {
-        console.log(mediaRecorder.current?.state, 'record');
         if (mediaRecorder.current?.state === 'inactive'){
             await initMediaStream()
             mediaRecorder?.current?.start();
+            if (stream.current && context.current && analyser.current){                
+                src.current = context.current.createMediaStreamSource(stream.current);
+                src.current.connect(analyser.current);
+            }
+
             recursiveTimer();
             setToggle(true);
             setAudioFile(null)
@@ -114,11 +138,24 @@ export const RecordModal: FC<Props> = (props) => {
     }, [recursiveTimer, mediaRecorder])
 
     useEffect(() => {
-        console.log('fdsjkl');
         if (isModalOpen){
+            context.current = new AudioContext();
+            analyser.current = context.current?.createAnalyser()
+            
             initMediaStream()
+        }else {
+            analyser.current?.disconnect()
+            context.current?.close();
+            analyser.current = null;
+            context.current = null;
         }
-    }, [isModalOpen])
+    }, [isModalOpen]);
+
+
+    useEffect(() => {
+        console.log(audioFile);
+        
+    }, [audioFile])
     
     return (
         <Modal
@@ -128,8 +165,11 @@ export const RecordModal: FC<Props> = (props) => {
                 <div className={"flex flex-col items-center"}>
                     <RecordTitle/>
 
-                    <img className={"my-7"} src={FIX_ME_Voice_img} alt={"Voice"}/>
-                    
+                    <RecordVisualizer
+                        elements={elemenets.current}
+                        num={num}
+                        mediaRecorder={mediaRecorder.current}
+                    />
                     <div>
                         <div className={"flex gap-3 items-start justify-center mb-3"}>
                             <svg width="12" height="23" fill="none" xmlns="http://www.w3.org/2000/svg">
