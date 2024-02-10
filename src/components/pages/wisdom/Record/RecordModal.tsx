@@ -1,0 +1,155 @@
+import { Modal, ShadowBox } from "components";
+import { FC, memo, useCallback, useEffect, useRef, useState } from "react";
+import FIX_ME_Voice_img from './assets/Voice.png';
+import { toast } from "react-toastify";
+import RecordTitle from "./UI/RecordTitle";
+import RecordPlayButtonsMemo from "./UI/RecordPlayButtons";
+import RecordActionButtons from "./UI/RecordActionButtons";
+
+const msToTime = (ms: number) => {    
+    const totalSeconds = Math.floor(ms /  1000);
+    const minutes = Math.floor(totalSeconds /  60);
+    const seconds = totalSeconds %  60;
+    const milliseconds = ms % 1000;
+
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().slice(0,1)}`;
+}
+const mediaStreamErrors: {[key: string]: string} = {
+    AbortError: 'An AbortError has occured.',
+    NotAllowedError: 'A NotAllowedError has occured. User might have denied permission.',
+    NotFoundError: 'A NotFoundError has occured.',
+    NotReadableError: 'A NotReadableError has occured.',
+    SecurityError: 'A SecurityError has occured.',
+    TypeError: 'A TypeError has occured.',
+}
+
+const mediaErrorCatcher = (error: string) => {
+    return mediaStreamErrors[error] ?? ('An error occured with the error name ' + error)
+}
+
+
+interface Props {
+    isModalOpen: boolean;
+    setIsModalOpen: (open: boolean) => void,
+}
+export const RecordModal: FC<Props> = (props) => {
+    const {isModalOpen, setIsModalOpen} = props;
+    const [toggle, setToggle] = useState(true);
+    const voice = useRef<Blob[]>([]);
+    const mediaRecorder = useRef<MediaRecorder | undefined>();
+    const stream = useRef<MediaStream | undefined>();
+    const [timer, setTimer] = useState(0);
+    const [audioFile, setAudioFile] = useState<File | null>(null)
+
+    const initMediaStream = useCallback(async () => {
+        try {
+            stream.current = await navigator.mediaDevices.getUserMedia({ audio: true });
+            mediaRecorder.current = new MediaRecorder(stream.current)
+            mediaRecorder.current.ondataavailable = function(e) {
+                voice.current.push(e.data);
+                const fileExtenstion = mediaRecorder.current?.mimeType.match(/(?<=audio\/).+?(?=;|$)/i)?.[0] || 'webm'
+                
+                const file = new File(voice.current, `audio.${fileExtenstion}`, { type: mediaRecorder.current?.mimeType || 'audio/webm'} );
+                setAudioFile(file);
+                
+                voice.current = []
+            }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        } catch (error: any) {
+            toast.error(mediaErrorCatcher(error.name), {autoClose: false})
+            return;
+        }
+    }, [setAudioFile])
+    
+
+    const recursiveTimer = useCallback(async () => {
+        if (mediaRecorder.current?.state === 'recording'){
+            await new Promise((resolve) => {
+                setTimeout(() => {
+                    setTimer(prev => {
+                        resolve(undefined);
+                        return prev + 100;
+                    })
+                }, 100);
+            })
+            requestAnimationFrame(recursiveTimer)
+        }else {
+            setTimer(0);
+            return;
+        }
+    }, [mediaRecorder])
+
+    const onPauseRecord = useCallback(() => {
+        console.log(mediaRecorder.current?.state, 'pause');
+        if (mediaRecorder.current?.state === 'recording'){
+            mediaRecorder?.current?.pause();
+        }
+    }, [mediaRecorder])
+
+    const onStop = useCallback(() => {
+        if (mediaRecorder.current?.state !== 'inactive'){
+            stream.current?.getTracks()[0].stop();
+            mediaRecorder?.current?.stop();
+            setToggle(true);
+        }
+    }, [mediaRecorder, stream])
+
+    const onRecord = useCallback(async () => {
+        console.log(mediaRecorder.current?.state, 'record');
+        if (mediaRecorder.current?.state === 'inactive'){
+            await initMediaStream()
+            mediaRecorder?.current?.start();
+            recursiveTimer();
+            setToggle(true);
+            setAudioFile(null)
+        } else if (mediaRecorder.current?.state === 'paused'){
+            mediaRecorder?.current?.resume();
+            recursiveTimer();
+            setToggle(true);
+        }else{
+            setToggle(false);
+            onPauseRecord()
+        }
+        
+    }, [recursiveTimer, mediaRecorder])
+
+    useEffect(() => {
+        console.log('fdsjkl');
+        if (isModalOpen){
+            initMediaStream()
+        }
+    }, [isModalOpen])
+    
+    return (
+        <Modal
+            isOpen={isModalOpen}
+            closeModal={() => setIsModalOpen(false)}>
+            <ShadowBox>
+                <div className={"flex flex-col items-center"}>
+                    <RecordTitle/>
+
+                    <img className={"my-7"} src={FIX_ME_Voice_img} alt={"Voice"}/>
+                    
+                    <div>
+                        <div className={"flex gap-3 items-start justify-center mb-3"}>
+                            <svg width="12" height="23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle r="6" cx="50%" cy="50%" rx={"50%"} width="12" height="12" fill="#EB0000"/>
+                            </svg>
+                            <span>{msToTime(timer)}</span>
+                        </div>
+
+                        <RecordPlayButtonsMemo
+                            onRecord={onRecord}
+                            onStop={onStop}
+                            toggle={toggle}
+                        />
+                    </div>
+                    <RecordActionButtons setIsModalOpen={setIsModalOpen}/>
+                </div>
+                
+            </ShadowBox>
+        </Modal> 
+    );
+}
+const RecordModalMemo = memo(RecordModal)
+export default RecordModalMemo;
