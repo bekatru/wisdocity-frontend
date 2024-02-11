@@ -55,7 +55,7 @@ export const RecordModal: FC<Props> = (props) => {
     const initMediaStream = useCallback(async () => {
         try {
             stream.current = await navigator.mediaDevices.getUserMedia({ audio: true });
-            mediaRecorder.current = new MediaRecorder(stream.current)
+            mediaRecorder.current = new MediaRecorder(stream.current, { audioBitsPerSecond: 16 * 44100 })
             mediaRecorder.current.ondataavailable = function(e) {
                 voice.current.push(e.data);
                 const fileExtenstion = mediaRecorder.current?.mimeType.match(/(?<=audio\/).+?(?=;|$)/i)?.[0] || 'webm'
