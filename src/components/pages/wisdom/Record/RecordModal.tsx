@@ -6,13 +6,17 @@ import RecordPlayButtonsMemo from "./UI/RecordPlayButtons";
 import RecordActionButtons from "./UI/RecordActionButtons";
 import RecordVisualizer, { IVisualizerElements } from "./UI/RecordVisualizer";
 
+
+const sampleRate = 96000;
+const audioBitsPerSecond = 320000 
+
 const msToTime = (ms: number) => {    
     const totalSeconds = Math.floor(ms /  1000);
     const minutes = Math.floor(totalSeconds /  60);
     const seconds = totalSeconds %  60;
     const milliseconds = ms % 1000;
 
-    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().slice(0,1)}`;
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(3, '0')}`;
 }
 const mediaStreamErrors: {[key: string]: string} = {
     AbortError: 'An AbortError has occured.',
@@ -36,13 +40,22 @@ interface Props {
     isModalOpen: boolean;
     setIsModalOpen: (open: boolean) => void,
 }
+const getInitalDateTimer = () => {
+    const now = Date.now();
+    return ({
+        start: now,
+        now,
+        pause: 0,
+    })
+}
+const zeroDateTimer = {start: 0, now: 0, pause: 0}
 export const RecordModal: FC<Props> = (props) => {
     const {isModalOpen, setIsModalOpen} = props;
     const [toggle, setToggle] = useState(true);
     const voice = useRef<Blob[]>([]);
     const mediaRecorder = useRef<MediaRecorder | undefined>();
     const stream = useRef<MediaStream | undefined>();
-    const [timer, setTimer] = useState(0);
+    const [timer, setTimer] = useState({...zeroDateTimer});
 
     const [audioFile, setAudioFile] = useState<File | null>(null)
 
@@ -54,8 +67,8 @@ export const RecordModal: FC<Props> = (props) => {
 
     const initMediaStream = useCallback(async () => {
         try {
-            stream.current = await navigator.mediaDevices.getUserMedia({ audio: true });
-            mediaRecorder.current = new MediaRecorder(stream.current, { audioBitsPerSecond: 16 * 44100 })
+            stream.current = await navigator.mediaDevices.getUserMedia({ audio: {sampleRate} });
+            mediaRecorder.current = new MediaRecorder(stream.current, { audioBitsPerSecond })
             mediaRecorder.current.ondataavailable = function(e) {
                 voice.current.push(e.data);
                 const fileExtenstion = mediaRecorder.current?.mimeType.match(/(?<=audio\/).+?(?=;|$)/i)?.[0] || 'webm'
@@ -88,13 +101,16 @@ export const RecordModal: FC<Props> = (props) => {
                 setTimeout(() => {
                     setTimer(prev => {
                         resolve(undefined);
-                        return prev + 50;
+                        return ({
+                            ...prev,
+                            now: Date.now()
+                        });
                     })
                 }, 50);
             })
             requestAnimationFrame(recursiveTimer)
         }else if (mediaRecorder.current?.state === 'inactive') {
-            setTimer(0);
+            setTimer(getInitalDateTimer());
             return;
         }
     }, [mediaRecorder])
@@ -102,15 +118,20 @@ export const RecordModal: FC<Props> = (props) => {
     const onPauseRecord = useCallback(() => {
         if (mediaRecorder.current?.state === 'recording'){
             mediaRecorder?.current?.pause();
+            setTimer(prev => ({
+                ...prev,
+                pause: Date.now(),
+            }))
         }
     }, [mediaRecorder])
 
     const onStop = useCallback(() => {
         if (mediaRecorder.current?.state !== 'inactive'){
-            stream.current?.getTracks()[0].stop();
+            stream.current?.getTracks?.()?.[0]?.stop();
             mediaRecorder?.current?.stop();
             setToggle(true);
-            elemenets.current = (initalElements)
+            setTimer({...zeroDateTimer})
+            elemenets.current = initalElements
         }
     }, [mediaRecorder, stream, elemenets])
 
@@ -125,10 +146,15 @@ export const RecordModal: FC<Props> = (props) => {
 
             recursiveTimer();
             setToggle(true);
+            setTimer(getInitalDateTimer())
             setAudioFile(null)
         } else if (mediaRecorder.current?.state === 'paused'){
             mediaRecorder?.current?.resume();
             recursiveTimer();
+            setTimer(prev => ({
+                ...prev,
+                start: prev.start + (Date.now() - prev.pause),
+            }))
             setToggle(true);
         }else{
             setToggle(false);
@@ -175,7 +201,7 @@ export const RecordModal: FC<Props> = (props) => {
                             <svg width="12" height="23" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <circle r="6" cx="50%" cy="50%" rx={"50%"} width="12" height="12" fill="#EB0000"/>
                             </svg>
-                            <span>{msToTime(timer)}</span>
+                            <span>{msToTime(timer.now - timer.start)}</span>
                         </div>
 
                         <RecordPlayButtonsMemo
