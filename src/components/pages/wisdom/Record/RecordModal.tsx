@@ -1,18 +1,18 @@
 import { Modal, ShadowBox } from "components";
 import { FC, memo, useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
-import RecordTitle from "./UI/RecordTitle";
-import RecordPlayButtonsMemo from "./UI/RecordPlayButtons";
-import RecordActionButtons from "./UI/RecordActionButtons";
 import RecordVisualizer, { IVisualizerElements } from "./UI/RecordVisualizer";
+import RecordActionButtons from "./UI/RecordActionButtons";
+import RecordTitle from "./UI/RecordTitle";
+import RecordPlayButtons from "./UI/RecordPlayButtons";
 
 
 const sampleRate = 96000;
 const audioBitsPerSecond = 320000 
 
 const msToTime = (ms: number) => {    
-    const totalSeconds = Math.floor(ms /  1000);
-    const minutes = Math.floor(totalSeconds /  60);
+    const totalSeconds = Math.floor(ms / 1000);
+    const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds %  60;
     const milliseconds = ms % 1000;
 
@@ -33,9 +33,9 @@ const mediaErrorCatcher = (error: string) => {
 
 const num = 16;
 const thresholdOpacity = 0.008;
-const array = new Uint8Array(num*2);
+const array = new Uint8Array(num * 2);
 
-const initalElements = Array(num).fill(null).map(() => ({height: 0, opacity: 1}))
+const initalElements = Array(num).fill(null).map(() => ({ height: 0, opacity: 1 }))
 interface Props {
     isModalOpen: boolean;
     setIsModalOpen: (open: boolean) => void,
@@ -48,39 +48,39 @@ const getInitalDateTimer = () => {
         pause: 0,
     })
 }
-const zeroDateTimer = {start: 0, now: 0, pause: 0}
+const zeroDateTimer = { start: 0, now: 0, pause: 0 };
 export const RecordModal: FC<Props> = (props) => {
     const {isModalOpen, setIsModalOpen} = props;
     const [toggle, setToggle] = useState(true);
     const voice = useRef<Blob[]>([]);
     const mediaRecorder = useRef<MediaRecorder | undefined>();
-    const stream = useRef<MediaStream | undefined>();
+    const stream = useRef<MediaStream | null>();
     const [timer, setTimer] = useState({...zeroDateTimer});
 
-    const [audioFile, setAudioFile] = useState<File | null>(null)
+    const [audioFile, setAudioFile] = useState<File | null>(null);
 
 
     const src = useRef<MediaStreamAudioSourceNode>();
-    const context = useRef<AudioContext | null>(null)
-    const analyser = useRef<AnalyserNode | null>()
-    const elemenets = useRef<IVisualizerElements[]>([...initalElements])
+    const context = useRef<AudioContext | null>(null);
+    const analyser = useRef<AnalyserNode | null>();
+    const elemenets = useRef<IVisualizerElements[]>([...initalElements]);
 
     const initMediaStream = useCallback(async () => {
         try {
-            stream.current = await navigator.mediaDevices.getUserMedia({ audio: {sampleRate} });
+            stream.current = await navigator.mediaDevices.getUserMedia({ audio: { sampleRate } });
             mediaRecorder.current = new MediaRecorder(stream.current, { audioBitsPerSecond })
             mediaRecorder.current.ondataavailable = function(e) {
                 voice.current.push(e.data);
-                const fileExtenstion = mediaRecorder.current?.mimeType.match(/(?<=audio\/).+?(?=;|$)/i)?.[0] || 'webm'
+                const fileExtenstion = mediaRecorder.current?.mimeType.match(/(?<=audio\/).+?(?=;|$)/i)?.[0] || 'webm';
                 
                 const file = new File(voice.current, `audio.${fileExtenstion}`, { type: mediaRecorder.current?.mimeType || 'audio/webm'} );
                 setAudioFile(file);
                 
-                voice.current = []
+                voice.current = [];
             }
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
-            toast.error(mediaErrorCatcher(error.name), {autoClose: false})
+            toast.error(mediaErrorCatcher(error.name), {autoClose: false});
             return;
         }
     }, [setAudioFile])
@@ -130,8 +130,8 @@ export const RecordModal: FC<Props> = (props) => {
             stream.current?.getTracks?.()?.[0]?.stop();
             mediaRecorder?.current?.stop();
             setToggle(true);
-            setTimer({...zeroDateTimer})
-            elemenets.current = initalElements
+            setTimer({...zeroDateTimer});
+            elemenets.current = initalElements;
         }
     }, [mediaRecorder, stream, elemenets])
 
@@ -146,19 +146,19 @@ export const RecordModal: FC<Props> = (props) => {
 
             recursiveTimer();
             setToggle(true);
-            setTimer(getInitalDateTimer())
-            setAudioFile(null)
+            setTimer(getInitalDateTimer());
+            setAudioFile(null);
         } else if (mediaRecorder.current?.state === 'paused'){
             mediaRecorder?.current?.resume();
             recursiveTimer();
             setTimer(prev => ({
                 ...prev,
                 start: prev.start + (Date.now() - prev.pause),
-            }))
+            }));
             setToggle(true);
         }else{
             setToggle(false);
-            onPauseRecord()
+            onPauseRecord();
         }
         
     }, [recursiveTimer, mediaRecorder])
@@ -166,14 +166,16 @@ export const RecordModal: FC<Props> = (props) => {
     useEffect(() => {
         if (isModalOpen){
             context.current = new AudioContext();
-            analyser.current = context.current?.createAnalyser()
+            analyser.current = context.current?.createAnalyser();
             
-            initMediaStream()
+            initMediaStream();
         }else {
-            analyser.current?.disconnect()
+            analyser.current?.disconnect();
             context.current?.close();
+            stream.current?.getTracks()?.[0].stop();
             analyser.current = null;
             context.current = null;
+            stream.current = null;
         }
     }, [isModalOpen]);
 
@@ -204,7 +206,7 @@ export const RecordModal: FC<Props> = (props) => {
                             <span>{msToTime(timer.now - timer.start)}</span>
                         </div>
 
-                        <RecordPlayButtonsMemo
+                        <RecordPlayButtons
                             onRecord={onRecord}
                             onStop={onStop}
                             toggle={toggle}
