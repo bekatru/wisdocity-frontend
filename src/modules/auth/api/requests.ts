@@ -74,6 +74,3 @@ export const profile = async (): Promise<AuthResponse> => {
     return await wisdocityApi.get("auth/profile");
 }
 
-export const expertProfile = async (): Promise<ExpertProfileResponse> => {
-    return await wisdocityApi.get("experts/profile");
-}

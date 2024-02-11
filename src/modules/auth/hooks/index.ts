@@ -10,6 +10,6 @@ export { default as useResetPassword } from './useResetPassword';
 export { default as useResendVerification } from './useResendVerification';
 export { default as useChangeEmail } from './useChangeEmail';
 export { default as useChangePassword } from './useChangePassword';
-export { default as useExpertProfile } from './useExpertProfile';
+
 
 

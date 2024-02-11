@@ -1,11 +1,21 @@
-import { EditModal } from '../../avatar/EditModal';
+import { useState } from 'react';
 import ProfileIcon from "../../../../../assets/profile/profile-user.png";
+import { ProfileInformationEditModal } from "./ProfileInformationEditModal";
 interface ProfileInformationProps {
     username: string;
     profession:string;
+    expertId:number;
 }
 
 export default function ProfileInformation(props: ProfileInformationProps) {
+    const [username, setUsername] = useState<string>(props.username);
+
+    const [profession, setProfession] = useState<string>(props.profession);
+
+    const handleProfileUpdate = (newUsername: string, newProfession: string) => {
+        setUsername(newUsername);
+        setProfession(newProfession);
+    };
     return (
         <div className="box-body  mb-[32px]">
         <div className="flex align-center w-full">
@@ -15,11 +25,11 @@ export default function ProfileInformation(props: ProfileInformationProps) {
                 </span>
             </div>
             <div className="pl-[24px]">
-                <div className="text-[24px] fn fw-sb text-[#321841] mb-0">{props.username}</div>
-                <p className="text-[14px] fn fw-m text-[#321841] mb-[5px]">{props.profession !== null ? (
-  <span>{props.profession}</span>
+                <div className="text-[24px] fn fw-sb text-[#321841] mb-0">{username}</div>
+                <p className="text-[14px] fn fw-m text-[#321841] mb-[5px]">{profession!== null ? (
+  <>{profession}</>
 ) : (
-  <span >Expert</span>
+  <>Expert</>
 )}</p>
                 <div className="flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#8726b9" className="w-5 h-5">
@@ -49,7 +59,7 @@ export default function ProfileInformation(props: ProfileInformationProps) {
                     <span className="ms-[8px] mt-[3px] text-[14px] fn fw-m text-[#6B6985]">4.8 (20 reviews)</span>
                 </div>
             </div>
-            <EditModal />
+            <ProfileInformationEditModal username={props.username} profession={props.profession} expertId={props.expertId} onProfileUpdate={handleProfileUpdate} />
         </div>
     </div>
        
