@@ -62,7 +62,7 @@ export function CollectionsPage() {
                 <Modal
                     isOpen={isModalOpen}
                     closeModal={() => setIsModalOpen(false)}>
-                        <CreateCollectionPage onBackButtonClick={() => setIsModalOpen(false)}/>
+                        <CreateCollectionPage onSubmitSuccess={collections.refetch} onBackButtonClick={() => setIsModalOpen(false)}/>
 
                 </Modal>
 
@@ -89,7 +89,6 @@ function CollectionCard (collection: Collection) {
                     </div>
                 ))
             }
-
         </div>
         </div>
     </ShadowBox>

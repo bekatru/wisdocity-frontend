@@ -358,7 +358,7 @@ export function AppLayout(props: PropsWithChildren) {
                         </div>
                     </div>
 
-                    <main className="p-6 flex-grow">
+                    <main className="p-6 flex-grow flex">
                         {props.children}
                     </main>
 
