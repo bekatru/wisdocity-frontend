@@ -8,7 +8,7 @@ interface Props {
   toggle: boolean,
   onRecord: () => void,
 }
-const RecordPlayButtons: FC<Props> = (props) => {
+const AudioRecordModalPlayButtons: FC<Props> = (props) => {
   const {onRecord, onStop} = props
   return (
     <div className={`flex w-[242px] h-[70px] bg-cover bg-no-repeat justify-between p-[6px] items-center mb-7`} style={{backgroundImage: `url(${unionBg})`}}>
@@ -27,5 +27,5 @@ const RecordPlayButtons: FC<Props> = (props) => {
   </div>
   );
 };
-const RecordPlayButtonsMemo = memo(RecordPlayButtons)
-export default RecordPlayButtonsMemo;
+const AudioRecordModalPlayButtonsMemo = memo(AudioRecordModalPlayButtons)
+export default AudioRecordModalPlayButtonsMemo;

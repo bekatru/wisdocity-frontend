@@ -11,7 +11,7 @@ import { XMarkIcon } from "@heroicons/react/16/solid";
 import {  useParams } from "react-router-dom";
 import { useCollections, useUploadFiles } from "modules/expert";
 import { useProfile } from "modules/auth";
-import { RecordModal } from "./Record";
+import { AudioRecordModal } from "./AudioRecord";
 // import { Routes } from "modules/routing";
 
 const FILE_TYPES = ['pdf', 'doc', 'docx', 'txt'];
@@ -207,7 +207,7 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
                                     <span className="w-4 h-4 bg-red-500 rounded-lg" />
                                 </span>
                                 <span onClick={() => setIsModalOpenRecordMemo(true)}>Start Recording</span>
-                                <RecordModal
+                                <AudioRecordModal
                                     isModalOpen={isModalOpenRecordMemo}
                                     setIsModalOpen={setIsModalOpenRecordMemo}
                                 />

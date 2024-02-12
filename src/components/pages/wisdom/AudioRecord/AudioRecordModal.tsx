@@ -1,24 +1,16 @@
-import { Modal, ShadowBox } from "components";
+import { Modal, ShadowBox, parseMsToTime } from "components";
 import { FC, memo, useCallback, useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
-import RecordVisualizer, { IVisualizerElements } from "./UI/RecordVisualizer";
-import RecordActionButtons from "./UI/RecordActionButtons";
-import RecordTitle from "./UI/RecordTitle";
-import RecordPlayButtons from "./UI/RecordPlayButtons";
+import AudioRecordModalVisualizer, { IVisualizerElements } from "./UI/AudioRecordModalVisualizer";
+import AudioRecordModalActionButtons from "./UI/AudioRecordModalActionButtons";
+import AudioRecordModalTitle from "./UI/AudioRecordModalTitle";
+import AudioRecordModalPlayButtons from "./UI/AudioRecordModalButtons";
 
 
-const sampleRate = 96000;
-const audioBitsPerSecond = 320000 
+const SAMPLE_RATE = 96000;
+const AUDIO_BITS_PER_SECOND = 320000;
 
-const msToTime = (ms: number) => {    
-    const totalSeconds = Math.floor(ms / 1000);
-    const minutes = Math.floor(totalSeconds / 60);
-    const seconds = totalSeconds %  60;
-    const milliseconds = ms % 1000;
-
-    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(3, '0')}`;
-}
-const mediaStreamErrors: {[key: string]: string} = {
+const MEDIA_STREAM_ERRORS: {[key: string]: string} = {
     AbortError: 'An AbortError has occured.',
     NotAllowedError: 'A NotAllowedError has occured. User might have denied permission.',
     NotFoundError: 'A NotFoundError has occured.',
@@ -28,15 +20,16 @@ const mediaStreamErrors: {[key: string]: string} = {
 }
 
 const mediaErrorCatcher = (error: string) => {
-    return mediaStreamErrors[error] ?? ('An error occured with the error name ' + error)
+    return MEDIA_STREAM_ERRORS[error] ?? ('An error occured with the error name ' + error)
 }
 
-const num = 16;
+const NUM_OF_ITEM_VISUALIZER = 16;
 const thresholdOpacity = 0.008;
-const array = new Uint8Array(num * 2);
+const AUDIO_VISUALIZER_ARRAY = new Uint8Array(NUM_OF_ITEM_VISUALIZER * 2);
 
-const initalElements = Array(num).fill(null).map(() => ({ height: 0, opacity: 1 }))
-interface Props {
+const initalElements = Array(NUM_OF_ITEM_VISUALIZER).fill(null).map(() => ({ height: 0, opacity: 1 }));
+
+interface AudioRecordModalProps {
     isModalOpen: boolean;
     setIsModalOpen: (open: boolean) => void,
 }
@@ -49,7 +42,7 @@ const getInitalDateTimer = () => {
     })
 }
 const zeroDateTimer = { start: 0, now: 0, pause: 0 };
-export const RecordModal: FC<Props> = (props) => {
+export const AudioRecordModal: FC<AudioRecordModalProps> = (props) => {
     const {isModalOpen, setIsModalOpen} = props;
     const [toggle, setToggle] = useState(true);
     const voice = useRef<Blob[]>([]);
@@ -67,8 +60,8 @@ export const RecordModal: FC<Props> = (props) => {
 
     const initMediaStream = useCallback(async () => {
         try {
-            stream.current = await navigator.mediaDevices.getUserMedia({ audio: { sampleRate } });
-            mediaRecorder.current = new MediaRecorder(stream.current, { audioBitsPerSecond })
+            stream.current = await navigator.mediaDevices.getUserMedia({ audio: { sampleRate: SAMPLE_RATE } });
+            mediaRecorder.current = new MediaRecorder(stream.current, { audioBitsPerSecond: AUDIO_BITS_PER_SECOND })
             mediaRecorder.current.ondataavailable = function(e) {
                 voice.current.push(e.data);
                 const fileExtenstion = mediaRecorder.current?.mimeType.match(/(?<=audio\/).+?(?=;|$)/i)?.[0] || 'webm';
@@ -89,10 +82,10 @@ export const RecordModal: FC<Props> = (props) => {
     const recursiveTimer = useCallback(async () => {
         if (mediaRecorder.current?.state === 'recording'){
             if (context.current){
-                analyser.current?.getByteFrequencyData(array);
+                analyser.current?.getByteFrequencyData(AUDIO_VISUALIZER_ARRAY);
                 const result = [];
-                for(let i = 0 ; i < num ; i++){
-                    result.push({height: array[i+num], opacity: thresholdOpacity*array[i+num]});
+                for(let i = 0; i < NUM_OF_ITEM_VISUALIZER; i++){
+                    result.push({ height: AUDIO_VISUALIZER_ARRAY[i + NUM_OF_ITEM_VISUALIZER], opacity: thresholdOpacity * AUDIO_VISUALIZER_ARRAY[i+NUM_OF_ITEM_VISUALIZER] });
                 }
                 elemenets.current = (result);
             }
@@ -161,7 +154,11 @@ export const RecordModal: FC<Props> = (props) => {
             onPauseRecord();
         }
         
-    }, [recursiveTimer, mediaRecorder])
+    }, [recursiveTimer, mediaRecorder]);
+
+    const onBackActionButtons = useCallback(() => {
+        setIsModalOpen(false)
+    }, [setIsModalOpen])
 
     useEffect(() => {
         if (isModalOpen){
@@ -191,11 +188,11 @@ export const RecordModal: FC<Props> = (props) => {
             closeModal={() => setIsModalOpen(false)}>
             <ShadowBox>
                 <div className={"flex flex-col items-center"}>
-                    <RecordTitle/>
+                    <AudioRecordModalTitle/>
 
-                    <RecordVisualizer
+                    <AudioRecordModalVisualizer
                         elements={elemenets.current}
-                        num={num}
+                        num={NUM_OF_ITEM_VISUALIZER}
                         mediaRecorder={mediaRecorder.current}
                     />
                     <div>
@@ -203,21 +200,21 @@ export const RecordModal: FC<Props> = (props) => {
                             <svg width="12" height="23" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <circle r="6" cx="50%" cy="50%" rx={"50%"} width="12" height="12" fill="#EB0000"/>
                             </svg>
-                            <span>{msToTime(timer.now - timer.start)}</span>
+                            <span>{parseMsToTime(timer.now - timer.start)}</span>
                         </div>
 
-                        <RecordPlayButtons
+                        <AudioRecordModalPlayButtons
                             onRecord={onRecord}
                             onStop={onStop}
                             toggle={toggle}
                         />
                     </div>
-                    <RecordActionButtons setIsModalOpen={setIsModalOpen}/>
+                    <AudioRecordModalActionButtons onBack={onBackActionButtons}/>
                 </div>
                 
             </ShadowBox>
         </Modal> 
     );
 }
-const RecordModalMemo = memo(RecordModal)
-export default RecordModalMemo;
+const AudioRecordModalMemo = memo(AudioRecordModal)
+export default AudioRecordModalMemo;

@@ -6,14 +6,14 @@ export interface IVisualizerElements {
   height: number,
   opacity: number,
 }
-interface RecordVisualizerProps {
+interface AudioRecordModalVisualizerProps {
   elements: IVisualizerElements[],
   num: number,
   mediaRecorder?: MediaRecorder,
 }
 const width = 1.5;
 
-const RecordVisualizer: FC<RecordVisualizerProps> = (props) => {
+const AudioRecordModalVisualizer: FC<AudioRecordModalVisualizerProps> = (props) => {
   const {elements, num, mediaRecorder} = props;
   return (
     <div className={classNames(
@@ -32,5 +32,5 @@ const RecordVisualizer: FC<RecordVisualizerProps> = (props) => {
     </div>
   );
 };
-const RecordVisualizerMemo = memo(RecordVisualizer);
-export default RecordVisualizerMemo;
+const AudioRecordModalVisualizerMemo = memo(AudioRecordModalVisualizer);
+export default AudioRecordModalVisualizerMemo;
