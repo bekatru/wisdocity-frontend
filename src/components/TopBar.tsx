@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router';
 import { Routes } from 'modules/routing';
 
 const navigation = [
-  { name: 'Experts', href: '#', icon: ExpertsIcon, current: false, },
+  { name: 'Experts', href: Routes.Experts, icon: ExpertsIcon, current: false, },
   { name: 'Learners', href: Routes.Learners, icon: LearnersIcon, current: false,  customClass: 'ml80'  },
   {
     name: '', href: '#', icon: CircleIcon, current: false, subItems: [

@@ -1,6 +1,6 @@
 import { Outlet, createBrowserRouter } from "react-router-dom";
 import { Routes } from "./types";
-import { AppLayout, AuthLayout, Billing, ChangeEmailPage, ChangePasswordPage, ExpertProfileLayout, HomePage, LearnersPage, Profile, ResetPasswordPage, RootLayout, SelectRolePage, Settings, SignInPage, SignUpPage, VerificationPage, VerifyAndContinuePage, WelcomePage, WisdomLayout, ExpertDashboard, AvatarDashboard, CollectionsPage, Collection, Files,DevPage } from "components";
+import { AppLayout, AuthLayout, Billing, ChangeEmailPage, ChangePasswordPage, ExpertProfileLayout, HomePage, LearnersPage, ExpertsPage, Profile, ResetPasswordPage, RootLayout, SelectRolePage, Settings, SignInPage, SignUpPage, VerificationPage, VerifyAndContinuePage, WelcomePage, WisdomLayout, ExpertDashboard, AvatarDashboard, CollectionsPage, Collection, Files,DevPage } from "components";
 import { AuthRoute } from "./routes";
 
 
@@ -24,6 +24,10 @@ export const router = createBrowserRouter([
         {
           path: Routes.Learners,
           element: <LearnersPage/>,
+        },
+        {
+          path: Routes.Experts,
+          element: <ExpertsPage/>,
         },
       ],
     }, 
