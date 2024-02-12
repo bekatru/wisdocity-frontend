@@ -72,3 +72,4 @@ export const refreshTokens = async (
 export const profile = async (): Promise<AuthResponse> => {
     return await wisdocityApi.get("auth/profile");
 }
+
