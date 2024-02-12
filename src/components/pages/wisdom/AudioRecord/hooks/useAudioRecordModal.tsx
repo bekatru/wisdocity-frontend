@@ -82,9 +82,7 @@ export function useAudioRecordModal (isModalOpen: boolean) {
         if (context.current){
             analyser.current?.getByteFrequencyData?.(AUDIO_VISUALIZER_ARRAY);
             const result = [];
-            console.log(AUDIO_VISUALIZER_ARRAY, 'AUDIO_VISUALIZER_ARRAY');
             for (let i = 0; i < NUM_OF_ITEM_VISUALIZER; i++){
-              
               result.push({ height: AUDIO_VISUALIZER_ARRAY[i + NUM_OF_ITEM_VISUALIZER], opacity: THRESHOLD_OPACITY * AUDIO_VISUALIZER_ARRAY[i + NUM_OF_ITEM_VISUALIZER] });
             }
             audioVisualizerElemenets.current = result;
@@ -137,7 +135,6 @@ export function useAudioRecordModal (isModalOpen: boolean) {
           await initMediaStream()
           mediaRecorder?.current?.start();
           if (stream.current && context.current && analyser.current){   
-            console.log( 'fdsafdsfs');
             src.current = context.current.createMediaStreamSource(stream.current);
             src.current.connect(analyser.current);
           }
