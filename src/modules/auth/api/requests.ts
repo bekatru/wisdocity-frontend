@@ -3,7 +3,6 @@ import {
     AuthResponse,
     ChangePasswordPayload,
     ChangePasswordResponse,
-    ExpertProfileResponse,
     RefreshPayload,
     RefreshResponse,
     ResetPasswordPayload,

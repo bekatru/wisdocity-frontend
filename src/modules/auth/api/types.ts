@@ -53,19 +53,3 @@ export interface AuthResponse extends Email {
     is_verified: boolean;
 }
 
-export interface ExpertProfileResponse extends Email {
-    username: string;
-    profession: string;
-    contactNumber:string;
-    email:string;
-    address:string;
-    bio:string;
-    socialMedia:string;
-    categories:string;
-    isLiveChat:boolean;
-    isWorkshops:boolean;
-    calenderLinkLiveChat:string;
-    calenderLinkWorkshop:string;
-
-  
-}
