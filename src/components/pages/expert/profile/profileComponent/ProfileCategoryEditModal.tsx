@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { Input, Label, Button } from "components";
+import { Label, Button } from "components";
 import { XMarkIcon } from "@heroicons/react/16/solid";
 import EditIcon from "../../../../../assets/profile/icon-edit.svg";
 import { useEditProfileCategory } from "modules/expert";

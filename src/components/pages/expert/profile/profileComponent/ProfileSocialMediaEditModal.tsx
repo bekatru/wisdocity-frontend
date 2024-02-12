@@ -1,9 +1,8 @@
 import { useCallback, useState } from "react";
 import { Input, Label, Button } from "components";
 import EditIcon from "../../../../../assets/profile/icon-edit.svg";
-import { useEditProfileBio, useEditProfileSocialMedia } from "modules/expert";
+import { useEditProfileSocialMedia } from "modules/expert";
 import { toast } from "react-toastify";
-import { editProfileSocialMedia } from "modules/expert/profile/api/requests";
 import UrlIcon from "assets/png/url.png";
 import { XMarkIcon } from "@heroicons/react/16/solid";
 

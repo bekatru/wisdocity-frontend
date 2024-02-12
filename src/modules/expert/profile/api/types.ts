@@ -13,8 +13,8 @@ export interface ExpertProfileResponse extends Email {
     email:string;
     address:string;
     bio:string;
-    socialMedia:string;
-    categories:string;
+    socialMedia:string[];
+    categories:string[];
     isLiveChat:boolean;
     isWorkshops:boolean;
     calenderLinkLiveChat:string;
