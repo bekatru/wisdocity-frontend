@@ -7,13 +7,11 @@ import useExpertProfile from "modules/expert/profile/hooks/useExpertProfile";
 
 export function AvatarCard() {
   const expertProfile = useExpertProfile();
-  const expertId = expertProfile.data && expertProfile.data.id;
-  const username = expertProfile.data && expertProfile.data.username;
-  console.log(username);
+  
   return (
     <>
       <div className="flex-row-reverse -mt-[72px] mb-[100px]">
-        <AvatarTestModal expertId={expertId} username={username} />
+      {expertProfile.data && <AvatarTestModal expertId={expertProfile.data.id} username={expertProfile.data.username} />}
       </div>
 
       <div className="w-full card shadow-p bg-white px-6 py-6">
