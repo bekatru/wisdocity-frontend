@@ -48,6 +48,7 @@ export interface RefreshResponse extends Credentials { }
 export interface RefreshPayload extends Token { }
 
 export interface AuthResponse extends Email {
+    id:number
     username: string;
     current_role: string;
     is_verified: boolean;

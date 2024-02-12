@@ -1,5 +1,4 @@
 import { useState } from "react";
-import ProfileIcon from "assets/profile/profile-user.png";
 import { ProfileInformationEditModal } from "./ProfileInformationEditModal";
 interface ProfileInformationProps {
   username: string;
@@ -21,7 +20,11 @@ export default function ProfileInformation(props: ProfileInformationProps) {
       <div className="flex align-center w-full">
         <div className="me-0">
           <span className="avatar avatar-rounded">
-            <img src={ProfileIcon} alt="" />
+            <img
+              className="w-[96px] h-[96px] rounded-full"
+              src="https://placehold.co/400"
+              alt=""
+            />
           </span>
         </div>
         <div className="pl-[24px]">
