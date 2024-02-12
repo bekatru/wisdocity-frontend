@@ -2,6 +2,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { IVisualizerElements } from "../UI/AudioRecordModalVisualizer";
 import { toast } from "react-toastify";
 
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const UniveralAudioContext = window.AudioContext || (window as any).webkitAudioContext;
 export const NUM_OF_ITEM_VISUALIZER = 16;
 
 const DEFAULT_FILE_EXTENSTION = 'webm';
@@ -168,7 +171,7 @@ export function useAudioRecordModal (isModalOpen: boolean) {
 
   useEffect(() => {
       if (isModalOpen){
-          context.current = new AudioContext();
+          context.current = new UniveralAudioContext();
           analyser.current = context.current?.createAnalyser();
           
           initMediaStream();
