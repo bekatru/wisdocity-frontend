@@ -5,7 +5,6 @@ import { Button } from 'components';
 
 interface Props {
   onStop: () => void,
-  toggle: boolean,
   onRecord: () => void,
 }
 const AudioRecordModalPlayButtons: FC<Props> = (props) => {

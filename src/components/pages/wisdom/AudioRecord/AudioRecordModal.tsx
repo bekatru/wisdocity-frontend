@@ -6,6 +6,7 @@ import AudioRecordModalActionButtons from "./UI/AudioRecordModalActionButtons";
 import AudioRecordModalTitle from "./UI/AudioRecordModalTitle";
 import AudioRecordModalPlayButtons from "./UI/AudioRecordModalButtons";
 
+const REGEXP_MIME_TO_EXTENSTION = /(?<=audio\/).+?(?=;|$)/i
 
 const SAMPLE_RATE = 96000;
 const AUDIO_BITS_PER_SECOND = 320000;
@@ -44,8 +45,7 @@ const getInitalDateTimer = () => {
 const zeroDateTimer = { start: 0, now: 0, pause: 0 };
 export const AudioRecordModal: FC<AudioRecordModalProps> = (props) => {
     const {isModalOpen, setIsModalOpen} = props;
-    const [toggle, setToggle] = useState(true);
-    const voice = useRef<Blob[]>([]);
+    const voiceResultAudioRecord = useRef<Blob[]>([]);
     const mediaRecorder = useRef<MediaRecorder | undefined>();
     const stream = useRef<MediaStream | null>();
     const [timer, setTimer] = useState({...zeroDateTimer});
@@ -58,19 +58,21 @@ export const AudioRecordModal: FC<AudioRecordModalProps> = (props) => {
     const analyser = useRef<AnalyserNode | null>();
     const elemenets = useRef<IVisualizerElements[]>([...initalElements]);
 
+    const onDataAvailableAudioRecorder = function(e: BlobEvent) {
+        voiceResultAudioRecord.current.push(e.data);
+        const fileExtenstion = mediaRecorder.current?.mimeType.match(REGEXP_MIME_TO_EXTENSTION)?.[0] || 'webm';
+        
+        const file = new File(voiceResultAudioRecord.current, `audio.${fileExtenstion}`, { type: mediaRecorder.current?.mimeType || 'audio/webm'} );
+        setAudioFile(file);
+        
+        voiceResultAudioRecord.current = [];
+    }
+
     const initMediaStream = useCallback(async () => {
         try {
             stream.current = await navigator.mediaDevices.getUserMedia({ audio: { sampleRate: SAMPLE_RATE } });
             mediaRecorder.current = new MediaRecorder(stream.current, { audioBitsPerSecond: AUDIO_BITS_PER_SECOND })
-            mediaRecorder.current.ondataavailable = function(e) {
-                voice.current.push(e.data);
-                const fileExtenstion = mediaRecorder.current?.mimeType.match(/(?<=audio\/).+?(?=;|$)/i)?.[0] || 'webm';
-                
-                const file = new File(voice.current, `audio.${fileExtenstion}`, { type: mediaRecorder.current?.mimeType || 'audio/webm'} );
-                setAudioFile(file);
-                
-                voice.current = [];
-            }
+            mediaRecorder.current.ondataavailable = onDataAvailableAudioRecorder;
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             toast.error(mediaErrorCatcher(error.name), {autoClose: false});
@@ -82,7 +84,7 @@ export const AudioRecordModal: FC<AudioRecordModalProps> = (props) => {
     const recursiveTimer = useCallback(async () => {
         if (mediaRecorder.current?.state === 'recording'){
             if (context.current){
-                analyser.current?.getByteFrequencyData(AUDIO_VISUALIZER_ARRAY);
+                analyser.current?.getByteFrequencyData?.(AUDIO_VISUALIZER_ARRAY);
                 const result = [];
                 for(let i = 0; i < NUM_OF_ITEM_VISUALIZER; i++){
                     result.push({ height: AUDIO_VISUALIZER_ARRAY[i + NUM_OF_ITEM_VISUALIZER], opacity: thresholdOpacity * AUDIO_VISUALIZER_ARRAY[i+NUM_OF_ITEM_VISUALIZER] });
@@ -104,7 +106,6 @@ export const AudioRecordModal: FC<AudioRecordModalProps> = (props) => {
             requestAnimationFrame(recursiveTimer)
         }else if (mediaRecorder.current?.state === 'inactive') {
             setTimer(getInitalDateTimer());
-            return;
         }
     }, [mediaRecorder])
 
@@ -119,10 +120,15 @@ export const AudioRecordModal: FC<AudioRecordModalProps> = (props) => {
     }, [mediaRecorder])
 
     const onStop = useCallback(() => {
-        if (mediaRecorder.current?.state !== 'inactive'){
-            stream.current?.getTracks?.()?.[0]?.stop();
-            mediaRecorder?.current?.stop();
-            setToggle(true);
+        if (
+            (mediaRecorder.current?.state !== 'inactive') 
+            && 
+            (stream.current?.getTracks()[0].stop) 
+            && 
+            (mediaRecorder?.current)
+        ){
+            stream.current.getTracks()[0].stop();
+            mediaRecorder.current.stop();
             setTimer({...zeroDateTimer});
             elemenets.current = initalElements;
         }
@@ -138,7 +144,6 @@ export const AudioRecordModal: FC<AudioRecordModalProps> = (props) => {
             }
 
             recursiveTimer();
-            setToggle(true);
             setTimer(getInitalDateTimer());
             setAudioFile(null);
         } else if (mediaRecorder.current?.state === 'paused'){
@@ -148,9 +153,7 @@ export const AudioRecordModal: FC<AudioRecordModalProps> = (props) => {
                 ...prev,
                 start: prev.start + (Date.now() - prev.pause),
             }));
-            setToggle(true);
-        }else{
-            setToggle(false);
+        } else{
             onPauseRecord();
         }
         
@@ -160,6 +163,15 @@ export const AudioRecordModal: FC<AudioRecordModalProps> = (props) => {
         setIsModalOpen(false)
     }, [setIsModalOpen])
 
+    const unmountMediaRecorder = () => {
+        analyser.current?.disconnect();
+        context.current?.close();
+        stream.current?.getTracks()?.[0].stop();
+        analyser.current = null;
+        context.current = null;
+        stream.current = null;
+    }
+
     useEffect(() => {
         if (isModalOpen){
             context.current = new AudioContext();
@@ -167,21 +179,10 @@ export const AudioRecordModal: FC<AudioRecordModalProps> = (props) => {
             
             initMediaStream();
         }else {
-            analyser.current?.disconnect();
-            context.current?.close();
-            stream.current?.getTracks()?.[0].stop();
-            analyser.current = null;
-            context.current = null;
-            stream.current = null;
+            unmountMediaRecorder()
         }
     }, [isModalOpen]);
 
-
-    useEffect(() => {
-        console.log(audioFile);
-        
-    }, [audioFile])
-    
     return (
         <Modal
             isOpen={isModalOpen}
@@ -206,7 +207,6 @@ export const AudioRecordModal: FC<AudioRecordModalProps> = (props) => {
                         <AudioRecordModalPlayButtons
                             onRecord={onRecord}
                             onStop={onStop}
-                            toggle={toggle}
                         />
                     </div>
                     <AudioRecordModalActionButtons onBack={onBackActionButtons}/>
