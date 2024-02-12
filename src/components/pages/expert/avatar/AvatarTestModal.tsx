@@ -32,7 +32,15 @@ export function AvatarTestModal(props: AvatarTestModalProps) {
   const { mutate: queryAgent } = useQueryAgent({
     onSuccess: (response: any) => {
       console.log(response);
-      const botMessage = { text: response.answer, sender: "agent" };
+      let botResponse = "";
+      if (response.answer) {
+        botResponse = response.answer;
+      } else if (response.message) {
+        botResponse = response.message;
+      } else {
+        botResponse = "Error";
+      }
+      const botMessage = { text: botResponse, sender: "agent" };
       setMessages((prevMessages) => [...prevMessages, botMessage]);
     },
     onError: (error: any) => {
