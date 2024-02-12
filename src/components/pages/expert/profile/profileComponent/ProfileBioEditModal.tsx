@@ -60,7 +60,7 @@ export function ProfileBioEditModal(props: ProfileBioEditModalProps) {
                     <img src={EditIcon} alt="Edit" />
                 </button>
             </div>
-            {/* Modal */}
+           
             {isOpen && (
                 <div className="fixed z-50 inset-0 overflow-y-auto flex items-center justify-center">
                     <div className="absolute inset-0 bg-black opacity-50"></div>

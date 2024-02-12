@@ -63,23 +63,23 @@ export interface EditProfileBioResponse  {
 
 export interface EditProfileSocialMediaPayload  {
     id: number;
-    socialMedia: string;
+    socialMedia: string[];
   
 }
 
 export interface EditProfileSocialMediaResponse  {
-    socialMedia: string;
+    socialMedia: string[];
    
 }
 
 
 export interface EditProfileCategoryPayload  {
     id: number;
-    category: string;
+    categories: string[];
   
 }
 
 export interface EditProfileCategoryResponse  {
-    category: string;
+    categories: string[];
    
 }

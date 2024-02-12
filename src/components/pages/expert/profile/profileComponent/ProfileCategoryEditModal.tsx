@@ -1,160 +1,172 @@
-import { useState } from 'react';
-import { Input, Label ,Button} from "components";
+import { useCallback, useState } from "react";
+import { Input, Label, Button } from "components";
+import { XMarkIcon } from "@heroicons/react/16/solid";
 import EditIcon from "../../../../../assets/profile/icon-edit.svg";
-import { useEditProfileBio } from "modules/expert";
+import { useEditProfileCategory } from "modules/expert";
 import { toast } from "react-toastify";
 
 interface ProfileCategoryEditModalProps {
-    categories: string;
-    expertId:number;
-    onProfileCategoryUpdate: (newCategories: string) => void;
-
+  categories: string[];
+  expertId: number;
+  onProfileCategoryUpdate: (newCategories: string[]) => void;
 }
 export function ProfileCategoryEditModal(props: ProfileCategoryEditModalProps) {
-    const [isOpen, setIsOpen] = useState(false);
-    const [categories, setCategories] = useState<string>(props.categories);
-    const [tagInput, setTagInput] = useState('');
-    const [tags, setTags] = useState<string[]>([]); // Specify the type as string[]
-   
-    const [expertId] = useState<number>(props.expertId);
+  const [isOpen, setIsOpen] = useState(false);
+  const [categories, setCategories] = useState<string[]>(props.categories);
+  const [expertId] = useState<number>(props.expertId);
 
-    const handleTagInputChange = (event: React.ChangeEvent<HTMLInputElement>) => { // Specify the event type
-        setTagInput(event.target.value);
-    };
-
-    const handleTagInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => { // Specify the event type
-        if (event.key === 'Enter' && tagInput.trim() !== '') {
-            event.preventDefault(); // Prevent default form submission behavior
-            setTags([...tags, tagInput.trim()]);
-            setTagInput(''); // Clear input after adding tag
+  const { mutate: editProfileCategory, isPending } = useEditProfileCategory({
+    onSuccess: () => {
+      toast.success("Profile updated successfully!");
+      props.onProfileCategoryUpdate(categories);
+    },
+    onError: (error) => {
+      console.log(error.response?.data.message);
+      if (
+        error.response?.data?.message &&
+        error.response.data.message.length > 0
+      ) {
+        // If error message is an array, iterate over it and display each message
+        if (Array.isArray(error.response.data.message)) {
+          error.response.data.message.forEach((errorMessage) => {
+            toast.error(errorMessage);
+          });
+        } else {
+          toast.error(error.response.data.message);
         }
-    };
+      }
+    },
+  });
 
-    const removeTag = (index: number) => {
-        setTags(tags.filter((_, i) => i !== index));
-    };
+  const handleSubmit = () => {
+    editProfileCategory({ id: expertId, categories });
+  };
 
-    // const {mutate: editProfileBio, isPending} = useEditProfileBio({
-    //     onSuccess: () => {
-    //         toast.success("Profile updated successfully!");
-    //         props.onProfileCategoryUpdate(categories);
-            
-    //     },
-    //     onError: (error) => {
-    //         console.log(error.response?.data.message);
-    //         if (error.response?.data?.message && error.response.data.message.length > 0) {
-    //             // If error message is an array, iterate over it and display each message
-    //             if (Array.isArray(error.response.data.message)) {
-    //               error.response.data.message.forEach(errorMessage => {
-    //                 toast.error(errorMessage);
-    //               });
-    //             } else {
-    //               toast.error(error.response.data.message);
-    //             }
-    //       }
-    //     }
-    // })
+  const openModal = () => {
+    setIsOpen(true);
+  };
 
-    const handleSubmit = () => {
-        // editProfileB({id:expertId,bio});
-    }
+  const closeModal = () => {
+    setIsOpen(false);
+  };
 
+  return (
+    <>
+      <div className="ms-auto ">
+        <button className="text-black min-w-[24px]" onClick={openModal}>
+          <img src={EditIcon} alt="Edit" />
+        </button>
+      </div>
 
-
-    const openModal = () => {
-        setIsOpen(true);
-    };
-
-    const closeModal = () => {
-        setIsOpen(false);
-    };
-
-    
-
-    return (
-        <>
-            <div className="ms-auto ">
-                <button className="text-black min-w-[24px]" onClick={openModal}>
-                    <img src={EditIcon} alt="Edit" />
-                </button>
-            </div>
-            {/* Modal */}
-            {isOpen && (
-                <div className="fixed z-50 inset-0 overflow-y-auto flex items-center justify-center">
-                    <div className="absolute inset-0 bg-black opacity-50"></div>
-                    <div className=" max-w-md w-full mx-auto z-50 card shadow-p bg-white px-6 py-6  mb-[34px]">
-                        {/* Your modal content goes here */}
-                        <div>
-                            <div className="flex w-full">
-                                <div className="box-body w-full">
-                                    <div className="flex align-center w-full">
-                                        <div className="w-full">
-                                            <div className="text-center text-[20px] fn fw-b text-[#321841] mb-[24px]">Edit Categories
-                                            </div>
-                                            <form>
-                                                <div className="mb-[24px]">
-                                                    <Label className='flex text-[16px] fn fw-sb text-[#321841] mb-[6px]'>Categories</Label>
-                                                    <Input type="text" placeholder="" value={categories} onChange={(e) => setCategories(e.target.value)}/>
-                                                </div>
-
-                                                <div className="mb-[24px]">
-                                                    <Label className='flex text-[16px] fn fw-sb text-[#321841] mb-[6px]'>Add tags</Label>
-                                                    <Input
-                                                        type="text"
-                                                        placeholder="Add Tags"
-                                                        value={tagInput}
-                                                        onChange={handleTagInputChange}
-                                                        onKeyDown={handleTagInputKeyDown}
-                                                    />
-                                                    <div className="mt-2">
-                                                        {tags.map((tag, index) => (
-                                                            <span
-                                                                key={index}
-                                                                className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"
-                                                            >
-                                                                {tag}
-                                                                <button
-                                                                    type="button"
-                                                                    className="ml-2"
-                                                                    onClick={() => removeTag(index)}
-                                                                >
-                                                                    Remove
-                                                                </button>
-                                                            </span>
-                                                        ))}
-                                                    </div>
-                                                </div>
-                                              
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {/* Close button */}
-                            <div className='flex'>
-                            <Button
-                                className="fn fw-r rounded-full px-5 py-1 text-center text-[14px] mr-[15px] mt-4"
-                                fullWidth = {false}
-                                onClick={closeModal}
-                                variant="outlined"
-                            >
-                                Close
-                            </Button>
-                            <Button
-                                className=" fn fw-r rounded-full px-6 py-1 text-center text-[14px] mr-[15px] mt-4"
-                                variant="primary"
-                                
-                                fullWidth = {false}
-                                onClick={handleSubmit}
-                                //  isPending={isPending}
-                            >
-                                Edit
-                            </Button>
-                            </div>
+      {isOpen && (
+        <div className="fixed z-50 inset-0 overflow-y-auto flex items-center justify-center">
+          <div className="absolute inset-0 bg-black opacity-50"></div>
+          <div className=" max-w-md w-full mx-auto z-50 card shadow-p bg-white px-6 py-6  mb-[34px]">
+            {/* Your modal content goes here */}
+            <div>
+              <div className="flex w-full">
+                <div className="box-body w-full">
+                  <div className="flex align-center w-full">
+                    <div className="w-full">
+                      <div className="text-center text-[20px] fn fw-b text-[#321841] mb-[24px]">
+                        Edit Categories
+                      </div>
+                      <form>
+                        <div className="mb-[24px]">
+                          <Label className="flex text-[16px] fn fw-sb text-[#321841] mb-[6px]">
+                            Add Categories
+                          </Label>
+                          <TagCreator
+                            value={categories}
+                            placeholder="Add Categories"
+                            onChange={setCategories}
+                          />
                         </div>
+                      </form>
                     </div>
+                  </div>
                 </div>
-            )}
-        </>
-    );
+              </div>
+              {/* Close button */}
+              <div className="flex">
+                <Button
+                  className="fn fw-r rounded-full px-5 py-1 text-center text-[14px] mr-[15px] mt-4"
+                  fullWidth={false}
+                  onClick={closeModal}
+                  variant="outlined"
+                >
+                  Close
+                </Button>
+                <Button
+                  className=" fn fw-r rounded-full px-6 py-1 text-center text-[14px] mr-[15px] mt-4"
+                  variant="primary"
+                  fullWidth={false}
+                  onClick={handleSubmit}
+                  isPending={isPending}
+                >
+                  Edit
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
+interface TagCreatorProps {
+  value: string[];
+  placeholder: string;
+  onChange: (value: string[]) => void;
+}
+
+function TagCreator(props: TagCreatorProps) {
+  const [inputValue, setInputValue] = useState("");
+
+  const handleAddTag = useCallback(() => {
+    const trimmedValue = inputValue.trim();
+    if (!trimmedValue || props.value.includes(trimmedValue)) return;
+
+    props.onChange([...props.value, trimmedValue]);
+    setInputValue("");
+  }, [inputValue, props]);
+
+  const handleTagDelete = useCallback(
+    (tagToDelete: string) => {
+      props.onChange(props.value.filter((tag) => tag !== tagToDelete));
+    },
+    [props]
+  );
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault(); // Prevent form submission
+      handleAddTag();
+    }
+  };
+
+  return (
+    <div className="flex flex-wrap items-center h-10 w-full p-1.5 border border-gray-300 rounded-lg bg-none focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+      {props.value.map((tag) => (
+        <div
+          className="box-border h-7 px-3 pr-1.5 bg-purple-100 rounded-xl flex items-center text-[14px] max-h-[24px] m-[3px]"
+          key={tag}
+        >
+          {tag}
+          <XMarkIcon
+            onClick={() => handleTagDelete(tag)}
+            className="h-3 ml-1 cursor-pointer"
+          />
+        </div>
+      ))}
+      <input
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value.toLowerCase())}
+        onKeyDown={handleKeyDown} // Handle key press event
+        placeholder={props.placeholder}
+        className="block border-0 p-0 m-[3px] text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 ring-0 focus:ring-0"
+      />
+    </div>
+  );
 }
