@@ -1,5 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, PropsWithChildren, ReactNode } from 'react'
+import { Fragment, PropsWithChildren, ReactNode, memo } from 'react'
 
 
 export interface ModalProps extends PropsWithChildren {
@@ -8,7 +8,7 @@ export interface ModalProps extends PropsWithChildren {
     closeModal: () => void;
 }
 
-export function Modal(props: ModalProps) {
+export const Modal = memo((props: ModalProps) => {
     return (
         <>
             {props.button}
@@ -48,4 +48,4 @@ export function Modal(props: ModalProps) {
             </Transition>
         </>
     )
-}
+})

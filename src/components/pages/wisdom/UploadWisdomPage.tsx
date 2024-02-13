@@ -11,6 +11,7 @@ import { XMarkIcon } from "@heroicons/react/16/solid";
 import {  useParams } from "react-router-dom";
 import { useCollections, useUploadFiles } from "modules/expert";
 import { useProfile } from "modules/auth";
+import UploadWisdomRecordAudio from "./UploadWisdomRecordAudio";
 // import { Routes } from "modules/routing";
 
 const FILE_TYPES = ['pdf', 'doc', 'docx', 'txt'];
@@ -88,7 +89,7 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
         setLink("");
     }, [link, links, setLink, setLinks])
 
-    const handleSave = () => {
+    const handleSave = useCallback(() => {
         let collectionToUploadTo;
         if (!collectionId) {
             const defaultCollectionId = collections.data?.find((collection) => collection.name === 'Default Collection');
@@ -102,8 +103,9 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
         }
 
         uploadFiles({ collectionId: collectionToUploadTo, files })
-    }
+    }, [collectionId, uploadFiles, collections, selectedCollection, files])
 
+    
 
     return (
         <CenteredContainer>
@@ -197,12 +199,7 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
                         </div>
                         <div className="space-y-2">
                             <Label>Recordings</Label>
-                            <div className="flex items-center space-x-2 cursor-pointer">
-                                <span className="w-8 h-8 flex items-center justify-center border border-red-500 rounded-full">
-                                    <span className="w-4 h-4 bg-red-500 rounded-lg" />
-                                </span>
-                                <span>Start Recording</span>
-                            </div>
+                            <UploadWisdomRecordAudio/>
                         </div>
                     </div>
                     <div className="flex space-x-2 mt-8">

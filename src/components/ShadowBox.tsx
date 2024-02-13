@@ -1,7 +1,7 @@
 import classNames from "classnames";
-import { HTMLAttributes } from "react";
+import { HTMLAttributes, memo } from "react";
 
-export function ShadowBox(props: HTMLAttributes<HTMLDivElement>) {
+export const ShadowBox = memo((props: HTMLAttributes<HTMLDivElement>) => {
     return <div {...props} className={classNames("bg-white shadow rounded-2xl p-6", props.className)}/>
     
-}
+})
