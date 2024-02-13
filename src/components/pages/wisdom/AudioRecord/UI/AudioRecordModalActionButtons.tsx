@@ -3,6 +3,7 @@ import { memo } from 'react';
 
 interface AudioRecordModalActionButtonsProps {
   onBack: () => void,
+  onNextClick: () => void,
 }
 
 function AudioRecordModalActionButtons(props: AudioRecordModalActionButtonsProps) {
@@ -10,7 +11,7 @@ function AudioRecordModalActionButtons(props: AudioRecordModalActionButtonsProps
   return (
     <div className={"flex gap-4 w-full mt-7"}>
       <Button onClick={onBack} className={"grow-2"} variant={'outlined'}>Back</Button>
-      <Button className={"grow-2"} variant={'primary'}>Next</Button>
+      <Button onClick={props.onNextClick} className={"grow-2"} variant={'primary'}>Next</Button>
     </div>
   );
 }

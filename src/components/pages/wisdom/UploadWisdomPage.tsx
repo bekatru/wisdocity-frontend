@@ -7,6 +7,7 @@ import DocIcon from 'assets/png/doc.png';
 import TxtIcon from 'assets/png/txt.png';
 import PdfIcon from 'assets/png/pdf.png';
 import UrlIcon from 'assets/png/url.png';
+import Record from 'assets/png/record.png';
 import { XMarkIcon } from "@heroicons/react/16/solid";
 import {  useParams } from "react-router-dom";
 import { useCollections, useUploadFiles } from "modules/expert";
@@ -22,7 +23,7 @@ const FileTypeToIconMap: { [key: string]: string } = {
     "application/msword": DocIcon,
     "application/vnd.openxmlformats-officedocument.wordprocessingml.document": DocIcon,
     "application/pdf": PdfIcon,
-
+    "audio/webm;codecs=opus": Record,
 }
 
 interface UploadWisdomPageProps {
@@ -46,6 +47,7 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
     }, [collections.data, profile.data])
 
     const [files, setFiles] = useState<File[]>([]);
+    const [audioFiles, setAudioFiles] = useState<File[]>([]);
     const [link, setLink] = useState<string>("");
     const [links, setLinks] = useState<string[]>([]); 
     const [isDragging, setIsDragging] = useState(false);
@@ -62,6 +64,17 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
             toast.error(error.response?.data.message);
         }
     })
+
+    const handleAddAudioFile = (file: File) => {
+        console.log(file)
+        setAudioFiles([...audioFiles, file]);
+    }
+
+    const handleDeleteAudioFile = useCallback((fileIndex: number) => {
+        const filesCopy = [...audioFiles];
+        filesCopy.splice(fileIndex, 1);
+        setAudioFiles(filesCopy);
+    }, [files, setFiles])
 
     const handleAddFiles = useCallback((newFiles: FileList) => {
         setFiles([...files, ...Array.from(newFiles)]);
@@ -188,7 +201,7 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
                         </div>
                         <div className="grid grid-cols-3 grid-flow-row gap-2">
                             {
-                                files && Object.values(files).map((file, index) => (
+                                files.map((file, index) => (
                                     <div className="pl-2 pr-6 py-3 h-12 shadow-md flex items-center relative rounded" key={file.name + index}>
                                         <img className="h-6 w-6 mr-2" src={FileTypeToIconMap[file.type]} alt={file.type} />
                                         <span className="text-nowrap overflow-hidden text-ellipsis text-sm">{file.name}</span>
@@ -199,7 +212,18 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
                         </div>
                         <div className="space-y-2">
                             <Label>Recordings</Label>
-                            <UploadWisdomRecordAudio/>
+                            <UploadWisdomRecordAudio onNextClick={handleAddAudioFile} />
+                        </div>
+                        <div className="grid grid-cols-3 grid-flow-row gap-2">
+                            {
+                                audioFiles.map((file, index) => (
+                                    <div className="pl-2 pr-6 py-3 h-12 shadow-md flex items-center relative rounded" key={file.name + index}>
+                                        <img className="h-6 w-6 mr-2" src={FileTypeToIconMap[file.type]} alt={file.type} />
+                                        <span className="text-nowrap overflow-hidden text-ellipsis text-sm">{file.name}</span>
+                                        <XMarkIcon onClick={() => handleDeleteAudioFile(index)} className="h-4 w-4 text-gray-500 absolute top-1 right-1 cursor-pointer" />
+                                    </div>
+                                ))
+                            }
                         </div>
                     </div>
                     <div className="flex space-x-2 mt-8">

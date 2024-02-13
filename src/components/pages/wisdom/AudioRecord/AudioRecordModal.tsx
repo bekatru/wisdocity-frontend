@@ -10,6 +10,7 @@ interface AudioRecordModalProps {
     isModalOpen: boolean;
     setIsModalOpen: (open: boolean) => void,
     recordAudioState: IAudioRecordModalHook,
+    onNextClick: (audioFile: File) => void,
 }
 
 export const AudioRecordModal = memo(function(props: AudioRecordModalProps) {
@@ -55,7 +56,7 @@ export const AudioRecordModal = memo(function(props: AudioRecordModalProps) {
                             isRecordLoading={isRecordLoading}
                         />
                     </div>
-                    <AudioRecordModalActionButtons onBack={onBackActionButtons}/>
+                    <AudioRecordModalActionButtons onNextClick={() => audioFile && props.onNextClick(audioFile)} onBack={onBackActionButtons}/>
                 </div>
                 
             </ShadowBox>
