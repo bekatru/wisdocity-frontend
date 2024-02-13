@@ -15,9 +15,7 @@ export function HomePage() {
     return (
         <>
             <HomeBanner />
-            <div className="mt-20">
             <Testimonials/>
-            </div>
             <HomeAvatars />
             <HomeCommunity />
             <HomeExclusiveCommunity />

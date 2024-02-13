@@ -209,7 +209,7 @@ body{
 }
 
 .nav-links-footer li a{
-    color: #BF9ED1;
+    color: #F1F0F7;
     font-family: 'Nunito Sans', sans-serif !important;
     font-size: 16px;
     font-style: normal;
@@ -219,15 +219,6 @@ body{
 
 .nav-links-footer li a:hover{
     color: #fff;
-}
-
-.footer-privacy a{
-    color: var(--White, #FFF);
-    font-family: 'Nunito Sans', sans-serif !important;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
 }
 
 .footer-privacy a:hover{

@@ -15,15 +15,14 @@ export function Footer() {
                         <div className="w-full md:w-1/2 px-4">
                             <div className='item-left'>
                                 <img className='mb-[24px]' src={LogoFooter} alt='Home' />
-                                <p className='fn fw-r leading-7 text-[16px] mb-[22px] text-[#C2B0D9]'>Ut enim ad minim veniam, quis nostrud exercitation ullamco <br />laboris nisi ut aliquip ex ea commodo con. Ut enim ad minim </p>
                                 <div className='flex justify-start social-card'>
                                     <a href='#'>
                                         <img src={Linkedin} alt='Linkedin' />
                                     </a>
-                                    <a className='ml-[50px]' href='#'>
+                                    <a className='ml-[33px]' href='#'>
                                         <img src={Facebook} alt='Facebook' />
                                     </a>
-                                    <a className='ml-[50px]' href='#'>
+                                    <a className='ml-[33px]' href='#'>
                                         <img src={Instagram} alt='Instagram' />
                                     </a>
                                 </div>
@@ -56,7 +55,7 @@ export function Footer() {
                         </div>
                         <div className="w-full md:w-1/4 px-4">
                             <div className='nav-links-footer'>
-                                <h4 className='fn fw-sb leading-7 text-[16px] mb-[24px] text-[#FFF]'>Our Product</h4>
+                                <h4 className='fn fw-sb leading-7 text-[16px] mb-[24px] text-[#FFF]'>Our offerings</h4>
                                 <ul>
                                     <li>
                                         <a href='#'>Expert</a>
@@ -69,9 +68,9 @@ export function Footer() {
                         </div>
                     </div>
                     <div className='flex justify-center item-center footer-privacy mt-[70px]'>
-                        <p className='fn fw-m leading-7 text-[16px] mb-[0px] text-[#FFF]'>Copyright © 2023 Wisdocity AI</p>
-                        <a  className='ml-[55px]' href='#'>Privacy Policy</a>
-                        <a  className='ml-[55px]' href='#'>Terms of Service</a>
+                        <p className='fn fw-r leading-7 text-[16px] mb-[0px] text-[#B3B1C9]'>Copyright © 2024 Wisdocity AI</p>
+                        <a  className='ml-[55px] fn fw-r text-[16px] mb-[0px] text-[#B3B1C9]' href='#'>Privacy Policy</a>
+                        <a  className='ml-[55px] fn fw-r text-[16px] mb-[0px] text-[#B3B1C9]' href='#'>Terms of Service</a>
                     </div>
                 </div>
             </div>

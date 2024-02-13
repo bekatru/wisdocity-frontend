@@ -3,9 +3,9 @@
 }
 
 .transparent-bg {
-    height: 132px;
-    background: linear-gradient(180deg, rgba(249, 247, 251, 0.00) 12.88%, rgba(249, 247, 251, 0.50) 63.45%);
-    bottom: -42px;
+    height: 138px;
+    background: linear-gradient(180deg, rgb(249 247 251 / 0%) 12.88%, rgb(249 247 251) 63.45%);
+    bottom: -50px;
 }
 
 .shadow-d {
@@ -16,9 +16,7 @@
 
 .shadow-e {
     border-radius: 32px !important;
-    border: 1px solid var(--Stroke, #D9D9EB) !important;
-    background: var(--Light-Purple, #F6E3FF) !important;
-
+    border: 1px solid var(--Stroke, #64108F) !important;
 }
 
 .shadow-f {

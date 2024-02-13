@@ -4,6 +4,10 @@ import classNames from "classnames";
 import { Paragraph } from "components";
 import { ReactNode, useState } from "react";
 import DoubleQuotesSvg from 'assets/svg/double-quotes.svg';
+import TestimonialIcon1 from "../../../assets/home-assets/testimonial-1.png";
+import TestimonialIcon2 from "../../../assets/home-assets/testimonial-2.png";
+import TestimonialIcon3 from "../../../assets/home-assets/testimonial-3.png";
+import TestimonialIcon4 from "../../../assets/home-assets/testimonial-4.png";
 
 export function Testimonials() {
 
@@ -12,34 +16,34 @@ export function Testimonials() {
             <div className="w-[608px] px-10 py-16 bg-white shadow-lg rounded-[48px] space-y-8">
                 <img src={DoubleQuotesSvg} alt="" />
                 <Paragraph className="text-start text-xl leading-7">
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo con. Ut enim ad minim veniam, quis nostrud exercitation. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo con.
+                    Sarah McDonald's advice hit home on a personal level, leaving me feeling inspired and ready to tackle anything. Her expertise is a must-have for anyone looking to level up.
                 </Paragraph>
                 <div className="flex space-x-4 items-center">
                     <img
                         className="inline-block h-[84px] w-[84px] rounded-full"
-                        src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        src={TestimonialIcon1}
                         alt=""
                     />
                     <div className="text-start">
-                        <div className="text-2xl font-semibold">John Doe</div>
-                        <div>AI Expert</div>
+                        <div className="text-2xl font-semibold">Edward Stone</div>
+                        <div>Expert</div>
                     </div>
                 </div>
             </div>
             <div className="w-[608px] px-10 py-16 bg-white shadow-lg rounded-[48px] space-y-8">
                 <img src={DoubleQuotesSvg} alt="" />
                 <Paragraph className="text-start text-xl leading-7">
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo con. Ut enim ad minim veniam, quis nostrud exercitation. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo con.
+                    Wisdocity has solved the challenge of finding time to connect with learners, allowing me to make a meaningful impact on a larger scale. The positive feedback from learners has been incredibly rewarding.
                 </Paragraph>
                 <div className="flex space-x-4 items-center">
                     <img
                         className="inline-block h-[84px] w-[84px] rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        src={TestimonialIcon2}
                         alt=""
                     />
                     <div className="text-start">
-                        <div className="text-2xl font-semibold">Tim Cook</div>
-                        <div>CEO of Apple</div>
+                        <div className="text-2xl font-semibold">Rachel Felicio</div>
+                        <div>Learner</div>
                     </div>
                 </div>
             </div>
@@ -48,34 +52,34 @@ export function Testimonials() {
             <div className="w-[608px] px-10 py-16 bg-white shadow-lg rounded-[48px] space-y-8">
                 <img src={DoubleQuotesSvg} alt="" />
                 <Paragraph className="text-start text-xl leading-7">
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo con. Ut enim ad minim veniam, quis nostrud exercitation. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo con.
+                    I've had an amazing experience in Wisdocity.  The platform is so easy to use, allowing me to connect with learners effortlessly. I highly recommend it to fellow experts.
                 </Paragraph>
                 <div className="flex space-x-4 items-center">
                     <img
                         className="inline-block h-[84px] w-[84px] rounded-full"
-                        src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                        src={TestimonialIcon3}
                         alt=""
                     />
                     <div className="text-start">
-                        <div className="text-2xl font-semibold">Lory Brim</div>
-                        <div>VCA</div>
+                        <div className="text-2xl font-semibold">John Doe</div>
+                        <div>Expert</div>
                     </div>
                 </div>
             </div>
             <div className="w-[608px] px-10 py-16 bg-white shadow-lg rounded-[48px] space-y-8">
                 <img src={DoubleQuotesSvg} alt="" />
                 <Paragraph className="text-start text-xl leading-7">
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo con. Ut enim ad minim veniam, quis nostrud exercitation. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo con.
+                    Interacting with the experts through their avatar was such a unique and engaging experience. It felt incredibly immersive and personal.
                 </Paragraph>
                 <div className="flex space-x-4 items-center">
                     <img
                         className="inline-block h-[84px] w-[84px] rounded-full"
-                        src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.25&w=256&h=256&q=80"
+                        src={TestimonialIcon4}
                         alt=""
                     />
                     <div className="text-start">
-                        <div className="text-2xl font-semibold">Andrew Ross</div>
-                        <div>Entrepreneur</div>
+                        <div className="text-2xl font-semibold">Jenny Wilson</div>
+                        <div>Learner</div>
                     </div>
                 </div>
             </div>
@@ -103,7 +107,17 @@ export function Testimonials() {
     }
 
     return (
-        <section className="relative h-[514px] w-full overflow-hidden text-center">
+        <>
+        <div className="mx-auto max-w-7xl container px-6 lg:px-8">
+        <p className="text-left fn fw-r text-[24px] mt-[105px] mb-[90px] text-[#321841]">
+            At the <strong>“City of Wisdom,”</strong> you will find a community of seasoned professionals generously sharing their expertise, either through their digital avatar or live, while eager learners from diverse backgrounds gather to explore, question and grow.  Whether your goal is to contribute your insights or absorb new perspectives, we invite you to become a part of a lifelong learning journey, fostering mutual enrichment and continuous growth.
+        </p>
+        <h3 className="ft text-[64px] text-left fn fw-r text-[#321841]">
+            Impactful Stories
+        </h3>
+        </div>
+        <section className="relative h-[514px] w-full overflow-hidden text-center mt-20">
+           
             {items.map((item, index) => (
                 <Transition
                     key={index}
@@ -146,5 +160,6 @@ export function Testimonials() {
                 ))}
             </div>
         </section>
+        </>
     )
 }

@@ -5,6 +5,7 @@ export enum Routes {
   Home = '/home',
   // LearnersHome = 'learners-home',
   Learners = '/learners',
+  Experts = '/experts',
   App = '/app',
 
   SignIn = '/signin',

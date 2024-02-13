@@ -1,3 +1,4 @@
-export interface AuthState {
-    isAuthenticated: boolean
+export enum Roles {
+    Expert = 'expert',
+    Learner = 'learner',
 }
