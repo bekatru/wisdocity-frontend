@@ -1,4 +1,4 @@
-import { FC, memo } from 'react';
+import { memo } from 'react';
 import finish_img from '../assets/finish.svg';
 import unionBg from '../assets/unionBg.svg';
 import { Button, Spinner } from 'components';
@@ -8,7 +8,7 @@ interface AudioRecordModalPlayButtonsProps {
   onRecord: () => void,
   isRecordLoading: boolean,
 }
-const AudioRecordModalPlayButtons: FC<AudioRecordModalPlayButtonsProps> = (props) => {
+function AudioRecordModalPlayButtons(props: AudioRecordModalPlayButtonsProps) {
   const { onRecord, onStop, isRecordLoading } = props;
   return (
     <div className={`flex w-[242px] h-[70px] bg-cover bg-no-repeat justify-between p-[6px] items-center mb-7`} style={{backgroundImage: `url(${unionBg})`}}>
@@ -32,6 +32,6 @@ const AudioRecordModalPlayButtons: FC<AudioRecordModalPlayButtonsProps> = (props
       </div>
   </div>
   );
-};
+}
 const AudioRecordModalPlayButtonsMemo = memo(AudioRecordModalPlayButtons)
 export default AudioRecordModalPlayButtonsMemo;

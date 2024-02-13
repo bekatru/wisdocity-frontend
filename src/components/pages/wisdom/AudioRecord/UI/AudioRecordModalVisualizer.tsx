@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { FC, memo } from 'react';
+import { memo } from 'react';
 import { NUM_OF_ITEM_VISUALIZER } from '../hooks/useAudioRecordModal';
 
 
@@ -11,9 +11,9 @@ interface AudioRecordModalVisualizerProps {
   audioVisualizerElemenets: IVisualizerElements[],
   mediaRecorder?: MediaRecorder,
 }
-const width = 1.5;
+const WIDTH_VISUALIZER_ITEM = 1.5;
 
-const AudioRecordModalVisualizer: FC<AudioRecordModalVisualizerProps> = (props) => {
+function AudioRecordModalVisualizer(props: AudioRecordModalVisualizerProps) {
   const { audioVisualizerElemenets, mediaRecorder} = props;
   return (
     <div className={classNames(
@@ -25,12 +25,12 @@ const AudioRecordModalVisualizer: FC<AudioRecordModalVisualizerProps> = (props) 
                 <div 
                   key={i} 
                   className={"bg-white max-h-20"}
-                  style={{ minWidth: width, height: (+audioVisualizerElemenets[i].height / 3), opacity: audioVisualizerElemenets[i].opacity}}>
+                  style={{ minWidth: WIDTH_VISUALIZER_ITEM, height: (+audioVisualizerElemenets[i].height / 3), opacity: audioVisualizerElemenets[i].opacity}}>
                 </div>
             ))
         }
     </div>
   );
-};
+}
 const AudioRecordModalVisualizerMemo = memo(AudioRecordModalVisualizer);
 export default AudioRecordModalVisualizerMemo;

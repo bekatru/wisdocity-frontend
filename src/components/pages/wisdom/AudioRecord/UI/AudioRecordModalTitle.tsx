@@ -1,8 +1,8 @@
 import { Header, Paragraph } from 'components';
-import { FC, memo } from 'react';
+import { memo } from 'react';
 
 
-const AudioRecordModalTitle: FC = () => {
+function AudioRecordModalTitle() {
   return (
     <div className={"w-full"}>
       <Header>Recording</Header>
@@ -10,6 +10,6 @@ const AudioRecordModalTitle: FC = () => {
       <Paragraph className={"text-center"}>Record 001</Paragraph>
     </div>
   );
-};
+}
 const AudioRecordModalTitleMemo = memo(AudioRecordModalTitle)
 export default AudioRecordModalTitleMemo;

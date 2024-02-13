@@ -82,6 +82,25 @@ export function useAudioRecordModal (isModalOpen: boolean): IAudioRecordModalHoo
         }
     }, [setAudioFile])
 
+    const timerUpdate = async () => {
+        await new Promise((resolve) => {
+            setTimeout(() => {
+                setTimer(prev => {
+                    resolve(undefined);
+                    if ((prev.now - prev.start) < THRESHOLD_RECORD_TIME){
+                        return ({
+                            ...prev,
+                            now: Date.now()
+                        });
+                    }else {
+                        onStop();
+                        return ({...zeroDateTimer})
+                    }
+                })
+            }, 50);
+        })
+    }
+
     const recursiveTimer = useCallback(async () => {
         if (mediaRecorder.current?.state === 'recording'){
             if (context.current){
@@ -92,23 +111,7 @@ export function useAudioRecordModal (isModalOpen: boolean): IAudioRecordModalHoo
                 }
                 audioVisualizerElemenets.current = result;
             }
-            
-            await new Promise((resolve) => {
-                setTimeout(() => {
-                    setTimer(prev => {
-                        resolve(undefined);
-                        if ((prev.now - prev.start) < THRESHOLD_RECORD_TIME){
-                            return ({
-                                ...prev,
-                                now: Date.now()
-                            });
-                        }else {
-                            onStop();
-                            return ({...zeroDateTimer})
-                        }
-                    })
-                }, 50);
-            })
+            await timerUpdate();
             requestAnimationFrame(recursiveTimer)
         }else if (mediaRecorder.current?.state === 'inactive') {
             setTimer(getInitalDateTimer());

@@ -1,5 +1,5 @@
 import { Modal, ShadowBox, parseMsToTime } from "components";
-import { FC, memo, useCallback} from "react";
+import { memo, useCallback} from "react";
 import AudioRecordModalVisualizer from "./UI/AudioRecordModalVisualizer";
 import AudioRecordModalActionButtons from "./UI/AudioRecordModalActionButtons";
 import AudioRecordModalTitle from "./UI/AudioRecordModalTitle";
@@ -12,7 +12,7 @@ interface AudioRecordModalProps {
     recordAudioState: IAudioRecordModalHook,
 }
 
-export const AudioRecordModal: FC<AudioRecordModalProps> = (props) => {
+export const AudioRecordModal = memo(function(props: AudioRecordModalProps) {
     const {isModalOpen, setIsModalOpen, recordAudioState} = props;
 
     const { 
@@ -61,6 +61,4 @@ export const AudioRecordModal: FC<AudioRecordModalProps> = (props) => {
             </ShadowBox>
         </Modal> 
     );
-}
-const AudioRecordModalMemo = memo(AudioRecordModal)
-export default AudioRecordModalMemo;
+})
