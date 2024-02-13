@@ -17,7 +17,7 @@ const AudioRecordModalVisualizer: FC<AudioRecordModalVisualizerProps> = (props) 
   const { audioVisualizerElemenets, mediaRecorder} = props;
   return (
     <div className={classNames(
-      "my-7 flex gap-1 h-[90px] items-center justify-center w-[95px] h-[95px] bg-[#C79ADC] rounded-full shadow-[0px 0px 1px 1px #0000001a]",
+      "my-7 flex gap-1 items-center justify-center w-[95px] h-[95px] bg-[#C79ADC] rounded-full shadow-[0px 0px 1px 1px #0000001a]",
       {'animate-pulse-audio-circle': mediaRecorder?.state === 'recording'}
     ) }>
         {

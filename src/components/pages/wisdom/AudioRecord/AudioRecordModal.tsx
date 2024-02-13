@@ -3,16 +3,17 @@ import { FC, memo, useCallback} from "react";
 import AudioRecordModalVisualizer from "./UI/AudioRecordModalVisualizer";
 import AudioRecordModalActionButtons from "./UI/AudioRecordModalActionButtons";
 import AudioRecordModalTitle from "./UI/AudioRecordModalTitle";
-import AudioRecordModalPlayButtons from "./UI/AudioRecordModalButtons";
-import { useAudioRecordModal } from "./hooks/useAudioRecordModal";
+import AudioRecordModalPlayButtons from "./UI/AudioRecordModalPlayButtons";
+import { IAudioRecordModalHook } from "./types/AudioRecordModalTypes";
 
 interface AudioRecordModalProps {
     isModalOpen: boolean;
     setIsModalOpen: (open: boolean) => void,
+    recordAudioState: IAudioRecordModalHook,
 }
 
 export const AudioRecordModal: FC<AudioRecordModalProps> = (props) => {
-    const {isModalOpen, setIsModalOpen} = props;
+    const {isModalOpen, setIsModalOpen, recordAudioState} = props;
 
     const { 
         audioFile,
@@ -21,11 +22,13 @@ export const AudioRecordModal: FC<AudioRecordModalProps> = (props) => {
         timer,
         onRecord,
         onStop,
-    } = useAudioRecordModal(isModalOpen)
+        isRecordLoading,
+    } = recordAudioState
 
     const onBackActionButtons = useCallback(() => {
-        setIsModalOpen(false)
-    }, [setIsModalOpen])
+        setIsModalOpen(false);
+        onStop();
+    }, [setIsModalOpen, onStop])
     
     return (
         <Modal
@@ -46,10 +49,10 @@ export const AudioRecordModal: FC<AudioRecordModalProps> = (props) => {
                             </svg>
                             <span>{parseMsToTime(timer.now - timer.start)}</span>
                         </div>
-
                         <AudioRecordModalPlayButtons
                             onRecord={onRecord}
                             onStop={onStop}
+                            isRecordLoading={isRecordLoading}
                         />
                     </div>
                     <AudioRecordModalActionButtons onBack={onBackActionButtons}/>
