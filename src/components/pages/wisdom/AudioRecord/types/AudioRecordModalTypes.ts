@@ -14,4 +14,5 @@ export interface IAudioRecordModalHook {
   audioFile: File | null,
   initMediaStream: () => Promise<void>,
   isRecordLoading: boolean,
+  recordFileName: number,
 }
