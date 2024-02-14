@@ -9,10 +9,11 @@ import PdfIcon from 'assets/png/pdf.png';
 import UrlIcon from 'assets/png/url.png';
 import Record from 'assets/png/record.png';
 import { XMarkIcon } from "@heroicons/react/16/solid";
-import {  useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useCollections, useUploadFiles } from "modules/expert";
 import { useProfile } from "modules/auth";
 import UploadWisdomRecordAudio from "./UploadWisdomRecordAudio";
+import axios from "axios";
 // import { Routes } from "modules/routing";
 
 const FILE_TYPES = ['pdf', 'doc', 'docx', 'txt'];
@@ -33,7 +34,7 @@ interface UploadWisdomPageProps {
 
 export function UploadWisdomPage(props: UploadWisdomPageProps) {
 
-    const {collectionId} = useParams()
+    const { collectionId } = useParams()
     const collections = useCollections();
     const profile = useProfile();
 
@@ -49,7 +50,7 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
     const [files, setFiles] = useState<File[]>([]);
     const [audioFiles, setAudioFiles] = useState<File[]>([]);
     const [link, setLink] = useState<string>("");
-    const [links, setLinks] = useState<string[]>([]); 
+    const [links, setLinks] = useState<string[]>([]);
     const [isDragging, setIsDragging] = useState(false);
 
     const [selectedCollection, setSelectedCollection] = useState<MultiSelectOption>(filteredCollections.find((collection) => collection.id === collectionId) ?? filteredCollections[0]);
@@ -65,9 +66,27 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
         }
     })
 
-    const handleAddAudioFile = (file: File) => {
-        console.log(file)
-        setAudioFiles([...audioFiles, file]);
+    const handleAddAudioFile = async (file: File) => {
+        try {
+
+            const formData = new FormData();
+            formData.append("language", "en");
+            formData.append('file', file)
+
+            const response = await axios.post('https://api.jillwhite.anyagent.ai/notes', formData, {
+                headers: {
+                    "Authorization": "gf1DMx25ADNpUoFBWcZxjYXu5x9uQxIXaRGcz4p-pnM"
+                }
+            });
+
+            const blob = new Blob([response.data.transcript, response.data.notes], { type: 'text/plain' });
+            const textFile = new File([blob], file.name + '.txt', { type: 'text/plain' });
+
+            setAudioFiles([...audioFiles, file]);
+            setFiles([...files, textFile]);
+        } catch {
+            toast.error("Failed processing audio file");
+        }
     }
 
     const handleDeleteAudioFile = useCallback((fileIndex: number) => {
@@ -118,7 +137,7 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
         uploadFiles({ collectionId: collectionToUploadTo, files })
     }, [collectionId, uploadFiles, collections, selectedCollection, files])
 
-    
+
 
     return (
         <CenteredContainer>
@@ -131,9 +150,9 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
                             <MultiSelect
                                 options={filteredCollections}
                                 value={selectedCollection}
-                                onChange={setSelectedCollection}/>
+                                onChange={setSelectedCollection} />
                         </div>
-                        
+
                         <div className="space-y-2">
                             <Label>Links</Label>
                             <div className="grid grid-cols-3 grid-flow-row gap-2">
@@ -170,7 +189,7 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
                             <Paragraph>Supported file type: {FILE_TYPES.join(', ').toUpperCase()}</Paragraph>
                             <FileUploader
                                 multiple
-                                types={FILE_TYPES}
+                                // types={FILE_TYPES}
                                 maxSize={FILE_MAX_SIZE_IN_MB}
                                 onTypeError={toast.error}
                                 onSizeError={toast.error}
@@ -209,12 +228,6 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
                                     </div>
                                 ))
                             }
-                        </div>
-                        <div className="space-y-2">
-                            <Label>Recordings</Label>
-                            <UploadWisdomRecordAudio onNextClick={handleAddAudioFile} />
-                        </div>
-                        <div className="grid grid-cols-3 grid-flow-row gap-2">
                             {
                                 audioFiles.map((file, index) => (
                                     <div className="pl-2 pr-6 py-3 h-12 shadow-md flex items-center relative rounded" key={file.name + index}>
@@ -224,6 +237,13 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
                                     </div>
                                 ))
                             }
+                        </div>
+                        <div className="space-y-2">
+                            <Label>Recordings</Label>
+                            <UploadWisdomRecordAudio onNextClick={handleAddAudioFile} />
+                        </div>
+                        <div className="grid grid-cols-3 grid-flow-row gap-2">
+
                         </div>
                     </div>
                     <div className="flex space-x-2 mt-8">
