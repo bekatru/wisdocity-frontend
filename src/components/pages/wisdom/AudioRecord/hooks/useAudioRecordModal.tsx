@@ -131,7 +131,6 @@ export function useAudioRecordModal (isModalOpen: boolean) {
             setIsRecordLoading(true);
 
             setTimeout(async () => {
-                // await initMediaStream()
                 mediaRecorder?.current?.start();
                 if (stream.current && context.current && analyser.current){
                     src.current = context.current.createMediaStreamSource(stream.current);
@@ -189,7 +188,6 @@ export function useAudioRecordModal (isModalOpen: boolean) {
         setRecordFileName(undefined)
     }
 
-    
 
     useEffect(() => {
         if(isModalOpen){
