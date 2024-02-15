@@ -13,18 +13,18 @@ import { useParams } from "react-router-dom";
 import { useCollections, useUploadFiles } from "modules/expert";
 import { useProfile } from "modules/auth";
 import UploadWisdomRecordAudio from "./UploadWisdomRecordAudio";
-import axios from "axios";
-// import { Routes } from "modules/routing";
 
-const FILE_TYPES = ['pdf', 'doc', 'docx', 'txt'];
+const FILE_TYPES = ['pdf', 'doc', 'docx', 'txt', 'mp3', 'wav', 'flac', 'mp4'];
 const FILE_MAX_SIZE_IN_MB = 10;
 
-const FileTypeToIconMap: { [key: string]: string } = {
-    "text/plain": TxtIcon,
-    "application/msword": DocIcon,
-    "application/vnd.openxmlformats-officedocument.wordprocessingml.document": DocIcon,
-    "application/pdf": PdfIcon,
-    "audio/webm;codecs=opus": Record,
+function getFileIcon(type: string) {
+    switch (type) {
+        case "text/plain": return TxtIcon;
+        case "application/msword": return DocIcon;
+        case "application/vnd.openxmlformats-officedocument.wordprocessingml.document": return DocIcon;
+        case "application/pdf": return PdfIcon;
+        default: return Record;
+    }
 }
 
 interface UploadWisdomPageProps {
@@ -67,26 +67,7 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
     })
 
     const handleAddAudioFile = async (file: File) => {
-        try {
-
-            const formData = new FormData();
-            formData.append("language", "en");
-            formData.append('file', file)
-
-            const response = await axios.post('https://api.jillwhite.anyagent.ai/notes', formData, {
-                headers: {
-                    "Authorization": "gf1DMx25ADNpUoFBWcZxjYXu5x9uQxIXaRGcz4p-pnM"
-                }
-            });
-
-            const blob = new Blob([response.data.transcript, response.data.notes], { type: 'text/plain' });
-            const textFile = new File([blob], file.name + '.txt', { type: 'text/plain' });
-
-            setAudioFiles([...audioFiles, file]);
-            setFiles([...files, textFile]);
-        } catch {
-            toast.error("Failed processing audio file");
-        }
+        setFiles([...files, file]);
     }
 
     const handleDeleteAudioFile = useCallback((fileIndex: number) => {
@@ -189,7 +170,7 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
                             <Paragraph>Supported file type: {FILE_TYPES.join(', ').toUpperCase()}</Paragraph>
                             <FileUploader
                                 multiple
-                                // types={FILE_TYPES}
+                                types={FILE_TYPES}
                                 maxSize={FILE_MAX_SIZE_IN_MB}
                                 onTypeError={toast.error}
                                 onSizeError={toast.error}
@@ -222,7 +203,7 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
                             {
                                 files.map((file, index) => (
                                     <div className="pl-2 pr-6 py-3 h-12 shadow-md flex items-center relative rounded" key={file.name + index}>
-                                        <img className="h-6 w-6 mr-2" src={FileTypeToIconMap[file.type]} alt={file.type} />
+                                        <img className="h-6 w-6 mr-2" src={getFileIcon(file.type)} alt={file.type} />
                                         <span className="text-nowrap overflow-hidden text-ellipsis text-sm">{file.name}</span>
                                         <XMarkIcon onClick={() => handleDeleteFile(index)} className="h-4 w-4 text-gray-500 absolute top-1 right-1 cursor-pointer" />
                                     </div>
@@ -231,7 +212,7 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
                             {
                                 audioFiles.map((file, index) => (
                                     <div className="pl-2 pr-6 py-3 h-12 shadow-md flex items-center relative rounded" key={file.name + index}>
-                                        <img className="h-6 w-6 mr-2" src={FileTypeToIconMap[file.type]} alt={file.type} />
+                                        <img className="h-6 w-6 mr-2" src={getFileIcon(file.type)} alt={file.type} />
                                         <span className="text-nowrap overflow-hidden text-ellipsis text-sm">{file.name}</span>
                                         <XMarkIcon onClick={() => handleDeleteAudioFile(index)} className="h-4 w-4 text-gray-500 absolute top-1 right-1 cursor-pointer" />
                                     </div>
