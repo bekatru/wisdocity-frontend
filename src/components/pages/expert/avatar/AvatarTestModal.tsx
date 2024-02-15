@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Input } from "components";
 import { XMarkIcon } from "@heroicons/react/16/solid";
 import AvatarIcon from "../../../../assets/expert-avatar/ai-avatar.png";
@@ -10,6 +10,7 @@ interface AvatarTestModalProps {
   username: string;
   expertId: number;
 }
+
 interface Message {
   text: string;
   sender: string;
@@ -19,7 +20,9 @@ export function AvatarTestModal(props: AvatarTestModalProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const username = props.username;
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const openModal = (): void => {
     setIsOpen(true);
@@ -31,6 +34,7 @@ export function AvatarTestModal(props: AvatarTestModalProps) {
 
   const { mutate: queryAgent } = useQueryAgent({
     onSuccess: (response: any) => {
+      setIsLoading(false);
       console.log(response);
       let botResponse = "";
       if (response.answer) {
@@ -44,6 +48,7 @@ export function AvatarTestModal(props: AvatarTestModalProps) {
       setMessages((prevMessages) => [...prevMessages, botMessage]);
     },
     onError: (error: any) => {
+      setIsLoading(false);
       console.log(error.response?.data.message);
       if (
         error.response?.data?.message &&
@@ -62,6 +67,7 @@ export function AvatarTestModal(props: AvatarTestModalProps) {
 
   const handleSubmit = (): void => {
     if (input.trim() === "") return;
+    setIsLoading(true);
     const newMessages = [...messages, { text: input, sender: "user" }];
     setMessages(newMessages);
     setInput("");
@@ -70,6 +76,12 @@ export function AvatarTestModal(props: AvatarTestModalProps) {
       userQuery: input,
     });
   };
+
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
 
   return (
     <>
@@ -129,9 +141,6 @@ export function AvatarTestModal(props: AvatarTestModalProps) {
                                       <p className="text-[14px] fn fw-r text-[#321841] mb-[12px]">
                                         {message.text}
                                       </p>
-                                      {/* <span className="text-[10px] fn fw-r text-[#6B6985]">
-                                      01:43
-                                    </span> */}
                                     </div>
                                   </>
                                 ) : (
@@ -157,18 +166,16 @@ export function AvatarTestModal(props: AvatarTestModalProps) {
                                       <p className="text-[14px] fn fw-r text-[#321841] mb-[12px]">
                                         {message.text}
                                       </p>
-                                      {/* <span className="text-[10px] fn fw-r text-[#6B6985]">
-                                      01:43
-                                    </span> */}
                                     </div>
                                   </>
                                 )}
                               </span>
                             </div>
                           ))}
+                          <div ref={messagesEndRef} />
                         </div>
 
-                        <div className="relative mb-[0px]  mt-[10px]">
+                        <div className="relative mb-[0px]  mt-[10px] overflow-hidden">
                           <Input
                             type="text"
                             placeholder="Write a message.."
@@ -176,7 +183,7 @@ export function AvatarTestModal(props: AvatarTestModalProps) {
                             onChange={(e) => setInput(e.target.value)}
                             onKeyDown={(e) => {
                               if (e.key === "Enter") {
-                                e.preventDefault(); // Prevent form submission
+                                e.preventDefault();
                                 handleSubmit();
                               }
                             }}
@@ -189,6 +196,14 @@ export function AvatarTestModal(props: AvatarTestModalProps) {
                           >
                             <img src={DasboardIcon1} alt="" />
                           </button>
+                          {isLoading && (
+                            <div className="absolute inset-y-0 right-0 flex items-center pr-1 pl-5 bg-[#64108F]">
+                              <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                              </svg>
+                            </div>
+                          )}
                         </div>
                       </div>
                     </div>

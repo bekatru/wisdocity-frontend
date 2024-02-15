@@ -105,7 +105,7 @@ export function ProfileSocialMediaEditModal(
                               type="url"
                               value={link}
                               onChange={(e) => setLink(e.target.value.trim())}
-                              placeholder="Add new link"
+                              placeholder="Add new links"
                             />
                             <Button
                               disabled={!link}
