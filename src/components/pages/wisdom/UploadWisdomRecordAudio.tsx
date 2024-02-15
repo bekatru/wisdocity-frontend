@@ -12,7 +12,7 @@ const UploadWisdomRecordAudio: FC<UploadWisdomRecordAudioProps> = (props) => {
 
     const recordAudioState = useAudioRecordModal(isModalOpenRecord)
     useEffect(() => {
-        recordAudioState.initMediaStream();
+      recordAudioState.initMediaStream();
     }, [])
 
     const handleAudiorecorderNextClick = (file: File) => {

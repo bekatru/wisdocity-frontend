@@ -1,11 +1,12 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { IVisualizerElements } from "../UI/AudioRecordModalVisualizer";
 import { toast } from "react-toastify";
 import { UniveralAudioContext } from "../UniversalAudioContext";
 import { IAudioRecordModalHook, IAudioRecordModalTimer } from "../types/AudioRecordModalTypes";
+import { randomNumber } from "components/helpers/randomNumber";
 
 
-const THRESHOLD_RECORD_TIME = 60000;
+const THRESHOLD_RECORD_TIME = 3600000;
 export const NUM_OF_ITEM_VISUALIZER = 16;
 
 const DEFAULT_FILE_EXTENSTION = 'webm';
@@ -14,6 +15,7 @@ const REGEXP_MIME_TO_EXTENSTION = /(?<=audio\/).+?(?=;|$)/i
 
 const SAMPLE_RATE = 96000;
 const AUDIO_BITS_PER_SECOND = 320000;
+const MAX_INDEX_FILENAME = 999
 
 const MEDIA_STREAM_ERRORS: {[key: string]: string} = {
     AbortError: 'An AbortError has occured.',
@@ -58,13 +60,15 @@ export function useAudioRecordModal (isModalOpen: boolean): IAudioRecordModalHoo
     const analyser = useRef<AnalyserNode | null>();
     const audioVisualizerElemenets = useRef<IVisualizerElements[]>([...initalElements]);
 
+    const recordFileName = useMemo(() => randomNumber(MAX_INDEX_FILENAME), [isModalOpen])
+
     const onDataAvailableAudioRecorder = async function(e: BlobEvent) {
         voiceResultAudioRecord.current.push(e.data);
         const fileExtenstion = mediaRecorder.current?.mimeType.match(REGEXP_MIME_TO_EXTENSTION)?.[0] || DEFAULT_FILE_EXTENSTION;
         
-        const file = new File(voiceResultAudioRecord.current, `audio.${fileExtenstion}`, { type: mediaRecorder.current?.mimeType || DEFAULT_MIME_TYPE } );
+        const file = new File(voiceResultAudioRecord.current, `record-${recordFileName}.${fileExtenstion}`, { type: mediaRecorder.current?.mimeType || DEFAULT_MIME_TYPE } );
         setAudioFile(file);
-        
+
         voiceResultAudioRecord.current = [];
     }
 
@@ -144,9 +148,10 @@ export function useAudioRecordModal (isModalOpen: boolean): IAudioRecordModalHoo
     }, [mediaRecorder, stream, audioVisualizerElemenets])
 
     const onRecord = useCallback(async () => {
-        setIsRecordLoading(true);    
-        setTimeout(async () => {
-            if (mediaRecorder.current?.state === 'inactive'){
+        if (mediaRecorder.current?.state === 'inactive'){
+            setIsRecordLoading(true);
+
+            setTimeout(async () => {
                 await initMediaStream()
                 mediaRecorder?.current?.start();
                 if (stream.current && context.current && analyser.current){   
@@ -156,6 +161,8 @@ export function useAudioRecordModal (isModalOpen: boolean): IAudioRecordModalHoo
                 recursiveTimer();
                 setTimer(getInitalDateTimer());
                 setAudioFile(null);
+                setIsRecordLoading(false);
+            }, 10);
             } else if (mediaRecorder.current?.state === 'paused'){
                 mediaRecorder?.current?.resume();
                 recursiveTimer();
@@ -166,8 +173,6 @@ export function useAudioRecordModal (isModalOpen: boolean): IAudioRecordModalHoo
             } else{
                 onPauseRecord();
             }
-            setIsRecordLoading(false);
-        }, 10);
     }, [recursiveTimer, mediaRecorder]);
 
     const unmountMediaRecorder = () => {
@@ -195,5 +200,6 @@ export function useAudioRecordModal (isModalOpen: boolean): IAudioRecordModalHoo
         audioFile,
         initMediaStream,
         isRecordLoading,
+        recordFileName,
     })
 }

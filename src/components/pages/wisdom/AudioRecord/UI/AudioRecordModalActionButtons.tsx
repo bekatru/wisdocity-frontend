@@ -7,11 +7,11 @@ interface AudioRecordModalActionButtonsProps {
 }
 
 function AudioRecordModalActionButtons(props: AudioRecordModalActionButtonsProps) {
-  const {onBack} = props
+  const { onBack, onNextClick } = props
   return (
     <div className={"flex gap-4 w-full mt-7"}>
       <Button onClick={onBack} className={"grow-2"} variant={'outlined'}>Back</Button>
-      <Button onClick={props.onNextClick} className={"grow-2"} variant={'primary'}>Next</Button>
+      <Button onClick={onNextClick} className={"grow-2"} variant={'primary'}>Next</Button>
     </div>
   );
 }

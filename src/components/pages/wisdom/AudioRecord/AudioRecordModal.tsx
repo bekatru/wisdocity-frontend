@@ -1,5 +1,5 @@
 import { Modal, ShadowBox, parseMsToTime } from "components";
-import { memo, useCallback} from "react";
+import { memo, useCallback, useEffect, useRef} from "react";
 import AudioRecordModalVisualizer from "./UI/AudioRecordModalVisualizer";
 import AudioRecordModalActionButtons from "./UI/AudioRecordModalActionButtons";
 import AudioRecordModalTitle from "./UI/AudioRecordModalTitle";
@@ -14,7 +14,7 @@ interface AudioRecordModalProps {
 }
 
 export const AudioRecordModal = memo(function(props: AudioRecordModalProps) {
-    const {isModalOpen, setIsModalOpen, recordAudioState} = props;
+    const { isModalOpen, setIsModalOpen, recordAudioState, onNextClick } = props;
 
     const { 
         audioFile,
@@ -24,12 +24,34 @@ export const AudioRecordModal = memo(function(props: AudioRecordModalProps) {
         onRecord,
         onStop,
         isRecordLoading,
+        recordFileName,
     } = recordAudioState
 
     const onBackActionButtons = useCallback(() => {
         setIsModalOpen(false);
         onStop();
     }, [setIsModalOpen, onStop])
+    const isHardStop = useRef(false);
+    
+    const onNextClickPauseOrStop = () => {
+        if (
+            mediaRecorder.current?.state === 'paused'
+            ||
+            mediaRecorder.current?.state === 'recording'
+        ){
+            isHardStop.current = true;
+            onStop();
+        }else if (audioFile) {
+            onNextClick(audioFile)
+        }
+    }
+
+    useEffect(() => {
+        if (audioFile && isHardStop.current){
+            onNextClick(audioFile);
+            isHardStop.current = false
+        }
+    }, [audioFile, isHardStop])
     
     return (
         <Modal
@@ -37,7 +59,7 @@ export const AudioRecordModal = memo(function(props: AudioRecordModalProps) {
             closeModal={() => setIsModalOpen(false)}>
             <ShadowBox>
                 <div className={"flex flex-col items-center"}>
-                    <AudioRecordModalTitle/>
+                    <AudioRecordModalTitle recordFileName={recordFileName}/>
 
                     <AudioRecordModalVisualizer
                         audioVisualizerElemenets={audioVisualizerElemenets.current}
@@ -51,12 +73,13 @@ export const AudioRecordModal = memo(function(props: AudioRecordModalProps) {
                             <span>{parseMsToTime(timer.now - timer.start)}</span>
                         </div>
                         <AudioRecordModalPlayButtons
+                            isPlayingAudio={mediaRecorder.current?.state === 'recording'}
                             onRecord={onRecord}
                             onStop={onStop}
                             isRecordLoading={isRecordLoading}
                         />
                     </div>
-                    <AudioRecordModalActionButtons onNextClick={() => audioFile && props.onNextClick(audioFile)} onBack={onBackActionButtons}/>
+                    <AudioRecordModalActionButtons onNextClick={onNextClickPauseOrStop} onBack={onBackActionButtons}/>
                 </div>
                 
             </ShadowBox>
