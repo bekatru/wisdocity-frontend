@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { IVisualizerElements } from "../UI/AudioRecordModalVisualizer";
 import { toast } from "react-toastify";
 import { UniveralAudioContext } from "../UniversalAudioContext";
-import { IAudioRecordModalHook, IAudioRecordModalTimer } from "../types/AudioRecordModalTypes";
+import { IAudioRecordModalTimer } from "../types/AudioRecordModalTypes";
 import { randomNumber } from "components/helpers/randomNumber";
 
 
@@ -13,7 +13,6 @@ const DEFAULT_FILE_EXTENSTION = 'webm';
 const DEFAULT_MIME_TYPE = 'audio/webm';
 const REGEXP_MIME_TO_EXTENSTION = /(?<=audio\/).+?(?=;|$)/i
 
-const SAMPLE_RATE = 96000;
 const AUDIO_BITS_PER_SECOND = 320000;
 const MAX_INDEX_FILENAME = 999
 
@@ -37,15 +36,15 @@ const initalElements = Array(NUM_OF_ITEM_VISUALIZER).fill(null).map(() => ({ hei
 
 
 const getInitalDateTimer = () => {
-  const now = Date.now();
-  return ({
-      start: now,
-      now,
-      pause: 0,
-  })
+    const now = Date.now();
+    return ({
+        start: now,
+        now,
+        pause: 0,
+    })
 }
 const zeroDateTimer = { start: 0, now: 0, pause: 0 };
-export function useAudioRecordModal (isModalOpen: boolean): IAudioRecordModalHook {
+export function useAudioRecordModal (isModalOpen: boolean) {
 
     const voiceResultAudioRecord = useRef<Blob[]>([]);
     const mediaRecorder = useRef<MediaRecorder | undefined>();
@@ -60,31 +59,53 @@ export function useAudioRecordModal (isModalOpen: boolean): IAudioRecordModalHoo
     const analyser = useRef<AnalyserNode | null>();
     const audioVisualizerElemenets = useRef<IVisualizerElements[]>([...initalElements]);
 
-    const recordFileName = useMemo(() => randomNumber(MAX_INDEX_FILENAME), [isModalOpen])
+    const [ recordFileName, setRecordFileName ] = useState<number | undefined>()
 
-    const onDataAvailableAudioRecorder = async function(e: BlobEvent) {
-        voiceResultAudioRecord.current.push(e.data);
-        const fileExtenstion = mediaRecorder.current?.mimeType.match(REGEXP_MIME_TO_EXTENSTION)?.[0] || DEFAULT_FILE_EXTENSTION;
-        
-        const file = new File(voiceResultAudioRecord.current, `record-${recordFileName}.${fileExtenstion}`, { type: mediaRecorder.current?.mimeType || DEFAULT_MIME_TYPE } );
-        setAudioFile(file);
-
-        voiceResultAudioRecord.current = [];
-    }
-
+    
     const initMediaStream = useCallback(async () => {
         try {
+            const indexFilename = randomNumber(MAX_INDEX_FILENAME);            
+            setRecordFileName(indexFilename);
+            
             context.current = new UniveralAudioContext();
-            analyser.current = context.current?.createAnalyser();
-            stream.current = await navigator.mediaDevices.getUserMedia({ audio: { sampleRate: SAMPLE_RATE } });
+            analyser.current = context.current?.createAnalyser();            
+            stream.current = await navigator.mediaDevices.getUserMedia({ audio: true });
             mediaRecorder.current = new MediaRecorder(stream.current, { audioBitsPerSecond: AUDIO_BITS_PER_SECOND })
-            mediaRecorder.current.ondataavailable = onDataAvailableAudioRecorder;
+            mediaRecorder.current.ondataavailable = (e) => onDataAvailableAudioRecorder(e, indexFilename);
+
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } catch (error: any) {
             toast.error(mediaErrorCatcher(error.name), {autoClose: false});
             return;
         }
-    }, [setAudioFile])
+    }, [setAudioFile, recordFileName, setRecordFileName]);
+
+    const onDataAvailableAudioRecorder = async function(e: BlobEvent, indexFilename: number) {
+        voiceResultAudioRecord.current.push(e.data);
+        const fileExtenstion = mediaRecorder.current?.mimeType.match(REGEXP_MIME_TO_EXTENSTION)?.[0] || DEFAULT_FILE_EXTENSTION;
+        
+        const file = new File(voiceResultAudioRecord.current, `record-${indexFilename}.${fileExtenstion}`, { type: mediaRecorder.current?.mimeType || DEFAULT_MIME_TYPE } );
+        setAudioFile(file);
+
+        voiceResultAudioRecord.current = [];
+    }
+
+    const recursiveTimer = useCallback(async () => {
+        if (mediaRecorder.current?.state === 'recording'){
+            if (context.current){
+                analyser.current?.getByteFrequencyData?.(AUDIO_VISUALIZER_ARRAY);
+                const result = [];
+                for (let i = 0; i < NUM_OF_ITEM_VISUALIZER; i++){                    
+                    result.push({ height: AUDIO_VISUALIZER_ARRAY[i + NUM_OF_ITEM_VISUALIZER], opacity: THRESHOLD_OPACITY * AUDIO_VISUALIZER_ARRAY[i + NUM_OF_ITEM_VISUALIZER] });
+                }
+                audioVisualizerElemenets.current = result;
+            }
+            await timerUpdate();
+            requestAnimationFrame(recursiveTimer)
+        }else if (mediaRecorder.current?.state === 'inactive') {
+            setTimer(getInitalDateTimer());
+        }
+    }, [mediaRecorder])
 
     const timerUpdate = async () => {
         await new Promise((resolve) => {
@@ -105,56 +126,14 @@ export function useAudioRecordModal (isModalOpen: boolean): IAudioRecordModalHoo
         })
     }
 
-    const recursiveTimer = useCallback(async () => {
-        if (mediaRecorder.current?.state === 'recording'){
-            if (context.current){
-                analyser.current?.getByteFrequencyData?.(AUDIO_VISUALIZER_ARRAY);
-                const result = [];
-                for (let i = 0; i < NUM_OF_ITEM_VISUALIZER; i++){
-                result.push({ height: AUDIO_VISUALIZER_ARRAY[i + NUM_OF_ITEM_VISUALIZER], opacity: THRESHOLD_OPACITY * AUDIO_VISUALIZER_ARRAY[i + NUM_OF_ITEM_VISUALIZER] });
-                }
-                audioVisualizerElemenets.current = result;
-            }
-            await timerUpdate();
-            requestAnimationFrame(recursiveTimer)
-        }else if (mediaRecorder.current?.state === 'inactive') {
-            setTimer(getInitalDateTimer());
-        }
-  }, [mediaRecorder])
-
-    const onPauseRecord = useCallback(() => {
-        if (mediaRecorder.current?.state === 'recording'){
-            mediaRecorder?.current?.pause();
-            setTimer(prev => ({
-                ...prev,
-                pause: Date.now(),
-            }))
-        }
-    }, [mediaRecorder])
-
-    const onStop = useCallback(() => {
-        if (
-            (mediaRecorder.current?.state !== 'inactive') 
-            && 
-            (stream.current?.getTracks()[0].stop) 
-            && 
-            (mediaRecorder?.current)
-        ){
-            stream.current.getTracks()[0].stop();
-            mediaRecorder.current.stop();
-            setTimer({...zeroDateTimer});
-            audioVisualizerElemenets.current = initalElements;
-        }
-    }, [mediaRecorder, stream, audioVisualizerElemenets])
-
     const onRecord = useCallback(async () => {
         if (mediaRecorder.current?.state === 'inactive'){
             setIsRecordLoading(true);
 
             setTimeout(async () => {
-                await initMediaStream()
+                // await initMediaStream()
                 mediaRecorder?.current?.start();
-                if (stream.current && context.current && analyser.current){   
+                if (stream.current && context.current && analyser.current){
                     src.current = context.current.createMediaStreamSource(stream.current);
                     src.current.connect(analyser.current);
                 }
@@ -175,6 +154,31 @@ export function useAudioRecordModal (isModalOpen: boolean): IAudioRecordModalHoo
             }
     }, [recursiveTimer, mediaRecorder]);
 
+    const onPauseRecord = useCallback(() => {
+        if (mediaRecorder.current?.state === 'recording'){
+            mediaRecorder?.current?.pause();
+            setTimer(prev => ({
+                ...prev,
+                pause: Date.now(),
+            }))
+        }
+    }, [mediaRecorder])
+
+    const onStop = useCallback(() => {
+        if (
+            (mediaRecorder.current?.state !== 'inactive') 
+            && 
+            (stream.current?.getTracks()[0].stop) 
+            && 
+            (mediaRecorder?.current)
+        ){
+            mediaRecorder.current.stop();
+            setTimer({...zeroDateTimer});
+            audioVisualizerElemenets.current = initalElements;
+        }
+    }, [mediaRecorder, stream, audioVisualizerElemenets])
+
+
     const unmountMediaRecorder = () => {
         analyser.current?.disconnect();
         context.current?.close();
@@ -182,14 +186,18 @@ export function useAudioRecordModal (isModalOpen: boolean): IAudioRecordModalHoo
         analyser.current = null;
         context.current = null;
         stream.current = null;
+        setRecordFileName(undefined)
     }
 
+    
+
     useEffect(() => {
-    initMediaStream();
-    if (!isModalOpen){
-        unmountMediaRecorder()
-    }
-    }, []);
+        if(isModalOpen){
+            initMediaStream();
+        }else {
+            unmountMediaRecorder()
+        }
+    }, [isModalOpen])
 
     return ({
         audioVisualizerElemenets,
@@ -198,7 +206,6 @@ export function useAudioRecordModal (isModalOpen: boolean): IAudioRecordModalHoo
         onRecord,
         onStop,
         audioFile,
-        initMediaStream,
         isRecordLoading,
         recordFileName,
     })
