@@ -17,8 +17,9 @@ export function ProfileCategoryEditModal(props: ProfileCategoryEditModalProps) {
 
   const { mutate: editProfileCategory, isPending } = useEditProfileCategory({
     onSuccess: () => {
-      toast.success("Profile updated successfully!");
+      toast.success("Categories updated successfully!");
       props.onProfileCategoryUpdate(categories);
+      closeModal();
     },
     onError: (error) => {
       console.log(error.response?.data.message);

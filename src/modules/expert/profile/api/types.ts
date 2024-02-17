@@ -83,3 +83,75 @@ export interface EditProfileCategoryResponse  {
     categories: string[];
    
 }
+
+export interface EditProfileIsBooleanPayload  {
+    id: number;
+    value: boolean;
+}
+
+export interface EditProfileIsBooleanResponse  {
+    id: number;
+    value: boolean;
+}
+
+
+export interface EditProfileLinkPayload  {
+    id: number;
+    link: string;
+}
+
+export interface EditProfileLinkResponse  {
+    id: number;
+    link: string;
+}
+
+export interface AddFaqPayload  {
+    answer: string;
+    question: string;
+}
+
+export interface AddFaqResponse  {
+    id: number;
+    answer: string;
+    question:string;
+}
+
+export interface EditFaqPayload  {
+    id:number;
+    answer: string;
+    question: string;
+}
+
+export interface EditFaqResponse  {
+    id: number;
+    answer: string;
+    question:string;
+}
+export interface FaqItem {
+    question: string;
+    answer: string;
+    id:string;
+}
+interface User {
+    id: number;
+    password: string;
+    email: string;
+    current_role: string;
+    is_verified: boolean;
+    is_subscribed: boolean;
+    refresh_token: string;
+    created_at: string;
+    updated_at: string;
+  }
+  
+
+export interface FaqResponse {
+    id: number;
+    question: string;
+    answer: string;
+    user: User;
+
+}
+
+
+

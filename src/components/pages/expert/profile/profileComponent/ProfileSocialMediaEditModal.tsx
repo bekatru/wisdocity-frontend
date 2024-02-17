@@ -42,8 +42,9 @@ export function ProfileSocialMediaEditModal(
   const { mutate: editProfileSocialMedia, isPending } =
     useEditProfileSocialMedia({
       onSuccess: () => {
-        toast.success("Profile updated successfully!");
+        toast.success("Social media links updated successfully!");
         props.onProfileSocialMediaUpdate(socialMedia);
+        closeModal();
       },
       onError: (error) => {
         console.log(error.response?.data.message);

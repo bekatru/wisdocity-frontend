@@ -1,46 +1,48 @@
 import { useState } from "react";
 import { Input, Label, Button } from "components";
 import EditIcon from "../../../../../assets/profile/icon-edit.svg";
-import { useEditProfileBio } from "modules/expert";
+import { useEditProfileLiveChatLink } from "modules/expert";
 import { toast } from "react-toastify";
 
-interface ProfileBioEditModalProps {
-  bio: string;
+interface ProfileLiveChatEditModalProps {
+  calenderLinkLiveChat: string;
   expertId: number;
-  onProfileBioUpdate: (newBio: string) => void;
+  onProfileLiveChatLinkUpdate: (newLink: string) => void;
 }
-export function ProfileBioEditModal(props: ProfileBioEditModalProps) {
+export function ProfileLiveChatEditModal(props: ProfileLiveChatEditModalProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [bio, setBio] = useState<string>(props.bio);
-
+  const [calenderLinkLiveChat, setCalenderLinkLiveChat] = useState<string>(
+    props.calenderLinkLiveChat
+  );
   const [expertId] = useState<number>(props.expertId);
 
-  const { mutate: editProfileBio, isPending } = useEditProfileBio({
-    onSuccess: () => {
-      toast.success("Bio updated successfully!");
-      props.onProfileBioUpdate(bio);
-      closeModal();
-    },
-    onError: (error) => {
-      console.log(error.response?.data.message);
-      if (
-        error.response?.data?.message &&
-        error.response.data.message.length > 0
-      ) {
-        // If error message is an array, iterate over it and display each message
-        if (Array.isArray(error.response.data.message)) {
-          error.response.data.message.forEach((errorMessage) => {
-            toast.error(errorMessage);
-          });
-        } else {
-          toast.error(error.response.data.message);
+  const { mutate: editProfileLiveChatLink, isPending } =
+    useEditProfileLiveChatLink({
+      onSuccess: () => {
+        toast.success("Live chat calender link updated successfully!");
+        props.onProfileLiveChatLinkUpdate(calenderLinkLiveChat);
+        closeModal();
+      },
+      onError: (error) => {
+        console.log(error.response?.data.message);
+        if (
+          error.response?.data?.message &&
+          error.response.data.message.length > 0
+        ) {
+          // If error message is an array, iterate over it and display each message
+          if (Array.isArray(error.response.data.message)) {
+            error.response.data.message.forEach((errorMessage) => {
+              toast.error(errorMessage);
+            });
+          } else {
+            toast.error(error.response.data.message);
+          }
         }
-      }
-    },
-  });
+      },
+    });
 
   const handleSubmit = () => {
-    editProfileBio({ id: expertId, bio });
+    editProfileLiveChatLink({ id: expertId, link: calenderLinkLiveChat });
   };
 
   const openModal = () => {
@@ -53,34 +55,37 @@ export function ProfileBioEditModal(props: ProfileBioEditModalProps) {
 
   return (
     <>
-      <div className="ms-auto">
+      <div className="ms-auto float-right">
         <button className="text-black" onClick={openModal}>
           <img src={EditIcon} alt="Edit" />
         </button>
       </div>
-
+      {/* Modal */}
       {isOpen && (
         <div className="fixed z-50 inset-0 overflow-y-auto flex items-center justify-center">
           <div className="absolute inset-0 bg-black opacity-50"></div>
           <div className=" max-w-md w-full mx-auto z-50 card shadow-p bg-white px-6 py-6  mb-[34px]">
+            {/* Your modal content goes here */}
             <div>
               <div className="flex w-full">
                 <div className="box-body w-full">
                   <div className="flex align-center w-full">
                     <div className="w-full">
                       <div className="text-center text-[20px] fn fw-b text-[#321841] mb-[24px]">
-                        Edit Bio
+                        Edit Live Chat Calender Link
                       </div>
                       <form>
                         <div className="mb-[24px]">
                           <Label className="flex text-[16px] fn fw-sb text-[#321841] mb-[6px]">
-                            Bio
+                            Calender Link
                           </Label>
                           <Input
                             type="text"
-                            placeholder=""
-                            value={bio}
-                            onChange={(e) => setBio(e.target.value)}
+                            placeholder="John"
+                            value={calenderLinkLiveChat}
+                            onChange={(e) =>
+                              setCalenderLinkLiveChat(e.target.value)
+                            }
                           />
                         </div>
                       </form>

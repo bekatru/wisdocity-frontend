@@ -23,6 +23,7 @@ export function ProfileInformationEditModal(
       onSuccess: () => {
         toast.success("Profile updated successfully!");
         props.onProfileUpdate(name, profession);
+        closeModal();
       },
       onError: (error) => {
         console.log(error.response?.data.message);

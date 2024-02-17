@@ -1,28 +1,17 @@
-import { useState } from "react";
 import ProfileInformation from "./profileComponent/ProfileInformation";
 import ProfileContact from "./profileComponent/ProfileContact";
 import ProfileBio from "./profileComponent/ProfileBio";
-import ProfileLifeChatWorkshop from "./profileComponent/ProfileLifeChatWorkshop";
+import ProfileLifeChatWorkshop from "./profileComponent/ProfileLiveChatWorkshop";
 import { Faq } from "./FaqComponent/Faq";
-import useExpertProfile from "modules/expert/profile/hooks/useExpertProfile";
+
+import { useFetchFaq, useExpertProfile } from "modules/expert";
 
 export function Profile() {
   const expertProfile = useExpertProfile();
-  console.log(expertProfile.data?.user?.email);
 
-  const [accordionState, setAccordionState] = useState([
-    false,
-    false,
-    false,
-    false,
-  ]);
-
-  // Function to toggle the open/close state of a specific accordion
-  const toggleAccordion = (index: number) => {
-    const newState = [...accordionState];
-    newState[index] = !newState[index];
-    setAccordionState(newState);
-  };
+  const faqsData = useFetchFaq();
+  console.log(faqsData);
+  const faqs = Array.isArray(faqsData.data) ? faqsData.data : [];
 
   return (
     <>
@@ -61,12 +50,13 @@ export function Profile() {
               isWorkshops={expertProfile.data.isWorkshops}
               calenderLinkLiveChat={expertProfile.data.calenderLinkLiveChat}
               calenderLinkWorkshop={expertProfile.data.calenderLinkWorkshop}
+              expertId={expertProfile.data.id}
             />
           )}
         </div>
       </div>
 
-      <Faq/>
+      {faqs && <Faq faqs={faqs} />}
     </>
   );
 }
