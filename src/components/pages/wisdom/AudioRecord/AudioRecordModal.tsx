@@ -4,17 +4,16 @@ import AudioRecordModalVisualizer from "./UI/AudioRecordModalVisualizer";
 import AudioRecordModalActionButtons from "./UI/AudioRecordModalActionButtons";
 import AudioRecordModalTitle from "./UI/AudioRecordModalTitle";
 import AudioRecordModalPlayButtons from "./UI/AudioRecordModalPlayButtons";
-import { IAudioRecordModalHook } from "./types/AudioRecordModalTypes";
+import { useAudioRecordModal } from ".";
 
 interface AudioRecordModalProps {
     isModalOpen: boolean;
     setIsModalOpen: (open: boolean) => void,
-    recordAudioState: IAudioRecordModalHook,
     onNextClick: (audioFile: File) => void,
 }
 
 export const AudioRecordModal = memo(function(props: AudioRecordModalProps) {
-    const { isModalOpen, setIsModalOpen, recordAudioState, onNextClick } = props;
+    const { isModalOpen, setIsModalOpen, onNextClick } = props;
 
     const { 
         audioFile,
@@ -25,7 +24,7 @@ export const AudioRecordModal = memo(function(props: AudioRecordModalProps) {
         onStop,
         isRecordLoading,
         recordFileName,
-    } = recordAudioState
+    } = useAudioRecordModal(isModalOpen)
 
     const onBackActionButtons = useCallback(() => {
         setIsModalOpen(false);
@@ -51,7 +50,7 @@ export const AudioRecordModal = memo(function(props: AudioRecordModalProps) {
             onNextClick(audioFile);
             isHardStop.current = false
         }
-    }, [audioFile, isHardStop])
+    }, [audioFile, isHardStop]);
     
     return (
         <Modal
