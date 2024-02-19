@@ -2,7 +2,7 @@ import { Header, Paragraph } from 'components';
 import { memo } from 'react';
 
 interface AudioRecordModalTitleProps {
-  recordFileName: number,
+  recordFileName?: number,
 }
 
 function AudioRecordModalTitle(props: AudioRecordModalTitleProps) {

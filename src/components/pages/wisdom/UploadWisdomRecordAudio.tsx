@@ -1,5 +1,5 @@
-import { FC, useCallback, useEffect, useMemo, useState } from 'react';
-import { AudioRecordModal, useAudioRecordModal } from './AudioRecord';
+import { FC, useCallback, useMemo, useState } from 'react';
+import { AudioRecordModal } from './AudioRecord';
 
 interface UploadWisdomRecordAudioProps {
   onNextClick: (file: File) => void;
@@ -9,11 +9,6 @@ const UploadWisdomRecordAudio: FC<UploadWisdomRecordAudioProps> = (props) => {
   const [isModalOpenRecord, setIsModalOpenRecord] = useState(false);
     const isModalOpenRecordMemo = useMemo(() => isModalOpenRecord, [isModalOpenRecord])
     const setIsModalOpenRecordMemo = useCallback(setIsModalOpenRecord, [setIsModalOpenRecord])
-
-    const recordAudioState = useAudioRecordModal(isModalOpenRecord)
-    useEffect(() => {
-      recordAudioState.initMediaStream();
-    }, [])
 
     const handleAudiorecorderNextClick = (file: File) => {
       props.onNextClick(file);
@@ -28,7 +23,6 @@ const UploadWisdomRecordAudio: FC<UploadWisdomRecordAudioProps> = (props) => {
       <span onClick={() => setIsModalOpenRecordMemo(true)}>Start Recording</span>
       <AudioRecordModal
           onNextClick={handleAudiorecorderNextClick}
-          recordAudioState={recordAudioState}
           isModalOpen={isModalOpenRecordMemo}
           setIsModalOpen={setIsModalOpenRecordMemo}
       />

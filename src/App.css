@@ -234,6 +234,45 @@ body{
     box-shadow: 0px 0px 22px 0px rgba(143, 104, 156, 0.35);
 }
 
+::-webkit-scrollbar-thumb:active {
+    background: #d7d7d7;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: transparent;
+    border: 0px none #ffffff;
+    border-radius: 50px;
+  }
+  
+  ::-webkit-scrollbar-track:hover {
+    background: transparent;
+  }
+  
+  ::-webkit-scrollbar-track:active {
+    background: transparent;
+  }
+  
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+  
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 7px;
+  }
+  
+  ::-webkit-scrollbar-button {
+    width: 0px;
+    height: 0px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #d7d7d7;
+    border: 0px none #ffffff;
+    border-radius: 0px;
+  }
+  
+
 @media (max-width: 767px) {
     .ml80 {
         margin: 0px 0 0 0px !important;

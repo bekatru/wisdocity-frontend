@@ -1,28 +1,26 @@
 import { useState } from "react";
 import { Input, Label, Button } from "components";
 import EditIcon from "../../../../../assets/profile/icon-edit.svg";
-import { useEditProfileInformation } from "modules/expert";
+import { useEditProfileLiveChatLink } from "modules/expert";
 import { toast } from "react-toastify";
 
-interface ProfileInformationEditModalProps {
-  username: string;
-  profession: string;
+interface ProfileLiveChatEditModalProps {
+  calenderLinkLiveChat: string;
   expertId: number;
-  onProfileUpdate: (newUsername: string, newProfession: string) => void;
+  onProfileLiveChatLinkUpdate: (newLink: string) => void;
 }
-export function ProfileInformationEditModal(
-  props: ProfileInformationEditModalProps
-) {
+export function ProfileLiveChatEditModal(props: ProfileLiveChatEditModalProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [name, setName] = useState<string>(props.username);
-  const [profession, setProfession] = useState<string>(props.profession);
+  const [calenderLinkLiveChat, setCalenderLinkLiveChat] = useState<string>(
+    props.calenderLinkLiveChat
+  );
   const [expertId] = useState<number>(props.expertId);
 
-  const { mutate: editProfileInformation, isPending } =
-    useEditProfileInformation({
+  const { mutate: editProfileLiveChatLink, isPending } =
+    useEditProfileLiveChatLink({
       onSuccess: () => {
-        toast.success("Profile updated successfully!");
-        props.onProfileUpdate(name, profession);
+        toast.success("Live chat calender link updated successfully!");
+        props.onProfileLiveChatLinkUpdate(calenderLinkLiveChat);
         closeModal();
       },
       onError: (error) => {
@@ -44,7 +42,7 @@ export function ProfileInformationEditModal(
     });
 
   const handleSubmit = () => {
-    editProfileInformation({ id: expertId, username: name, profession });
+    editProfileLiveChatLink({ id: expertId, link: calenderLinkLiveChat });
   };
 
   const openModal = () => {
@@ -57,7 +55,7 @@ export function ProfileInformationEditModal(
 
   return (
     <>
-      <div className="ms-auto">
+      <div className="ms-auto float-right">
         <button className="text-black" onClick={openModal}>
           <img src={EditIcon} alt="Edit" />
         </button>
@@ -74,29 +72,20 @@ export function ProfileInformationEditModal(
                   <div className="flex align-center w-full">
                     <div className="w-full">
                       <div className="text-center text-[20px] fn fw-b text-[#321841] mb-[24px]">
-                        Edit Information
+                        Edit Live Chat Calender Link
                       </div>
                       <form>
                         <div className="mb-[24px]">
                           <Label className="flex text-[16px] fn fw-sb text-[#321841] mb-[6px]">
-                            Name
+                            Calender Link
                           </Label>
                           <Input
                             type="text"
                             placeholder="John"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                          />
-                        </div>
-                        <div className="mb-[24px]">
-                          <Label className="flex text-[16px] fn fw-sb text-[#321841] mb-[6px]">
-                            Profession
-                          </Label>
-                          <Input
-                            type="text"
-                            placeholder="Expert"
-                            value={profession}
-                            onChange={(e) => setProfession(e.target.value)}
+                            value={calenderLinkLiveChat}
+                            onChange={(e) =>
+                              setCalenderLinkLiveChat(e.target.value)
+                            }
                           />
                         </div>
                       </form>
