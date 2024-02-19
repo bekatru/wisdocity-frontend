@@ -2,9 +2,10 @@ import DocIcon from 'assets/png/doc.png';
 import TxtIcon from 'assets/png/txt.png';
 import PdfIcon from 'assets/png/pdf.png';
 import { EllipsisVerticalIcon, PlusIcon } from '@heroicons/react/16/solid';
+import { PencilIcon, TrashIcon } from '@heroicons/react/20/solid';
 import { ArrowLongLeftIcon, ArrowLongRightIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import classNames from 'classnames';
-import { MultiSelect, MultiSelectOption, ShadowBox } from 'components';
+import { MultiSelect, MultiSelectOption, ShadowBox, Popselect } from 'components';
 import { useState } from 'react';
 import { Collection, Media } from 'modules/expert';
 
@@ -20,18 +21,17 @@ const FileTypeToIconMap: { [key: string]: string } = {
 const PAGINATION_LIMIT = 10;
 
 
-
-
-
 const SORT_OPTIONS = [{ id: 1, value: "Name" }, { id: 2, value: "Date" }, { id: 3, value: "Type" }, { id: 4, value: "Status" }]
 
 interface FilesTableProps {
     files: Media[];
     collections: Collection[];
     onAddFileClick: () => void;
+    isShowCollection?: boolean,
 }
 
 export function WisdomTable(props: FilesTableProps) {
+    const {isShowCollection=true} = props;
 
     const [sortOption, setSortOption] = useState<MultiSelectOption>(SORT_OPTIONS[0]);
     const [currentPage, setCurrentPage] = useState(1);
@@ -41,6 +41,13 @@ export function WisdomTable(props: FilesTableProps) {
 
     const numberOfPages = Math.ceil(props.files.length ? props.files.length / PAGINATION_LIMIT : 0);
     const pages = [...Array(numberOfPages).keys()].map(key => key + 1);
+
+    const onItemTableEdit = () => {
+        console.log('edit content');
+    }
+    const onItemTableRemove = () => {
+        console.log('remove item table');
+    }
 
     return (
         <ShadowBox>
@@ -76,7 +83,11 @@ export function WisdomTable(props: FilesTableProps) {
                                         <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Date</th>
                                         <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Type</th>
                                         <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Status</th>
-                                        <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Collection</th>
+                                        {
+                                            isShowCollection
+                                            &&
+                                            <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Collection</th>
+                                        }
                                         <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-0"><span className="sr-only">Edit</span></th>
                                     </tr>
                                 </thead>
@@ -105,16 +116,27 @@ export function WisdomTable(props: FilesTableProps) {
                                                     Active
                                                 </span>
                                             </td>
+                                            {
+                                                isShowCollection
+                                                &&
+                                                <td className="whitespace-nowrap px-3 py-3 text-sm text-gray-500">
+                                                    {props.collections.find((collection) => file.key.includes(collection.id))?.name}
+                                                </td>
+                                            }
 
-                                            <td className="whitespace-nowrap px-3 py-3 text-sm text-gray-500">
-                                                {props.collections.find((collection) => file.key.includes(collection.id))?.name}
-                                            </td>
-
-                                            <td className="relative whitespace-nowrap py-3 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                                <a  className="text-purple-600 hover:text-purple-900">
-                                                    <EllipsisVerticalIcon className="h-4 w-4 text-gray-500" />
-                                                </a>
-                                            </td>
+                                            <Popselect
+                                                button={
+                                                    <td className="relative whitespace-nowrap py-3 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                                                        <a className="text-purple-600 hover:text-purple-900">
+                                                            <EllipsisVerticalIcon className="h-4 w-4 text-gray-500" />
+                                                        </a>
+                                                    </td>
+                                                }
+                                                options={[
+                                                    {icon: <PencilIcon className={"w-5 h-5"}/>, text: 'Edit collection', onClick: onItemTableEdit},
+                                                    {icon: <TrashIcon className={"w-5 h-5"}/>, text: 'Delete collection', onClick: onItemTableRemove},
+                                                ]}
+                                            />
 
                                         </tr>
                                     ))}

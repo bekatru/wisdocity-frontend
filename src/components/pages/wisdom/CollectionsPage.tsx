@@ -1,9 +1,10 @@
 import { EllipsisVerticalIcon, MagnifyingGlassIcon, PlusIcon, StarIcon } from "@heroicons/react/24/outline";
-import { Button, CreateCollectionPage, Modal, MultiSelect, MultiSelectOption, ShadowBox } from "components";
+import { Button, CreateCollectionPage, Modal, MultiSelect, MultiSelectOption, Popselect, ShadowBox } from "components";
 import { useProfile } from "modules/auth";
 import { Collection, useCollections } from "modules/expert";
-import { useMemo, useState } from "react";
+import { MouseEvent, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { PencilIcon, TrashIcon } from '@heroicons/react/20/solid';
 
 const SORT_OPTIONS = [{ id: 1, value: "Name" }, { id: 2, value: "Date" }, { id: 3, value: "Type" }, { id: 4, value: "Status" }];
 
@@ -62,7 +63,7 @@ export function CollectionsPage() {
                 <Modal
                     isOpen={isModalOpen}
                     closeModal={() => setIsModalOpen(false)}>
-                        <CreateCollectionPage onSubmitSuccess={collections.refetch} onBackButtonClick={() => setIsModalOpen(false)}/>
+                        <CreateCollectionPage onSubmitSuccess={() => collections.refetch()} onBackButtonClick={() => setIsModalOpen(false)}/>
 
                 </Modal>
 
@@ -71,6 +72,15 @@ export function CollectionsPage() {
 }
 function CollectionCard (collection: Collection) {
     const navigate = useNavigate();
+
+    const onItemTableEdit = (e: MouseEvent<HTMLDivElement>) => {
+        e.stopPropagation();
+        console.log('edit content');
+    }
+    const onItemTableRemove = (e: MouseEvent<HTMLDivElement>) => {
+        e.stopPropagation();
+        console.log('remove item table');
+    }
     return (
         <ShadowBox key={collection.id}>
         <div onClick={() => navigate(collection.id)} className="space-y-4 cursor-pointer">
@@ -79,7 +89,16 @@ function CollectionCard (collection: Collection) {
                 {collection.name}
             </div>
             <StarIcon className="h-6 mr-2" />
-            <EllipsisVerticalIcon className="h-5" />
+            <Popselect
+                button={
+                    <EllipsisVerticalIcon className="h-5" />
+
+                }
+                options={[
+                    {icon: <PencilIcon className={"w-5 h-5"}/>, text: 'Edit collection', onClick: onItemTableEdit},
+                    {icon: <TrashIcon className={"w-5 h-5"}/>, text: 'Delete collection', onClick: onItemTableRemove},
+                ]}
+            />
         </div>
         <div className="flex flex-wrap items-center w-full text-gray-900 sm:text-sm sm:leading-6">
             {

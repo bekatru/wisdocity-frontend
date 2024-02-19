@@ -1,13 +1,13 @@
 import { XMarkIcon } from "@heroicons/react/16/solid";
 import { Button, CenteredContainer, Header, Input, Paragraph, ShadowBox } from "components";
-import { useCreateCollection } from "modules/expert";
+import { CreateCollectionResponse, useCreateCollection } from "modules/expert";
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 interface CreateCollectionPageProps {
     onBackButtonClick?: () => void;
-    onSubmitSuccess?: () => void;
+    onSubmitSuccess?: (responseData?: CreateCollectionResponse) => void;
 }
 
 export function CreateCollectionPage(props: CreateCollectionPageProps) {
@@ -16,9 +16,9 @@ export function CreateCollectionPage(props: CreateCollectionPageProps) {
     const [tags, setTags] = useState<string[]>([]);
 
     const {mutate: createCollection, isPending} = useCreateCollection({
-        onSuccess: async () => {
+        onSuccess: async (responseData: CreateCollectionResponse) => {
             toast.success("Collection created successfully!");
-            props.onSubmitSuccess && await props.onSubmitSuccess();
+            props.onSubmitSuccess && (await props.onSubmitSuccess(responseData));
             props.onBackButtonClick && props.onBackButtonClick();
         },
         onError: () => {
@@ -65,13 +65,18 @@ function TagCreator(props: TagCreatorProps) {
     const [inputValue, setInputValue] = useState("");
 
     const handleAddTag = useCallback(() => {
-        const trimmedValue = inputValue.trim();
-        if (
-            !trimmedValue
-            || props.value.includes(trimmedValue)
-        ) return;
+        const splittedTags = inputValue.split(',');
+        const formattedTagsResult: string[] = [];
 
-        props.onChange([...props.value, trimmedValue]);
+        splittedTags.forEach(itemTag => {
+            const trimmedValue = itemTag.trim();
+            if (
+                !trimmedValue
+                || props.value.includes(trimmedValue)
+            ) return;
+            formattedTagsResult.push(trimmedValue)
+        })
+        props.onChange([...props.value, ...formattedTagsResult]);
         setInputValue("");
     }, [props, inputValue])
 
@@ -94,7 +99,7 @@ function TagCreator(props: TagCreatorProps) {
                 onChange={(e) => setInputValue(e.target.value.toLowerCase())}
                 onKeyDown={(e) => e.key === "Enter" && handleAddTag()}
                 placeholder="Add tag"
-                className="block border-0 p-0 m-[3px] text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 ring-0 focus:ring-0"
+                className="w-full block border-0 p-0 m-[3px] text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 ring-0 focus:ring-0"
             />
         </div>
     )

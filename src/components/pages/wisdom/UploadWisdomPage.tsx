@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { FileUploader } from "react-drag-drop-files";
 import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
-import { classNames, Button, CenteredContainer, Header, Input, Label, Paragraph, ShadowBox, MultiSelect, MultiSelectOption } from "components";
+import { classNames, Button, CenteredContainer, Header, Input, Label, Paragraph, ShadowBox, MultiSelect, MultiSelectOption, Modal, CreateCollectionPage } from "components";
 import DocIcon from 'assets/png/doc.png';
 import TxtIcon from 'assets/png/txt.png';
 import PdfIcon from 'assets/png/pdf.png';
@@ -10,7 +10,7 @@ import UrlIcon from 'assets/png/url.png';
 import Record from 'assets/png/record.png';
 import { XMarkIcon } from "@heroicons/react/16/solid";
 import { useParams } from "react-router-dom";
-import { useCollections, useUploadFiles } from "modules/expert";
+import { CreateCollectionResponse, useCollections, useUploadFiles } from "modules/expert";
 import { useProfile } from "modules/auth";
 import UploadWisdomRecordAudio from "./UploadWisdomRecordAudio";
 
@@ -26,11 +26,24 @@ function getFileIcon(type: string) {
         default: return Record;
     }
 }
+interface ILinks {
+    [link: string]: {
+        value: string,
+        type?: string | number | undefined
+    }
+}
 
 interface UploadWisdomPageProps {
     onBackButtonClick: () => void;
     onSubmitSuccess: () => void;
 }
+
+const SELECT_OPTION_ADD_NEW_COLLECTION = { id: 'add-new-collection', name: 'Add New Collection', tags: [], root: false };
+const SELCT_OPTIONS_LINK_TYPE = [
+    {id: 'text', value: 'Text'},
+    {id: 'audio', value: 'Audio'},
+    {id: 'video', value: 'Video'},
+]
 
 export function UploadWisdomPage(props: UploadWisdomPageProps) {
 
@@ -38,22 +51,40 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
     const collections = useCollections();
     const profile = useProfile();
 
-    const filteredCollections = useMemo(() => {
-        return (collections.data ?? [])
+    const filteredCollections = useMemo(() => {        
+        return (collections.data?.concat([SELECT_OPTION_ADD_NEW_COLLECTION]) ?? [])
             .filter((collection) => collection.name !== profile.data?.username)
             .map((collection) => ({
                 id: collection.id,
                 value: collection.name,
             }))
-    }, [collections.data, profile.data])
+    }, [collections.data, profile.data]);
 
     const [files, setFiles] = useState<File[]>([]);
     const [audioFiles, setAudioFiles] = useState<File[]>([]);
     const [link, setLink] = useState<string>("");
-    const [links, setLinks] = useState<string[]>([]);
+    const [links, setLinks] = useState<ILinks>({});
     const [isDragging, setIsDragging] = useState(false);
 
+    const [isModalOpenAddNewCollection, setIsModalOpenAddNewCollection] = useState(false);
+
+    const [selectedLinkType, setSelectedLinkType] = useState<MultiSelectOption | null>(null)
     const [selectedCollection, setSelectedCollection] = useState<MultiSelectOption>(filteredCollections.find((collection) => collection.id === collectionId) ?? filteredCollections[0]);
+
+    const onSelectCollection = (option: MultiSelectOption) => {
+        if (option.value === SELECT_OPTION_ADD_NEW_COLLECTION.name) {
+            setIsModalOpenAddNewCollection(true)
+        }else {
+            setSelectedCollection(option)
+        }
+    }
+
+    const onSubmitSuccessAddNewCollection = (responseData?: CreateCollectionResponse) => {
+        if (responseData){
+            setSelectedCollection({id: responseData.id, value: responseData.name})
+        }
+        collections.refetch()
+    }
 
     const { mutate: uploadFiles, isPending } = useUploadFiles({
         onSuccess: async () => {
@@ -86,21 +117,28 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
         setFiles(filesCopy);
     }, [files, setFiles])
 
-    const handleDeleteLink = useCallback((linkIndex: number) => {
-        const linksCopy = [...links];
-        linksCopy.splice(linkIndex, 1);
+    const handleDeleteLink = useCallback((linkId: string) => {
+        const linksCopy = {...links};
+        delete linksCopy[linkId];
         setLinks(linksCopy);
     }, [links, setLinks])
 
     const handleAddLink = useCallback(() => {
-        if (links.includes(link)) {
+        if (links[link]) {
             toast.warn("Link already added");
+            setSelectedLinkType(null)
             return setLink("");
         }
-
-        setLinks([...links, link]);
+        setLinks(prev => ({
+            ...prev,
+            [link]: {
+                value: link,
+                type: selectedLinkType?.id,
+            }
+        }));
+        setSelectedLinkType(null)
         setLink("");
-    }, [link, links, setLink, setLinks])
+    }, [link, links, setLink, setLinks, selectedLinkType])
 
     const handleSave = useCallback(() => {
         let collectionToUploadTo;
@@ -119,7 +157,6 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
     }, [collectionId, uploadFiles, collections, selectedCollection, files])
 
 
-
     return (
         <CenteredContainer>
             <div className="w-[500px]">
@@ -131,18 +168,24 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
                             <MultiSelect
                                 options={filteredCollections}
                                 value={selectedCollection}
-                                onChange={setSelectedCollection} />
+                                onChange={onSelectCollection} />
+
+                            <Modal
+                                isOpen={isModalOpenAddNewCollection}
+                                closeModal={() => setIsModalOpenAddNewCollection(false)}>
+                                    <CreateCollectionPage onSubmitSuccess={onSubmitSuccessAddNewCollection} onBackButtonClick={() => setIsModalOpenAddNewCollection(false)}/>
+                            </Modal>
                         </div>
 
                         <div className="space-y-2">
                             <Label>Links</Label>
                             <div className="grid grid-cols-3 grid-flow-row gap-2">
                                 {
-                                    files && Object.values(links).map((link, index) => (
-                                        <div className="pl-2 pr-6 py-3 h-12 shadow-md flex items-center relative rounded" key={link}>
+                                    files && Object.values(links).map((link) => (
+                                        <div className="pl-2 pr-6 py-3 h-12 shadow-md flex items-center relative rounded" key={link.value}>
                                             <img className="h-6 w-6 mr-2" src={UrlIcon} alt={'url'} />
-                                            <span className="text-nowrap overflow-hidden text-ellipsis text-sm">{link}</span>
-                                            <XMarkIcon onClick={() => handleDeleteLink(index)} className="h-4 w-4 text-gray-500 absolute top-1 right-1 cursor-pointer" />
+                                            <span className="text-nowrap overflow-hidden text-ellipsis text-sm">{link.value}</span>
+                                            <XMarkIcon onClick={() => handleDeleteLink(link.value)} className="h-4 w-4 text-gray-500 absolute top-1 right-1 cursor-pointer" />
                                         </div>
                                     ))
                                 }
@@ -155,8 +198,15 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
                                     onChange={(e) => setLink(e.target.value.trim())}
                                     placeholder="Add new link"
                                 />
+                                <MultiSelect
+                                    options={SELCT_OPTIONS_LINK_TYPE}
+                                    value={selectedLinkType}
+                                    placeholder={'Type'}
+                                    onChange={setSelectedLinkType}
+                                />
+
                                 <Button
-                                    disabled={!link}
+                                    disabled={!link || !selectedLinkType}
                                     type="submit"
                                     fullWidth={false}
                                     variant="outlined"
