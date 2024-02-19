@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Input, Label, Button } from "components";
+import { Label, Button } from "components";
 import EditIcon from "../../../../../assets/profile/icon-edit.svg";
 import { useEditProfileBio } from "modules/expert";
 import { toast } from "react-toastify";
@@ -12,6 +12,7 @@ interface ProfileBioEditModalProps {
 export function ProfileBioEditModal(props: ProfileBioEditModalProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [bio, setBio] = useState<string>(props.bio);
+  console.log("bio modal", bio);
 
   const [expertId] = useState<number>(props.expertId);
 
@@ -53,7 +54,7 @@ export function ProfileBioEditModal(props: ProfileBioEditModalProps) {
 
   return (
     <>
-      <div className="ms-auto">
+      <div className="ms-auto absolute right-[0] top-[0px]">
         <button className="text-black" onClick={openModal}>
           <img src={EditIcon} alt="Edit" />
         </button>
@@ -76,12 +77,12 @@ export function ProfileBioEditModal(props: ProfileBioEditModalProps) {
                           <Label className="flex text-[16px] fn fw-sb text-[#321841] mb-[6px]">
                             Bio
                           </Label>
-                          <Input
-                            type="text"
-                            placeholder=""
+                          <textarea
                             value={bio}
+                            rows={10}
                             onChange={(e) => setBio(e.target.value)}
-                          />
+                            className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                          ></textarea>
                         </div>
                       </form>
                     </div>

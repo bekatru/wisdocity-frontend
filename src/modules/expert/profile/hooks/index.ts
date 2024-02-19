@@ -11,5 +11,6 @@ export * from './useEditWorkshopsChatLink';
 export * from './useFetchFaq';
 export * from './useAddFaq';
 export * from './useEditFaq';
+export * from './useDeleteFaq';
 
 

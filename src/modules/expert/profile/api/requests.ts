@@ -1,5 +1,5 @@
 import { wisdocityApi } from "libs/axios";
-import { ExpertProfileResponse,EditProfileInformationPayload,EditProfileInformationResponse,EditProfileContactPayload,EditProfileContactResponse,EditProfileBioPayload,EditProfileBioResponse,EditProfileSocialMediaPayload,EditProfileSocialMediaResponse,EditProfileCategoryPayload,EditProfileCategoryResponse,  EditProfileIsBooleanPayload, EditProfileIsBooleanResponse, EditProfileLinkPayload, EditProfileLinkResponse, AddFaqPayload, AddFaqResponse, EditFaqPayload, EditFaqResponse,FaqResponse} from "./types";
+import { ExpertProfileResponse,EditProfileInformationPayload,EditProfileInformationResponse,EditProfileContactPayload,EditProfileContactResponse,EditProfileBioPayload,EditProfileBioResponse,EditProfileSocialMediaPayload,EditProfileSocialMediaResponse,EditProfileCategoryPayload,EditProfileCategoryResponse,  EditProfileIsBooleanPayload, EditProfileIsBooleanResponse, EditProfileLinkPayload, EditProfileLinkResponse, AddFaqPayload, AddFaqResponse, EditFaqPayload, EditFaqResponse,FaqResponse, DeleteFaqPayload, DeleteFaqResponse} from "./types";
 
 
 
@@ -65,3 +65,7 @@ export const fetchFaq = async (): Promise<FaqResponse> => {
    
     return await wisdocityApi.get('faq');
 }
+export const deleteFaq = async (body: DeleteFaqPayload): Promise<DeleteFaqResponse> => {
+  
+    return await wisdocityApi.delete('faq/'+ body.id);
+  };

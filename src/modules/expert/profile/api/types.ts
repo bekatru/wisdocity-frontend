@@ -127,6 +127,19 @@ export interface EditFaqResponse  {
     answer: string;
     question:string;
 }
+
+export interface DeleteFaqPayload  {
+    id:number;
+   }
+
+export interface DeleteFaqResponse  {
+    id: number;
+    answer:string;
+    question:string;
+
+   
+}
+
 export interface FaqItem {
     question: string;
     answer: string;

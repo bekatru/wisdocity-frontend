@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { FaqEditModal } from "./FaqEditModal";
 import { FaqAddModal } from "./FaqAddModal";
+import { toast } from "react-toastify";
+import { useDeleteFaq } from "modules/expert";
+import { XMarkIcon } from "@heroicons/react/16/solid";
 
 interface FaqProps {
   faqs: { question: string; answer: string; id: number }[];
@@ -44,6 +47,33 @@ export function Faq(props: FaqProps) {
     setFaqs(updatedFaqs);
   };
 
+  const { mutate: deleteFaq } = useDeleteFaq({
+    onSuccess: (response) => {
+      const updatedFaqs = faqs.filter((faq) => faq.id !== response.id);
+      setFaqs(updatedFaqs);
+      toast.success("Faq deleted successfully!");
+    },
+    onError: (error) => {
+      console.log(error.response?.data.message);
+      if (
+        error.response?.data?.message &&
+        error.response.data.message.length > 0
+      ) {
+        if (Array.isArray(error.response.data.message)) {
+          error.response.data.message.forEach((errorMessage) => {
+            toast.error(errorMessage);
+          });
+        } else {
+          toast.error(error.response.data.message);
+        }
+      }
+    },
+  });
+
+  const handleDeleteFaq = (id: number) => {
+    deleteFaq({ id });
+  };
+
   return (
     <>
       <div className="card shadow-p bg-white px-6 py-6 md:max-w-[90%]">
@@ -68,6 +98,14 @@ export function Faq(props: FaqProps) {
                     </div>
                     <div className="flex justify-center items-center">
                       <span className="mr-[10px] mt-[5px]">
+                        <button
+                          className="text-black float-right w-6 h-6 mt-1 cursor-pointer absolute right-[70px] top-[18px]"
+                          onClick={() => handleDeleteFaq(data.id)}
+                        >
+                          {" "}
+                          <XMarkIcon />
+                          {/* <img src={EditIcon} alt="Edit" /> */}
+                        </button>
                         <FaqEditModal
                           faqQuestion={data.question}
                           faqAnswer={data.answer}

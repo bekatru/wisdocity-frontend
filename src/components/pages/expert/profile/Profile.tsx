@@ -33,6 +33,7 @@ export function Profile() {
                   expertId={expertProfile.data.id}
                 />
                 <ProfileBio
+                  username={expertProfile.data.username}
                   bio={expertProfile.data.bio}
                   socialMedia={expertProfile.data.socialMedia}
                   categories={expertProfile.data.categories}

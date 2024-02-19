@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ProfileBioEditModal } from "./ProfileBioEditModal";
 import { ProfileSocialMediaEditModal } from "./ProfileSocialMediaEditModal";
 import { ProfileCategoryEditModal } from "./ProfileCategoryEditModal";
+
 interface ProfileBioProps {
+  username: string;
   bio: string;
   socialMedia: string[];
   categories: string[];
@@ -25,22 +27,22 @@ export default function ProfileBio(props: ProfileBioProps) {
   };
   return (
     <>
-      <div className="box-body mb-[32px]">
+      <div className="box-body mb-[32px] relative">
         <div className="flex align-center w-full">
           <div className="">
             <div className="text-[16px] fn fw-sb text-[#321841] mb-[14px]">
               Bio
             </div>
+            <ProfileBioEditModal
+              bio={props.bio}
+              expertId={props.expertId}
+              onProfileBioUpdate={handleProfileBioUpdate}
+            />
 
             <p className="text-[14px] fn fw-r text-[#6B6985] mb-[10px]">
               {bio}
             </p>
           </div>
-          <ProfileBioEditModal
-            bio={props.bio}
-            expertId={props.expertId}
-            onProfileBioUpdate={handleProfileBioUpdate}
-          />
         </div>
       </div>
 
