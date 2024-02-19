@@ -42,8 +42,9 @@ export function ProfileSocialMediaEditModal(
   const { mutate: editProfileSocialMedia, isPending } =
     useEditProfileSocialMedia({
       onSuccess: () => {
-        toast.success("Profile updated successfully!");
+        toast.success("Social media links updated successfully!");
         props.onProfileSocialMediaUpdate(socialMedia);
+        closeModal();
       },
       onError: (error) => {
         console.log(error.response?.data.message);
@@ -100,13 +101,7 @@ export function ProfileSocialMediaEditModal(
                           <Label className="flex text-[16px] fn fw-sb text-[#321841] mb-[6px]">
                             Social Media Links
                           </Label>
-                          <form
-                            className="flex space-x-2"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              handleAddLink();
-                            }}
-                          >
+                          <form className="flex space-x-2">
                             <Input
                               type="url"
                               value={link}
@@ -115,34 +110,43 @@ export function ProfileSocialMediaEditModal(
                             />
                             <Button
                               disabled={!link}
-                              type="submit"
                               fullWidth={false}
                               variant="outlined"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                handleAddLink();
+                              }}
                             >
                               Add
                             </Button>
                           </form>
 
                           <div className="grid grid-cols-3 grid-flow-row gap-2">
-                            {Object.values(socialMedia).map((link, index) => (
-                              <div
-                                className="pl-2 pr-6 py-3 h-12 shadow-md flex items-center relative rounded"
-                                key={link}
-                              >
-                                <img
-                                  className="h-6 w-6 mr-2"
-                                  src={UrlIcon}
-                                  alt={"url"}
-                                />
-                                <span className="text-nowrap overflow-hidden text-ellipsis text-sm">
-                                  {link}
-                                </span>
-                                <XMarkIcon
-                                  onClick={() => handleDeleteLink(index)}
-                                  className="h-4 w-4 text-gray-500 absolute top-1 right-1 cursor-pointer"
-                                />
-                              </div>
-                            ))}
+                            {socialMedia.length > 0 && (
+                              <>
+                                {Object.values(socialMedia).map(
+                                  (link, index) => (
+                                    <div
+                                      className="pl-2 pr-6 py-3 h-12 shadow-md flex items-center relative rounded"
+                                      key={link}
+                                    >
+                                      <img
+                                        className="h-6 w-6 mr-2"
+                                        src={UrlIcon}
+                                        alt={"url"}
+                                      />
+                                      <span className="text-nowrap overflow-hidden text-ellipsis text-sm">
+                                        {link}
+                                      </span>
+                                      <XMarkIcon
+                                        onClick={() => handleDeleteLink(index)}
+                                        className="h-4 w-4 text-gray-500 absolute top-1 right-1 cursor-pointer"
+                                      />
+                                    </div>
+                                  )
+                                )}
+                              </>
+                            )}
                           </div>
                         </div>
                       </form>

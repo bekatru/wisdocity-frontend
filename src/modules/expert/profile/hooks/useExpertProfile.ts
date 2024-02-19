@@ -3,7 +3,7 @@ import { QueryOptions } from "libs/reactQuery";
 import { ApiError, ApiServiceError } from "libs/axios";
 import { ExpertProfileResponse, profileRequest } from "../api";
 
-const useExpertProfile = (
+export const useExpertProfile = (
     options?: QueryOptions<ExpertProfileResponse, ApiServiceError<ApiError>>
 ) => {
     return useQuery({
@@ -13,4 +13,3 @@ const useExpertProfile = (
     });
 }
 
-export default useExpertProfile;
