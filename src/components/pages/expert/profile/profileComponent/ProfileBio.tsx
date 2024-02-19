@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ProfileBioEditModal } from "./ProfileBioEditModal";
 import { ProfileSocialMediaEditModal } from "./ProfileSocialMediaEditModal";
 import { ProfileCategoryEditModal } from "./ProfileCategoryEditModal";
