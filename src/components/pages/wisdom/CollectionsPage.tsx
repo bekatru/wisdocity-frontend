@@ -4,8 +4,8 @@ import { useProfile } from "modules/auth";
 import { Collection, useCollections } from "modules/expert";
 import { MouseEvent, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import deleteContentImg from 'assets/deleteContent.svg';
-import editContentImg from 'assets/editContent.svg';
+import deleteContentImg from 'assets/svg/deleteContent.svg';
+import editContentImg from 'assets/svg/editContent.svg';
 import { EditCollectionPage } from "./EditCollectionPage";
 
 const SORT_OPTIONS = [{ id: 1, value: "Name" }, { id: 2, value: "Date" }, { id: 3, value: "Type" }, { id: 4, value: "Status" }];

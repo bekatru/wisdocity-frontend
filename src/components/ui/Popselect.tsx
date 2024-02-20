@@ -18,9 +18,9 @@ export function Popselect(props: PopselectProps){
     >
       {
         options.map((item, index) => (
-          <div onClick={(e) => item.onClick(e, item)} key={index} className={"px-2.5 py-3.5 flex gap-2 cursor-pointer hover:bg-[#F6E3FF] select-none"}>
+          <div onClick={(e) => item.onClick(e, item)} key={index} className={"px-2.5 py-3.5 flex gap-2 cursor-pointer hover:bg-[#F6E3FF] select-none rounded-lg"}>
             {item.icon}
-            <p className={"text-black"}>{item.text}</p>
+            <p className={"text-black font-medium"}>{item.text}</p>
           </div>
         ))
       }

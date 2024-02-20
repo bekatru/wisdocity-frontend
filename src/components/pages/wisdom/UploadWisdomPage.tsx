@@ -3,7 +3,6 @@ import { toast } from "react-toastify";
 import { FileUploader } from "react-drag-drop-files";
 import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
 import { classNames, Button, CenteredContainer, Header, Input, Label, Paragraph, ShadowBox, MultiSelect, MultiSelectOption, Modal, CreateCollectionPage } from "components";
-
 import UrlIcon from 'assets/png/url.png';
 import { XMarkIcon } from "@heroicons/react/16/solid";
 import { useParams } from "react-router-dom";

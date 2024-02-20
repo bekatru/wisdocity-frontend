@@ -32,7 +32,7 @@ export function Popover(props: PopoverProps) {
             leaveTo="opacity-0 translate-y-1"
         >
             <HeadlessPopover.Panel
-              className="absolute z-10 mt-6 lg:max-w-3xl rounded-lg bg-white shadow"
+              className="absolute mt-6 lg:max-w-3xl rounded-lg bg-white shadow z-20"
               ref={setPopperElement as Ref<HTMLDivElement>}
               style={styles.popper}
               {...attributes.popper}

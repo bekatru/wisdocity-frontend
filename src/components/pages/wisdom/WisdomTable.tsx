@@ -2,12 +2,16 @@ import { EllipsisVerticalIcon, PlusIcon } from '@heroicons/react/16/solid';
 import { ArrowLongLeftIcon, ArrowLongRightIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import classNames from 'classnames';
 import { ShadowBox, Popselect, Modal, Button, Checkbox } from 'components';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { Collection, Media } from 'modules/expert';
 import interfaceSliderImg from './assets/interfaceSlider.svg';
-import deleteContentImg from 'assets/deleteContent.svg';
-import editContentImg from 'assets/editContent.svg';
+import deleteContentImg from 'assets/svg/deleteContent.svg';
+import editContentImg from 'assets/svg/editContent.svg';
+import starIcon from 'assets/svg/starIcon.svg';
+import stackItemIcon from 'assets/svg/stackItemsIcon.svg';
+import viewEyeIcon from 'assets/svg/viewEyeIcon.svg';
 import { getIconByMime } from 'components/helpers/getIconByMime';
+import { TOpenModalTypeSelectedFiles, WisdomTableSelectedFilesPopselect } from './WisdomTableSelectedFilesPopselect';
 
 
 
@@ -44,19 +48,56 @@ export function WisdomTable(props: FilesTableProps) {
         console.log('delete file', file);
     }
 
-    const [selectedFiles, setSelectedFiles] = useState<Media[]>([]);
-    const onSelectMedia = (file: Media) => {
-        setSelectedFiles(prev => ([...prev, file]))
+    const [selectedFiles, setSelectedFiles] = useState<{[id: string]: Media}>({});
+    const onSelectFile = (file: Media, e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.checked){
+            setSelectedFiles(prev => ({
+                ...prev,
+                [file.id]: file
+            }))
+        }else {
+            const selecetedFilesCopy = {...selectedFiles};
+            delete selecetedFilesCopy[file.id]
+            setSelectedFiles(selecetedFilesCopy)
+        }
     };
-    useEffect(() => {
-        console.log(selectedFiles);
+    const onSelectAllFiles = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.checked){
+            const selectedFilesResult: {[id: string]: Media} = {};
+            props.files.forEach((file) => {
+                selectedFilesResult[file.id] = file;
+            })            
+            setSelectedFiles(selectedFilesResult)
+        }else {
+            setSelectedFiles({})
+        }
+    }
+    const [openSelectedFilesType, setOpenSelectedFilesType] = useState<TOpenModalTypeSelectedFiles>(null);
+
+    const onCloseSelectedFiles = () => {
+        setOpenSelectedFilesType(null)
+    }
+
+    const onViewSelectedFiles = () => {
+        setOpenSelectedFilesType('view')
+    }
+    const onMoveToCollectionSelectedFiles = () => {
+        setOpenSelectedFilesType('collection')
+    }
+    const onMoveToArchiveSelectedFiles = () => {
+        setOpenSelectedFilesType('archive')
+    }
+    const onPromptDeleteSelectedFiles = () => {
+        setOpenSelectedFilesType('delete')
+    }
+    const onDeleteSelectedFiles = () => {
+        console.log('delete');
         
-    }, [selectedFiles])
+    }
     return (
         <ShadowBox className={"pb-0"}>
             <div>
                 <div className="sm:flex sm:items-center">
-
                     <div className="relative flex border h-9 w-[300px] p-2 rounded-md mr-4 items-center">
                         <MagnifyingGlassIcon
                             className="pointer-events-none absolute inset-y-0 left-2 h-full w-5 text-gray-400"
@@ -81,7 +122,25 @@ export function WisdomTable(props: FilesTableProps) {
                             <table className="min-w-full divide-y divide-gray-300">
                                 <thead>
                                     <tr>
-                                        <th scope="col"><Checkbox/></th>
+                                        <th scope="col" className={"flex items-end py-3.5 pl-1"}>
+                                            <Popselect
+                                                button={
+                                                    <EllipsisVerticalIcon className="h-4 w-4 text-black mr-2" />
+                                                }
+                                                options={[
+                                                    {icon: <img src={viewEyeIcon} className={"w-5 h-5"}/>, text: 'View ', onClick: onViewSelectedFiles},
+                                                    {icon: <img src={starIcon} className={"w-5 h-5"}/>, text: 'Move to Collection', onClick: onMoveToCollectionSelectedFiles},
+                                                    {icon: <img src={stackItemIcon} className={"w-5 h-5"}/>, text: 'Archive', onClick: onMoveToArchiveSelectedFiles},
+                                                    {icon: <img src={deleteContentImg} className={"w-5 h-5"}/>, text: 'Delete', onClick: onPromptDeleteSelectedFiles},
+                                                ]}
+                                            />
+                                            <WisdomTableSelectedFilesPopselect 
+                                                onDeleteSelectedFiles={onDeleteSelectedFiles}
+                                                openModalType={openSelectedFilesType} 
+                                                closeModal={onCloseSelectedFiles}
+                                            />
+                                            <Checkbox checked={Object.values(selectedFiles).length === props.files.length} onChange={onSelectAllFiles}/>
+                                        </th>
                                         <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900">Name</th>
                                         <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Date</th>
                                         <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Type</th>
@@ -98,7 +157,7 @@ export function WisdomTable(props: FilesTableProps) {
                                     {props.files.slice((currentPage - 1) * PAGINATION_LIMIT, (currentPage - 1) * PAGINATION_LIMIT + PAGINATION_LIMIT).map((file, index) => (
 
                                         <tr className={classNames({ "bg-purple-100": index % 2 !== 0 })} key={file.id + index}>
-                                            <td className="text-right"><Checkbox onChange={() => onSelectMedia(file)}/></td>
+                                            <td className="text-right pr-4"><Checkbox checked={Boolean(selectedFiles[file.id])} onChange={(e) => onSelectFile(file, e)}/></td>
                                             <td className="whitespace-nowrap py-3 pl-4 pr-3 text-sm">
                                                 <div className="flex items-center">
                                                     <img className="h-6 w-6 mr-2" src={getIconByMime(file.contentType)} alt={file.contentType} />
