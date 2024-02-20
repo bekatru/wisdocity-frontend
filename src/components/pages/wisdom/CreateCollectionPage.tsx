@@ -1,5 +1,5 @@
 import { XMarkIcon } from "@heroicons/react/16/solid";
-import { Button, CenteredContainer, Header, Input, Paragraph, ShadowBox } from "components";
+import { Button, CenteredContainer, Header, Input, ShadowBox } from "components";
 import { CreateCollectionResponse, useCreateCollection } from "modules/expert";
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";

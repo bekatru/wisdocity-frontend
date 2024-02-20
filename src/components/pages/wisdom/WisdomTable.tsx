@@ -2,10 +2,9 @@ import DocIcon from 'assets/png/doc.png';
 import TxtIcon from 'assets/png/txt.png';
 import PdfIcon from 'assets/png/pdf.png';
 import { EllipsisVerticalIcon, PlusIcon } from '@heroicons/react/16/solid';
-import { PencilIcon, TrashIcon } from '@heroicons/react/20/solid';
 import { ArrowLongLeftIcon, ArrowLongRightIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import classNames from 'classnames';
-import { ShadowBox, Popselect } from 'components';
+import { ShadowBox, Popselect, Modal, Button } from 'components';
 import { useState } from 'react';
 import { Collection, Media } from 'modules/expert';
 import interfaceSliderImg from './assets/interfaceSlider.svg';
@@ -42,12 +41,18 @@ export function WisdomTable(props: FilesTableProps) {
     const pages = [...Array(numberOfPages).keys()].map(key => key + 1);
 
     const onItemTableEdit = () => {
-        console.log('edit content');
+        setIsEditModalOpen(true)
     }
     const onItemTableRemove = () => {
-        console.log('remove item table');
+        setIsDeleteModalOpen(true)
     }
 
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const onDeleteFile = (file: Media) => {
+        console.log('delete file', file);
+        
+    }
     return (
         <ShadowBox className={"pb-0"}>
             <div>
@@ -135,7 +140,20 @@ export function WisdomTable(props: FilesTableProps) {
                                                     {icon: <img src={deleteContentImg} className={"w-5 h-5"}/>, text: 'Delete content', onClick: onItemTableRemove},
                                                 ]}
                                             />
-
+                                            <Modal isOpen={isEditModalOpen} closeModal={() => setIsEditModalOpen(false)}>
+                                                <ShadowBox>
+                                                    edit
+                                                </ShadowBox>
+                                            </Modal>
+                                            <Modal isOpen={isDeleteModalOpen} closeModal={() => setIsDeleteModalOpen(false)}>
+                                                <ShadowBox className={"px-16"}>
+                                                    <p className={"text-center text-lg mb-6"}>Are you sure you want to delete the content {file.fileName}?</p>
+                                                    <div className={"flex gap-4"}>
+                                                        <Button onClick={() => setIsDeleteModalOpen(false)} variant={'outlined'}>No</Button>
+                                                        <Button onClick={() => onDeleteFile(file)} variant={'primary'}>Yes</Button>
+                                                    </div>
+                                                </ShadowBox>
+                                            </Modal>
                                         </tr>
                                     ))}
                                 </tbody>

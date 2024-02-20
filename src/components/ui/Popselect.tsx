@@ -1,6 +1,5 @@
 import { MouseEvent, ReactNode } from "react";
 import { Popover } from ".";
-import { Paragraph } from "components";
 
 export interface IPopselectOption{
   icon?: ReactNode,
