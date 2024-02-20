@@ -161,10 +161,10 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
         <CenteredContainer>
             <div className="w-[500px]">
                 <ShadowBox>
-                    <Header>Upload new information</Header>
+                    <Header>Add Wisdom Content</Header>
                     <div className="space-y-4 mt-6">
-                        <div className="space-y-2">
-                            <Label>To collection:</Label>
+                        <div className="space-y-2 max-w-[334px]">
+                            <p>Select from one of your existing collections or choose ‘Add New Collection’</p>
                             <MultiSelect
                                 options={filteredCollections}
                                 value={selectedCollection}
@@ -178,7 +178,6 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
                         </div>
 
                         <div className="space-y-2">
-                            <Label>Links</Label>
                             <div className="grid grid-cols-3 grid-flow-row gap-2">
                                 {
                                     files && Object.values(links).map((link) => (
@@ -190,7 +189,7 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
                                     ))
                                 }
                             </div>
-                            <Paragraph>Add new links</Paragraph>
+                            <p>Add links of your Wisdom</p>
                             <form className="flex space-x-2" onSubmit={(e) => { e.preventDefault(); handleAddLink() }}>
                                 <Input
                                     type='url'
@@ -216,8 +215,8 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
                             </form>
                         </div>
                         <div className="space-y-2">
-                            <Label>Files</Label>
-                            <Paragraph>Supported file type: {FILE_TYPES.join(', ').toUpperCase()}</Paragraph>
+                            <Label>Attach Wisdom Content</Label>
+                            <Paragraph>Supported file types: {FILE_TYPES.join(', ').toUpperCase()}</Paragraph>
                             <FileUploader
                                 multiple
                                 types={FILE_TYPES}
@@ -270,7 +269,7 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
                             }
                         </div>
                         <div className="space-y-2">
-                            <Label>Recordings</Label>
+                            <p>Record your Wisdom</p>
                             <UploadWisdomRecordAudio onNextClick={handleAddAudioFile} />
                         </div>
                         <div className="grid grid-cols-3 grid-flow-row gap-2">
