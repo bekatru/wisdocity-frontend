@@ -78,18 +78,6 @@ export function WisdomTable(props: FilesTableProps) {
         setOpenSelectedFilesType(null)
     }
 
-    const onViewSelectedFiles = () => {
-        setOpenSelectedFilesType('view')
-    }
-    const onMoveToCollectionSelectedFiles = () => {
-        setOpenSelectedFilesType('collection')
-    }
-    const onMoveToArchiveSelectedFiles = () => {
-        setOpenSelectedFilesType('archive')
-    }
-    const onPromptDeleteSelectedFiles = () => {
-        setOpenSelectedFilesType('delete')
-    }
     const onDeleteSelectedFiles = () => {
         console.log('delete');
         
@@ -128,10 +116,10 @@ export function WisdomTable(props: FilesTableProps) {
                                                     <EllipsisVerticalIcon className="h-4 w-4 text-black mr-2" />
                                                 }
                                                 options={[
-                                                    {icon: <img src={viewEyeIcon} className={"w-5 h-5"}/>, text: 'View ', onClick: onViewSelectedFiles},
-                                                    {icon: <img src={starIcon} className={"w-5 h-5"}/>, text: 'Move to Collection', onClick: onMoveToCollectionSelectedFiles},
-                                                    {icon: <img src={stackItemIcon} className={"w-5 h-5"}/>, text: 'Archive', onClick: onMoveToArchiveSelectedFiles},
-                                                    {icon: <img src={deleteContentImg} className={"w-5 h-5"}/>, text: 'Delete', onClick: onPromptDeleteSelectedFiles},
+                                                    {icon: <img src={viewEyeIcon} className={"w-5 h-5"}/>, text: 'View ', onClick: () => setOpenSelectedFilesType('view')},
+                                                    {icon: <img src={starIcon} className={"w-5 h-5"}/>, text: 'Move to Collection', onClick: () => setOpenSelectedFilesType('collection')},
+                                                    {icon: <img src={stackItemIcon} className={"w-5 h-5"}/>, text: 'Archive', onClick: () => setOpenSelectedFilesType('archive')},
+                                                    {icon: <img src={deleteContentImg} className={"w-5 h-5"}/>, text: 'Delete', onClick: () => setOpenSelectedFilesType('delete')},
                                                 ]}
                                             />
                                             <WisdomTableSelectedFilesPopselect 
