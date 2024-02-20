@@ -16,7 +16,12 @@ export function Popover(props: PopoverProps) {
     <HeadlessPopover>
       {() => (
         <>
-          <HeadlessPopover.Button ref={setReferenceElement as Ref<HTMLButtonElement>}>{button}</HeadlessPopover.Button>
+          <HeadlessPopover.Button
+            className={"flex justify-center items-center"}
+            ref={setReferenceElement as Ref<HTMLButtonElement>}
+          >
+            {button}
+          </HeadlessPopover.Button>
           <Transition
             as={Fragment}
             enter="transition ease-out duration-200"

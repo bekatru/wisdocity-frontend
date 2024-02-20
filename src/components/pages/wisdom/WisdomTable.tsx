@@ -50,7 +50,7 @@ export function WisdomTable(props: FilesTableProps) {
     }
 
     return (
-        <ShadowBox>
+        <ShadowBox className={"pb-0"}>
             <div>
                 <div className="sm:flex sm:items-center">
 
@@ -133,8 +133,8 @@ export function WisdomTable(props: FilesTableProps) {
                                                     </td>
                                                 }
                                                 options={[
-                                                    {icon: <PencilIcon className={"w-5 h-5"}/>, text: 'Edit collection', onClick: onItemTableEdit},
-                                                    {icon: <TrashIcon className={"w-5 h-5"}/>, text: 'Delete collection', onClick: onItemTableRemove},
+                                                    {icon: <PencilIcon className={"w-5 h-5"}/>, text: 'Edit content', onClick: onItemTableEdit},
+                                                    {icon: <TrashIcon className={"w-5 h-5"}/>, text: 'Delete content', onClick: onItemTableRemove},
                                                 ]}
                                             />
 
@@ -145,8 +145,8 @@ export function WisdomTable(props: FilesTableProps) {
                         </div>
                     </div>
                 </div>
-                <nav className="flex items-center justify-between border-t border-gray-200 px-4 sm:px-0 mt-4">
-                    <div className="-mt-px flex w-0 flex-1">
+                <nav className="flex items-center justify-center border-t border-gray-200 px-4 sm:px-0 mt-4 gap-6 pb-5">
+                    <div className="-mt-px flex">
                         <a
                             onClick={currentPage > 1 ? goToPreviousPage : undefined}
                             className="inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 cursor-pointer"
@@ -202,7 +202,7 @@ export function WisdomTable(props: FilesTableProps) {
 
 
                     </div>
-                    <div className="-mt-px flex w-0 flex-1 justify-end">
+                    <div className="-mt-px flex">
                         <a
                             onClick={currentPage < numberOfPages ? goToNextPage : undefined}
                             className="inline-flex items-center border-t-2 border-transparent pl-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 cursor-pointer"

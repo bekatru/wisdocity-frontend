@@ -15,7 +15,7 @@ export function WisdomFTUE(props: WisdomFTUEProps) {
 
     return (
         <div className={"w-full h-full flex justify-center items-center"}>
-            <ShadowBox className={"w-[795px] h-[392px] mt-[101px] flex flex-col items-center justify-center"}>
+            <ShadowBox className={"w-[795px] mt-[101px] flex flex-col items-center justify-center py-12"}>
                 <Header>Welcome to Your Wisdom Collection!</Header>
                 <Paragraph className={"text-center text-base mt-6"}>
                     Immortalize your wisdom by empowering your personal Avatar. 

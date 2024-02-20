@@ -277,7 +277,7 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
 
                         </div>
                     </div>
-                    <div className="flex space-x-2 mt-8">
+                    <div className="flex space-x-2">
                         <Button variant="outlined" onClick={props.onBackButtonClick}>Back</Button>
                         <Button onClick={handleSave} isPending={isPending}>Save</Button>
                     </div>
