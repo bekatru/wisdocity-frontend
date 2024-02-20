@@ -8,7 +8,9 @@ import classNames from 'classnames';
 import { ShadowBox, Popselect } from 'components';
 import { useState } from 'react';
 import { Collection, Media } from 'modules/expert';
-import interfaceSliderImg from './assets/interfaceSlider.svg'
+import interfaceSliderImg from './assets/interfaceSlider.svg';
+import deleteContentImg from './assets/deleteContent.svg';
+import editContentImg from './assets/editContent.svg';
 
 const FileTypeToIconMap: { [key: string]: string } = {
     "text/plain": TxtIcon,
@@ -20,9 +22,6 @@ const FileTypeToIconMap: { [key: string]: string } = {
 
 
 const PAGINATION_LIMIT = 10;
-
-
-const SORT_OPTIONS = [{ id: 1, value: "Name" }, { id: 2, value: "Date" }, { id: 3, value: "Type" }, { id: 4, value: "Status" }]
 
 interface FilesTableProps {
     files: Media[];
@@ -133,8 +132,8 @@ export function WisdomTable(props: FilesTableProps) {
                                                     </td>
                                                 }
                                                 options={[
-                                                    {icon: <PencilIcon className={"w-5 h-5"}/>, text: 'Edit content', onClick: onItemTableEdit},
-                                                    {icon: <TrashIcon className={"w-5 h-5"}/>, text: 'Delete content', onClick: onItemTableRemove},
+                                                    {icon: <img src={editContentImg} className={"w-5 h-5"}/>, text: 'Edit content', onClick: onItemTableEdit},
+                                                    {icon: <img src={deleteContentImg} className={"w-5 h-5"}/>, text: 'Delete content', onClick: onItemTableRemove},
                                                 ]}
                                             />
 
