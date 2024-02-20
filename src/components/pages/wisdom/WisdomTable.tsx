@@ -1,8 +1,8 @@
 import { EllipsisVerticalIcon, PlusIcon } from '@heroicons/react/16/solid';
 import { ArrowLongLeftIcon, ArrowLongRightIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import classNames from 'classnames';
-import { ShadowBox, Popselect, Modal, Button } from 'components';
-import { useState } from 'react';
+import { ShadowBox, Popselect, Modal, Button, Checkbox } from 'components';
+import { useEffect, useState } from 'react';
 import { Collection, Media } from 'modules/expert';
 import interfaceSliderImg from './assets/interfaceSlider.svg';
 import deleteContentImg from 'assets/deleteContent.svg';
@@ -42,8 +42,16 @@ export function WisdomTable(props: FilesTableProps) {
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const onDeleteFile = (file: Media) => {
         console.log('delete file', file);
-        
     }
+
+    const [selectedFiles, setSelectedFiles] = useState<Media[]>([]);
+    const onSelectMedia = (file: Media) => {
+        setSelectedFiles(prev => ([...prev, file]))
+    };
+    useEffect(() => {
+        console.log(selectedFiles);
+        
+    }, [selectedFiles])
     return (
         <ShadowBox className={"pb-0"}>
             <div>
@@ -73,6 +81,7 @@ export function WisdomTable(props: FilesTableProps) {
                             <table className="min-w-full divide-y divide-gray-300">
                                 <thead>
                                     <tr>
+                                        <th scope="col"><Checkbox/></th>
                                         <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900">Name</th>
                                         <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Date</th>
                                         <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Type</th>
@@ -89,7 +98,7 @@ export function WisdomTable(props: FilesTableProps) {
                                     {props.files.slice((currentPage - 1) * PAGINATION_LIMIT, (currentPage - 1) * PAGINATION_LIMIT + PAGINATION_LIMIT).map((file, index) => (
 
                                         <tr className={classNames({ "bg-purple-100": index % 2 !== 0 })} key={file.id + index}>
-
+                                            <td className="text-right"><Checkbox onChange={() => onSelectMedia(file)}/></td>
                                             <td className="whitespace-nowrap py-3 pl-4 pr-3 text-sm">
                                                 <div className="flex items-center">
                                                     <img className="h-6 w-6 mr-2" src={getIconByMime(file.contentType)} alt={file.contentType} />
