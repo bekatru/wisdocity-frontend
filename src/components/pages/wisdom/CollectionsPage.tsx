@@ -4,7 +4,8 @@ import { useProfile } from "modules/auth";
 import { Collection, useCollections } from "modules/expert";
 import { MouseEvent, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { PencilIcon, TrashIcon } from '@heroicons/react/20/solid';
+import deleteContentImg from 'assets/deleteContent.svg';
+import editContentImg from 'assets/editContent.svg';
 import { EditCollectionPage } from "./EditCollectionPage";
 
 const SORT_OPTIONS = [{ id: 1, value: "Name" }, { id: 2, value: "Date" }, { id: 3, value: "Type" }, { id: 4, value: "Status" }];
@@ -103,8 +104,8 @@ function CollectionCard (collection: Collection) {
                     <EllipsisVerticalIcon className="h-5" />
                 }
                 options={[
-                    {icon: <PencilIcon className={"w-5 h-5"}/>, text: 'Edit collection', onClick: onItemTableEdit},
-                    {icon: <TrashIcon className={"w-5 h-5"}/>, text: 'Delete collection', onClick: onItemTableRemove},
+                    {icon: <img src={editContentImg} className={"w-5 h-5"}/>, text: 'Edit collection', onClick: onItemTableEdit},
+                    {icon: <img src={deleteContentImg} className={"w-5 h-5"}/>, text: 'Delete collection', onClick: onItemTableRemove},
                 ]}
             />
             

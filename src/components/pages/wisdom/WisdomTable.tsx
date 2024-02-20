@@ -1,6 +1,3 @@
-import DocIcon from 'assets/png/doc.png';
-import TxtIcon from 'assets/png/txt.png';
-import PdfIcon from 'assets/png/pdf.png';
 import { EllipsisVerticalIcon, PlusIcon } from '@heroicons/react/16/solid';
 import { ArrowLongLeftIcon, ArrowLongRightIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import classNames from 'classnames';
@@ -8,16 +5,10 @@ import { ShadowBox, Popselect, Modal, Button } from 'components';
 import { useState } from 'react';
 import { Collection, Media } from 'modules/expert';
 import interfaceSliderImg from './assets/interfaceSlider.svg';
-import deleteContentImg from './assets/deleteContent.svg';
-import editContentImg from './assets/editContent.svg';
+import deleteContentImg from 'assets/deleteContent.svg';
+import editContentImg from 'assets/editContent.svg';
+import { getIconByMime } from 'components/helpers/getIconByMime';
 
-const FileTypeToIconMap: { [key: string]: string } = {
-    "text/plain": TxtIcon,
-    "application/msword": DocIcon,
-    "application/vnd.openxmlformats-officedocument.wordprocessingml.document": DocIcon,
-    "application/pdf": PdfIcon,
-
-}
 
 
 const PAGINATION_LIMIT = 10;
@@ -101,7 +92,7 @@ export function WisdomTable(props: FilesTableProps) {
 
                                             <td className="whitespace-nowrap py-3 pl-4 pr-3 text-sm">
                                                 <div className="flex items-center">
-                                                    <img className="h-6 w-6 mr-2" src={FileTypeToIconMap[file.contentType]} alt={file.contentType} />
+                                                    <img className="h-6 w-6 mr-2" src={getIconByMime(file.contentType)} alt={file.contentType} />
                                                     <span className="text-nowrap overflow-hidden text-ellipsis text-sm">{file.fileName}</span>
                                                 </div>
                                             </td>

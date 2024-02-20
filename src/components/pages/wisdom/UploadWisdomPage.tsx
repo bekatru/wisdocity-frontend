@@ -3,29 +3,18 @@ import { toast } from "react-toastify";
 import { FileUploader } from "react-drag-drop-files";
 import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
 import { classNames, Button, CenteredContainer, Header, Input, Label, Paragraph, ShadowBox, MultiSelect, MultiSelectOption, Modal, CreateCollectionPage } from "components";
-import DocIcon from 'assets/png/doc.png';
-import TxtIcon from 'assets/png/txt.png';
-import PdfIcon from 'assets/png/pdf.png';
+
 import UrlIcon from 'assets/png/url.png';
-import Record from 'assets/png/record.png';
 import { XMarkIcon } from "@heroicons/react/16/solid";
 import { useParams } from "react-router-dom";
 import { CreateCollectionResponse, useCollections, useUploadFiles } from "modules/expert";
 import { useProfile } from "modules/auth";
 import UploadWisdomRecordAudio from "./UploadWisdomRecordAudio";
+import { getIconByMime } from "components/helpers/getIconByMime";
 
 const FILE_TYPES = ['pdf', 'doc', 'docx', 'txt', 'mp3', 'wav', 'flac', 'mp4'];
 const FILE_MAX_SIZE_IN_MB = 10;
 
-function getFileIcon(type: string) {
-    switch (type) {
-        case "text/plain": return TxtIcon;
-        case "application/msword": return DocIcon;
-        case "application/vnd.openxmlformats-officedocument.wordprocessingml.document": return DocIcon;
-        case "application/pdf": return PdfIcon;
-        default: return Record;
-    }
-}
 interface ILinks {
     [link: string]: {
         value: string,
@@ -252,7 +241,7 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
                             {
                                 files.map((file, index) => (
                                     <div className="pl-2 pr-6 py-3 h-12 shadow-md flex items-center relative rounded" key={file.name + index}>
-                                        <img className="h-6 w-6 mr-2" src={getFileIcon(file.type)} alt={file.type} />
+                                        <img className="h-6 w-6 mr-2" src={getIconByMime(file.type)} alt={file.type} />
                                         <span className="text-nowrap overflow-hidden text-ellipsis text-sm">{file.name}</span>
                                         <XMarkIcon onClick={() => handleDeleteFile(index)} className="h-4 w-4 text-gray-500 absolute top-1 right-1 cursor-pointer" />
                                     </div>
@@ -261,7 +250,7 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
                             {
                                 audioFiles.map((file, index) => (
                                     <div className="pl-2 pr-6 py-3 h-12 shadow-md flex items-center relative rounded" key={file.name + index}>
-                                        <img className="h-6 w-6 mr-2" src={getFileIcon(file.type)} alt={file.type} />
+                                        <img className="h-6 w-6 mr-2" src={getIconByMime(file.type)} alt={file.type} />
                                         <span className="text-nowrap overflow-hidden text-ellipsis text-sm">{file.name}</span>
                                         <XMarkIcon onClick={() => handleDeleteAudioFile(index)} className="h-4 w-4 text-gray-500 absolute top-1 right-1 cursor-pointer" />
                                     </div>
