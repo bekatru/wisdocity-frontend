@@ -26,8 +26,9 @@ export function ProfileContactEditModal(props: ProfileContactEditModalProps) {
 
   const { mutate: editProfileContact, isPending } = useEditProfileContact({
     onSuccess: () => {
-      toast.success("Profile updated successfully!");
+      toast.success("Profile contact updated successfully!");
       props.onProfileUpdate(contactNumber, email, address);
+      closeModal();
     },
     onError: (error) => {
       console.log(error.response?.data.message);
