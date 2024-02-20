@@ -62,7 +62,7 @@ export function MultiSelect({styled = true, ...props}: MultiSelectProps) {
                                 >
                                     {({ selected, active }) => (
                                         <>
-                                            <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'block truncate')}>
+                                            <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'block truncate min-w-fit')}>
                                                 {option.value}
                                             </span>
 

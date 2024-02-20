@@ -20,6 +20,8 @@ export function Button({ fullWidth = true, variant = "primary", isPending, child
                 fullWidth && "w-full",
                 variantToStyleMap[variant],
                 "flex items-center justify-center rounded-2xl px-3 py-1.5 text-sm font-semibold leading-6 text-nowrap",
+                (disabled && variant === 'outlined') && "ring-slate-500 text-slate-600 hover:bg-inherit",
+                (disabled && variant === 'primary') && "bg-[#E5E5E5] text-[#969696]",
                 className,
             )}
             {...props}

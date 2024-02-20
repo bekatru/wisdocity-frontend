@@ -25,7 +25,7 @@ export function Collection() {
     return (
         <div className="space-y-6">
             <div className="text-lg font-bold px-2">{currentCollection?.name}</div>
-            <WisdomTable files={filteredFiles} collections={collections.data ?? []} onAddFileClick={() => setIsModalOpen(true)}/>   
+            <WisdomTable isShowCollection={!collectionId} files={filteredFiles} collections={collections.data ?? []} onAddFileClick={() => setIsModalOpen(true)}/>   
             <Modal
                 isOpen={isModalOpen}
                 closeModal={() => setIsModalOpen(false)}>

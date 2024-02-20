@@ -1,5 +1,5 @@
 
-import { Button, CreateCollectionPage, Header, Modal, Paragraph, UploadWisdomPage } from "components";
+import { Button, Header, Modal, Paragraph, ShadowBox, UploadWisdomPage } from "components";
 import { useState } from "react";
 
 interface WisdomFTUEProps {
@@ -7,41 +7,35 @@ interface WisdomFTUEProps {
 }
 
 export function WisdomFTUE(props: WisdomFTUEProps) {
-    const [isModalOpen, setIsModalOpen ] = useState<string | null>();
+    const [isModalOpen, setIsModalOpen ] = useState<boolean>(false);
 
-    const openUploadWisdomModal = () => setIsModalOpen("wisdom");
+    const openUploadWisdomModal = () => setIsModalOpen(true);
 
-    const openCreateCollectionModal = () => setIsModalOpen("collection");
-
-    const closeModal = () => setIsModalOpen(null);
+    const closeModal = () => setIsModalOpen(false);
 
     return (
-        <div className="w-full flex flex-col ad justify-center items-center text-center max-w-lg mx-auto space-y-6">
-            <Header>Here is your Wisdom Collection</Header>
-            <Paragraph>
-                This is where you can upload your wisdom and combine them into collections.<br/>
-                You don't haven't uploaded anything yet. Upload your wisdom or create a new collection first.
-            </Paragraph>
-            <div className="w-full flex space-x-6 mt-8 justify-between px-16">
-            <Modal
-                isOpen={isModalOpen === 'wisdom'}
-                closeModal={() => setIsModalOpen(null)}
-                button={ <Button onClick={openUploadWisdomModal}>+ Upload</Button>}>
-                <UploadWisdomPage
-                onSubmitSuccess={props.refetchFiles}
-                    onBackButtonClick={closeModal}/>
-            </Modal>
-            <Modal
-                isOpen={isModalOpen === 'collection'}
-                closeModal={() => setIsModalOpen(null)}
-                button={ 
-                    <Button
-                        onClick={openCreateCollectionModal} 
-                        variant="outlined">Create Collection</Button> }>
-                <CreateCollectionPage
-                    onBackButtonClick={closeModal}/>
-            </Modal>               
-            </div>
+        <div className={"w-full h-full flex justify-center items-center"}>
+            <ShadowBox className={"w-[795px] mt-[101px] flex flex-col items-center justify-center py-12"}>
+                <Header>Welcome to Your Wisdom Collection!</Header>
+                <Paragraph className={"text-center text-base mt-6"}>
+                    Immortalize your wisdom by empowering your personal Avatar. 
+                    Begin by uploading your knowledge and insights, organizing them into meaningful collections. 
+                    Your Avatar will then learn from your wisdom and engage with learners on your behalf.
+                </Paragraph>
+                <Paragraph className={"text-base text-center mt-4"}>
+                The journey begins now! Let's ignite curiosity and foster learning together.
+                </Paragraph>
+                <Modal
+                    isOpen={isModalOpen}
+                    closeModal={() => setIsModalOpen(false)}
+                    button={<Button onClick={openUploadWisdomModal} className={"w-[293px] mt-11"}>Upload Wisdom Content</Button>}
+                >
+                    <UploadWisdomPage
+                        onSubmitSuccess={props.refetchFiles}
+                        onBackButtonClick={closeModal}
+                    />
+                </Modal>
+            </ShadowBox>
         </div>
     )
 }

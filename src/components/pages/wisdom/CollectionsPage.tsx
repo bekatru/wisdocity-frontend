@@ -1,9 +1,12 @@
 import { EllipsisVerticalIcon, MagnifyingGlassIcon, PlusIcon, StarIcon } from "@heroicons/react/24/outline";
-import { Button, CreateCollectionPage, Modal, MultiSelect, MultiSelectOption, ShadowBox } from "components";
+import { Button, CreateCollectionPage, Modal, MultiSelect, MultiSelectOption, Popselect, ShadowBox } from "components";
 import { useProfile } from "modules/auth";
 import { Collection, useCollections } from "modules/expert";
-import { useMemo, useState } from "react";
+import { MouseEvent, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import deleteContentImg from 'assets/svg/deleteContent.svg';
+import editContentImg from 'assets/svg/editContent.svg';
+import { EditCollectionPage } from "./EditCollectionPage";
 
 const SORT_OPTIONS = [{ id: 1, value: "Name" }, { id: 2, value: "Date" }, { id: 3, value: "Type" }, { id: 4, value: "Status" }];
 
@@ -46,9 +49,6 @@ export function CollectionsPage() {
                         <PlusIcon className="h-5" />
                         <div>Add new collection</div>
                     </Button>
-                    <Button variant="outlined">
-                        Chat with collection
-                    </Button>
                 </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
@@ -62,7 +62,7 @@ export function CollectionsPage() {
                 <Modal
                     isOpen={isModalOpen}
                     closeModal={() => setIsModalOpen(false)}>
-                        <CreateCollectionPage onSubmitSuccess={collections.refetch} onBackButtonClick={() => setIsModalOpen(false)}/>
+                        <CreateCollectionPage onSubmitSuccess={() => collections.refetch()} onBackButtonClick={() => setIsModalOpen(false)}/>
 
                 </Modal>
 
@@ -71,6 +71,26 @@ export function CollectionsPage() {
 }
 function CollectionCard (collection: Collection) {
     const navigate = useNavigate();
+
+    const onItemTableEdit = (e: MouseEvent<HTMLDivElement>) => {
+        e.stopPropagation();
+        setIsEditModalOpen(true)
+    }
+    const onItemTableRemove = (e: MouseEvent<HTMLDivElement>) => {
+        e.stopPropagation();
+        setIsDeleteModalOpen(true)
+    }
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const onDeleteCollection = (collection: Collection) => {
+        console.log('delete collection', collection);
+    }
+    const onCloseModalEdit = () => {
+        setIsEditModalOpen(false)
+    } 
+    const onCloseModalDelete = () => {
+        setIsDeleteModalOpen(false)
+    } 
     return (
         <ShadowBox key={collection.id}>
         <div onClick={() => navigate(collection.id)} className="space-y-4 cursor-pointer">
@@ -79,7 +99,16 @@ function CollectionCard (collection: Collection) {
                 {collection.name}
             </div>
             <StarIcon className="h-6 mr-2" />
-            <EllipsisVerticalIcon className="h-5" />
+            <Popselect
+                button={
+                    <EllipsisVerticalIcon className="h-5" />
+                }
+                options={[
+                    {icon: <img src={editContentImg} className={"w-5 h-5"}/>, text: 'Edit collection', onClick: onItemTableEdit},
+                    {icon: <img src={deleteContentImg} className={"w-5 h-5"}/>, text: 'Delete collection', onClick: onItemTableRemove},
+                ]}
+            />
+            
         </div>
         <div className="flex flex-wrap items-center w-full text-gray-900 sm:text-sm sm:leading-6">
             {
@@ -91,6 +120,18 @@ function CollectionCard (collection: Collection) {
             }
         </div>
         </div>
+        <Modal isOpen={isDeleteModalOpen} closeModal={onCloseModalDelete}>
+            <ShadowBox className={"px-16"}>
+                <p className={"text-center text-lg mb-6"}>Are you sure you want to delete the collection {collection.name}? All the files will be moved to "Default Collection"</p>
+                <div className={"flex gap-4"}>
+                    <Button onClick={() => setIsDeleteModalOpen(false)} variant={'outlined'}>No</Button>
+                    <Button onClick={() => onDeleteCollection(collection)} variant={'primary'}>Yes</Button>
+                </div>
+            </ShadowBox>
+        </Modal>
+        <Modal isOverflowHidden={false} isOpen={isEditModalOpen} closeModal={onCloseModalEdit}>
+            <EditCollectionPage/>
+        </Modal>
     </ShadowBox>
     )
 }

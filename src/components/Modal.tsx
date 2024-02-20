@@ -1,4 +1,5 @@
 import { Dialog, Transition } from '@headlessui/react'
+import classNames from 'classnames';
 import { Fragment, PropsWithChildren, ReactNode, memo } from 'react'
 
 
@@ -6,9 +7,11 @@ export interface ModalProps extends PropsWithChildren {
     button?: ReactNode;
     isOpen: boolean;
     closeModal: () => void;
+    isOverflowHidden?: boolean,
 }
 
 export const Modal = memo((props: ModalProps) => {
+    const {isOverflowHidden=true} = props;
     return (
         <>
             {props.button}
@@ -38,7 +41,7 @@ export const Modal = memo((props: ModalProps) => {
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <Dialog.Panel className="w-full max-w-md transform overflow-hidden align-middle transition-all">
+                                <Dialog.Panel className={classNames("w-full max-w-md transform align-middle transition-all", isOverflowHidden && 'overflow-hidden')}>
                                     {props.children}
                                 </Dialog.Panel>
                             </Transition.Child>
