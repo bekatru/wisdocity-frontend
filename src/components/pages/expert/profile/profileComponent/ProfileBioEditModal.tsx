@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Label, Button } from "components";
 import EditIcon from "../../../../../assets/profile/icon-edit.svg";
 import { useEditProfileBio } from "modules/expert";
@@ -6,14 +6,13 @@ import { toast } from "react-toastify";
 
 interface ProfileBioEditModalProps {
   bio: string;
+  username: string;
   expertId: number;
   onProfileBioUpdate: (newBio: string) => void;
 }
 export function ProfileBioEditModal(props: ProfileBioEditModalProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [bio, setBio] = useState<string>(props.bio);
-  console.log("bio modal", bio);
-
   const [expertId] = useState<number>(props.expertId);
 
   const { mutate: editProfileBio, isPending } = useEditProfileBio({

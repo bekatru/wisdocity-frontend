@@ -36,6 +36,7 @@ export default function ProfileBio(props: ProfileBioProps) {
             <ProfileBioEditModal
               bio={props.bio}
               expertId={props.expertId}
+              username={props.username}
               onProfileBioUpdate={handleProfileBioUpdate}
             />
 
