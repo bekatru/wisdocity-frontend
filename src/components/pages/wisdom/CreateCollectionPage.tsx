@@ -32,16 +32,16 @@ export function CreateCollectionPage(props: CreateCollectionPageProps) {
 
     return (
         <CenteredContainer>
-            <div className="w-[500px]">
+            <div className="w-[415px]">
                 <ShadowBox>
-                    <Header>Create wisdom collection</Header>
+                    <Header>Create new collection</Header>
                     <div className="space-y-6 mt-6">
                         <div className="space-y-1">
-                            <Paragraph>Add collection name</Paragraph>
+                            <p>Name your collection</p>
                             <Input value={collectionName} onChange={(e) => setCollectionName(e.target.value)}/>
                         </div>
                         <div className="space-y-1">
-                            <Paragraph>Add tags</Paragraph>
+                            <p>Add custom tags</p>
                             <TagCreator value={tags} onChange={setTags} />
                         </div>
                     </div>
@@ -98,7 +98,7 @@ function TagCreator(props: TagCreatorProps) {
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value.toLowerCase())}
                 onKeyDown={(e) => e.key === "Enter" && handleAddTag()}
-                placeholder="Add tag"
+                placeholder="Use commas between words to add list of tags"
                 className="w-full block border-0 p-0 m-[3px] text-gray-900 placeholder:text-gray-400 sm:text-sm sm:leading-6 ring-0 focus:ring-0"
             />
         </div>
