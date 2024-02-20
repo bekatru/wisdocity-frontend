@@ -1,3 +1,5 @@
+import { ExpertProfileResponse } from "modules/expert";
+
 export interface Media {
     id: number;
     fileName: string;
@@ -17,7 +19,9 @@ export interface CreateCollectionPayload {
     tags: string[];
 }
 
-export interface CreateCollectionResponse { }
+export interface CreateCollectionResponse extends Collection {
+    expert: ExpertProfileResponse,
+}
 
 export interface UploadFilesPayload {
     collectionId: string;
