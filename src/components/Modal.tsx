@@ -41,7 +41,7 @@ export const Modal = memo((props: ModalProps) => {
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <Dialog.Panel className={classNames("w-full max-w-md transformalign-middle transition-all", isOverflowHidden && 'overflow-hidden')}>
+                                <Dialog.Panel className={classNames("w-full max-w-md transform align-middle transition-all", isOverflowHidden && 'overflow-hidden')}>
                                     {props.children}
                                 </Dialog.Panel>
                             </Transition.Child>
