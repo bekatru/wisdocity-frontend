@@ -1,39 +1,32 @@
-import DocIcon from 'assets/png/doc.png';
-import TxtIcon from 'assets/png/txt.png';
-import PdfIcon from 'assets/png/pdf.png';
 import { EllipsisVerticalIcon, PlusIcon } from '@heroicons/react/16/solid';
 import { ArrowLongLeftIcon, ArrowLongRightIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import classNames from 'classnames';
-import { MultiSelect, MultiSelectOption, ShadowBox } from 'components';
-import { useState } from 'react';
+import { ShadowBox, Popselect, Modal, Button, Checkbox } from 'components';
+import { ChangeEvent, useState } from 'react';
 import { Collection, Media } from 'modules/expert';
+import interfaceSliderImg from './assets/interfaceSlider.svg';
+import deleteContentImg from 'assets/svg/deleteContent.svg';
+import editContentImg from 'assets/svg/editContent.svg';
+import starIcon from 'assets/svg/starIcon.svg';
+import stackItemIcon from 'assets/svg/stackItemsIcon.svg';
+import viewEyeIcon from 'assets/svg/viewEyeIcon.svg';
+import { getIconByMime } from 'components/helpers/getIconByMime';
+import { TOpenModalTypeSelectedFiles, WisdomTableSelectedFilesPopselect } from './WisdomTableSelectedFilesPopselect';
 
-const FileTypeToIconMap: { [key: string]: string } = {
-    "text/plain": TxtIcon,
-    "application/msword": DocIcon,
-    "application/vnd.openxmlformats-officedocument.wordprocessingml.document": DocIcon,
-    "application/pdf": PdfIcon,
-
-}
 
 
 const PAGINATION_LIMIT = 10;
-
-
-
-
-
-const SORT_OPTIONS = [{ id: 1, value: "Name" }, { id: 2, value: "Date" }, { id: 3, value: "Type" }, { id: 4, value: "Status" }]
 
 interface FilesTableProps {
     files: Media[];
     collections: Collection[];
     onAddFileClick: () => void;
+    isShowCollection?: boolean,
 }
 
 export function WisdomTable(props: FilesTableProps) {
+    const {isShowCollection=true} = props;
 
-    const [sortOption, setSortOption] = useState<MultiSelectOption>(SORT_OPTIONS[0]);
     const [currentPage, setCurrentPage] = useState(1);
 
     const goToPreviousPage = () => setCurrentPage(currentPage - 1);
@@ -42,12 +35,58 @@ export function WisdomTable(props: FilesTableProps) {
     const numberOfPages = Math.ceil(props.files.length ? props.files.length / PAGINATION_LIMIT : 0);
     const pages = [...Array(numberOfPages).keys()].map(key => key + 1);
 
+    const onItemTableEdit = () => {
+        setIsEditModalOpen(true)
+    }
+    const onItemTableRemove = () => {
+        setIsDeleteModalOpen(true)
+    }
+
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const onDeleteFile = (file: Media) => {
+        console.log('delete file', file);
+    }
+
+    const [selectedFiles, setSelectedFiles] = useState<{[id: string]: Media}>({});
+    const onSelectFile = (file: Media, e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.checked){
+            setSelectedFiles(prev => ({
+                ...prev,
+                [file.id]: file
+            }))
+        }else {
+            const selecetedFilesCopy = {...selectedFiles};
+            delete selecetedFilesCopy[file.id]
+            setSelectedFiles(selecetedFilesCopy)
+        }
+    };
+    const onSelectAllFiles = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.checked){
+            const selectedFilesResult: {[id: string]: Media} = {};
+            props.files.forEach((file) => {
+                selectedFilesResult[file.id] = file;
+            })            
+            setSelectedFiles(selectedFilesResult)
+        }else {
+            setSelectedFiles({})
+        }
+    }
+    const [openSelectedFilesType, setOpenSelectedFilesType] = useState<TOpenModalTypeSelectedFiles>(null);
+
+    const onCloseSelectedFiles = () => {
+        setOpenSelectedFilesType(null)
+    }
+
+    const onDeleteSelectedFiles = () => {
+        console.log('delete');
+        
+    }
     return (
-        <ShadowBox>
+        <ShadowBox className={"pb-0"}>
             <div>
                 <div className="sm:flex sm:items-center">
-
-                    <div className="relative flex border h-9 w-[300px] p-2 rounded-md mr-4">
+                    <div className="relative flex border h-9 w-[300px] p-2 rounded-md mr-4 items-center">
                         <MagnifyingGlassIcon
                             className="pointer-events-none absolute inset-y-0 left-2 h-full w-5 text-gray-400"
                             aria-hidden="true"
@@ -59,11 +98,10 @@ export function WisdomTable(props: FilesTableProps) {
                             type="search"
                             name="search"
                         />
+                        <img className={"pointer-events-none absolute right-2"} width={24} height={24} src={interfaceSliderImg} alt={'interface slider'}/>
                     </div>
-                    <MultiSelect placeholder="Sort by" value={sortOption} options={SORT_OPTIONS} onChange={setSortOption} />
                     <div className="flex items-center space-x-3 ml-auto">
                         <PlusIcon onClick={props.onAddFileClick} className="h-5 w-5 text-gray-500 cursor-pointer" />
-                    <EllipsisVerticalIcon className="h-5 w-5 text-gray-500 cursor-pointer" />
                     </div>
                 </div>
                 <div className="mt-2 flow-root">
@@ -72,11 +110,34 @@ export function WisdomTable(props: FilesTableProps) {
                             <table className="min-w-full divide-y divide-gray-300">
                                 <thead>
                                     <tr>
+                                        <th scope="col" className={"flex items-end py-3.5 pl-1"}>
+                                            <Popselect
+                                                button={
+                                                    <EllipsisVerticalIcon className="h-4 w-4 text-black mr-2" />
+                                                }
+                                                options={[
+                                                    {icon: <img src={viewEyeIcon} className={"w-5 h-5"}/>, text: 'View ', onClick: () => setOpenSelectedFilesType('view')},
+                                                    {icon: <img src={starIcon} className={"w-5 h-5"}/>, text: 'Move to Collection', onClick: () => setOpenSelectedFilesType('collection')},
+                                                    {icon: <img src={stackItemIcon} className={"w-5 h-5"}/>, text: 'Archive', onClick: () => setOpenSelectedFilesType('archive')},
+                                                    {icon: <img src={deleteContentImg} className={"w-5 h-5"}/>, text: 'Delete', onClick: () => setOpenSelectedFilesType('delete')},
+                                                ]}
+                                            />
+                                            <WisdomTableSelectedFilesPopselect 
+                                                onDeleteSelectedFiles={onDeleteSelectedFiles}
+                                                openModalType={openSelectedFilesType} 
+                                                closeModal={onCloseSelectedFiles}
+                                            />
+                                            <Checkbox checked={Object.values(selectedFiles).length === props.files.length} onChange={onSelectAllFiles}/>
+                                        </th>
                                         <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900">Name</th>
                                         <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Date</th>
                                         <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Type</th>
                                         <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Status</th>
-                                        <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Collection</th>
+                                        {
+                                            isShowCollection
+                                            &&
+                                            <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Collection</th>
+                                        }
                                         <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-0"><span className="sr-only">Edit</span></th>
                                     </tr>
                                 </thead>
@@ -84,10 +145,10 @@ export function WisdomTable(props: FilesTableProps) {
                                     {props.files.slice((currentPage - 1) * PAGINATION_LIMIT, (currentPage - 1) * PAGINATION_LIMIT + PAGINATION_LIMIT).map((file, index) => (
 
                                         <tr className={classNames({ "bg-purple-100": index % 2 !== 0 })} key={file.id + index}>
-
+                                            <td className="text-right pr-4"><Checkbox checked={Boolean(selectedFiles[file.id])} onChange={(e) => onSelectFile(file, e)}/></td>
                                             <td className="whitespace-nowrap py-3 pl-4 pr-3 text-sm">
                                                 <div className="flex items-center">
-                                                    <img className="h-6 w-6 mr-2" src={FileTypeToIconMap[file.contentType]} alt={file.contentType} />
+                                                    <img className="h-6 w-6 mr-2" src={getIconByMime(file.contentType)} alt={file.contentType} />
                                                     <span className="text-nowrap overflow-hidden text-ellipsis text-sm">{file.fileName}</span>
                                                 </div>
                                             </td>
@@ -105,17 +166,41 @@ export function WisdomTable(props: FilesTableProps) {
                                                     Active
                                                 </span>
                                             </td>
+                                            {
+                                                isShowCollection
+                                                &&
+                                                <td className="whitespace-nowrap px-3 py-3 text-sm text-gray-500">
+                                                    {props.collections.find((collection) => file.key.includes(collection.id))?.name}
+                                                </td>
+                                            }
 
-                                            <td className="whitespace-nowrap px-3 py-3 text-sm text-gray-500">
-                                                {props.collections.find((collection) => file.key.includes(collection.id))?.name}
-                                            </td>
-
-                                            <td className="relative whitespace-nowrap py-3 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                                                <a  className="text-purple-600 hover:text-purple-900">
-                                                    <EllipsisVerticalIcon className="h-4 w-4 text-gray-500" />
-                                                </a>
-                                            </td>
-
+                                            <Popselect
+                                                button={
+                                                    <td className="relative whitespace-nowrap py-3 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                                                        <a className="text-purple-600 hover:text-purple-900">
+                                                            <EllipsisVerticalIcon className="h-4 w-4 text-gray-500" />
+                                                        </a>
+                                                    </td>
+                                                }
+                                                options={[
+                                                    {icon: <img src={editContentImg} className={"w-5 h-5"}/>, text: 'Edit content', onClick: onItemTableEdit},
+                                                    {icon: <img src={deleteContentImg} className={"w-5 h-5"}/>, text: 'Delete content', onClick: onItemTableRemove},
+                                                ]}
+                                            />
+                                            <Modal isOpen={isEditModalOpen} closeModal={() => setIsEditModalOpen(false)}>
+                                                <ShadowBox>
+                                                    edit
+                                                </ShadowBox>
+                                            </Modal>
+                                            <Modal isOpen={isDeleteModalOpen} closeModal={() => setIsDeleteModalOpen(false)}>
+                                                <ShadowBox className={"px-16"}>
+                                                    <p className={"text-center text-lg mb-6"}>Are you sure you want to delete the content {file.fileName}?</p>
+                                                    <div className={"flex gap-4"}>
+                                                        <Button onClick={() => setIsDeleteModalOpen(false)} variant={'outlined'}>No</Button>
+                                                        <Button onClick={() => onDeleteFile(file)} variant={'primary'}>Yes</Button>
+                                                    </div>
+                                                </ShadowBox>
+                                            </Modal>
                                         </tr>
                                     ))}
                                 </tbody>
@@ -123,8 +208,8 @@ export function WisdomTable(props: FilesTableProps) {
                         </div>
                     </div>
                 </div>
-                <nav className="flex items-center justify-between border-t border-gray-200 px-4 sm:px-0 mt-4">
-                    <div className="-mt-px flex w-0 flex-1">
+                <nav className="flex items-center justify-center border-t border-gray-200 px-4 sm:px-0 mt-4 gap-6 pb-5">
+                    <div className="-mt-px flex">
                         <a
                             onClick={currentPage > 1 ? goToPreviousPage : undefined}
                             className="inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 cursor-pointer"
@@ -180,7 +265,7 @@ export function WisdomTable(props: FilesTableProps) {
 
 
                     </div>
-                    <div className="-mt-px flex w-0 flex-1 justify-end">
+                    <div className="-mt-px flex">
                         <a
                             onClick={currentPage < numberOfPages ? goToNextPage : undefined}
                             className="inline-flex items-center border-t-2 border-transparent pl-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 cursor-pointer"
