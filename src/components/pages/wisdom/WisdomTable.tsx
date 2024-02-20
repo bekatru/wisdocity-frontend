@@ -69,7 +69,6 @@ export function WisdomTable(props: FilesTableProps) {
                     </div>
                     <div className="flex items-center space-x-3 ml-auto">
                         <PlusIcon onClick={props.onAddFileClick} className="h-5 w-5 text-gray-500 cursor-pointer" />
-                    <EllipsisVerticalIcon className="h-5 w-5 text-gray-500 cursor-pointer" />
                     </div>
                 </div>
                 <div className="mt-2 flow-root">
