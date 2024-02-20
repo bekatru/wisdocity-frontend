@@ -3,15 +3,20 @@ import { AvatarCollection } from "./AvatarCollection";
 import { AvatarSamples } from "./AvatarSamples";
 import { AvatarTestModal } from "./AvatarTestModal";
 import AvatarIcon from "../../../../assets/expert-avatar/ai-avatar.png";
-import useExpertProfile from "modules/expert/profile/hooks/useExpertProfile";
+import { useExpertProfile } from "modules/expert";
 
 export function AvatarCard() {
   const expertProfile = useExpertProfile();
-  
+
   return (
     <>
       <div className="flex-row-reverse -mt-[72px] mb-[100px]">
-      {expertProfile.data && <AvatarTestModal expertId={expertProfile.data.id} username={expertProfile.data.username} />}
+        {expertProfile.data && (
+          <AvatarTestModal
+            expertId={expertProfile.data.id}
+            username={expertProfile.data.username}
+          />
+        )}
       </div>
 
       <div className="w-full card shadow-p bg-white px-6 py-6">

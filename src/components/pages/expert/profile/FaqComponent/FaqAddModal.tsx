@@ -1,17 +1,24 @@
 import { useState } from "react";
 import { Input, Label, Button } from "components";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
-import { useEditProfileBio } from "modules/expert";
+import { useAddFaq } from "modules/expert";
 import { toast } from "react-toastify";
 
-export function FaqAddModal(props) {
+interface AddFaqProps {
+  onAdd: (id: number, newQuestion: string, newAnswer: string) => void;
+}
+export function FaqAddModal(props: AddFaqProps) {
+  // props: AddFaqProps
   const [isOpen, setIsOpen] = useState(false);
-  const [faqTitle, setFaqTitle] = useState("");
-  const [faqContent, setFaqContent] = useState("");
-  const { mutate: editProfileBio, isPending } = useEditProfileBio({
-    onSuccess: () => {
+  const [faqQuestion, setFaqQuestion] = useState<string>("");
+  const [faqAnswer, setFaqAnswer] = useState<string>("");
+  const { mutate: addFaq, isPending } = useAddFaq({
+    onSuccess: (response) => {
       toast.success("Faq Added successfully!");
       closeModal();
+      setFaqQuestion("");
+      setFaqAnswer("");
+      props.onAdd(response.id, response.question, response.answer);
     },
     onError: (error) => {
       console.log(error.response?.data.message);
@@ -31,7 +38,7 @@ export function FaqAddModal(props) {
   });
 
   const handleSubmit = () => {
-    editProfileBio({ title: faqTitle, content: faqContent });
+    addFaq({ question: faqQuestion, answer: faqAnswer });
   };
 
   const openModal = () => {
@@ -46,7 +53,7 @@ export function FaqAddModal(props) {
     <>
       <div className="ms-auto justify-center items-center">
         <button className="text-black flex text-[#321841]" onClick={openModal}>
-          Add Faq
+          {/* Add FAQ */}
           <PlusCircleIcon className="h-6 w-6 text-gray-500 ml-[7px] mt-[3px]" />
         </button>
       </div>
@@ -66,23 +73,23 @@ export function FaqAddModal(props) {
                       <form>
                         <div className="mb-[24px]">
                           <Label className="flex text-[16px] fn fw-sb text-[#321841] mb-[6px]">
-                            Faq Title
+                            Question
                           </Label>
                           <Input
                             type="text"
                             placeholder=""
-                            value={faqTitle}
-                            onChange={(e) => setFaqTitle(e.target.value)}
+                            value={faqQuestion}
+                            onChange={(e) => setFaqQuestion(e.target.value)}
                           />
                         </div>
 
                         <div className="mb-[24px]">
                           <Label className="flex text-[16px] fn fw-sb text-[#321841] mb-[6px]">
-                            Faq Content
+                            Answer
                           </Label>
                           <textarea
-                            value={faqContent}
-                            onChange={(e) => setFaqContent(e.target.value)}
+                            value={faqAnswer}
+                            onChange={(e) => setFaqAnswer(e.target.value)}
                             className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                           ></textarea>
                         </div>

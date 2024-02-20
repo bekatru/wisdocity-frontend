@@ -1,17 +1,28 @@
 import { useState } from "react";
 import { Input, Label, Button } from "components";
 import EditIcon from "../../../../../assets/profile/icon-edit.svg";
-import { useEditProfileBio } from "modules/expert";
+import { useEditFaq } from "modules/expert";
 import { toast } from "react-toastify";
 
-export function FaqEditModal(props) {
+interface FaqEditModalProps {
+  faqQuestion: string;
+  faqAnswer: string;
+  faqId: number;
+  onUpdate: (id: number, newQuestion: string, newAnswer: string) => void;
+}
+
+export function FaqEditModal(props: FaqEditModalProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [faqTitle, setFaqTitle] = useState("");
-  const [faqContent, setFaqContent] = useState("");
-  const { mutate: editProfileBio, isPending } = useEditProfileBio({
-    onSuccess: () => {
+  const [faqQuestion, setFaqQuestion] = useState<string>(props.faqQuestion);
+  const [faqAnswer, setFaqAnswer] = useState<string>(props.faqAnswer);
+  const [faqId] = useState<number>(props.faqId);
+
+  const { mutate: editFaq, isPending } = useEditFaq({
+    onSuccess: (response) => {
+      console.log(response);
       toast.success("Faq updated successfully!");
       closeModal();
+      props.onUpdate(response.id, response.question, response.answer);
     },
     onError: (error) => {
       console.log(error.response?.data.message);
@@ -31,7 +42,7 @@ export function FaqEditModal(props) {
   });
 
   const handleSubmit = () => {
-    editProfileBio({ title: faqTitle, content: faqContent });
+    editFaq({ question: faqQuestion, answer: faqAnswer, id: faqId });
   };
 
   const openModal = () => {
@@ -65,13 +76,13 @@ export function FaqEditModal(props) {
                       <form>
                         <div className="mb-[24px]">
                           <Label className="flex text-[16px] fn fw-sb text-[#321841] mb-[6px]">
-                            Faq Title
+                            Faq Question
                           </Label>
                           <Input
                             type="text"
                             placeholder=""
-                            value={faqTitle}
-                            onChange={(e) => setFaqTitle(e.target.value)}
+                            value={faqQuestion}
+                            onChange={(e) => setFaqQuestion(e.target.value)}
                           />
                         </div>
 
@@ -80,8 +91,8 @@ export function FaqEditModal(props) {
                             Faq Content
                           </Label>
                           <textarea
-                            value={faqContent}
-                            onChange={(e) => setFaqContent(e.target.value)}
+                            value={faqAnswer}
+                            onChange={(e) => setFaqAnswer(e.target.value)}
                             className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                           ></textarea>
                         </div>
