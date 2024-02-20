@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Label, Button } from "components";
 import EditIcon from "../../../../../assets/profile/icon-edit.svg";
 import { useEditProfileBio } from "modules/expert";
