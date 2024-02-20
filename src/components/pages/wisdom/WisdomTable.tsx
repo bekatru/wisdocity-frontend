@@ -5,9 +5,10 @@ import { EllipsisVerticalIcon, PlusIcon } from '@heroicons/react/16/solid';
 import { PencilIcon, TrashIcon } from '@heroicons/react/20/solid';
 import { ArrowLongLeftIcon, ArrowLongRightIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import classNames from 'classnames';
-import { MultiSelect, MultiSelectOption, ShadowBox, Popselect } from 'components';
+import { ShadowBox, Popselect } from 'components';
 import { useState } from 'react';
 import { Collection, Media } from 'modules/expert';
+import interfaceSliderImg from './assets/interfaceSlider.svg'
 
 const FileTypeToIconMap: { [key: string]: string } = {
     "text/plain": TxtIcon,
@@ -33,7 +34,6 @@ interface FilesTableProps {
 export function WisdomTable(props: FilesTableProps) {
     const {isShowCollection=true} = props;
 
-    const [sortOption, setSortOption] = useState<MultiSelectOption>(SORT_OPTIONS[0]);
     const [currentPage, setCurrentPage] = useState(1);
 
     const goToPreviousPage = () => setCurrentPage(currentPage - 1);
@@ -54,7 +54,7 @@ export function WisdomTable(props: FilesTableProps) {
             <div>
                 <div className="sm:flex sm:items-center">
 
-                    <div className="relative flex border h-9 w-[300px] p-2 rounded-md mr-4">
+                    <div className="relative flex border h-9 w-[300px] p-2 rounded-md mr-4 items-center">
                         <MagnifyingGlassIcon
                             className="pointer-events-none absolute inset-y-0 left-2 h-full w-5 text-gray-400"
                             aria-hidden="true"
@@ -66,8 +66,8 @@ export function WisdomTable(props: FilesTableProps) {
                             type="search"
                             name="search"
                         />
+                        <img className={"pointer-events-none absolute right-2"} width={24} height={24} src={interfaceSliderImg} alt={'interface slider'}/>
                     </div>
-                    <MultiSelect placeholder="Sort by" value={sortOption} options={SORT_OPTIONS} onChange={setSortOption} />
                     <div className="flex items-center space-x-3 ml-auto">
                         <PlusIcon onClick={props.onAddFileClick} className="h-5 w-5 text-gray-500 cursor-pointer" />
                     <EllipsisVerticalIcon className="h-5 w-5 text-gray-500 cursor-pointer" />
