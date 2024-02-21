@@ -8,16 +8,20 @@ export function SelectRolePage() {
 
     return (
         <AuthPageLayout
-            headerText="Join us as a learner or expert"
+            headerText={<p>
+                Welcome to the “City of Wisdom!”<br/>
+                How would you like to begin your journey?
+            </p>}
             footerText="Already have an account?"
-            footerCtaText="Sign in"
+            footerCtaText="Log in"
             onFooterCtaClick={flow.navigateToSignInPage}>
 
                 <AuthFormLayout
-                    submitButtonText="Create Account"
+                    fullWidthSubmitButton={false}
+                    submitButtonText="Let's get started!"
                     onSubmit={flow.handleSubmit}>
 
-                        <div className="flex justify-evenly flex-col space-y-2 sm:space-y-0 sm:flex-row mb-6">
+                        <div className="px-7 gap-6 flex justify-evenly flex-col space-y-3 sm:space-y-0 sm:flex-row mb-8 mt-10">
 
                             <RoleSelectionElement
                                 role={Roles.Learner}

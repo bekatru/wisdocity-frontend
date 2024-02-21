@@ -15,6 +15,7 @@ export function SignInPage() {
   return (
     <AuthPageLayout
       headerText="Sign in to Wisdocity"
+      secondaryText={"Our vibrant community awaits!"}
       footerText="Not a member?"
       footerCtaText="Sign up"
       onFooterCtaClick={navigateToSignUpPage}>

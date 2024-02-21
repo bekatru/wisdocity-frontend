@@ -4,3 +4,5 @@ export {LabeledCheckbox} from './LabeledCheckbox';
 export * from './MultiSelect';
 export {Select} from './Select';
 export * from './Input';
+export * from './RadioButton'
+export * from './PasswordInput'
