@@ -36,7 +36,7 @@ export function VerificationPage() {
                     </button>
                 </div>
                 <Modal isOpen={helpSectionExpanded} closeModal={toggleHelpSection}>
-                    <VerificationHelp />
+                    <VerificationHelp verificationEmail={flow.verificationEmail}/>
                 </Modal>
             </AuthFormLayout>
         </AuthPageLayout>

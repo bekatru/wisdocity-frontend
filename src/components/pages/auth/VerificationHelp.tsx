@@ -1,19 +1,23 @@
-import { Paragraph, ShadowBox } from "components";
+import { Header, Paragraph, ShadowBox } from "components";
 
-export function VerificationHelp() {
+interface VerificationHelpProps {
+    verificationEmail: string | undefined
+}
+export function VerificationHelp(props: VerificationHelpProps) {
     return (
         <ShadowBox className={`space-y-4 text-center`}>
-            <p className="text-center">Why do we ask for email confirmation?</p>
+            <Header>Email Verification</Header>
+            <p className="text-center font-semibold">How do I verify my email?</p>
             <Paragraph>
-                Email confirmation is an important security check that helps prevent other people from signing up for Wisdocity account using your email address.
+                Click the link that we emailed to <span className={"text-purple-700"}>{props.verificationEmail}</span>. If you're unable to do so, copy the full URL and paste it into a new browser window.
             </Paragraph>
-            <p className="text-center">How do I confirm my email address?</p>
+            <p className="text-center font-semibold">I haven’t received the email verification link.</p>
             <Paragraph>
-                We sent you an email with a link to click on. If you aren't able to click the link, copy the full URL from the email and paste it into a new web browser window.
+                Check your junk mail folder or spam filter in your email account, ensure your email address is entered correctly, or click  the Resend Verification Email link below.
             </Paragraph>
-            <p className="text-center">If you haven't received the confirmation email, please:</p>
+            <p className="text-center font-semibold">Why do you ask for email verification?</p>
             <Paragraph>
-                Check the junk mail folder or spam filter in your email account. Make sure your email address is entered correctly.
+                Email verification is an important security check that helps prevent others from signing up using email address.
             </Paragraph>
         </ShadowBox>
     )

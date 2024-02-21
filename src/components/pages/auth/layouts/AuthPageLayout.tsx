@@ -1,8 +1,9 @@
 import { Header } from "components";
 import { AuthPageFooter } from "./sections";
+import { ReactNode } from "react";
 
 interface AuthPageLayoutProps extends React.PropsWithChildren {
-    headerText: string;
+    headerText: string | ReactNode;
     footerText: string;
     footerCtaText: string;
     onFooterCtaClick: () => void;

@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { FormInput, LabeledCheckbox, Select } from "components";
 import { AuthFormLayout } from "../layouts"
+import { PasswordInput } from "components/ui/inputs/PasswordInput";
 
 interface SignUpLearnerFormProps {
   onSubmit: (data: SignUpFields) => void
@@ -26,6 +27,10 @@ export function RegisterForm(props: SignUpLearnerFormProps) {
   const [password, setPassword] = useState("");
   const [country, setCountry] = useState(countries[0]);
   const [isSendEmailsChecked, setIsSendEmailsChecked] = useState(true);
+
+  const [hidePassword, setHidePassword] = useState(true);
+
+  const onChangeHideTogglePassword = () => setHidePassword(prev => !prev)
 
   const handleSubmit = () => {
     props.onSubmit({
@@ -56,7 +61,9 @@ export function RegisterForm(props: SignUpLearnerFormProps) {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <FormInput
+        <PasswordInput
+          onChangeHideTogglePassword={onChangeHideTogglePassword}
+          hidePassword={hidePassword}
           placeholder="Create password (8 or more characters)"
           label="Password"
           required

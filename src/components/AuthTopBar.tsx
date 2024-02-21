@@ -20,25 +20,32 @@ export function AuthTopBar() {
         <nav
             className={cn(
                 "sticky top-0 bg-white shadow-md px-10 py-4",
-                "flex items-center justify-end space-x-8",
+                "flex items-center justify-between space-x-8",
                 "cursor-pointer"
             )}>
-            <div
-                onClick={() => navigate(Routes.Root)}
-                className="hidden sm:block mr-auto font-semibold text-xl text-[#321841]"
-            >
-                Wisdocity.ai
+            <div onClick={() => navigate(Routes.Root)} className={"flex items-center cursor-pointer"}>
+                <img
+                    alt="logo"
+                    src={Logo}
+                    className="w-9 mr-2"
+                />
+                <div
+                    className="hidden sm:block mr-auto font-semibold text-xl text-[#321841]"
+                >
+                    Wisdocity.ai
+                </div>
             </div>
-            {
-                isAuthenticated && profile.data && <Example username={profile.data.username} role={profile.data.current_role} onSignOut={handleSignOut} />
-            }
-            <Button onClick={() => navigate(Routes.SignIn)} className="px-8" fullWidth={false} variant="outlined">Sign in</Button>
-            <img
-                onClick={() => navigate(Routes.Root)}
-                alt="logo"
-                src={Logo}
-                className="h-9 mr-auto cursor-pointer"
-            />
+            <div className={"flex gap-4"}>
+                
+                <div className={"flex gap-5"}>
+                    <Button onClick={() => navigate(Routes.SignIn)} className="px-11" fullWidth={false} variant="outlined">Sign in</Button>
+                    <Button onClick={() => navigate(Routes.SignUpRole)} className="px-11" fullWidth={false} variant="primary">Sign Up</Button>
+                </div>
+                {
+                    isAuthenticated && profile.data && <Example username={profile.data.username} role={profile.data.current_role} onSignOut={handleSignOut} />
+                }
+            </div>
+            
         </nav>
     )
 }

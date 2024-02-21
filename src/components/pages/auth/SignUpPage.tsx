@@ -4,10 +4,6 @@ import { Roles, useRegisterFlow } from 'modules/auth';
 import { AuthPageLayout } from './layouts';
 import { SignUpLearnerForm } from './forms';
 
-const textMap = {
-  [Roles.Expert]: "Create an expert account",
-  [Roles.Learner]: "Create a learner account",
-}
 
 export function SignUpPage() {
 
@@ -21,9 +17,9 @@ export function SignUpPage() {
 
   return (
     <AuthPageLayout
-      headerText={textMap[params.role as Roles]}
+      headerText={<p className={"font-semibold"}>Begin your journey<br/>by creating an account</p>}
       footerText="Already have an account?"
-      footerCtaText="Sign in"
+      footerCtaText="Log in"
       onFooterCtaClick={navigateToSignInPage}
     >
       <SignUpLearnerForm onSubmit={flow.submitForm} isPending={flow.isPending} />
