@@ -1,7 +1,8 @@
-import { Header, Paragraph, ShadowBox } from "components";
+import { Button, Header, Paragraph, ShadowBox } from "components";
 
 interface VerificationHelpProps {
-    verificationEmail: string | undefined
+    verificationEmail: string | undefined,
+    onResendEmailClick: () => void,
 }
 export function VerificationHelp(props: VerificationHelpProps) {
     return (
@@ -13,12 +14,13 @@ export function VerificationHelp(props: VerificationHelpProps) {
             </Paragraph>
             <p className="text-center font-semibold">I haven’t received the email verification link.</p>
             <Paragraph>
-                Check your junk mail folder or spam filter in your email account, ensure your email address is entered correctly, or click  the Resend Verification Email link below.
+                Check your junk mail folder or spam filter in your email account, ensure your email address is entered correctly, or click the Resend Verification Email link below.
             </Paragraph>
             <p className="text-center font-semibold">Why do you ask for email verification?</p>
             <Paragraph>
                 Email verification is an important security check that helps prevent others from signing up using email address.
             </Paragraph>
+            <Button onClick={props.onResendEmailClick}>Resend verification email</Button>
         </ShadowBox>
     )
 }

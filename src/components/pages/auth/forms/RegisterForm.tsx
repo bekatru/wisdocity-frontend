@@ -43,7 +43,7 @@ export function RegisterForm(props: SignUpLearnerFormProps) {
   }
 
   return (
-    <AuthFormLayout isPending={props.isPending} submitButtonText="Sign up" onSubmit={handleSubmit}>
+    <AuthFormLayout fullWidthSubmitButton={false} isPending={props.isPending} submitButtonText="Sign up" onSubmit={handleSubmit}>
         <FormInput
           placeholder="Jenny Wilson"
           label="Name"
@@ -83,7 +83,7 @@ export function RegisterForm(props: SignUpLearnerFormProps) {
           checked={isSendEmailsChecked}
           onChange={(e) => setIsSendEmailsChecked(e.target.checked)}
         >
-          Send me emails
+          I’d like to stay connected. Send me Emails
         </LabeledCheckbox>
         <LabeledCheckbox
           required

@@ -90,7 +90,7 @@ export function ChangeEmailPage() {
                     I need help verifying my email
                 </p>
                 <Modal isOpen={helpSectionExpanded} closeModal={toggleHelpSection}>
-                    <VerificationHelp verificationEmail={email}/>
+                    <VerificationHelp onResendEmailClick={handleUpdateAndResendButtonClick} verificationEmail={email}/>
                 </Modal>
             </AuthFormLayout>
         </AuthPageLayout>

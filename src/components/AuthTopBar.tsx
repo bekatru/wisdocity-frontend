@@ -38,8 +38,8 @@ export function AuthTopBar() {
             <div className={"flex gap-4"}>
                 
                 <div className={"flex gap-5"}>
-                    <Button onClick={() => navigate(Routes.SignIn)} className="px-11" fullWidth={false} variant="outlined">Sign in</Button>
-                    <Button onClick={() => navigate(Routes.SignUpRole)} className="px-11" fullWidth={false} variant="primary">Sign Up</Button>
+                    <Button onClick={() => navigate(Routes.SignIn)} className="pl-11 pr-11" fullWidth={false} variant="outlined">Sign in</Button>
+                    <Button onClick={() => navigate(Routes.SignUpRole)} className="pl-11 pr-11" fullWidth={false} variant="primary">Sign Up</Button>
                 </div>
                 {
                     isAuthenticated && profile.data && <Example username={profile.data.username} role={profile.data.current_role} onSignOut={handleSignOut} />

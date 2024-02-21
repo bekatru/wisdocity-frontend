@@ -3,13 +3,16 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Routes } from 'modules/routing';
 import { useChangePassword } from 'modules/auth';
-import { FormInput } from 'components';
 import { AuthFormLayout, AuthPageLayout } from './layouts';
+import { PasswordInput } from 'components/ui/inputs/PasswordInput';
 
 
 export function ChangePasswordPage() {
     const [password, setPassword] = useState("");
+    const [hidePassword, setHidePassword] = useState(true);
 
+    const onChangeHideTogglePassword = () => setHidePassword(prev => !prev)
+  
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     const resetPasswordToken = useMemo(() => searchParams.get('token'), [searchParams]);
@@ -39,12 +42,15 @@ export function ChangePasswordPage() {
 
     return (
         <AuthPageLayout headerText="Change password" footerText="Need help?" footerCtaText="Contact us" onFooterCtaClick={() => window.open("mailto:support@wisdocity.ai")}>
-            <AuthFormLayout submitButtonText="Change password" onSubmit={handleSubmit} isPending={isPending}>
+            <AuthFormLayout submitButtonText="Submit" onSubmit={handleSubmit} isPending={isPending}>
                 <p className="text-center text-gray-500">
                     Please enter your new password.
                 </p>
-                <FormInput
+                <PasswordInput
+                    hidePassword={hidePassword}
+                    onChangeHideTogglePassword={onChangeHideTogglePassword}
                     label="New password"
+                    placeholder={"********"}
                     type="password"
                     required
                     autoComplete="password"
