@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { FormInput, LabeledCheckbox, Select } from "components";
+import { FormInput, LabeledCheckbox, Select, PasswordInput } from "components";
 import { AuthFormLayout } from "../layouts"
 
 interface SignUpLearnerFormProps {
@@ -27,6 +27,10 @@ export function RegisterForm(props: SignUpLearnerFormProps) {
   const [country, setCountry] = useState(countries[0]);
   const [isSendEmailsChecked, setIsSendEmailsChecked] = useState(true);
 
+  const [hidePassword, setHidePassword] = useState(true);
+
+  const onChangeHideTogglePassword = () => setHidePassword(prev => !prev)
+
   const handleSubmit = () => {
     props.onSubmit({
       name,
@@ -38,7 +42,7 @@ export function RegisterForm(props: SignUpLearnerFormProps) {
   }
 
   return (
-    <AuthFormLayout isPending={props.isPending} submitButtonText="Sign up" onSubmit={handleSubmit}>
+    <AuthFormLayout fullWidthSubmitButton={false} isPending={props.isPending} submitButtonText="Sign up" onSubmit={handleSubmit}>
         <FormInput
           placeholder="Jenny Wilson"
           label="Name"
@@ -56,7 +60,9 @@ export function RegisterForm(props: SignUpLearnerFormProps) {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <FormInput
+        <PasswordInput
+          onChangeHideTogglePassword={onChangeHideTogglePassword}
+          hidePassword={hidePassword}
           placeholder="Create password (8 or more characters)"
           label="Password"
           required
@@ -76,7 +82,7 @@ export function RegisterForm(props: SignUpLearnerFormProps) {
           checked={isSendEmailsChecked}
           onChange={(e) => setIsSendEmailsChecked(e.target.checked)}
         >
-          Send me emails
+          I’d like to stay connected. Send me Emails
         </LabeledCheckbox>
         <LabeledCheckbox
           required

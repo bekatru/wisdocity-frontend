@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { Routes } from "modules/routing";
-import { FormInput, LabeledCheckbox } from "components";
+import { FormInput, LabeledCheckbox, PasswordInput } from "components";
 import { AuthFormLayout } from "../layouts";
 import { SignInPayload } from "modules/auth";
 
@@ -16,6 +16,9 @@ export function LoginForm(props: SignInFormProps) {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [hidePassword, setHidePassword] = useState(true);
+
+  const onChangeHideTogglePassword = () => setHidePassword(prev => !prev);
 
   const handleSubmit = () => {
     props.onSubmit({
@@ -25,7 +28,7 @@ export function LoginForm(props: SignInFormProps) {
   }
 
   return (
-    <AuthFormLayout submitButtonText="Sign in" onSubmit={handleSubmit} isPending={props.isPending}>
+    <AuthFormLayout submitButtonText="Log in" onSubmit={handleSubmit} isPending={props.isPending}>
         <FormInput
           placeholder="example@email.com"
           label="Email"
@@ -35,7 +38,9 @@ export function LoginForm(props: SignInFormProps) {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <FormInput
+        <PasswordInput
+          hidePassword={hidePassword}
+          onChangeHideTogglePassword={onChangeHideTogglePassword}
           placeholder="********"
           label="Password"
           required
