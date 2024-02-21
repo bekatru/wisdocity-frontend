@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { Roles } from "modules/auth";
-import { RadioButton } from "components/ui/inputs/RadioButton";
+import { RadioButton } from "components";
 
 interface RoleSelectionElementProps {
     role: Roles;

@@ -12,6 +12,7 @@ export function RadioButton(props: RadioButtonProps){
       readOnly
       checked={props.checked}
       className={classNames("text-purple-700 focus:ring-purple-700", props.className)}
+      {...props}
     />
   )
 }

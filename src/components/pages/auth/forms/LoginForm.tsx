@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { Routes } from "modules/routing";
-import { FormInput, LabeledCheckbox } from "components";
+import { FormInput, LabeledCheckbox, PasswordInput } from "components";
 import { AuthFormLayout } from "../layouts";
 import { SignInPayload } from "modules/auth";
-import { PasswordInput } from "components/ui/inputs/PasswordInput";
 
 interface SignInFormProps {
   onSubmit: (data: SignInPayload) => void;

@@ -1,7 +1,6 @@
 import { useState } from "react"
-import { FormInput, LabeledCheckbox, Select } from "components";
+import { FormInput, LabeledCheckbox, Select, PasswordInput } from "components";
 import { AuthFormLayout } from "../layouts"
-import { PasswordInput } from "components/ui/inputs/PasswordInput";
 
 interface SignUpLearnerFormProps {
   onSubmit: (data: SignUpFields) => void

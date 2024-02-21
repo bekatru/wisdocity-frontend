@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { Routes } from 'modules/routing';
 import { useChangePassword } from 'modules/auth';
 import { AuthFormLayout, AuthPageLayout } from './layouts';
-import { PasswordInput } from 'components/ui/inputs/PasswordInput';
+import { PasswordInput } from 'components';
 
 
 export function ChangePasswordPage() {
