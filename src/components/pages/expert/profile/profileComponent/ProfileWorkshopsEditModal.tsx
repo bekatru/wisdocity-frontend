@@ -74,7 +74,7 @@ export function ProfileWorkshopsEditModal(
                   <div className="flex align-center w-full">
                     <div className="w-full">
                       <div className="text-center text-[20px] fn fw-b text-[#321841] mb-[24px]">
-                        Edit Workshops Calender Link
+                        Edit Workshop Signup Calender Link
                       </div>
                       <form>
                         <div className="mb-[24px]">

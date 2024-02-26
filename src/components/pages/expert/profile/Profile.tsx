@@ -17,7 +17,7 @@ export function Profile() {
     <>
       <div className="flex flex-wrap">
         <div className="w-full md:w-1/3 xs:w-1/1 md:mr-[35px] mb-[34px]">
-          <div className="card shadow-p bg-white px-6 py-6">
+          <div className="card shadow-h rounded-[32px] bg-white px-6 py-6">
             {/* profile information section     */}
             {expertProfile.data && (
               <>
@@ -31,13 +31,10 @@ export function Profile() {
                   email={expertProfile.data.user.email}
                   address={expertProfile.data.address}
                   expertId={expertProfile.data.id}
-                />
-                <ProfileBio
-                  username={expertProfile.data.username}
-                  bio={expertProfile.data.bio}
-                  socialMedia={expertProfile.data.socialMedia}
-                  categories={expertProfile.data.categories}
-                  expertId={expertProfile.data.id}
+                  website={expertProfile.data.website}
+                  linkedin={expertProfile.data.linkedin}
+                  instagram={expertProfile.data.instagram}
+                  twitter={expertProfile.data.twitter}
                 />
               </>
             )}
@@ -45,6 +42,14 @@ export function Profile() {
         </div>
 
         <div className="w-full md:w-1/2">
+          {expertProfile.data && (
+            <ProfileBio
+              username={expertProfile.data.username}
+              bio={expertProfile.data.bio}
+              expertises={expertProfile.data.expertises}
+              expertId={expertProfile.data.id}
+            />
+          )}
           {expertProfile.data && (
             <ProfileLifeChatWorkshop
               isLiveChat={expertProfile.data.isLiveChat}

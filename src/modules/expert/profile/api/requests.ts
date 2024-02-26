@@ -1,5 +1,5 @@
 import { wisdocityApi } from "libs/axios";
-import { ExpertProfileResponse,EditProfileInformationPayload,EditProfileInformationResponse,EditProfileContactPayload,EditProfileContactResponse,EditProfileBioPayload,EditProfileBioResponse,EditProfileSocialMediaPayload,EditProfileSocialMediaResponse,EditProfileCategoryPayload,EditProfileCategoryResponse,  EditProfileIsBooleanPayload, EditProfileIsBooleanResponse, EditProfileLinkPayload, EditProfileLinkResponse, AddFaqPayload, AddFaqResponse, EditFaqPayload, EditFaqResponse,FaqResponse, DeleteFaqPayload, DeleteFaqResponse} from "./types";
+import { ExpertProfileResponse,EditProfileInformationPayload,EditProfileInformationResponse,EditProfileContactPayload,EditProfileContactResponse,EditProfileBioPayload,EditProfileBioResponse,EditProfileExpertisePayload,EditProfileExpertiseResponse,  EditProfileIsBooleanPayload, EditProfileIsBooleanResponse, EditProfileLinkPayload, EditProfileLinkResponse, AddFaqPayload, AddFaqResponse, EditFaqPayload, EditFaqResponse,FaqResponse, DeleteFaqPayload, DeleteFaqResponse} from "./types";
 
 
 
@@ -22,13 +22,10 @@ export const editProfileBio = async (body: EditProfileBioPayload): Promise<EditP
     return await wisdocityApi.post('experts/edit-profile-bio', body);
 }
 
-export const editProfileSocialMedia = async (body: EditProfileSocialMediaPayload): Promise<EditProfileSocialMediaResponse> => {
+
+export const editProfileExpertise = async (body: EditProfileExpertisePayload): Promise<EditProfileExpertiseResponse> => {
    
-    return await wisdocityApi.post('experts/edit-profile-social-media', body);
-}
-export const editProfileCategory = async (body: EditProfileCategoryPayload): Promise<EditProfileCategoryResponse> => {
-   
-    return await wisdocityApi.post('experts/edit-profile-category', body);
+    return await wisdocityApi.post('experts/edit-profile-expertise', body);
 }
 
 export const editProfileIsLiveChat = async (body: EditProfileIsBooleanPayload): Promise<EditProfileIsBooleanResponse> => {

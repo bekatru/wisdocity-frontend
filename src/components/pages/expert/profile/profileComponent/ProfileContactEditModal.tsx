@@ -9,10 +9,18 @@ interface ProfileContactEditModalProps {
   email: string;
   address: string;
   expertId: number;
+  website: string;
+  instagram: string;
+  linkedin: string;
+  twitter: string;
   onProfileUpdate: (
     newContactNumber: string,
     newEmail: string,
-    newAddress: string
+    newAddress: string,
+    newWebsite: string,
+    newInstagram: string,
+    newTwitter: string,
+    newLinkedin: string
   ) => void;
 }
 export function ProfileContactEditModal(props: ProfileContactEditModalProps) {
@@ -23,11 +31,23 @@ export function ProfileContactEditModal(props: ProfileContactEditModalProps) {
   const [email, setEmail] = useState<string>(props.email);
   const [address, setAddress] = useState<string>(props.address);
   const [expertId] = useState<number>(props.expertId);
+  const [website, setWebsite] = useState<string>(props.website);
+  const [linkedin, setLinkedin] = useState<string>(props.linkedin);
+  const [twitter, setTwitter] = useState<string>(props.twitter);
+  const [instagram, setInstagram] = useState<string>(props.instagram);
 
   const { mutate: editProfileContact, isPending } = useEditProfileContact({
     onSuccess: () => {
-      toast.success("Profile contact updated successfully!");
-      props.onProfileUpdate(contactNumber, email, address);
+      toast.success("Profile contact info updated successfully!");
+      props.onProfileUpdate(
+        contactNumber,
+        email,
+        address,
+        website,
+        instagram,
+        twitter,
+        linkedin
+      );
       closeModal();
     },
     onError: (error) => {
@@ -49,7 +69,16 @@ export function ProfileContactEditModal(props: ProfileContactEditModalProps) {
   });
 
   const handleSubmit = () => {
-    editProfileContact({ id: expertId, contactNumber, email, address });
+    editProfileContact({
+      id: expertId,
+      contactNumber,
+      email,
+      address,
+      website,
+      instagram,
+      linkedin,
+      twitter,
+    });
   };
 
   const openModal = () => {
@@ -106,7 +135,51 @@ export function ProfileContactEditModal(props: ProfileContactEditModalProps) {
                         </div>
                         <div className="mb-[24px]">
                           <Label className="flex text-[16px] fn fw-sb text-[#321841] mb-[6px]">
-                            Address
+                            Website
+                          </Label>
+                          <Input
+                            type="text"
+                            placeholder=""
+                            value={website}
+                            onChange={(e) => setWebsite(e.target.value)}
+                          />
+                        </div>
+                        <div className="mb-[24px]">
+                          <Label className="flex text-[16px] fn fw-sb text-[#321841] mb-[6px]">
+                            Instagram
+                          </Label>
+                          <Input
+                            type="text"
+                            placeholder=""
+                            value={instagram}
+                            onChange={(e) => setInstagram(e.target.value)}
+                          />
+                        </div>
+                        <div className="mb-[24px]">
+                          <Label className="flex text-[16px] fn fw-sb text-[#321841] mb-[6px]">
+                            Twitter
+                          </Label>
+                          <Input
+                            type="text"
+                            placeholder=""
+                            value={twitter}
+                            onChange={(e) => setTwitter(e.target.value)}
+                          />
+                        </div>
+                        <div className="mb-[24px]">
+                          <Label className="flex text-[16px] fn fw-sb text-[#321841] mb-[6px]">
+                            Linkedin
+                          </Label>
+                          <Input
+                            type="text"
+                            placeholder=""
+                            value={linkedin}
+                            onChange={(e) => setLinkedin(e.target.value)}
+                          />
+                        </div>
+                        <div className="mb-[24px]">
+                          <Label className="flex text-[16px] fn fw-sb text-[#321841] mb-[6px]">
+                            Location
                           </Label>
                           <Input
                             type="text"

@@ -13,8 +13,11 @@ export interface ExpertProfileResponse extends Email {
     email:string;
     address:string;
     bio:string;
-    socialMedia:string[];
-    categories:string[];
+    website:string;
+    linkedin:string;
+    twitter:string;
+    instagram:string;
+    expertises:string[];
     isLiveChat:boolean;
     isWorkshops:boolean;
     calenderLinkLiveChat:string;
@@ -42,12 +45,20 @@ export interface EditProfileContactPayload  {
     contactNumber: string;
     email: string;
     address: string; 
+    website:string;
+    linkedin:string;
+    twitter:string;
+    instagram:string;
 }
 
 export interface EditProfileContactResponse  {
     contactNumber: string;
     email: string;
     address: string; 
+    website:string;
+    linkedin:string;
+    twitter:string;
+    instagram:string;
 }
 
 export interface EditProfileBioPayload  {
@@ -61,26 +72,16 @@ export interface EditProfileBioResponse  {
    
 }
 
-export interface EditProfileSocialMediaPayload  {
+
+
+export interface EditProfileExpertisePayload  {
     id: number;
-    socialMedia: string[];
+    expertises: string[];
   
 }
 
-export interface EditProfileSocialMediaResponse  {
-    socialMedia: string[];
-   
-}
-
-
-export interface EditProfileCategoryPayload  {
-    id: number;
-    categories: string[];
-  
-}
-
-export interface EditProfileCategoryResponse  {
-    categories: string[];
+export interface EditProfileExpertiseResponse  {
+    expertises: string[];
    
 }
 
