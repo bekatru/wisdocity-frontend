@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { FileUploader } from "react-drag-drop-files";
 import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
-import { classNames, Button, CenteredContainer, Header, Input, Label, Paragraph, ShadowBox, MultiSelect, MultiSelectOption, Modal, CreateCollectionPage } from "components";
+import { TooltipInfo, classNames, Button, CenteredContainer, Header, Input, Label, Paragraph, ShadowBox, MultiSelect, MultiSelectOption, Modal, CreateCollectionPage } from "components";
 import UrlIcon from 'assets/png/url.png';
 import { XMarkIcon } from "@heroicons/react/16/solid";
 import { useParams } from "react-router-dom";
@@ -10,7 +10,6 @@ import { CreateCollectionResponse, useCollections, useUploadFiles } from "module
 import { useProfile } from "modules/auth";
 import UploadWisdomRecordAudio from "./UploadWisdomRecordAudio";
 import { getIconByMime } from "components/helpers/getIconByMime";
-import TooltipInfo from "components/ui/TooltipInfo";
 
 const FILE_TYPES = ['pdf', 'doc', 'docx', 'txt', 'mp3', 'wav', 'flac', 'mp4'];
 const FILE_MAX_SIZE_IN_MB = 10;

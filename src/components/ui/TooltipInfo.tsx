@@ -7,7 +7,7 @@ interface TooltipInfoProps {
   children: ReactNode,
 }
 
-const TooltipInfo: FC<TooltipInfoProps> = (props) => {
+export const TooltipInfo: FC<TooltipInfoProps> = (props) => {
   const {children} = props;
   const [open, setOpen] = useState(false);
   const [referenceElement, setReferenceElement] = useState<HTMLDivElement>()
@@ -47,5 +47,3 @@ const TooltipInfo: FC<TooltipInfoProps> = (props) => {
     </div>
   );
 };
-
-export default TooltipInfo;

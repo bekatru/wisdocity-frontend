@@ -6,3 +6,4 @@ export {Select} from './Select';
 export * from './Input';
 export * from './RadioButton'
 export * from './PasswordInput'
+export {LabeledInput} from './LabeledInput'

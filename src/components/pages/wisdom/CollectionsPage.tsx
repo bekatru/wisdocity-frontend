@@ -1,5 +1,5 @@
 import { EllipsisVerticalIcon, MagnifyingGlassIcon, PlusIcon, StarIcon } from "@heroicons/react/24/outline";
-import { Button, CreateCollectionPage, Modal, MultiSelect, MultiSelectOption, Popselect, ShadowBox } from "components";
+import { Button, CreateCollectionPage, LabeledInput, Modal, MultiSelect, MultiSelectOption, Popselect, ShadowBox } from "components";
 import { useProfile } from "modules/auth";
 import { Collection, useCollections } from "modules/expert";
 import { MouseEvent, useMemo, useState } from "react";
@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import deleteContentImg from 'assets/svg/deleteContent.svg';
 import editContentImg from 'assets/svg/editContent.svg';
 import { EditCollectionPage } from "./EditCollectionPage";
+import interfaceSliderImg from './assets/interfaceSlider.svg';
+import FilterPopover from "./FilterPopover";
 
 const SORT_OPTIONS = [{ id: 1, value: "Name" }, { id: 2, value: "Date" }, { id: 3, value: "Type" }, { id: 4, value: "Status" }];
 
@@ -24,24 +26,58 @@ export function CollectionsPage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const [sortOption, setSortOption] = useState<MultiSelectOption>(SORT_OPTIONS[0]);
+    const [openFilter, setOpenFilter] = useState(false)
+
     return (
         <div className="space-y-4">
             <div className="flex items-center justify-between flex-wrap">
                 <div className="flex items-center space-x-4">
-
-                    <div className="relative flex border h-9 w-[300px] p-2 rounded-md bg-white">
-                        <MagnifyingGlassIcon
-                            className="pointer-events-none absolute inset-y-0 left-2 h-full w-5 text-gray-400"
-                            aria-hidden="true"
-                        />
-                        <input
-                            id="search-field"
-                            className="block h-full w-full border-0 py-0 pl-8 pr-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
-                            placeholder="Search by name or tags"
-                            type="search"
-                            name="search"
-                        />
-                    </div>
+                    <FilterPopover
+                        open={openFilter}
+                        modalContent={
+                            <div>
+                                <div className={"flex h-9 w-[300px] p-2 mr-4 items-center bg-white rounded-lg "}>
+                                    <MagnifyingGlassIcon
+                                        className="pointer-events-none absolute left-2 h-full w-5 text-gray-400"
+                                        aria-hidden="true"
+                                    />
+                                    <input
+                                        id="search-field"
+                                        className="block h-full w-full border-0 py-0 pl-8 pr-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
+                                        placeholder="Search by name or tags"
+                                        type="search"
+                                        name="search"
+                                    />
+                                </div>
+                                <div className={"px-8 py-6 flex flex-col gap-4"}>
+                                    <div className={"space-y-3"}>
+                                        <LabeledInput label={'Collection Name'}/>
+                                        <LabeledInput label={'Tags'}/>
+                                    </div>
+                                    <Button onClick={() => setOpenFilter(false)} fullWidth={false} className={"self-end text-purple-700"} variant={'text'}>Search</Button>
+                                </div>
+                            </div>
+                        }
+                    >
+                        <div className="relative flex border h-9 w-[300px] p-2 rounded-md mr-4 items-center bg-white">
+                            <MagnifyingGlassIcon
+                                className="pointer-events-none absolute inset-y-0 left-2 h-full w-5 text-gray-400"
+                                aria-hidden="true"
+                            />
+                            <input
+                                id="search-field"
+                                className="block h-full w-full border-0 py-0 pl-8 pr-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
+                                placeholder="Search by name or tags"
+                                type="search"
+                                name="search"
+                            />
+                            <img 
+                            onClick={() => {
+                                setOpenFilter(true)
+                            }}
+                            width={24} height={24} src={interfaceSliderImg} alt={'interface slider'}/>
+                        </div>
+                    </FilterPopover>
                     <MultiSelect placeholder="Sort by" value={sortOption} options={SORT_OPTIONS} onChange={setSortOption} />
                 </div>
                 <div className="flex items-center space-x-4 ml-auto">
