@@ -1,17 +1,19 @@
 import { EllipsisVerticalIcon, PlusIcon } from '@heroicons/react/16/solid';
 import { ArrowLongLeftIcon, ArrowLongRightIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import classNames from 'classnames';
-import { ShadowBox, Popselect, Modal, Button, Checkbox } from 'components';
+import { ShadowBox, Popselect, Modal, Button, Checkbox, LabeledInput } from 'components';
 import { ChangeEvent, useState } from 'react';
 import { Collection, Media } from 'modules/expert';
 import interfaceSliderImg from './assets/interfaceSlider.svg';
 import deleteContentImg from 'assets/svg/deleteContent.svg';
 import editContentImg from 'assets/svg/editContent.svg';
+import downloadContentImg from 'assets/svg/download.svg';
 import starIcon from 'assets/svg/starIcon.svg';
 import stackItemIcon from 'assets/svg/stackItemsIcon.svg';
 import viewEyeIcon from 'assets/svg/viewEyeIcon.svg';
 import { getIconByMime } from 'components/helpers/getIconByMime';
 import { TOpenModalTypeSelectedFiles, WisdomTableSelectedFilesPopselect } from './WisdomTableSelectedFilesPopselect';
+import FilterPopover from './FilterPopover';
 
 
 
@@ -82,24 +84,63 @@ export function WisdomTable(props: FilesTableProps) {
         console.log('delete');
         
     }
+    const onItemTableDownload = () => {
+        console.log('download content')
+    }
+    const [openFilter, setOpenFilter] = useState(false)
     return (
         <ShadowBox className={"pb-0"}>
             <div>
                 <div className="sm:flex sm:items-center">
-                    <div className="relative flex border h-9 w-[300px] p-2 rounded-md mr-4 items-center">
-                        <MagnifyingGlassIcon
-                            className="pointer-events-none absolute inset-y-0 left-2 h-full w-5 text-gray-400"
-                            aria-hidden="true"
-                        />
-                        <input
-                            id="search-field"
-                            className="block h-full w-full border-0 py-0 pl-8 pr-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
-                            placeholder="Search by name or tags"
-                            type="search"
-                            name="search"
-                        />
-                        <img className={"pointer-events-none absolute right-2"} width={24} height={24} src={interfaceSliderImg} alt={'interface slider'}/>
-                    </div>
+                    <FilterPopover 
+                        open={openFilter}
+                        modalContent={
+                            <div>
+                                <div className={"flex h-9 w-[300px] p-2 mr-4 items-center"}>
+                                    <MagnifyingGlassIcon
+                                        className="pointer-events-none absolute left-2 h-full w-5 text-gray-400"
+                                        aria-hidden="true"
+                                    />
+                                    <input
+                                        id="search-field"
+                                        className="block h-full w-full border-0 py-0 pl-8 pr-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
+                                        placeholder="Search by name or tags"
+                                        type="search"
+                                        name="search"
+                                    />
+                                </div>
+                                <div className={"px-8 py-6 flex flex-col gap-4"}>
+                                    <div className={"space-y-3"}>
+                                        <LabeledInput label={'Name'}/>
+                                        <LabeledInput label={'File Name'}/>
+                                        <LabeledInput label={'Date within'}/>
+                                        <LabeledInput label={'Type'}/>
+                                        <LabeledInput label={'Collection'}/>
+                                    </div>
+                                    <Button onClick={() => setOpenFilter(false)} fullWidth={false} className={"self-end text-purple-700"} variant={'text'}>Search</Button>
+                                </div>
+                            </div>
+                        }
+                    >
+                        <div className="relative flex border h-9 w-[300px] p-2 rounded-md mr-4 items-center">
+                            <MagnifyingGlassIcon
+                                className="pointer-events-none absolute inset-y-0 left-2 h-full w-5 text-gray-400"
+                                aria-hidden="true"
+                            />
+                            <input
+                                id="search-field"
+                                className="block h-full w-full border-0 py-0 pl-8 pr-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
+                                placeholder="Search by name or tags"
+                                type="search"
+                                name="search"
+                            />
+                            <img 
+                            onClick={() => {
+                                setOpenFilter(true)
+                            }}
+                            width={24} height={24} src={interfaceSliderImg} alt={'interface slider'}/>
+                        </div>
+                    </FilterPopover>
                     <div className="flex items-center space-x-3 ml-auto">
                         <PlusIcon onClick={props.onAddFileClick} className="h-5 w-5 text-gray-500 cursor-pointer" />
                     </div>
@@ -184,6 +225,7 @@ export function WisdomTable(props: FilesTableProps) {
                                                 }
                                                 options={[
                                                     {icon: <img src={editContentImg} className={"w-5 h-5"}/>, text: 'Edit content', onClick: onItemTableEdit},
+                                                    {icon: <img src={downloadContentImg} className={"w-5 h-5"}/>, text: 'Download', onClick: onItemTableDownload},
                                                     {icon: <img src={deleteContentImg} className={"w-5 h-5"}/>, text: 'Delete content', onClick: onItemTableRemove},
                                                 ]}
                                             />

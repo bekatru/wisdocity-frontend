@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { FileUploader } from "react-drag-drop-files";
 import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
-import { classNames, Button, CenteredContainer, Header, Input, Label, Paragraph, ShadowBox, MultiSelect, MultiSelectOption, Modal, CreateCollectionPage } from "components";
+import { TooltipInfo, classNames, Button, CenteredContainer, Header, Input, Label, Paragraph, ShadowBox, MultiSelect, MultiSelectOption, Modal, CreateCollectionPage } from "components";
 import UrlIcon from 'assets/png/url.png';
 import { XMarkIcon } from "@heroicons/react/16/solid";
 import { useParams } from "react-router-dom";
@@ -17,7 +17,6 @@ const FILE_MAX_SIZE_IN_MB = 10;
 interface ILinks {
     [link: string]: {
         value: string,
-        type?: string | number | undefined
     }
 }
 
@@ -27,11 +26,7 @@ interface UploadWisdomPageProps {
 }
 
 const SELECT_OPTION_ADD_NEW_COLLECTION = { id: 'add-new-collection', name: 'Add New Collection', tags: [], root: false };
-const SELCT_OPTIONS_LINK_TYPE = [
-    {id: 'text', value: 'Text'},
-    {id: 'audio', value: 'Audio'},
-    {id: 'video', value: 'Video'},
-]
+
 
 export function UploadWisdomPage(props: UploadWisdomPageProps) {
 
@@ -56,7 +51,6 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
 
     const [isModalOpenAddNewCollection, setIsModalOpenAddNewCollection] = useState(false);
 
-    const [selectedLinkType, setSelectedLinkType] = useState<MultiSelectOption | null>(null)
     const [selectedCollection, setSelectedCollection] = useState<MultiSelectOption>(filteredCollections.find((collection) => collection.id === collectionId) ?? filteredCollections[0]);
 
     const onSelectCollection = (option: MultiSelectOption) => {
@@ -114,19 +108,16 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
     const handleAddLink = useCallback(() => {
         if (links[link]) {
             toast.warn("Link already added");
-            setSelectedLinkType(null)
             return setLink("");
         }
         setLinks(prev => ({
             ...prev,
             [link]: {
                 value: link,
-                type: selectedLinkType?.id,
             }
         }));
-        setSelectedLinkType(null)
         setLink("");
-    }, [link, links, setLink, setLinks, selectedLinkType])
+    }, [link, links, setLink, setLinks])
 
     const handleSave = useCallback(() => {
         let collectionToUploadTo;
@@ -177,7 +168,7 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
                                     ))
                                 }
                             </div>
-                            <p>Add links of your Wisdom</p>
+                            <p className={"flex items-center"}>Add links of your Wisdom <TooltipInfo>Add links to your social media accounts, add links to your YouTube channels, TikTok channel, or others. At that moment we are able to process the text from these pages, in the next versions of the application, we will be able to take full content.</TooltipInfo></p>
                             <form className="flex space-x-2" onSubmit={(e) => { e.preventDefault(); handleAddLink() }}>
                                 <Input
                                     type='url'
@@ -185,15 +176,9 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
                                     onChange={(e) => setLink(e.target.value.trim())}
                                     placeholder="Add new link"
                                 />
-                                <MultiSelect
-                                    options={SELCT_OPTIONS_LINK_TYPE}
-                                    value={selectedLinkType}
-                                    placeholder={'Type'}
-                                    onChange={setSelectedLinkType}
-                                />
 
                                 <Button
-                                    disabled={!link || !selectedLinkType}
+                                    disabled={!link}
                                     type="submit"
                                     fullWidth={false}
                                     variant="outlined"
@@ -203,7 +188,7 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
                             </form>
                         </div>
                         <div className="space-y-2">
-                            <Label>Attach Wisdom Content</Label>
+                            <Label className={"flex items-center"}>Attach Wisdom Content <TooltipInfo>Attach Wisdom Content Info FIX_ME EXAMPLE</TooltipInfo></Label>
                             <Paragraph>Supported file types: {FILE_TYPES.join(', ').toUpperCase()}</Paragraph>
                             <FileUploader
                                 multiple
@@ -257,7 +242,7 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
                             }
                         </div>
                         <div className="space-y-2">
-                            <p>Record your Wisdom</p>
+                            <p className={"flex items-center"}>Record your Wisdom <TooltipInfo>Record your Wisdom FIX_ME EXAMPLE</TooltipInfo></p>
                             <UploadWisdomRecordAudio onNextClick={handleAddAudioFile} />
                         </div>
                         <div className="grid grid-cols-3 grid-flow-row gap-2">
