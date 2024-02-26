@@ -7,6 +7,7 @@ import { Collection, Media } from 'modules/expert';
 import interfaceSliderImg from './assets/interfaceSlider.svg';
 import deleteContentImg from 'assets/svg/deleteContent.svg';
 import editContentImg from 'assets/svg/editContent.svg';
+import downloadContentImg from 'assets/svg/download.svg';
 import starIcon from 'assets/svg/starIcon.svg';
 import stackItemIcon from 'assets/svg/stackItemsIcon.svg';
 import viewEyeIcon from 'assets/svg/viewEyeIcon.svg';
@@ -81,6 +82,9 @@ export function WisdomTable(props: FilesTableProps) {
     const onDeleteSelectedFiles = () => {
         console.log('delete');
         
+    }
+    const onItemTableDownload = () => {
+        console.log('download content')
     }
     return (
         <ShadowBox className={"pb-0"}>
@@ -184,6 +188,7 @@ export function WisdomTable(props: FilesTableProps) {
                                                 }
                                                 options={[
                                                     {icon: <img src={editContentImg} className={"w-5 h-5"}/>, text: 'Edit content', onClick: onItemTableEdit},
+                                                    {icon: <img src={downloadContentImg} className={"w-5 h-5"}/>, text: 'Download', onClick: onItemTableDownload},
                                                     {icon: <img src={deleteContentImg} className={"w-5 h-5"}/>, text: 'Delete content', onClick: onItemTableRemove},
                                                 ]}
                                             />

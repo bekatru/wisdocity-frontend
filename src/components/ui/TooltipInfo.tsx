@@ -9,7 +9,7 @@ interface TooltipInfoProps {
 
 const TooltipInfo: FC<TooltipInfoProps> = (props) => {
   const {children} = props;
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [referenceElement, setReferenceElement] = useState<HTMLDivElement>()
   const [popperElement, setPopperElement] = useState<HTMLDivElement>()
   const { styles, attributes } = usePopper(referenceElement, popperElement, {placement: 'bottom-start'})
