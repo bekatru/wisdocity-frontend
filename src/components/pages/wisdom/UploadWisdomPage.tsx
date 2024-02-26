@@ -10,6 +10,7 @@ import { CreateCollectionResponse, useCollections, useUploadFiles } from "module
 import { useProfile } from "modules/auth";
 import UploadWisdomRecordAudio from "./UploadWisdomRecordAudio";
 import { getIconByMime } from "components/helpers/getIconByMime";
+import TooltipInfo from "components/ui/TooltipInfo";
 
 const FILE_TYPES = ['pdf', 'doc', 'docx', 'txt', 'mp3', 'wav', 'flac', 'mp4'];
 const FILE_MAX_SIZE_IN_MB = 10;
@@ -177,7 +178,7 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
                                     ))
                                 }
                             </div>
-                            <p>Add links of your Wisdom</p>
+                            <p className={"flex items-center"}>Add links of your Wisdom <TooltipInfo>Add links to your social media accounts, add links to your YouTube channels, TikTok channel, or others. At that moment we are able to process the text from these pages, in the next versions of the application, we will be able to take full content.</TooltipInfo></p>
                             <form className="flex space-x-2" onSubmit={(e) => { e.preventDefault(); handleAddLink() }}>
                                 <Input
                                     type='url'
@@ -203,7 +204,7 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
                             </form>
                         </div>
                         <div className="space-y-2">
-                            <Label>Attach Wisdom Content</Label>
+                            <Label className={"flex items-center"}>Attach Wisdom Content <TooltipInfo>Attach Wisdom Content Info FIX_ME EXAMPLE</TooltipInfo></Label>
                             <Paragraph>Supported file types: {FILE_TYPES.join(', ').toUpperCase()}</Paragraph>
                             <FileUploader
                                 multiple
@@ -257,7 +258,7 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
                             }
                         </div>
                         <div className="space-y-2">
-                            <p>Record your Wisdom</p>
+                            <p className={"flex items-center"}>Record your Wisdom <TooltipInfo>Record your Wisdom FIX_ME EXAMPLE</TooltipInfo></p>
                             <UploadWisdomRecordAudio onNextClick={handleAddAudioFile} />
                         </div>
                         <div className="grid grid-cols-3 grid-flow-row gap-2">
