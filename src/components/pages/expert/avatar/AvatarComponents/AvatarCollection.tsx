@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { EllipsisVerticalIcon } from '@heroicons/react/20/solid';
-import StarIcon from '../../../../assets/expert-avatar/star.png';
+import StarIcon from '../../../../../assets/expert-avatar/star.png';
 
 
 
