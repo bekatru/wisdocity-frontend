@@ -1,36 +1,33 @@
 import { useState } from "react";
 import { ProfileBioEditModal } from "./ProfileBioEditModal";
-import { ProfileSocialMediaEditModal } from "./ProfileSocialMediaEditModal";
-import { ProfileCategoryEditModal } from "./ProfileCategoryEditModal";
+
+import { ProfileExpertiseEditModal } from "./ProfileExpertiseEditModal";
 
 interface ProfileBioProps {
   username: string;
   bio: string;
-  socialMedia: string[];
-  categories: string[];
+  expertises: string[];
   expertId: number;
 }
 
 export default function ProfileBio(props: ProfileBioProps) {
   const [bio, setBio] = useState<string>(props.bio);
-  const [socialMedia, setSocialMedia] = useState<string[]>(props.socialMedia);
-  const [categories, setCategories] = useState<string[]>(props.categories);
+
+  const [expertises, setExpertise] = useState<string[]>(props.expertises);
 
   const handleProfileBioUpdate = (newBio: string) => {
     setBio(newBio);
   };
-  const handleProfileSocialMediaUpdate = (newSocialMedia: string[]) => {
-    setSocialMedia(newSocialMedia);
-  };
-  const handleProfileCategoryUpdate = (newCategories: string[]) => {
-    setCategories(newCategories);
+
+  const handleProfileExpertiseUpdate = (newExpertise: string[]) => {
+    setExpertise(newExpertise);
   };
   return (
     <>
-      <div className="box-body mb-[32px] relative">
+      <div className="box-body shadow-h rounded-[32px] bg-white px-6 py-6 mb-[32px] relative">
         <div className="flex align-center w-full">
-          <div className="">
-            <div className="text-[16px] fn fw-sb text-[#321841] mb-[14px]">
+          <div className="w-full">
+            <div className="text-[20px] fn fw-b text-[#321841] mb-[14px]">
               Bio
             </div>
             <ProfileBioEditModal
@@ -47,49 +44,26 @@ export default function ProfileBio(props: ProfileBioProps) {
         </div>
       </div>
 
-      <div className="box-body mb-[32px]">
+      <div className="box-body shadow-h rounded-[32px] bg-white px-6 py-6 mb-[32px] relative">
         <div className="flex align-center w-full">
           <div className="">
-            <div className="text-[16px] fn fw-sb text-[#321841] mb-[14px]">
-              Social media
+            <div className="text-[20px] fn fw-b text-[#321841] mb-[18px]">
+              Area of Expertise
             </div>
-            {socialMedia.map((social, index) => (
-              <p
-                key={index}
-                className="text-[14px] fn fw-r text-[#321841] mb-[10px]"
-              >
-                {social}
-              </p>
-            ))}
-          </div>
-          <ProfileSocialMediaEditModal
-            socialMedia={socialMedia}
-            expertId={props.expertId}
-            onProfileSocialMediaUpdate={handleProfileSocialMediaUpdate}
-          />
-        </div>
-      </div>
-
-      <div className="box-body">
-        <div className="flex align-center w-full">
-          <div className="">
-            <div className="text-[16px] fn fw-sb text-[#321841] mb-[18px]">
-              Category
-            </div>
-            {categories.map((category, index) => (
+            {expertises.map((expertise, index) => (
               <button
                 key={index}
                 type="button"
                 className="text-[#321841] bg-[#F1E8F8] fn fw-r fw-r rounded-full px-6 py-2 text-center text-[16px] mr-[15px] mb-4"
               >
-                {category}
+                {expertise}
               </button>
             ))}
           </div>
-          <ProfileCategoryEditModal
-            categories={categories}
+          <ProfileExpertiseEditModal
+            expertises={expertises}
             expertId={props.expertId}
-            onProfileCategoryUpdate={handleProfileCategoryUpdate}
+            onProfileExpertiseUpdate={handleProfileExpertiseUpdate}
           />
         </div>
       </div>

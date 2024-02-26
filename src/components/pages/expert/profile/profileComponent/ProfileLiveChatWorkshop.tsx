@@ -92,12 +92,15 @@ export default function ProfileLifeChatWorkshop(
 
   return (
     <>
-      <div className="card shadow-p bg-white px-6 py-6  mb-[34px]">
+      <h4 className="items-start text-[24px] fn fw-sb text-[#321841] mb-[24px] text-center">
+        Availability for Live Interactions
+      </h4>
+      <div className="card shadow-h rounded-[32px] bg-white px-6 py-6  mb-[34px]">
         <div className="box-body">
           <div className="flex align-center w-full">
             <div className="w-full">
-              <div className="flex items-start text-[20px] fn fw-b text-[#321841] mb-[24px]">
-                Live Chat
+              <div className="flex items-start text-[16px] fn fw-b text-[#321841] mb-[20px]">
+                1:1 Live Sessions
                 <div className="flex flex-wrap items-center ml-[40px] mt-[1px]">
                   <Switch
                     checked={isLiveChat}
@@ -130,12 +133,12 @@ export default function ProfileLifeChatWorkshop(
         </div>
       </div>
 
-      <div className="card shadow-p bg-white px-6 py-6  mb-[34px]">
+      <div className="card shadow-h rounded-[32px] bg-white px-6 py-6  mb-[34px]">
         <div className="box-body">
           <div className="flex align-center w-full">
             <div className="w-full">
-              <div className="flex items-start text-[20px] fn fw-b text-[#321841] mb-[24px]">
-                Workshops
+              <div className="flex items-start text-[16px] fn fw-b text-[#321841] mb-[20px]">
+                Workshop Signup
                 <div className="flex flex-wrap items-center ml-[40px] mt-[1px]">
                   <Switch
                     checked={isWorkshops}

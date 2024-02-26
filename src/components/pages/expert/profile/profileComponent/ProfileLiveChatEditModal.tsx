@@ -72,7 +72,7 @@ export function ProfileLiveChatEditModal(props: ProfileLiveChatEditModalProps) {
                   <div className="flex align-center w-full">
                     <div className="w-full">
                       <div className="text-center text-[20px] fn fw-b text-[#321841] mb-[24px]">
-                        Edit Live Chat Calender Link
+                        Edit 1:1 Live Sessions Calender Link
                       </div>
                       <form>
                         <div className="mb-[24px]">

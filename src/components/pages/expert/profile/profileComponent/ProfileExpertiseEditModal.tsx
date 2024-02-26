@@ -2,23 +2,25 @@ import { useCallback, useState } from "react";
 import { Label, Button } from "components";
 import { XMarkIcon } from "@heroicons/react/16/solid";
 import EditIcon from "../../../../../assets/profile/icon-edit.svg";
-import { useEditProfileCategory } from "modules/expert";
+import { useEditProfileExpertise } from "modules/expert";
 import { toast } from "react-toastify";
 
-interface ProfileCategoryEditModalProps {
-  categories: string[];
+interface ProfileExpertiseEditModalProps {
+  expertises: string[];
   expertId: number;
-  onProfileCategoryUpdate: (newCategories: string[]) => void;
+  onProfileExpertiseUpdate: (newExpertise: string[]) => void;
 }
-export function ProfileCategoryEditModal(props: ProfileCategoryEditModalProps) {
+export function ProfileExpertiseEditModal(
+  props: ProfileExpertiseEditModalProps
+) {
   const [isOpen, setIsOpen] = useState(false);
-  const [categories, setCategories] = useState<string[]>(props.categories);
+  const [expertises, setExpertises] = useState<string[]>(props.expertises);
   const [expertId] = useState<number>(props.expertId);
 
-  const { mutate: editProfileCategory, isPending } = useEditProfileCategory({
+  const { mutate: editProfileExpertise, isPending } = useEditProfileExpertise({
     onSuccess: () => {
-      toast.success("Categories updated successfully!");
-      props.onProfileCategoryUpdate(categories);
+      toast.success("Expertise updated successfully!");
+      props.onProfileExpertiseUpdate(expertises);
       closeModal();
     },
     onError: (error) => {
@@ -40,7 +42,7 @@ export function ProfileCategoryEditModal(props: ProfileCategoryEditModalProps) {
   });
 
   const handleSubmit = () => {
-    editProfileCategory({ id: expertId, categories });
+    editProfileExpertise({ id: expertId, expertises });
   };
 
   const openModal = () => {
@@ -70,17 +72,17 @@ export function ProfileCategoryEditModal(props: ProfileCategoryEditModalProps) {
                   <div className="flex align-center w-full">
                     <div className="w-full">
                       <div className="text-center text-[20px] fn fw-b text-[#321841] mb-[24px]">
-                        Edit Categories
+                        Edit Expertises
                       </div>
                       <form>
                         <div className="mb-[24px]">
                           <Label className="flex text-[16px] fn fw-sb text-[#321841] mb-[6px]">
-                            Add Categories
+                            Add Expertise
                           </Label>
                           <TagCreator
-                            value={categories}
-                            placeholder="Add Categories"
-                            onChange={setCategories}
+                            value={expertises}
+                            placeholder="Add Expertise"
+                            onChange={setExpertises}
                           />
                         </div>
                       </form>
