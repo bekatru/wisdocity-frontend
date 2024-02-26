@@ -18,7 +18,6 @@ const FILE_MAX_SIZE_IN_MB = 10;
 interface ILinks {
     [link: string]: {
         value: string,
-        type?: string | number | undefined
     }
 }
 
@@ -28,11 +27,7 @@ interface UploadWisdomPageProps {
 }
 
 const SELECT_OPTION_ADD_NEW_COLLECTION = { id: 'add-new-collection', name: 'Add New Collection', tags: [], root: false };
-const SELCT_OPTIONS_LINK_TYPE = [
-    {id: 'text', value: 'Text'},
-    {id: 'audio', value: 'Audio'},
-    {id: 'video', value: 'Video'},
-]
+
 
 export function UploadWisdomPage(props: UploadWisdomPageProps) {
 
@@ -57,7 +52,6 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
 
     const [isModalOpenAddNewCollection, setIsModalOpenAddNewCollection] = useState(false);
 
-    const [selectedLinkType, setSelectedLinkType] = useState<MultiSelectOption | null>(null)
     const [selectedCollection, setSelectedCollection] = useState<MultiSelectOption>(filteredCollections.find((collection) => collection.id === collectionId) ?? filteredCollections[0]);
 
     const onSelectCollection = (option: MultiSelectOption) => {
@@ -115,19 +109,16 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
     const handleAddLink = useCallback(() => {
         if (links[link]) {
             toast.warn("Link already added");
-            setSelectedLinkType(null)
             return setLink("");
         }
         setLinks(prev => ({
             ...prev,
             [link]: {
                 value: link,
-                type: selectedLinkType?.id,
             }
         }));
-        setSelectedLinkType(null)
         setLink("");
-    }, [link, links, setLink, setLinks, selectedLinkType])
+    }, [link, links, setLink, setLinks])
 
     const handleSave = useCallback(() => {
         let collectionToUploadTo;
@@ -186,15 +177,9 @@ export function UploadWisdomPage(props: UploadWisdomPageProps) {
                                     onChange={(e) => setLink(e.target.value.trim())}
                                     placeholder="Add new link"
                                 />
-                                <MultiSelect
-                                    options={SELCT_OPTIONS_LINK_TYPE}
-                                    value={selectedLinkType}
-                                    placeholder={'Type'}
-                                    onChange={setSelectedLinkType}
-                                />
 
                                 <Button
-                                    disabled={!link || !selectedLinkType}
+                                    disabled={!link}
                                     type="submit"
                                     fullWidth={false}
                                     variant="outlined"
