@@ -2,12 +2,12 @@ import { Button, Modal, ShadowBox } from "components";
 import { ReactNode } from "react";
 
 export type TOpenModalTypeSelectedFiles =  'view' | 'collection' | 'archive' | 'delete' | null;
-interface WisdomTableSelectedFilesPopselectProps{
+interface WisdomFilesSelectedFilesPopselectProps{
   openModalType: TOpenModalTypeSelectedFiles,
   closeModal: () => void;
   onDeleteSelectedFiles: () => void,
 }
-export function WisdomTableSelectedFilesPopselect(props: WisdomTableSelectedFilesPopselectProps){
+export function WisdomFilesSelectedFilesPopselect(props: WisdomFilesSelectedFilesPopselectProps){
   const {openModalType, closeModal, onDeleteSelectedFiles} = props;
 
   const renderByModalType: {[key: string]: ReactNode} = {

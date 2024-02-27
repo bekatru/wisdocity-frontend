@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom"
-import { WisdomTable } from "./WisdomTable";
+import { WisdomFiles } from "./WisdomFiles";
 import { useCollections, useFiles } from "modules/expert";
 import { useMemo, useState } from "react";
 import { Modal, UploadWisdomPage } from "components";
@@ -25,7 +25,7 @@ export function Collection() {
     return (
         <div className="space-y-6">
             <div className="text-lg font-bold px-2">{currentCollection?.name}</div>
-            <WisdomTable isShowCollection={!collectionId} files={filteredFiles} collections={collections.data ?? []} onAddFileClick={() => setIsModalOpen(true)}/>   
+            <WisdomFiles isShowCollection={!collectionId} files={filteredFiles} collections={collections.data ?? []} onAddFileClick={() => setIsModalOpen(true)}/>   
             <Modal
                 isOpen={isModalOpen}
                 closeModal={() => setIsModalOpen(false)}>
